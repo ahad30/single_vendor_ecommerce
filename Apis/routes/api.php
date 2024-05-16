@@ -1,22 +1,18 @@
 <?php
 
-use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Auth\AuthenticateSessionController;
+use App\Http\Controllers\Auth\RegisterUserController;
+use App\Http\Controllers\Profile\UserProfileController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:api');
+// guest routes
+Route::post('/login', [AuthenticateSessionController::class, 'login']);
+Route::post('/registration', [RegisterUserController::class, 'register']);
 
+// Authenticate Routes
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/profile', [UserProfileController::class, 'profile']);
 
-Route::get('/login', function (Request $request) {
-    if (Auth::attempt(['email' => $request->email, 'password' => $request->password], $request->get('remember'))) {
-        $token = $request->user()->createToken('token')->accessToken;
-        return response()->json(['token' => $token], 200);
-    } else {
-        return response()->json([
-            'message'  => 'Invalid password',
-        ]);
-    }
+    // logout Route
+    Route::post('/logout', [AuthenticateSessionController::class, 'logout']);
 });
