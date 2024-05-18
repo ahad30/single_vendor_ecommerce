@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class AuthenticateSessionController extends Controller
 {
@@ -15,20 +16,14 @@ class AuthenticateSessionController extends Controller
 
         if (auth()->attempt($credentials)) {
             // create a new token for the user
-            $token = $request->user()->createToken('token');
-
-            return response()->json([
-                'status' => true,
-                'message' => 'You are successfully logged in.',
-                'access-token' => $token->plainTextToken,
-                'token_type' => 'Bearer',
-            ]);
+            $data = [
+                'access-token' => $request->user()->createToken('token')->plainTextToken,
+                'user' =>  auth()->user(),
+            ];
+            return Response::success( $data, 'Login successfully');
         }
-
-        return response()->json([
-            'status' => false,
-            'message' => 'Invalid Credentials.'
-        ], 401);
+        return Response::error('Creadential dosen\'t match our records');
+        
     }
 
     // logout
