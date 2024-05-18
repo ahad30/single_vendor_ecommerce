@@ -2,7 +2,7 @@ import img1 from "../../../assets/Product/product-01.png";
 import img2 from "../../../assets/Product/product-02.png";
 import img3 from "../../../assets/Product/product-03.png";
 import img4 from "../../../assets/Product/product-04.png";
-import img5 from "../../../assets/Product/product-05.png";
+// import img5 from "../../../assets/Product/product-05.png";
 import img6 from "../../../assets/Product/product-06.png";
 import img7 from "../../../assets/Product/product-07.png";
 import img8 from "../../../assets/Product/product-08.png";
@@ -31,7 +31,7 @@ const Product = () => {
     <div className="mt-16 ">
       {/* tabs and title */}
       <div className="flex justify-between items-center">
-        <h2 className="font-bold text-4xl">
+        <h2 className="font-bold text-2xl">
           Popular <span className="text-primary">Products</span>
         </h2>
         <div className="text-lg font-normal flex gap-x-5">
