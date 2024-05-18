@@ -16,9 +16,11 @@ class AuthenticateSessionController extends Controller
 
         if (auth()->attempt($credentials)) {
             // create a new token for the user
+            $user = $request->user();
             $data = [
                 'access-token' => $request->user()->createToken('token')->plainTextToken,
-                'user' =>  auth()->user(),
+                'user' =>  $user,
+                'role' => $user->getPermissionsViaRoles(),
             ];
             return Response::success( $data, 'Login successfully');
         }
