@@ -3,7 +3,7 @@ import DashboardSidebar from "./DashboardSidebar";
 
 const DashboardLayout = () => {
   return (
-    <div >
+    <div className="flex" >
       <DashboardSidebar></DashboardSidebar>
       <Outlet></Outlet>
     </div>
