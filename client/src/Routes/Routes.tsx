@@ -6,7 +6,7 @@ import Register from "../Pages/Auth/Register";
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: <div>Hello world!</div>,
+    element: <div className=" text-red-500">Hello world!</div>,
   },
   {
     path: "/login",

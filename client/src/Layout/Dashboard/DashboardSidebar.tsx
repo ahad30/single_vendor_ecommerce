@@ -26,10 +26,10 @@ const items = [
 
 const DashboardSidebar = () => {
   return (
-    <div  className="">
+    <div  className="bg-red-500">
       {items.map((item) => (
         <div>
-          <p className="text-2xl">{item.label}</p>
+          <p className="">{item.label}</p>
           {/* {item?.children && (
             <svg
               xmlns="http://www.w3.org/2000/svg"
