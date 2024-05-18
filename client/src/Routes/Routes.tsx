@@ -3,10 +3,12 @@ import ProtectedRoutes from "./ProtectedRoutes/ProtectedRoutes";
 import DashboardLayout from "../Layout/Dashboard/DashboardLayout";
 import Login from "../Pages/Auth/Login";
 import Register from "../Pages/Auth/Register";
+import HomeLayout from "../Layout/Home/HomeLayout";
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: <div className=" text-red-500">Hello world!</div>,
+    element: <HomeLayout></HomeLayout>,
+    
   },
   {
     path: "/login",
