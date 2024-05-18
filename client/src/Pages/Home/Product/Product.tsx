@@ -45,7 +45,7 @@ const Product = () => {
       {/* product card */}
       <div className="grid lg:grid-cols-6  gap-y-12 gap-x-14 mt-16">
         {productCard.map((item, index) => (
-          <div className={`min-h-[100px] w-full relative`}>
+          <div className={`min-h-[100px] w-full relative`} key={index}>
             <img src={item.img} alt={item.img} className={`size-44 object-cover`} />
             <p className="mt-2 text-[14px] font-normal text-[#222222]">
               {item?.title}

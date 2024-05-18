@@ -4,11 +4,23 @@ import DashboardLayout from "../Layout/Dashboard/DashboardLayout";
 import Login from "../Pages/Auth/Login";
 import Register from "../Pages/Auth/Register";
 import HomeLayout from "../Layout/Home/HomeLayout";
+import Home from "../Pages/Home/Home";
+
+
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <HomeLayout></HomeLayout>,
-    
+    children: [
+       {
+        path: "/",
+        element: <Home></Home>
+
+       },
+       {
+
+       }
+    ]
   },
   {
     path: "/login",

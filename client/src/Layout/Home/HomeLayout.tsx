@@ -1,8 +1,12 @@
+import { Outlet } from "react-router-dom";
 
 const HomeLayout = () => {
     return (
-        <div>
-            
+        
+        
+        
+        <div className="max-w-6xl mx-auto">
+            <Outlet></Outlet>
         </div>
     );
 };
