@@ -11,6 +11,7 @@ import img9 from "../../../assets/Categories/images_09.png";
 import img10 from "../../../assets/Categories/images 10.png";
 import img11 from "../../../assets/Categories/images_11.png";
 import img12 from "../../../assets/Categories/images_12.png";
+import { Button } from "@material-tailwind/react";
 
 const imgArr = [
   img1,
@@ -30,7 +31,7 @@ const imgArr = [
 const Category = () => {
   return (
     <div className="mt-16 ">
-      <h2 className="font-bold text-4xl">
+      <h2 className="font-bold text-2xl">
         Top <span className="text-primary">Categories</span>
       </h2>
 
@@ -46,9 +47,10 @@ const Category = () => {
           </div>
         ))}
       </div>
-      <div className="text-center mt-12 flex justify-center items-center">
-        <button className="bg-primary text-white rounded-lg w-[284px] h-[45px]">
-          View all categories</button>
+      <div className="text-center mt-12 flex justify-center items-center">  
+        <Button className="bg-green-500" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
+          View all categories
+        </Button>
       </div>
     </div>
   );
