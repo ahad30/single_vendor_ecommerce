@@ -20,11 +20,12 @@ class AuthenticateSessionController extends Controller
             $userinfo['id'] = $request->user()->id;
             $userinfo['name'] = $request->user()->name;
             $userinfo['email'] = $request->user()->email;
+            $userinfo['role_name'] = $request->user()->roles[0]->name;
 
             $data = [
-                'access-token' => $request->user()->createToken('token')->plainTextToken,
+                'token' => $request->user()->createToken('token')->plainTextToken,
                 'user' =>  $userinfo,
-                'role' => $user->getRoleNames(),
+                // 'role' => $user->getRoleNames(),
             ];
             return Response::success( $data, 'Login successfully');
         }
