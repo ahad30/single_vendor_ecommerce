@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\AuthenticateSessionController;
 use App\Http\Controllers\Auth\RegisterUserController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\Profile\UserProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -13,6 +14,9 @@ Route::post('/registration', [RegisterUserController::class, 'register']);
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/profile', [UserProfileController::class, 'profile']);
 
-    // logout Route
+    // logout api
     Route::post('/logout', [AuthenticateSessionController::class, 'logout']);
+
+    // Category api
+    Route::apiResource('category', CategoryController::class);
 });

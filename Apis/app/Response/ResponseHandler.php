@@ -71,9 +71,17 @@ class ResponseHandler
     
     /**
      * use case
-     * return Response::unauthorized('Unauthorized access');
+     * return Response::unauthorized('message');
      */
     Response::macro('unauthorized', function ($message = 'Unauthorized', $status = 401) {
+        return Response::error($message, $status);
+    });
+
+    /**
+     * use case
+     * return Response::unauthorized('message');
+     */
+    Response::macro('forbidden', function ($message = 'Access Denied', $status = 403) {
         return Response::error($message, $status);
     });
    }

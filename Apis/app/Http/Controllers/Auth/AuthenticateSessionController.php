@@ -17,10 +17,14 @@ class AuthenticateSessionController extends Controller
         if (auth()->attempt($credentials)) {
             // create a new token for the user
             $user = $request->user();
+            $userinfo['id'] = $request->user()->id;
+            $userinfo['name'] = $request->user()->name;
+            $userinfo['email'] = $request->user()->email;
+
             $data = [
                 'access-token' => $request->user()->createToken('token')->plainTextToken,
-                'user' =>  $user,
-                'role' => $user->getPermissionsViaRoles(),
+                'user' =>  $userinfo,
+                'role' => $user->getRoleNames(),
             ];
             return Response::success( $data, 'Login successfully');
         }
