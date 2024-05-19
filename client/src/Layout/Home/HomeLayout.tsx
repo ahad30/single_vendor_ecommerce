@@ -1,5 +1,6 @@
 import { Outlet } from "react-router-dom";
 import Header from "../../common/Header/Header";
+import Footer from "../../common/Footer/Footer";
 
 const HomeLayout = () => {
     return (
@@ -8,9 +9,9 @@ const HomeLayout = () => {
         <>
         <Header></Header>
         <div className="max-w-6xl mx-auto">
-            
-            <Outlet></Outlet>
+        <Outlet></Outlet>
         </div>
+        <Footer></Footer>
         </>
     );
 };

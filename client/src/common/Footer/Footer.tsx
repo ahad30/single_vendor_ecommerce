@@ -6,7 +6,7 @@ const Footer = () => {
       <div className="grid grid-cols-1 text-center lg:text-left gap-8 lg:grid-cols-3">
         <div>
           <div className="text-teal-600 flex lg:justify-start justify-center">
-          <img src={logo} className="w-[60px] h-[60px] rounded-full" />
+          {/* <img src={logo} className="w-[60px] h-[60px] rounded-full" /> */}
           </div>
           <div >
           <p className="mt-4 max-w-2xl  lg:max-w-xs text-gray-500">

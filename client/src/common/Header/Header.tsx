@@ -15,7 +15,7 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 const Header = () => {
   const [openNav, setOpenNav] = React.useState(false);
   // const { user, logOut } = useContext(AuthContext); 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   // const [theme, setTheme] = useState('light')
 
   // useEffect(() => {
@@ -24,25 +24,7 @@ const Header = () => {
   //   document.querySelector('html').setAttribute('data-theme', localTheme)
   // }, [theme])
 
-  const handleToggle = e => {
-    // console.log(e.target.value)
-    if (e.target.checked) {
-      setTheme('dark')
-    }
-    else {
-      setTheme('light')
-    }
-  }
-
-
-  const handleSignOut = () => {
-    logOut()
-      .then(() => {
-        toast.success('log out successfully')
-        navigate('/login')
-      })
-      .catch()
-  }
+ 
 
 
   React.useEffect(() => {
@@ -56,7 +38,8 @@ const Header = () => {
     <ul className="mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
       <Typography
         as="li"
-        variant="large"
+        placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}
+
         color="blue-gray"
         className={`p-1 text-sm`}
       >
@@ -75,7 +58,9 @@ const Header = () => {
 
       <Typography
         as="li"
-        variant="large"
+        
+        placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}
+
         color="blue-gray"
         className={`p-1 text-sm`}
       >
@@ -161,10 +146,15 @@ const Header = () => {
   return (
     <div className="max-h-[768px]  lg:max-w-7xl mx-auto ">
       <Navbar className="sticky top-0 z-10  py-2 lg:px-8 lg:py-5 shadow-none rounded-none
-      bg-white-[0px] border-none">
+      bg-white-[0px] border-none"
+      placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}
+      >
         <div className="flex items-center justify-between">
           <div className="flex items-center">
             <Typography
+            placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}
+
+            
               as="a"
               className="mr-7 cursor-pointer py-1.5 font-medium"
             >
@@ -185,13 +175,20 @@ const Header = () => {
            
                 <>
                   <div className="flex items-center space-x-2">
+                   <Link to={`/login`}>
+                   <Button className={`bg-[#59C6D2]` } placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>Log in</Button>
+                   </Link>
 
-                    <Button className={`bg-[#59C6D2]`}>Log out</Button>
+                    <Link to={`/register`}>
+                    <Button className={`bg-[#5fd259]`}  placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>Register</Button>
+                    </Link>
+
                   </div>
 
                 </>
               
-            <IconButton
+            <IconButton 
+            placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}
               variant="text"
               className=" h-6 w-6 text-black hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
               ripple={false}
@@ -232,7 +229,7 @@ const Header = () => {
             </div>
           </div>
         </div>
-        <MobileNav open={openNav} className={`flex justify-center`}>{navList}</MobileNav>
+        <MobileNav open={openNav} className={`flex justify-start`}>{navList}</MobileNav>
       </Navbar>
     </div>
   );
