@@ -1,5 +1,4 @@
 
-import logo from "../../../assets/Logo.jpg"
 import {
   Navbar,
   MobileNav,
@@ -8,7 +7,7 @@ import {
   Button
 } from "@material-tailwind/react";
 import React from "react";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 
 

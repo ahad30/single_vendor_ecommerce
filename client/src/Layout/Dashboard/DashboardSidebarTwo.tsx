@@ -11,39 +11,12 @@ import {
   AccordionHeader,
   AccordionBody,
 } from "@material-tailwind/react";
-import { PresentationChartBarIcon, InboxIcon } from "@heroicons/react/24/solid";
+
 import { ChevronRightIcon, ChevronDownIcon } from "@heroicons/react/24/outline";
 import { adminRoutes } from "../../Routes/Admin.Routes";
 import { sidebarGenerator } from "../../utils/sidebarGenerator";
-const items = [
-  {
-    key: "content",
-    label: "Content",
-    dropdown: false,
-    children: [{ key: "content_child1", label: "Content Child 1" }],
-  },
-  {
-    key: "media",
-    label: "Media",
-    dropdown: false,
-  },
-  {
-    key: "settings",
-    label: "Settings",
-    dropdown: false,
-    children: [{ key: "settings_child1", label: "Settings Child 1" }],
-  },
-  {
-    key: "profile",
-    label: "Profile",
-    dropdown: false,
-  },
-  {
-    key: "dashboard",
-    label: "Dashboard",
-    children: [{ key: "dashboard_child1", label: "Dashboard Child 1" }],
-  },
-];
+import { Link } from "react-router-dom";
+import { TRoutesData } from "../../types/sidebarAndRouesTypes";
 
 const DashboardSidebarTwo = () => {
   const [open, setOpen] = React.useState("");
@@ -52,8 +25,9 @@ const DashboardSidebarTwo = () => {
     setOpen(open === value ? "" : value);
   };
 
-  const sidebarData = sidebarGenerator(adminRoutes)
-  console.log(sidebarData)
+  const sidebarData = sidebarGenerator(adminRoutes as TRoutesData[]);
+  // console.log(sidebarData)
+  
   return (
     <Card
       className="h-[calc(100vh-2rem)] w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5"
@@ -135,23 +109,25 @@ const DashboardSidebarTwo = () => {
                     onPointerLeaveCapture={undefined}
                   >
                     {item.children.map((subItem) => (
-                      <ListItem
-                        placeholder={undefined}
-                        onPointerEnterCapture={undefined}
-                        onPointerLeaveCapture={undefined}
-                      >
-                        <ListItemPrefix
+                      <Link to={subItem.key}>
+                        <ListItem
                           placeholder={undefined}
                           onPointerEnterCapture={undefined}
                           onPointerLeaveCapture={undefined}
                         >
-                          <ChevronRightIcon
-                            strokeWidth={3}
-                            className="h-3 w-5"
-                          />
-                        </ListItemPrefix>
-                        {subItem.label}
-                      </ListItem>
+                          <ListItemPrefix
+                            placeholder={undefined}
+                            onPointerEnterCapture={undefined}
+                            onPointerLeaveCapture={undefined}
+                          >
+                            <ChevronRightIcon
+                              strokeWidth={3}
+                              className="h-3 w-5"
+                            />
+                          </ListItemPrefix>
+                          {subItem.label}
+                        </ListItem>
+                      </Link>
                     ))}
                   </List>
                 </AccordionBody>
@@ -159,34 +135,38 @@ const DashboardSidebarTwo = () => {
             );
           } else {
             return (
-              <ListItem
-                placeholder={undefined}
-                onPointerEnterCapture={undefined}
-                onPointerLeaveCapture={undefined}
-              >
-                <ListItemPrefix
+              <Link to={item.key}>
+                <ListItem
                   placeholder={undefined}
                   onPointerEnterCapture={undefined}
                   onPointerLeaveCapture={undefined}
                 >
-                  {/* <InboxIcon className="h-5 w-5" />
-                   */}
-                   {item.icon}
-                </ListItemPrefix>
-                Inbox
-                <ListItemSuffix
-                  placeholder={undefined}
-                  onPointerEnterCapture={undefined}
-                  onPointerLeaveCapture={undefined} children={undefined}                >
-                  {/* <Chip
+                  <ListItemPrefix
+                    placeholder={undefined}
+                    onPointerEnterCapture={undefined}
+                    onPointerLeaveCapture={undefined}
+                  >
+                    {/* <InboxIcon className="h-5 w-5" />
+                     */}
+                    {item.icon}
+                  </ListItemPrefix>
+                  {item.label}
+                  <ListItemSuffix
+                    placeholder={undefined}
+                    onPointerEnterCapture={undefined}
+                    onPointerLeaveCapture={undefined}
+                    children={undefined}
+                  >
+                    {/* <Chip
                     value="14"
                     size="sm"
                     variant="ghost"
                     color="blue-gray"
                     className="rounded-full"
                   /> */}
-                </ListItemSuffix>
-              </ListItem>
+                  </ListItemSuffix>
+                </ListItem>
+              </Link>
             );
           }
         })}
