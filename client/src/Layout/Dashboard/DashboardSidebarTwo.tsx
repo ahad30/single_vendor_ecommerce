@@ -15,6 +15,8 @@ import { PresentationChartBarIcon, InboxIcon } from "@heroicons/react/24/solid";
 import { ChevronRightIcon, ChevronDownIcon } from "@heroicons/react/24/outline";
 import { adminRoutes } from "../../Routes/Admin.Routes";
 import { sidebarGenerator } from "../../utils/sidebarGenerator";
+import { Link } from "react-router-dom";
+import { TRoutesData } from "../../types/sidebarAndRouesTypes";
 const items = [
   {
     key: "content",
@@ -52,8 +54,8 @@ const DashboardSidebarTwo = () => {
     setOpen(open === value ? "" : value);
   };
 
-  const sidebarData = sidebarGenerator(adminRoutes)
-  console.log(sidebarData)
+  const sidebarData = sidebarGenerator(adminRoutes as TRoutesData[])
+  // console.log(sidebarData)
   return (
     <Card
       className="h-[calc(100vh-2rem)] w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5"
@@ -135,7 +137,8 @@ const DashboardSidebarTwo = () => {
                     onPointerLeaveCapture={undefined}
                   >
                     {item.children.map((subItem) => (
-                      <ListItem
+                      <Link to={subItem.key}>
+                       <ListItem
                         placeholder={undefined}
                         onPointerEnterCapture={undefined}
                         onPointerLeaveCapture={undefined}
@@ -151,7 +154,7 @@ const DashboardSidebarTwo = () => {
                           />
                         </ListItemPrefix>
                         {subItem.label}
-                      </ListItem>
+                      </ListItem></Link>
                     ))}
                   </List>
                 </AccordionBody>
@@ -159,7 +162,8 @@ const DashboardSidebarTwo = () => {
             );
           } else {
             return (
-              <ListItem
+            <Link to={item.key}>
+                <ListItem
                 placeholder={undefined}
                 onPointerEnterCapture={undefined}
                 onPointerLeaveCapture={undefined}
@@ -173,7 +177,7 @@ const DashboardSidebarTwo = () => {
                    */}
                    {item.icon}
                 </ListItemPrefix>
-                Inbox
+                {item.label}
                 <ListItemSuffix
                   placeholder={undefined}
                   onPointerEnterCapture={undefined}
@@ -187,6 +191,7 @@ const DashboardSidebarTwo = () => {
                   /> */}
                 </ListItemSuffix>
               </ListItem>
+            </Link>
             );
           }
         })}
