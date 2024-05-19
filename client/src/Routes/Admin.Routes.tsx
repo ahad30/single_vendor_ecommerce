@@ -16,7 +16,7 @@ export const adminRoutes = [
     element: <Category></Category>,
     icon: <MdOutlineCategory size={20}></MdOutlineCategory>,
   },
-  {
+  {  
     label: "Settings",
     icon: <CiSettings size={20}></CiSettings>,
     children: [

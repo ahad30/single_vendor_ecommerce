@@ -14,6 +14,7 @@ import {
 import { PresentationChartBarIcon, InboxIcon } from "@heroicons/react/24/solid";
 import { ChevronRightIcon, ChevronDownIcon } from "@heroicons/react/24/outline";
 import { adminRoutes } from "../../Routes/Admin.Routes";
+import { sidebarGenerator } from "../../utils/sidebarGenerator";
 const items = [
   {
     key: "content",
@@ -51,19 +52,8 @@ const DashboardSidebarTwo = () => {
     setOpen(open === value ? "" : value);
   };
 
-  const routeGenerator = adminRoutes.reduce((acc, item) => {
-    if(item.path){
-        acc.push({path: item.path , element: item.element})
-    }
-    if(item.children){
-        item.children.forEach((i)=> {
-            acc.push({path: i.path , element : i.element})
-        })
-    }
-    return acc
-  }, []);
-  console.log(routeGenerator);
-
+  const sidebarData = sidebarGenerator(adminRoutes)
+  console.log(sidebarData)
   return (
     <Card
       className="h-[calc(100vh-2rem)] w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5"
@@ -87,7 +77,7 @@ const DashboardSidebarTwo = () => {
         onPointerEnterCapture={undefined}
         onPointerLeaveCapture={undefined}
       >
-        {items.map((item) => {
+        {sidebarData.map((item) => {
           if (item.children) {
             return (
               <Accordion
@@ -123,7 +113,8 @@ const DashboardSidebarTwo = () => {
                       onPointerEnterCapture={undefined}
                       onPointerLeaveCapture={undefined}
                     >
-                      <PresentationChartBarIcon className="h-5 w-5" />
+                      {/* <PresentationChartBarIcon className="h-5 w-5" /> */}
+                      {item?.icon}
                     </ListItemPrefix>
                     <Typography
                       color="blue-gray"
@@ -178,21 +169,22 @@ const DashboardSidebarTwo = () => {
                   onPointerEnterCapture={undefined}
                   onPointerLeaveCapture={undefined}
                 >
-                  <InboxIcon className="h-5 w-5" />
+                  {/* <InboxIcon className="h-5 w-5" />
+                   */}
+                   {item.icon}
                 </ListItemPrefix>
                 Inbox
                 <ListItemSuffix
                   placeholder={undefined}
                   onPointerEnterCapture={undefined}
-                  onPointerLeaveCapture={undefined}
-                >
-                  <Chip
+                  onPointerLeaveCapture={undefined} children={undefined}                >
+                  {/* <Chip
                     value="14"
                     size="sm"
                     variant="ghost"
                     color="blue-gray"
                     className="rounded-full"
-                  />
+                  /> */}
                 </ListItemSuffix>
               </ListItem>
             );
