@@ -10,9 +10,9 @@ class ResponseHandler
      * use case
      * return Response::success( data, 'Login successfully', statuscode);
      */
-    Response::macro('success', function ($data = null, $message = 'Success', $status = 200) {
+    Response::macro('success', function ($data = null, $message = null, $status = 200) {
         return response()->json([
-            'success' => true,
+            'status' => true,
             'data' => $data,
             'message' => $message,
         ], $status );
@@ -22,16 +22,16 @@ class ResponseHandler
      * use case 
      * return Response::created();
      */
-    Response::macro('created', function($message = 'data created', $status = 201) {
-        return Response::success([],$message, $status );
+    Response::macro('created', function($data = null , $message = 'data created', $status = 201) {
+        return Response::success($data,$message, $status );
     });
 
     /**
      * use case
      * return Response::updated();
      */
-    Response::macro('updated', function($message = 'data updated', $status = 200) {
-        return Response::success([],$message, $status );
+    Response::macro('updated', function($data = null, $message = 'data updated', $status = 200) {
+        return Response::success($data,$message, $status );
     });
 
     /**
@@ -40,7 +40,7 @@ class ResponseHandler
      */
     Response::macro('error', function ($message = 'Error', $status = 400) {
         return response()->json([
-            'success' => false,
+            'status' => false,
             'message' => $message,
            
         ], $status );
@@ -65,7 +65,7 @@ class ResponseHandler
      * use case
      * return Response::notFound();
      */
-    Response::macro('notFound', function ($message = 'data Not Found', $status = 404) {
+    Response::macro('notFound', function ($message = 'Data Not Found', $status = 404) {
         return Response::error($message, $status);
     });
     
