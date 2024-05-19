@@ -11,21 +11,59 @@ import {
   AccordionHeader,
   AccordionBody,
 } from "@material-tailwind/react";
-import {
-  PresentationChartBarIcon,
-  ShoppingBagIcon,
-  UserCircleIcon,
-  Cog6ToothIcon,
-  InboxIcon,
-  PowerIcon,
-} from "@heroicons/react/24/solid";
+import { PresentationChartBarIcon, InboxIcon } from "@heroicons/react/24/solid";
 import { ChevronRightIcon, ChevronDownIcon } from "@heroicons/react/24/outline";
-const DashboardSidebarTwo = () => {
-  const [open, setOpen] = React.useState(0);
+import { adminRoutes } from "../../Routes/Admin.Routes";
+const items = [
+  {
+    key: "content",
+    label: "Content",
+    dropdown: false,
+    children: [{ key: "content_child1", label: "Content Child 1" }],
+  },
+  {
+    key: "media",
+    label: "Media",
+    dropdown: false,
+  },
+  {
+    key: "settings",
+    label: "Settings",
+    dropdown: false,
+    children: [{ key: "settings_child1", label: "Settings Child 1" }],
+  },
+  {
+    key: "profile",
+    label: "Profile",
+    dropdown: false,
+  },
+  {
+    key: "dashboard",
+    label: "Dashboard",
+    children: [{ key: "dashboard_child1", label: "Dashboard Child 1" }],
+  },
+];
 
-  const handleOpen = (value: number) => {
-    setOpen(open === value ? 0 : value);
+const DashboardSidebarTwo = () => {
+  const [open, setOpen] = React.useState("");
+
+  const handleOpen = (value: string) => {
+    setOpen(open === value ? "" : value);
   };
+
+  const routeGenerator = adminRoutes.reduce((acc, item) => {
+    if(item.path){
+        acc.push({path: item.path , element: item.element})
+    }
+    if(item.children){
+        item.children.forEach((i)=> {
+            acc.push({path: i.path , element : i.element})
+        })
+    }
+    return acc
+  }, []);
+  console.log(routeGenerator);
+
   return (
     <Card
       className="h-[calc(100vh-2rem)] w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5"
@@ -49,7 +87,119 @@ const DashboardSidebarTwo = () => {
         onPointerEnterCapture={undefined}
         onPointerLeaveCapture={undefined}
       >
-        <Accordion
+        {items.map((item) => {
+          if (item.children) {
+            return (
+              <Accordion
+                open={open === item.key}
+                icon={
+                  <ChevronDownIcon
+                    strokeWidth={2.5}
+                    className={`mx-auto h-4 w-4 transition-transform ${
+                      open === item.key ? "rotate-180" : ""
+                    }`}
+                  />
+                }
+                placeholder={undefined}
+                onPointerEnterCapture={undefined}
+                onPointerLeaveCapture={undefined}
+              >
+                <ListItem
+                  className="p-0"
+                  selected={open === item.key}
+                  placeholder={undefined}
+                  onPointerEnterCapture={undefined}
+                  onPointerLeaveCapture={undefined}
+                >
+                  <AccordionHeader
+                    onClick={() => handleOpen(item.key)}
+                    className="border-b-0 p-3"
+                    placeholder={undefined}
+                    onPointerEnterCapture={undefined}
+                    onPointerLeaveCapture={undefined}
+                  >
+                    <ListItemPrefix
+                      placeholder={undefined}
+                      onPointerEnterCapture={undefined}
+                      onPointerLeaveCapture={undefined}
+                    >
+                      <PresentationChartBarIcon className="h-5 w-5" />
+                    </ListItemPrefix>
+                    <Typography
+                      color="blue-gray"
+                      className="mr-auto font-normal"
+                      placeholder={undefined}
+                      onPointerEnterCapture={undefined}
+                      onPointerLeaveCapture={undefined}
+                    >
+                      {item.label}
+                    </Typography>
+                  </AccordionHeader>
+                </ListItem>
+                <AccordionBody className="py-1">
+                  <List
+                    className="p-0"
+                    placeholder={undefined}
+                    onPointerEnterCapture={undefined}
+                    onPointerLeaveCapture={undefined}
+                  >
+                    {item.children.map((subItem) => (
+                      <ListItem
+                        placeholder={undefined}
+                        onPointerEnterCapture={undefined}
+                        onPointerLeaveCapture={undefined}
+                      >
+                        <ListItemPrefix
+                          placeholder={undefined}
+                          onPointerEnterCapture={undefined}
+                          onPointerLeaveCapture={undefined}
+                        >
+                          <ChevronRightIcon
+                            strokeWidth={3}
+                            className="h-3 w-5"
+                          />
+                        </ListItemPrefix>
+                        {subItem.label}
+                      </ListItem>
+                    ))}
+                  </List>
+                </AccordionBody>
+              </Accordion>
+            );
+          } else {
+            return (
+              <ListItem
+                placeholder={undefined}
+                onPointerEnterCapture={undefined}
+                onPointerLeaveCapture={undefined}
+              >
+                <ListItemPrefix
+                  placeholder={undefined}
+                  onPointerEnterCapture={undefined}
+                  onPointerLeaveCapture={undefined}
+                >
+                  <InboxIcon className="h-5 w-5" />
+                </ListItemPrefix>
+                Inbox
+                <ListItemSuffix
+                  placeholder={undefined}
+                  onPointerEnterCapture={undefined}
+                  onPointerLeaveCapture={undefined}
+                >
+                  <Chip
+                    value="14"
+                    size="sm"
+                    variant="ghost"
+                    color="blue-gray"
+                    className="rounded-full"
+                  />
+                </ListItemSuffix>
+              </ListItem>
+            );
+          }
+        })}
+
+        {/* <Accordion
           open={open === 1}
           icon={
             <ChevronDownIcon
@@ -173,8 +323,7 @@ const DashboardSidebarTwo = () => {
               className="rounded-full"
             />
           </ListItemSuffix>
-        </ListItem>
-     
+        </ListItem> */}
       </List>
     </Card>
   );
