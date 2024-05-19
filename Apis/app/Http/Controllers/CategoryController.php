@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreCategoryRequest;
+use App\Http\Requests\UpdateCategoryRequest;
 use App\Http\Resources\CategoryResource;
 use App\Models\Category;
+use App\Trait\UploadImageTrait;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -12,10 +15,17 @@ class CategoryController extends Controller
     /**
      * Display a listing of the resource.
      */
+    use UploadImageTrait;
+    /**
+     * Display a listing of the resource.
+     */
     public function index()
     {
-        $data = CategoryResource::collection(Category::all());
-        return Response::success($data,)
+        $data = CategoryResource::collection(Category::latest()->get());
+        if($data->count() > 0){
+            return Response::success($data);
+        }
+        return Response::notFound();
     }
 
     /**
@@ -29,9 +39,12 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreCategoryRequest $request)
     {
-        //
+        $validate = $request->validated();
+        $path = $this->uploadImage($request, 'image', 'assets/images/categories');
+        $data = Category::create(array_merge($validate,['image' => $path]));
+        return Response::created(new CategoryResource($data));
     }
 
     /**
@@ -39,7 +52,7 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        //
+        
     }
 
     /**
@@ -53,9 +66,13 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Category $category)
+    public function update(UpdateCategoryRequest $request, Category $category)
     {
-        //
+        $validated = $request->validated();
+        $path = $this->uploadImage($request, 'image', 'assets/images/categories', $category->image);
+        $data = array_merge($validated, ['image' => $path ?: $category->image]);
+        $category->update($data);
+        return Response::updated(new CategoryResource($category));
     }
 
     /**
@@ -63,6 +80,8 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $this->deleteImage($category->image);
+        $category->delete();
+        return Response::success(null, 'Category deleted successfully');
     }
 }
