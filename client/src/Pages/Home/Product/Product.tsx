@@ -62,7 +62,7 @@ const Product = () => {
 
           <div className="flex justify-center mt-4">
           <Link to={`/productDetails/${item?.id}`}>
-           <Button className="px-2 py-2"  placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>View Details</Button>
+           <Button className="px-2 py-2 bg-secondary"  placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>View Details</Button>
 
           </Link>
           </div>
