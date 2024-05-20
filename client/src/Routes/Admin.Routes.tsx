@@ -23,7 +23,10 @@ export const adminRoutes = [
     label: "Settings",
     icon: <CiSettings size={20}></CiSettings>,
     children: [
-      { path: "db-backup", label: "DB Backup", element: <DbBackup></DbBackup> },
+      { path: "db-backup", 
+      label: "DB Backup", 
+      element: <DbBackup></DbBackup> 
+    },
       {
         path: "admin-profile",
         label: "Admin Profile",

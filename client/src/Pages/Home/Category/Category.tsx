@@ -48,7 +48,7 @@ const Category = () => {
         ))}
       </div>
       <div className="text-center mt-12 flex justify-center items-center">  
-        <Button className="bg-green-500" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
+        <Button className="bg-secondary" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
           View all categories
         </Button>
       </div>
