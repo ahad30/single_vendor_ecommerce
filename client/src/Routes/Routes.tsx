@@ -9,6 +9,7 @@ import { adminRoutes } from "./Admin.Routes";
 import { TRoutesData } from "../types/sidebarAndRouesTypes";
 import Home from "../Pages/Home/Home";
 import ErrorPage from "../common/ErrorPage/ErrorPage";
+import ProductDetails from "../Pages/Home/ProductDetails/ProductDetails";
 
 export const router = createBrowserRouter([
   {
@@ -19,18 +20,22 @@ export const router = createBrowserRouter([
        {
         path: "/",
         element: <Home></Home>
-
        },
+       {
+        path: "/productDetails/:id",
+        element: <ProductDetails></ProductDetails>
+       },
+
+       {
+        path: "/login",
+        element: <Login></Login>,
+       },
+       {
+        path: "/register",
+        element: <Register></Register>,
+      },
       
     ]
-  },
-  {
-    path: "/login",
-    element: <Login></Login>,
-  },
-  {
-    path: "/register",
-    element: <Register></Register>,
   },
   {
     path: "/admin",
