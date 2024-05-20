@@ -77,8 +77,8 @@ const Header = () => {
       </Typography>
 
       <Typography
+        placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}
         as="li"
-        variant="large"
         color="blue-gray"
         className={`p-1 text-sm`}
       >
@@ -99,8 +99,8 @@ const Header = () => {
 
 
       <Typography
+        placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}
         as="li"
-        variant="large"
         color="blue-gray"
         className={`p-1 text-sm`}
       >
@@ -118,11 +118,9 @@ const Header = () => {
       </Typography>
 
 
-
-
       <Typography
+        placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}
         as="li"
-        variant="large"
         color="blue-gray"
         className={`p-1 text-sm lg:hidden`}
       >
