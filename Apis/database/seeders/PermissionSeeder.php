@@ -17,12 +17,12 @@ class PermissionSeeder extends Seeder
 
         Permission::firstOrCreate(['name' => 'view role']);
         Permission::firstOrCreate(['name' => 'create role']);
-        Permission::firstOrCreate(['name' => 'update role']);
+        Permission::firstOrCreate(['name' => 'edit role']);
         Permission::firstOrCreate(['name' => 'delete role']);
 
         Permission::firstOrCreate(['name' => 'view user']);
         Permission::firstOrCreate(['name' => 'create user']);
-        Permission::firstOrCreate(['name' => 'update user']);
+        Permission::firstOrCreate(['name' => 'edit user']);
         Permission::firstOrCreate(['name' => 'delete user']);
     }
 }
