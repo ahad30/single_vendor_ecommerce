@@ -28,8 +28,8 @@ const TopBrands = () => {
         <p className="text-primary text-sm font-normal">View All brands </p>
       </div>
       <div className="grid grid-cols-6 mt-12 gap-x-4">
-        {brandsArr?.map((item) => (
-          <div className="flex border h-[180px] justify-center flex-col items-center ">
+        {brandsArr?.map((item , index) => (
+          <div key={index} className="flex border h-[180px] justify-center flex-col items-center ">
             <img src={item?.img} alt="" />
             <p className="mt-6">{item?.name}</p>
           </div>
