@@ -1,15 +1,23 @@
 import { useForm, SubmitHandler, FieldValues } from "react-hook-form"
+import { useLoginMutation } from "../../Redux/Feature/auth/authApi";
 
 
 
 const Login = () => {
+
+    const [Login] = useLoginMutation()
     const {
         register,
         handleSubmit,
         // formState: { errors },
       } = useForm()
-      const onSubmit: SubmitHandler<FieldValues> = (data) => console.log(data)
-          
+
+      const onSubmit: SubmitHandler<FieldValues> = (data) =>{ 
+        
+        Login(data)
+        console.log(data)
+
+    }
    
    
 //       const handleSubmit = (e: { preventDefault: () => void; currentTarget: HTMLFormElement | undefined; }) => {
