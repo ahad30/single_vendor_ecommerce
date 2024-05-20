@@ -19,16 +19,6 @@ const Login = () => {
 
     }
    
-   
-//       const handleSubmit = (e: { preventDefault: () => void; currentTarget: HTMLFormElement | undefined; }) => {
-//       e.preventDefault()
-
-//       const form = new FormData(e.currentTarget);
-//       const email = form.get('email');
-//       const password = form.get('password');
-//       console.log( email , password)
-//    }
-
 
     return (
 
