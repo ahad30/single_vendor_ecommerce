@@ -23,7 +23,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/permissions', [PermissionController::class, 'index']);
 
     // Role routes
-    Route::apiResource('/roles', [RoleController::class, 'index']);
+    Route::apiResource('/roles', RoleController::class);
     // Category api
     Route::apiResource('category', CategoryController::class);
 });
