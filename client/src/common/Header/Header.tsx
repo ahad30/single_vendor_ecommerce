@@ -23,9 +23,6 @@ const Header = () => {
   //   document.querySelector('html').setAttribute('data-theme', localTheme)
   // }, [theme])
 
- 
-
-
   React.useEffect(() => {
     window.addEventListener(
       "resize",
