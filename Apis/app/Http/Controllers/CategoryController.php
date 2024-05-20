@@ -7,7 +7,6 @@ use App\Http\Requests\UpdateCategoryRequest;
 use App\Http\Resources\CategoryResource;
 use App\Models\Category;
 use App\Trait\UploadImageTrait;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class CategoryController extends Controller
@@ -22,7 +21,7 @@ class CategoryController extends Controller
     public function index()
     {
         $data = CategoryResource::collection(Category::latest()->get());
-        if($data->count() > 0){
+        if ($data->count() > 0) {
             return Response::success($data);
         }
         return Response::notFound();
@@ -43,7 +42,7 @@ class CategoryController extends Controller
     {
         $validate = $request->validated();
         $path = $this->uploadImage($request, 'image', 'assets/images/categories');
-        $data = Category::create(array_merge($validate,['image' => $path]));
+        $data = Category::create(array_merge($validate, ['image' => $path]));
         return Response::created(new CategoryResource($data));
     }
 
@@ -52,7 +51,6 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        
     }
 
     /**
