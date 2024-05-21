@@ -26,7 +26,7 @@ const Categories = () => {
       <h2 className="text-3xl font-semibold text-center mb-6">TOP CATEGORIES</h2>
       <div className="grid grid-cols-2 md:grid-cols-6 gap-4">
         {categories.map((category, index) => (
-          <div key={index} className={`flex flex-col items-center justify-center px-3 py-6 border border-gray-500 rounded-lg bg-white hover:bg-[#CC2229] transition duration-300  hover:text-white`}>
+          <div key={index} className={`flex flex-col items-center justify-center px-3 py-6 border border-gray-500 rounded-lg bg-white hover:bg-[#CC2229] transition duration-300  hover:text-white cursor-pointer`}>
             <div className="text-5xl mb-3 ">
               {category.icon}
             </div>
