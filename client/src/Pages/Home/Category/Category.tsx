@@ -12,6 +12,7 @@ import img10 from "../../../assets/Categories/images 10.png";
 import img11 from "../../../assets/Categories/images_11.png";
 import img12 from "../../../assets/Categories/images_12.png";
 import { Button } from "@material-tailwind/react";
+import HomeTitle from "../../../Component/Home/HomeTitle";
 
 const imgArr = [
   img1,
@@ -31,17 +32,11 @@ const imgArr = [
 const Category = () => {
   return (
     <div className="mt-16 ">
-      <h2 className="font-bold text-2xl">
-        Top <span className="text-primary">Categories</span>
-      </h2>
+     <HomeTitle text="Top Categories"/>
 
       <div className="grid lg:grid-cols-6 gap-x-4 gap-y-12  mt-16">
         {imgArr.map((img, index) => (
-          <div
-            className={`${
-              index === 11 ? "" : index === 5 ? "" : "border-r-2"
-            }  min-h-[100px] w-full flex flex-col   items-center justify-center  `}
-          >
+          <div key={index}>
             <img src={img} alt={img} className={`size-20`} />
             <p className="mt-8">Mens & Fasion</p>
           </div>

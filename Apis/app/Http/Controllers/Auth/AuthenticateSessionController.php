@@ -6,32 +6,43 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Spatie\Permission\Models\Permission;
 
 class AuthenticateSessionController extends Controller
 {
     // login
     public function login(LoginRequest $request)
-    {
-        $credentials = $request->only('email', 'password');
+{
+    $credentials = $request->only('email', 'password');
 
-        if (auth()->attempt($credentials)) {
-            // create a new token for the user
-            $user = $request->user();
-            $userinfo['id'] = $request->user()->id;
-            $userinfo['name'] = $request->user()->name;
-            $userinfo['email'] = $request->user()->email;
-            $userinfo['role_name'] = $request->user()->roles[0]->name;
+    if (auth()->attempt($credentials)) {
+        $user = $request->user();
+        $userData = [
+            'id' => $user->id,
+            'name' => $user->name,
+            'email' => $user->email,
+        ];
 
-            $data = [
-                'token' => $request->user()->createToken('token')->plainTextToken,
-                'user' =>  $userinfo,
-                // 'role' => $user->getRoleNames(),
-            ];
-            return Response::success( $data, 'Login successfully');
+        if($user->roles->isNotEmpty()){
+            $userData['role_name'] = $user->roles->map(function ($role){
+                return [
+                    'id' => $role->id,
+                    'name' => $role->name,
+                ];
+            });
         }
-        return Response::error('Creadential dosen\'t match our records');
-        
+
+        $data = [
+            'token' => $user->createToken('token')->plainTextToken,
+            'user' => $userData,
+        ];
+
+        return Response::success($data, 'Login successfully');
     }
+    
+    return Response::error('Credential doesn\'t match our records');
+}
+
 
     // logout
     public function logout(Request $request)
@@ -43,5 +54,30 @@ class AuthenticateSessionController extends Controller
             'status' => true,
             'message' => 'You are successfully logged out.'
         ]);
+    }
+
+    // auth me 
+    public function loggedUser()
+    {
+        $user = auth()->user();
+        $user->getPermissionsViaRoles();
+        $data = [
+            'id' => $user->id,
+            'name' => $user->name,
+            'email' => $user->email,
+            'role_name' => $user->roles->map(function($role){
+                return [
+                    'id' => $role->id,
+                    'name' => $role->name,
+                    'permissions' => $role->permissions->map(function($permission){
+                        return [
+                            'id' => $permission->id,
+                            'name' => $permission->name,
+                        ];
+                    }),
+                ];
+            }),
+        ];
+        return Response::success($data);
     }
 }

@@ -18,12 +18,16 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // logout api
     Route::post('/logout', [AuthenticateSessionController::class, 'logout']);
-
-    // permissions route
+    
+    // logged in user with role & permissions
+    Route::get('/me', [AuthenticateSessionController::class, 'loggedUser']);
+    // all permissions by admin panel
     Route::get('/permissions', [PermissionController::class, 'index']);
 
     // Role routes
     Route::apiResource('/roles', RoleController::class);
+
+
     // Category api
     Route::apiResource('category', CategoryController::class);
 });
