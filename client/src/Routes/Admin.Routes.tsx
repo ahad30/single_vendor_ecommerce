@@ -3,8 +3,15 @@ import { CiSettings } from "react-icons/ci";
 import Category from "../Pages/Dashboard/Admin/Category/Category";
 import DbBackup from "../Pages/Dashboard/Admin/Settings/DbBackup";
 import AdminProfile from "../Pages/Dashboard/Admin/Settings/AdminProfile";
+import DashboardStatics from "../Pages/Dashboard/Admin/DashboardStatics/DashboardStatics";
 
 export const adminRoutes = [
+  {
+    path: "/admin",
+    label: "Dashboard",
+    element: <DashboardStatics></DashboardStatics>,
+    icon: <MdOutlineCategory size={20}></MdOutlineCategory>,
+  },
   {
     path: "category",
     label: "Category",
@@ -16,7 +23,10 @@ export const adminRoutes = [
     label: "Settings",
     icon: <CiSettings size={20}></CiSettings>,
     children: [
-      { path: "db-backup", label: "DB Backup", element: <DbBackup></DbBackup> },
+      { path: "db-backup", 
+      label: "DB Backup", 
+      element: <DbBackup></DbBackup> 
+    },
       {
         path: "admin-profile",
         label: "Admin Profile",

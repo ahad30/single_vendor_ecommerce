@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Api\PermissionController;
+use App\Http\Controllers\Api\RoleController;
 use App\Http\Controllers\Auth\AuthenticateSessionController;
 use App\Http\Controllers\Auth\RegisterUserController;
 use App\Http\Controllers\CategoryController;
@@ -17,6 +19,11 @@ Route::middleware('auth:sanctum')->group(function () {
     // logout api
     Route::post('/logout', [AuthenticateSessionController::class, 'logout']);
 
+    // permissions route
+    Route::get('/permissions', [PermissionController::class, 'index']);
+
+    // Role routes
+    Route::apiResource('/roles', RoleController::class);
     // Category api
+    Route::apiResource('category', CategoryController::class);
 });
-Route::apiResource('category', CategoryController::class);

@@ -7,7 +7,6 @@ use App\Http\Requests\UpdateCategoryRequest;
 use App\Http\Resources\CategoryResource;
 use App\Models\Category;
 use App\Trait\UploadImageTrait;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class CategoryController extends Controller
@@ -21,11 +20,25 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $data = CategoryResource::collection(Category::latest()->get());
-        if($data->count() > 0){
-            return Response::success($data);
-        }
-        return Response::notFound();
+        $data = Category::paginate();
+        $categories = CategoryResource::collection($data);
+
+        // Merge the additional 'status' key with the paginated data
+        $response = [
+            'status' => true,
+            'categories' => $categories,
+            'meta' => [
+                'active_page' => $data->currentPage() ? false : true,
+                'current_page' => $data->currentPage(),
+                'last_page' => $data->lastPage(),
+                'per_page' => $data->perPage(),
+                'total' => $data->total(),
+                'next_page_url' => $data->nextPageUrl(),
+                'prev_page_url' => $data->previousPageUrl(),
+            ],
+        ];
+
+        return Response::successWithPagination($response);
     }
 
     /**
@@ -41,9 +54,10 @@ class CategoryController extends Controller
      */
     public function store(StoreCategoryRequest $request)
     {
-        $validate = $request->validated();
         $path = $this->uploadImage($request, 'image', 'assets/images/categories');
-        $data = Category::create(array_merge($validate,['image' => $path]));
+
+        $data = Category::create(array_merge($request->validated(), ['image' => $path]));
+
         return Response::created(new CategoryResource($data));
     }
 
@@ -52,7 +66,6 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        
     }
 
     /**
