@@ -2,12 +2,18 @@
 // import { CiSearch } from "react-icons/ci";
 import { Button } from "@material-tailwind/react";
 import { HiMiniBars3 } from "react-icons/hi2";
+import { Menu, MenuButton, MenuItem, MenuItems} from '@headlessui/react'
 import { IoSearch } from "react-icons/io5";
 import { Link } from "react-router-dom";
+const links = [
+  { href: '/settings', label: 'Settings' },
+  { href: '/support', label: 'Support' },
+  { href: '/license', label: 'License' },
+]
 
 const TopHeader = () => {
   return (
-  <section className="max-w-[1200px] mx-auto">
+  <section className="max-w-[1200px] mx-auto sticky ">
       <div className="flex justify-between items-center">
     {/* heading */}
     <div className="">
@@ -17,8 +23,19 @@ const TopHeader = () => {
     </div>
 
     <div className="bg-[#EAE5E591] flex items-center gap-2 py-3 px-4 rounded-md">
-    <HiMiniBars3 className="text-[#2222228C]"/>
-    <p className="font-normal text-[#2222228C] text-sm">Shop by Category</p>
+  
+    <Menu>
+      <HiMiniBars3/>
+      <MenuButton className="text-sm">Shop By Category</MenuButton>
+      <MenuItems anchor="bottom" className= 'mt-4 rounded-md'>
+        {links.map((link) => (
+          <MenuItem key={link.href} className="block bg-[#EAE5E591] px-12">
+            <a href={link.href}>{link.label}</a>
+          </MenuItem>
+        ))}
+      </MenuItems>
+    </Menu>
+    
     </div>
     {/* searchBar */}
     <div className="relative w-[35%] h-[42px] my-12 flex">
@@ -63,13 +80,11 @@ const TopHeader = () => {
         />
       </svg>
                    <Link to={`/login`}>
-                    <p className="text-sm">Login</p>
+                    <p className="text-sm text-[#808080]">Login /</p>
                    </Link> 
                     
-                     /
-                     
-                    <Link to={`/register`}>
-                   <p className="text-sm">Register</p>
+                  <Link to={`/register`}>
+                   <p className="text-sm text-[#808080]">Register</p>
                     </Link>
 
                   </div>
