@@ -22,7 +22,7 @@ const BottomHeader = () => {
   }, []);
 
   const navList = (
-    <ul className="mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
+    <ul className="flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
       <Typography
         as="li"
         placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}
@@ -42,7 +42,6 @@ const BottomHeader = () => {
           Home
         </NavLink>
       </Typography>
-
       <Typography
         as="li"
         
@@ -63,7 +62,6 @@ const BottomHeader = () => {
           All Art & Craft Items
         </NavLink>
       </Typography>
-
       <Typography
         placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}
         as="li"
@@ -82,10 +80,6 @@ const BottomHeader = () => {
           Add Item
         </NavLink>
       </Typography>
-
-
-
-
       <Typography
         placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}
         as="li"
@@ -104,8 +98,6 @@ const BottomHeader = () => {
           My List
         </NavLink>
       </Typography>
-
-
       <Typography
         placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}
         as="li"
@@ -124,13 +116,12 @@ const BottomHeader = () => {
           Register
         </NavLink>
       </Typography>
-
     </ul>
   );
 
   return (
-    <div className="max-h-[768px]  lg:max-w-7xl mx-auto ">
-      <Navbar className="sticky top-0 z-10  py-2 lg:px-8 lg:py-5 shadow-none rounded-none
+    <div className="">
+      <Navbar className="sticky  top-0 z-10  py-2 lg:px-8 lg:py-5 shadow-none rounded-none
       bg-white-[0px] border-none"
       placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}
       >

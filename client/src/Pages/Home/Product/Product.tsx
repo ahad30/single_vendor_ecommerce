@@ -1,4 +1,3 @@
-import { Link, useParams } from "react-router-dom";
 import img1 from "../../../assets/Product/product-01.png";
 import img2 from "../../../assets/Product/product-02.png";
 import img3 from "../../../assets/Product/product-03.png";
@@ -11,9 +10,7 @@ import img9 from "../../../assets/Product/product-09.png";
 import img10 from "../../../assets/Product/product-10.png";
 import img11 from "../../../assets/Product/product-11.png";
 import img12 from "../../../assets/Product/product-12.png";
-import { Button } from "@material-tailwind/react";
 import HomeTile from "../../../Component/Home/HomeTile";
-
 const productCard = [
   { id: 1, img: img1, title: "Men's Fashion", price: "100", discount: "4" },
   { id: 2, img: img2, title: "Women's Casual", price: "120" },

@@ -1,15 +1,17 @@
 // import React from 'react'
 
-import BottomHeader from "./BottomHeader"
-import TopHeader from "./TopHeader"
+import BottomHeader from "./BottomHeader";
+import TopHeader from "./TopHeader";
 
 const Header = () => {
   return (
     <div>
-    <TopHeader></TopHeader>
-    <BottomHeader></BottomHeader>
+      <TopHeader></TopHeader>
+      <div className="max-w-6xl mx-auto">
+        <BottomHeader></BottomHeader>
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;
