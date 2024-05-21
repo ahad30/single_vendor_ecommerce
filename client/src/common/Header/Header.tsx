@@ -5,7 +5,7 @@ import TopHeader from "./TopHeader"
 
 const Header = () => {
   return (
-    <div>
+    <div className="lg:px-7 max-w-7xl mx-auto">
     <TopHeader></TopHeader>
     <BottomHeader></BottomHeader>
     </div>
