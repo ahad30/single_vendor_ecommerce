@@ -7,7 +7,6 @@ export default withMT({
   ],
   theme: {
     fontFamily: {
-      Nunito : ["Nunito Sans", "sans-serif"],
       Poppins : ["Poppins", "sans-serif"]
     },
     extend: {

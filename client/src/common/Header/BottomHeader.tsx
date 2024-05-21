@@ -4,16 +4,12 @@ import {
   MobileNav,
   Typography,
   IconButton,
-  Button
 } from "@material-tailwind/react";
 import React from "react";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const BottomHeader = () => {
   const [openNav, setOpenNav] = React.useState(false);
-
-
-
   React.useEffect(() => {
     window.addEventListener(
       "resize",

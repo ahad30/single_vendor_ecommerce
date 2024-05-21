@@ -10,6 +10,8 @@ import { TRoutesData } from "../types/sidebarAndRouesTypes";
 import Home from "../Pages/Home/Home";
 import ErrorPage from "../common/ErrorPage/ErrorPage";
 import ProductDetails from "../Pages/Home/ProductDetails/ProductDetails";
+import AdminProtectedRoute from "./AdminPanelProtectedRoutes/AdminProtectedRoute";
+import ErrorPageDashboard from "../Pages/Error/ErrorPageDashboard";
 
 export const router = createBrowserRouter([
   {
@@ -17,34 +19,34 @@ export const router = createBrowserRouter([
     element: <HomeLayout></HomeLayout>,
     errorElement: <ErrorPage></ErrorPage>,
     children: [
-       {
+      {
         path: "/",
-        element: <Home></Home>
-       },
-       {
+        element: <Home></Home>,
+      },
+      {
         path: "/productDetails/:id",
-        element: <ProductDetails></ProductDetails>
-       },
+        element: <ProductDetails></ProductDetails>,
+      },
 
-       {
+      {
         path: "/login",
         element: <Login></Login>,
-       },
-       {
+      },
+      {
         path: "/register",
         element: <Register></Register>,
       },
-      
-    ]
+    ],
   },
   {
     path: "/admin",
     element: (
-      <ProtectedRoutes role="admin">
+      <AdminProtectedRoute>
         <DashboardLayout></DashboardLayout>
-      </ProtectedRoutes>
+      </AdminProtectedRoute>
     ),
     children: routesGenerator(adminRoutes as TRoutesData[]),
+    errorElement: <ErrorPageDashboard></ErrorPageDashboard>,
   },
   {
     path: "/user",
