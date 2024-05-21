@@ -6,13 +6,11 @@ import paypal from "../../assets/payment/paypal.png";
 const Footer = () => {
   return (
     <footer className="mt-8 bg-secondary">
-      <div className="mx-auto max-w-6xl space-y-8 px-4 py-16 sm:px-6 lg:space-y-16 lg:px-8">
-        <div className="grid grid-cols-1 text-center lg:text-left gap-8 lg:grid-cols-3">
+      <div className="max-w-7xl mx-auto px-4 py-8 ">
+        <div className="max-auto max-w-7xl grid grid-cols-1 text-center lg:text-left gap-8 lg:grid-cols-3">
           <div>
             <div>
-              <p className="max-w-2xl  lg:max-w-xs text-white text-4xl font-bold">
-                LOGO
-              </p>
+              <p className="text-white text-4xl font-bold">LOGO</p>
               <p className="max-w-2xl lg:w-[245px] text-[#C5C5C5] mt-3 text-[12px]">
                 Lorem ipsum dolor sit amet consectetur. At aliquam et diam
                 blandit gravida at dictumst.
@@ -114,7 +112,7 @@ const Footer = () => {
             </ul>
           </div>
 
-          <div className="grid sm:grid-cols-1 lg:grid-cols-4 lg:col-span-2 gap-8  ">
+          <div className="grid sm:grid-cols-1 lg:grid-cols-4 lg:col-span-2 gap-8">
             <div>
               <p className="font-semibold text-white text-[14px] underline">
                 Information
@@ -201,11 +199,11 @@ const Footer = () => {
               </ul>
             </div>
 
-            <div className="text-center">
-              <p className="font-semibold text-white text-[14px]">
+            <div className="">
+              <p className="font-semibold text-white text-[14px] text-center">
                 Get in Touch
               </p>
-              <img src={map} className="mt-10 lg:w-[286px] lg:h-[155px]" />
+              <img src={map} className="mt-7 w-[280px] h-[150px] " />
             </div>
 
             <div>
@@ -226,21 +224,36 @@ const Footer = () => {
         </div>
       </div>
       <hr className="border-black opacity-25" />
-      <div className="bg-secondary">
-        <div className="mx-auto max-w-6xl h-[200px] ">
+      <div className="bg-secondary mt-5 h-[140px]">
+        <div className="mx-auto max-w-7xl px-5">
           <div>
-            <div className="flex gap-5 justify-between  mt-8">
-              <img src={bikash} className="lg:w-[103px] lg:h-[47px]" />
-              <img src={img} className="lg:w-[103px] lg:h-[47px]" />
-              <img src={rocket} className="lg:w-[103px] lg:h-[47px]" />
-              <img src={paypal} className="lg:w-[103px] lg:h-[47px]]" />
-              <img src={img} className="lg:w-[103px] lg:h-[47px]" />
+            <div className="flex justify-between mt-8">
+              <img
+                src={bikash}
+                className="lg:w-[103px] w-[50px] lg:h-[47px] h-[20px]"
+              />
+              <img
+                src={img}
+                className="lg:w-[103px] w-[50px] lg:h-[47px] h-[20px]"
+              />
+              <img
+                src={rocket}
+                className="lg:w-[103px] w-[50px] lg:h-[47px] h-[20px]"
+              />
+              <img
+                src={paypal}
+                className="lg:w-[103px] w-[50px] lg:h-[47px] h-[20px]"
+              />
+              <img
+                src={img}
+                className="lg:w-[103px] w-[50px] lg:h-[47px] h-[20px]"
+              />
             </div>
           </div>
           <hr className="border-black opacity-25 mt-6" />
-          <div className="mt-6">
-            <p className="text-xs text-gray-500 text-start">
-              &copy; 2024. Modern Arts & Crafts. All rights reserved.
+          <div className="mt-8">
+            <p className="text-xs text-gray-500 text-start lg:w-[222px]">
+              &copy; 2024.All rights reserved.
             </p>
           </div>
         </div>
