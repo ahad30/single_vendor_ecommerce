@@ -116,8 +116,8 @@ const BottomHeader = () => {
   );
 
   return (
-    <div className="">
-      <Navbar className="sticky  top-0 z-10  py-2 lg:px-8 lg:py-5 shadow-none rounded-none
+    <div className="max-h-[768px]  lg:max-w-7xl mx-auto ">
+      <Navbar className="sticky top-0  py-2 lg:px-8 lg:py-5 shadow-none rounded-none
       bg-white-[0px] border-none"
       placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}
       >
@@ -144,12 +144,6 @@ const BottomHeader = () => {
 
 
           <div className="flex items-center gap-2">
-           
-                <>
-               
-
-                </>
-              
             <IconButton 
             placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}
               variant="text"

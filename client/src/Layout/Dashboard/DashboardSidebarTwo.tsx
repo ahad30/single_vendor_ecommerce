@@ -17,17 +17,23 @@ import { sidebarGenerator } from "../../utils/sidebarGenerator";
 import { Link } from "react-router-dom";
 import { TRoutesData } from "../../types/sidebarAndRouesTypes";
 
-const DashboardSidebarTwo = () => {
+const DashboardSidebarTwo = ({
+  isSidebarOpen,
+  className
+}: {
+  isSidebarOpen?: boolean;
+  className? : string
+}) => {
   const [open, setOpen] = React.useState("");
   const handleOpen = (value: string) => {
     setOpen(open === value ? "" : value);
   };
   const sidebarData = sidebarGenerator(adminRoutes as TRoutesData[]);
   // console.log(sidebarData)
-  
+
   return (
     <Card
-      className="h-[calc(100vh-2rem)] w-full max-w-[20rem] p-4 shadow-xl  shadow-blue-gray-900/5"
+      className={`h-[calc(100vh-2rem)] ${className}  z-10 ${isSidebarOpen ?  "-ml-[500px]" : ""} max-w-[20rem] p-4 shadow-xl  shadow-blue-gray-900/5 duration-300`}
       placeholder={undefined}
       onPointerEnterCapture={undefined}
       onPointerLeaveCapture={undefined}
@@ -153,15 +159,12 @@ const DashboardSidebarTwo = () => {
                     onPointerEnterCapture={undefined}
                     onPointerLeaveCapture={undefined}
                     children={undefined}
-                  >
-
-                  </ListItemSuffix>
+                  ></ListItemSuffix>
                 </ListItem>
               </Link>
             );
           }
         })}
-
       </List>
     </Card>
   );
