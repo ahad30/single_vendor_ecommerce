@@ -7,16 +7,14 @@ export type TRoutesData = {
   element?: ReactNode;
   children: { path: string; element: ReactNode; label: string }[];
 };
-
-
 export type TSidebar = {
-    key : string ; 
-    icon : ReactNode;
-    label : string;
-    children? : {label : string; key : string ;}[]
-  }
+  key: string;
+  icon: ReactNode;
+  label: string;
+  children?: { label: string; key: string }[];
+};
 
- export type TRoutes = {
-    path: string;
-    element: ReactNode;
-  };
+export type TRoutes = {
+  path: string;
+  element: ReactNode;
+};

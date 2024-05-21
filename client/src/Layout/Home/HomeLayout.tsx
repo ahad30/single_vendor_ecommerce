@@ -4,17 +4,15 @@ import Footer from "../../common/Footer/Footer";
 import Header from "../../common/Header/Header";
 
 const HomeLayout = () => {
-    return (
-        
-        
-        <>
-       <Header></Header>        
-        <div className="max-w-6xl mx-auto">
+  return (
+    <>
+      <Header></Header>
+      <div className="max-w-[1250px] mx-auto">
         <Outlet></Outlet>
-        </div>
-        <Footer></Footer>
-        </>
-    );
+      </div>
+      <Footer></Footer>
+    </>
+  );
 };
 
 export default HomeLayout;

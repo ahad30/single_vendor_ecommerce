@@ -18,6 +18,9 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // logout api
     Route::post('/logout', [AuthenticateSessionController::class, 'logout']);
+    
+    // logged in user with role & permissions
+    Route::get('/me', [AuthenticateSessionController::class, 'loggedUser']);
 
     // permissions route
     Route::get('/permissions', [PermissionController::class, 'index']);

@@ -4,16 +4,12 @@ import {
   MobileNav,
   Typography,
   IconButton,
-  Button
 } from "@material-tailwind/react";
 import React from "react";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const BottomHeader = () => {
   const [openNav, setOpenNav] = React.useState(false);
-
-
-
   React.useEffect(() => {
     window.addEventListener(
       "resize",
@@ -22,7 +18,7 @@ const BottomHeader = () => {
   }, []);
 
   const navList = (
-    <ul className="mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
+    <ul className="flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
       <Typography
         as="li"
         placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}
@@ -42,7 +38,6 @@ const BottomHeader = () => {
           Home
         </NavLink>
       </Typography>
-
       <Typography
         as="li"
         
@@ -60,7 +55,25 @@ const BottomHeader = () => {
             };
           }}
           to="/allArt&Craft" className="flex items-center text-[#150B2BB3]">
-          All Art & Craft Items
+          Shop
+        </NavLink>
+      </Typography>
+      <Typography
+        placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}
+        as="li"
+        color="blue-gray"
+        className={`p-1 text-sm`}
+      >
+        <NavLink
+          style={({ isActive, isTransitioning }) => {
+            return {
+              fontWeight: isActive ? "bold" : "",
+              color: isActive ? "red" : "black",
+              viewTransitionName: isTransitioning ? "slide" : "",
+            };
+          }}
+          to="/addItem" className="flex items-center text-[#150B2BB3]">
+          Blog
         </NavLink>
       </Typography>
 
@@ -78,12 +91,10 @@ const BottomHeader = () => {
               viewTransitionName: isTransitioning ? "slide" : "",
             };
           }}
-          to="/addItem" className="flex items-center text-[#150B2BB3]">
-          Add Item
+          to="/myList" className="flex items-center text-[#150B2BB3]">
+          About
         </NavLink>
       </Typography>
-
-
 
 
       <Typography
@@ -101,9 +112,10 @@ const BottomHeader = () => {
             };
           }}
           to="/myList" className="flex items-center text-[#150B2BB3]">
-          My List
+          Contact
         </NavLink>
       </Typography>
+
 
 
       <Typography
@@ -111,6 +123,7 @@ const BottomHeader = () => {
         as="li"
         color="blue-gray"
         className={`p-1 text-sm lg:hidden`}
+
       >
         <NavLink
           style={({ isActive, isTransitioning }) => {
@@ -124,28 +137,24 @@ const BottomHeader = () => {
           Register
         </NavLink>
       </Typography>
-
     </ul>
   );
 
   return (
-    <div className="max-h-[768px]  lg:max-w-7xl mx-auto ">
-      <Navbar className="sticky top-0  py-2 lg:px-8 lg:py-5 shadow-none rounded-none
-      bg-white-[0px] border-none"
+    <div className="max-h-[768px]">
+      <Navbar className="sticky top-0 py-2 lg:py-5 shadow-none rounded-none
+      bg-white-[0px] border-none px-0"
       placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}
       >
         <div className="flex items-center justify-between">
           <div className="flex items-center">
             <Typography
-            placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}
-
-            
+            placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} 
               as="a"
               className="mr-7 cursor-pointer py-1.5 font-medium"
             >
               <NavLink to="/">
-                {/* <img src={logo} className="w-[60px] h-[60px] rounded-full" /> */}
-                <p className="text-black">Ahad</p>
+                <p className="text-black text-[13px]">Call(+01754556434)</p>
               </NavLink>
             </Typography>
           </div>
@@ -157,6 +166,9 @@ const BottomHeader = () => {
 
 
           <div className="flex items-center gap-2">
+
+             
+
             <IconButton 
             placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}
               variant="text"
