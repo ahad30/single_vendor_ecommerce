@@ -5,18 +5,15 @@ import rocket from "../../assets/payment/Rokect.png";
 import paypal from "../../assets/payment/paypal.png";
 const Footer = () => {
   return (
-    <footer className="mt-8 bg-[#092635]">
+    <footer className="mt-8 bg-secondary">
       <div className="mx-auto max-w-6xl space-y-8 px-4 py-16 sm:px-6 lg:space-y-16 lg:px-8">
         <div className="grid grid-cols-1 text-center lg:text-left gap-8 lg:grid-cols-3">
           <div>
-            <div className="text-teal-600 flex lg:justify-start justify-center">
-              {/* <img src={logo} className="w-[60px] h-[60px] rounded-full" /> */}
-            </div>
             <div>
-              <p className=" max-w-2xl  lg:max-w-xs text-white text-4xl font-bold">
+              <p className="max-w-2xl  lg:max-w-xs text-white text-4xl font-bold">
                 LOGO
               </p>
-              <p className="max-w-2xl  lg:w-[300px]  text-[#C5C5C5] mt-3">
+              <p className="max-w-2xl lg:w-[245px] text-[#C5C5C5] mt-3 text-[12px]">
                 Lorem ipsum dolor sit amet consectetur. At aliquam et diam
                 blandit gravida at dictumst.
               </p>
@@ -33,7 +30,7 @@ const Footer = () => {
                   <span className="sr-only">Facebook</span>
 
                   <svg
-                    className="h-6 w-6"
+                    className="h-5 w-5"
                     fill="currentColor"
                     viewBox="0 0 24 24"
                     aria-hidden="true"
@@ -57,7 +54,7 @@ const Footer = () => {
                   <span className="sr-only">Instagram</span>
 
                   <svg
-                    className="h-6 w-6"
+                    className="h-5 w-5"
                     fill="currentColor"
                     viewBox="0 0 24 24"
                     aria-hidden="true"
@@ -81,7 +78,7 @@ const Footer = () => {
                   <span className="sr-only">Twitter</span>
 
                   <svg
-                    className="h-6 w-6"
+                    className="h-5 w-5"
                     fill="currentColor"
                     viewBox="0 0 24 24"
                     aria-hidden="true"
@@ -98,10 +95,10 @@ const Footer = () => {
                   target="_blank"
                   className="text-white transition hover:opacity-75"
                 >
-                  <span className="sr-only">GitHub</span>
+                  <span className="sr-only">youtube</span>
 
                   <svg
-                    className="h-6 w-6"
+                    className="h-5 w-5"
                     fill="currentColor"
                     viewBox="0 0 24 24"
                     aria-hidden="true"
@@ -117,7 +114,7 @@ const Footer = () => {
             </ul>
           </div>
 
-          <div className="grid grid-cols-2 gap-8 sm:grid-cols-2 lg:col-span-2 lg:grid-cols-4">
+          <div className="grid sm:grid-cols-1 lg:grid-cols-4 lg:col-span-2 gap-8  ">
             <div>
               <p className="font-semibold text-white text-[14px] underline">
                 Information
@@ -208,7 +205,7 @@ const Footer = () => {
               <p className="font-semibold text-white text-[14px]">
                 Get in Touch
               </p>
-              <img src={map} className="mt-10 w-[286px] h-[120px]" />
+              <img src={map} className="mt-10 lg:w-[286px] lg:h-[155px]" />
             </div>
 
             <div>
@@ -218,29 +215,35 @@ const Footer = () => {
               <p className="font-normal text-white text-[14px] mt-4">
                 GEC , Chittagong
               </p>
-              <p className="font-normal text-[#F85506] text-[16px] mt-10">
+              <p className="font-semibold text-[#F85506] text-[16px] mt-10">
                 Send Message
               </p>
-              <p className="font-normal text-white text-[14px]">
+              <p className="font-medium text-white text-[14px]">
                 Fri - Sat : 9am - 7pm
               </p>
             </div>
           </div>
         </div>
-        <div>
-          <hr className="border border-gray-900 w-full" />
-          <div className="flex gap-5 justify-between  mt-8">
-            <img src={bikash} className="w-[103px] h-[47px]" />
-            <img src={img} className="w-[103px] h-[47px]" />
-            <img src={rocket} className="w-[103px] h-[47px]" />
-            <img src={paypal} className="w-[103px] h-[47px]" />
-            <img src={img} className="w-[103px] h-[47px]" />
+      </div>
+      <hr className="border-black opacity-25" />
+      <div className="bg-secondary">
+        <div className="mx-auto max-w-6xl h-[200px] ">
+          <div>
+            <div className="flex gap-5 justify-between  mt-8">
+              <img src={bikash} className="lg:w-[103px] lg:h-[47px]" />
+              <img src={img} className="lg:w-[103px] lg:h-[47px]" />
+              <img src={rocket} className="lg:w-[103px] lg:h-[47px]" />
+              <img src={paypal} className="lg:w-[103px] lg:h-[47px]]" />
+              <img src={img} className="lg:w-[103px] lg:h-[47px]" />
+            </div>
+          </div>
+          <hr className="border-black opacity-25 mt-6" />
+          <div className="mt-6">
+            <p className="text-xs text-gray-500 text-start">
+              &copy; 2024. Modern Arts & Crafts. All rights reserved.
+            </p>
           </div>
         </div>
-        <hr className="border border-gray-900 w-full" />
-        <p className="text-xs text-gray-500 text-start">
-          &copy; 2024. Modern Arts & Crafts. All rights reserved.
-        </p>
       </div>
     </footer>
   );
