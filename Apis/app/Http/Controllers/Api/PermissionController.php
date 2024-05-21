@@ -11,7 +11,7 @@ class PermissionController extends Controller
     // get all permissions
     public function index()
     {
-        $permissions = Permission::pluck('id', 'name');
+        $permissions = Permission::get(['id', 'name']);
 
         return Response::success($permissions);
     }
