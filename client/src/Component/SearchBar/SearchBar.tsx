@@ -7,16 +7,17 @@ const SearchBar = () => {
     console.log(info?.source, value);
 
   return (
-    <Search
-      style={{ width: "50%" }}
-      placeholder="input search text"
-      allowClear={true}
-      enterButton="Search"
-      size="large"
-      loading={false}
-
-      onSearch={onSearch}
-    />
+    <div className="lg:w-1/2 w-full mb-2 lg:mb-0">
+      <Search
+        style={{ width: "100%" }}
+        placeholder="input search text"
+        allowClear={true}
+        enterButton="Search"
+        size="large"
+        loading={false}
+        onSearch={onSearch}
+      />
+    </div>
   );
 };
 
