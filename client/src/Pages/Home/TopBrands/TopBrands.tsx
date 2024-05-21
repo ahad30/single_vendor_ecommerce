@@ -4,6 +4,7 @@ import img3 from "../../../assets/Brands/Rectangle 4352.png";
 import img4 from "../../../assets/Brands/Rectangle 4354.png";
 import img5 from "../../../assets/Brands/Rectangle 4355.png";
 import img6 from "../../../assets/Brands/Rectangle 4356.png";
+import HomeTitle from "../../../Component/Home/HomeTitle";
 const brandsArr = [
   { name: "Audi", img: img1 },
   { name: "Mitsubishi", img: img2 },
@@ -20,17 +21,12 @@ const brandsArr = [
 ];
 const TopBrands = () => {
   return (
-    <div>
-      <div className="mt-24 mb-12 flex justify-between items-center">
-        <h2 className="font-bold text-2xl">
-          Top <span className="text-primary">brands</span>
-        </h2>
-        <p className="text-primary text-sm font-normal">View All brands </p>
-      </div>
+    <div className="mt-16">
+       <HomeTitle text="Top Brands"/>
       <div className="grid grid-cols-6 mt-12 gap-x-4">
         {brandsArr?.map((item , index) => (
-          <div key={index} className="flex border h-[180px] justify-center flex-col items-center ">
-            <img src={item?.img} alt="" />
+          <div key={index} className="flex border border-[#928D8D70] h-[180px] justify-center flex-col items-center">
+            <img src={item?.img} alt="" className="object-cover"/>
             <p className="mt-6">{item?.name}</p>
           </div>
         ))}

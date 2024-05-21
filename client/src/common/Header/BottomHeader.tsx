@@ -55,7 +55,7 @@ const BottomHeader = () => {
             };
           }}
           to="/allArt&Craft" className="flex items-center text-[#150B2BB3]">
-          All Art & Craft Items
+          Shop
         </NavLink>
       </Typography>
       <Typography
@@ -73,9 +73,10 @@ const BottomHeader = () => {
             };
           }}
           to="/addItem" className="flex items-center text-[#150B2BB3]">
-          Add Item
+          Blog
         </NavLink>
       </Typography>
+
       <Typography
         placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}
         as="li"
@@ -91,14 +92,38 @@ const BottomHeader = () => {
             };
           }}
           to="/myList" className="flex items-center text-[#150B2BB3]">
-          My List
+          About
         </NavLink>
       </Typography>
+
+
+      <Typography
+        placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}
+        as="li"
+        color="blue-gray"
+        className={`p-1 text-sm`}
+      >
+        <NavLink
+          style={({ isActive, isTransitioning }) => {
+            return {
+              fontWeight: isActive ? "bold" : "",
+              color: isActive ? "red" : "black",
+              viewTransitionName: isTransitioning ? "slide" : "",
+            };
+          }}
+          to="/myList" className="flex items-center text-[#150B2BB3]">
+          Contact
+        </NavLink>
+      </Typography>
+
+
+
       <Typography
         placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}
         as="li"
         color="blue-gray"
         className={`p-1 text-sm lg:hidden`}
+
       >
         <NavLink
           style={({ isActive, isTransitioning }) => {
@@ -117,22 +142,19 @@ const BottomHeader = () => {
 
   return (
     <div className="max-h-[768px]">
-      <Navbar className="sticky top-0 py-2  lg:py-5 shadow-none rounded-none
+      <Navbar className="sticky top-0 py-2 lg:py-5 shadow-none rounded-none
       bg-white-[0px] border-none px-0"
       placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}
       >
         <div className="flex items-center justify-between">
           <div className="flex items-center">
             <Typography
-            placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}
-
-            
+            placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} 
               as="a"
               className="mr-7 cursor-pointer py-1.5 font-medium"
             >
               <NavLink to="/">
-                {/* <img src={logo} className="w-[60px] h-[60px] rounded-full" /> */}
-                <p className="text-black">Ahad</p>
+                <p className="text-black text-[13px]">Call(+01754556434)</p>
               </NavLink>
             </Typography>
           </div>
@@ -144,6 +166,9 @@ const BottomHeader = () => {
 
 
           <div className="flex items-center gap-2">
+
+             
+
             <IconButton 
             placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}
               variant="text"

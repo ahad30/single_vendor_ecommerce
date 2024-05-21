@@ -1,6 +1,6 @@
 
 // import { CiSearch } from "react-icons/ci";
-import { Button } from "@material-tailwind/react";
+
 import { HiMiniBars3 } from "react-icons/hi2";
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import { IoSearch } from "react-icons/io5";
@@ -13,12 +13,12 @@ const links = [
 
 const TopHeader = () => {
   return (
-    <section className="sticky top-0">
-    <div className="flex justify-between items-center">
+    <section className="">
+    <div className="flex sticky top-0 justify-between items-center">
         {/* heading */}
         <div className="">
-          <h2 className="font-semibold text-xl">
-            <span className="text-primary">Z8</span> eComerce
+          <h2 className="font-bold text-3xl">
+            <span className="text-[#45F806]">LO</span>GO
           </h2>
         </div>
 
@@ -55,7 +55,7 @@ const TopHeader = () => {
               />
             </form>
 
-            <div className="absolute -end-2 bg-primary px-4 -top-0 bottom-0 flex justify-center items-center rounded-r-md  h-[38px]">
+            <div className="absolute -end-2 bg-primary px-4 -top-0 bottom-0 flex justify-center items-center rounded-r-md  h-[39px]">
               <IoSearch
                 className="cursor-pointer  text-white"
                 size={20}
