@@ -4,16 +4,12 @@ import {
   MobileNav,
   Typography,
   IconButton,
-  Button
 } from "@material-tailwind/react";
 import React from "react";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const BottomHeader = () => {
   const [openNav, setOpenNav] = React.useState(false);
-
-
-
   React.useEffect(() => {
     window.addEventListener(
       "resize",
@@ -22,7 +18,7 @@ const BottomHeader = () => {
   }, []);
 
   const navList = (
-    <ul className="mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
+    <ul className="flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
       <Typography
         as="li"
         placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}
@@ -42,7 +38,6 @@ const BottomHeader = () => {
           Home
         </NavLink>
       </Typography>
-
       <Typography
         as="li"
         
@@ -63,7 +58,6 @@ const BottomHeader = () => {
           All Art & Craft Items
         </NavLink>
       </Typography>
-
       <Typography
         placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}
         as="li"
@@ -82,10 +76,6 @@ const BottomHeader = () => {
           Add Item
         </NavLink>
       </Typography>
-
-
-
-
       <Typography
         placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}
         as="li"
@@ -104,8 +94,6 @@ const BottomHeader = () => {
           My List
         </NavLink>
       </Typography>
-
-
       <Typography
         placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}
         as="li"
@@ -124,7 +112,6 @@ const BottomHeader = () => {
           Register
         </NavLink>
       </Typography>
-
     </ul>
   );
 

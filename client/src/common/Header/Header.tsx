@@ -1,7 +1,7 @@
 // import React from 'react'
 
-import BottomHeader from "./BottomHeader"
-import TopHeader from "./TopHeader"
+import BottomHeader from "./BottomHeader";
+import TopHeader from "./TopHeader";
 
 const Header = () => {
   return (
@@ -9,7 +9,7 @@ const Header = () => {
     <TopHeader></TopHeader>
     <BottomHeader></BottomHeader>
     </div>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;
