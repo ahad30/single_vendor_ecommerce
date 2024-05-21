@@ -2,9 +2,17 @@
 // import { CiSearch } from "react-icons/ci";
 
 import { HiMiniBars3 } from "react-icons/hi2";
-import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
+import {
+  Menu,
+  MenuHandler,
+  MenuList,
+  MenuItem,
+  Button,
+  Typography,
+} from "@material-tailwind/react";
+ 
 import { IoSearch } from "react-icons/io5";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 const links = [
   { href: '/settings', label: 'Settings' },
   { href: '/support', label: 'Support' },
@@ -22,25 +30,30 @@ const TopHeader = () => {
           </h2>
         </div>
 
-        <div className="bg-[#EAE5E591] flex items-center gap-2 py-3 px-4 rounded-md">
+   <div className="">
+      <Menu>
+      <MenuHandler>
+        <Button className="bg-[#EAE5E591] shadow-none hover:shadow-none text-[12px] text-[#22222278] font-Poppins" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
+        <span><HiMiniBars3 className="inline-block me-1"></HiMiniBars3></span>  
+          Shop By Category
+          
+        </Button>
+      </MenuHandler>
+      <MenuList placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}> 
+        <MenuItem placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>Menu Item 1</MenuItem>
+        <MenuItem placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>Menu Item 2</MenuItem>
+        <MenuItem placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>Menu Item 3</MenuItem>
+    
+      </MenuList>
+    </Menu>
 
-          <Menu>
-            <HiMiniBars3 />
-            <MenuButton className="text-sm">Shop By Category</MenuButton>
-            <MenuItems anchor="bottom" className='mt-4 rounded-md'>
-              {links.map((link) => (
-                <MenuItem key={link.href} className="block bg-[#EAE5E591] px-12">
-                  <a href={link.href}>{link.label}</a>
-                </MenuItem>
-              ))}
-            </MenuItems>
-          </Menu>
-
-        </div>
+    
+    
+    </div>
 
 
         {/* searchBar */}
-        <div className="relative w-[35%] h-[42px] my-12 flex">
+        <div className="relative w-[35%]  my-12 flex">
           <div className="w-full">
             <label htmlFor="Search" className="sr-only">
               Search
@@ -55,7 +68,7 @@ const TopHeader = () => {
               />
             </form>
 
-            <div className="absolute -end-2 bg-primary px-4 -top-0 bottom-0 flex justify-center items-center rounded-r-md  h-[39px]">
+            <div className="absolute -end-2 bg-primary px-4 -top-0 bottom-0 flex justify-center items-center rounded-r-md  h-[38px]">
               <IoSearch
                 className="cursor-pointer  text-white"
                 size={20}
@@ -81,13 +94,29 @@ const TopHeader = () => {
               d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"
             />
           </svg>
-          <Link to={`/login`}>
-            <p className="text-sm text-[#808080]">Login /</p>
-          </Link>
-
-          <Link to={`/register`}>
-            <p className="text-sm text-[#808080]">Register</p>
-          </Link>
+      
+        <NavLink
+          style={({ isActive, isTransitioning }) => {
+            return {
+              fontWeight: isActive ? "bold" : "",
+              color: isActive ? "red" : "black",
+              viewTransitionName: isTransitioning ? "slide" : "",
+            };
+          }}
+          to="/login" className="flex text-sm items-center text-[#808080]">
+          login
+        </NavLink>/
+        <NavLink
+          style={({ isActive, isTransitioning }) => {
+            return {
+              fontWeight: isActive ? "bold" : "",
+              color: isActive ? "red" : "black",
+              viewTransitionName: isTransitioning ? "slide" : "",
+            };
+          }}
+          to="/register" className=" text-sm text-[#808080]">
+          Register
+        </NavLink>
 
         </div>
         {/* card icon */}

@@ -11,7 +11,10 @@ const Banner = () => {
     background: "#364d79",
   };
   return (
-    <Carousel dots={false} autoplay>
+
+
+  <div className="lg:px-2">
+      <Carousel dots={false} autoplay>
       <div>
         <img src={img1} alt="" />
       </div>
@@ -23,6 +26,8 @@ const Banner = () => {
       </div>
    
     </Carousel>
+  </div>
+
   );
 };
 

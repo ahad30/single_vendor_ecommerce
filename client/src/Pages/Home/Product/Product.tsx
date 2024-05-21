@@ -1,8 +1,8 @@
+import { Button } from "@material-tailwind/react";
 import img1 from "../../../assets/Product/product-01.png";
 import img2 from "../../../assets/Product/product-02.png";
 import img3 from "../../../assets/Product/product-03.png";
 import img4 from "../../../assets/Product/product-04.png";
-// import img5 from "../../../assets/Product/product-05.png";
 import img6 from "../../../assets/Product/product-06.png";
 import img7 from "../../../assets/Product/product-07.png";
 import img8 from "../../../assets/Product/product-08.png";
@@ -11,6 +11,8 @@ import img10 from "../../../assets/Product/product-10.png";
 import img11 from "../../../assets/Product/product-11.png";
 import img12 from "../../../assets/Product/product-12.png";
 import HomeTitle from "../../../Component/Home/HomeTitle";
+import { CiHeart } from "react-icons/ci";
+import { MdOutlineRemoveRedEye } from "react-icons/md";
 const productCard = [
   { id: 1, img: img1, title: "Men's Fashion", price: "100", discount: "4" },
   { id: 2, img: img2, title: "Women's Casual", price: "120" },
@@ -39,26 +41,38 @@ const Product = () => {
    
       {/* product card */}
 
-      <div className="grid lg:grid-cols-6  gap-y-12 gap-x-14 mt-16">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4  gap-y-12 gap-x-5 mt-16">
         {productCard.map((item, index) => (
-          <div className={`min-h-[100px] w-full relative `} key={index}>
-            <img
-              src={item.img}
-              alt={item.img}
-              className={`size-44 object-cover`}
-            />
-            <p className="mt-2 text-[14px] font-normal text-[#222222]">
-              {item?.title}
-            </p>
-            <p className="text-[#222222] font-bold text-lg">${item?.price}</p>
-            {item?.discount && (
-              <span className="absolute top-2 left-2 bg-[#FF0202] text-white px-2 py-1">
-                -{item?.discount}%
-              </span>
-            )}
+             <div className="" key={index}>
+              <div className="group h-[300px] relative block bg-black">
+  <img
+    alt=""
+    src={item?.img}
+    className="absolute inset-0 h-[300px] w-full object-cover transition-opacity group-hover:opacity-50"
+  />
 
-          </div>
-        ))}
+  <div className="relative p-4 sm:p-6 lg:p-8">
+    { item?.discount &&
+    <p className="text-sm font-medium uppercase rounded-md px-3 py-1 inline-block bg-[#DB4444] text-white">-{item?.discount}%</p>
+    }
+    <div className="flex justify-end">
+      <div
+        className="translate-y-8 transform opacity-0 transition-all group-hover:translate-y-0 group-hover:opacity-100 text-white"
+      >
+       <CiHeart size={30}/>
+       <MdOutlineRemoveRedEye size={28}/>
+        </div>
+    </div>
+
+    <div className="text-center translate-y-8 transform opacity-0 transition-all group-hover:translate-y-0 group-hover:opacity-100 mt-[120px]  flex justify-center items-center">  
+        <Button className="bg-secondary font-Poppins font-medium" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
+          Add to Cart
+        </Button>
+      </div>
+    </div>
+  </div>
+</div> 
+      ))}
       </div>
     </div>
   );
