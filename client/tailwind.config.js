@@ -6,8 +6,17 @@ export default withMT({
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    fontFamily: {
+      Nunito : ["Nunito Sans", "sans-serif"],
+      Poppins : ["Poppins", "sans-serif"]
+    },
+    extend: {
+     colors : {
+      primary : "#24354C",
+      secondary: "#092635"
+     }
+
+    },
   },
   plugins: [],
 });
-
