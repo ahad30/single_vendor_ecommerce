@@ -7,7 +7,7 @@ const SearchBar = () => {
     console.log(info?.source, value);
 
   return (
-    <div className="lg:w-1/2 w-full mb-2 lg:mb-0">
+    <div className="mb-2 lg:mb-0 lg:w-[30%] w-full">
       <Search
         style={{ width: "100%" }}
         placeholder="input search text"
