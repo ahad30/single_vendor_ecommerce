@@ -1,4 +1,4 @@
-const HomeTile = ({
+const HomeTitle = ({
   text,
   className,
 }: {
@@ -12,4 +12,4 @@ const HomeTile = ({
   );
 };
 
-export default HomeTile;
+export default HomeTitle;

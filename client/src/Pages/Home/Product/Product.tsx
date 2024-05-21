@@ -10,7 +10,7 @@ import img9 from "../../../assets/Product/product-09.png";
 import img10 from "../../../assets/Product/product-10.png";
 import img11 from "../../../assets/Product/product-11.png";
 import img12 from "../../../assets/Product/product-12.png";
-import HomeTile from "../../../Component/Home/HomeTile";
+import HomeTitle from "../../../Component/Home/HomeTitle";
 const productCard = [
   { id: 1, img: img1, title: "Men's Fashion", price: "100", discount: "4" },
   { id: 2, img: img2, title: "Women's Casual", price: "120" },
@@ -34,8 +34,8 @@ const productCard = [
 
 const Product = () => {
   return (
-    <div className="mt-16 ">
-        <HomeTile text="Popular Products"></HomeTile>
+    <div className="mt-16">
+        <HomeTitle text="Popular Products"></HomeTitle>
    
       {/* product card */}
 
