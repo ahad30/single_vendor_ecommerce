@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('product_id');
             $table->unsignedBigInteger('varient_attribute_value_id');
-            $table->$table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
+            $table->foreign('varient_attribute_value_id')->references('id')->on('varient_attribute_values')->onDelete('cascade');
             $table->timestamps();
         });
     }
