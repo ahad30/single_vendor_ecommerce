@@ -15,7 +15,7 @@ const NewsSletter = () => {
                 <input
                   type="email"
                   placeholder="Enter your Email"
-                  className="w-full rounded bg-black p-3 text-[14px] text-gray-700 shadow-sm transition focus:border-[#45F806]"
+                  className="w-full rounded bg-black p-3 text-[14px] text-gray-700 shadow-sm transition focus:border-[#45F806] outline-none"
                 />
                 <button
                   type="submit"
