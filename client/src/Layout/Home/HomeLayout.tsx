@@ -2,6 +2,7 @@ import { Outlet } from "react-router-dom";
 
 import Footer from "../../common/Footer/Footer";
 import Header from "../../common/Header/Header";
+import NewsSletter from "../../Pages/Home/NewsSletter/NewsSletter";
 
 const HomeLayout = () => {
   return (
@@ -10,6 +11,7 @@ const HomeLayout = () => {
       <div className="max-w-[1250px] mx-auto">
         <Outlet></Outlet>
       </div>
+      <NewsSletter></NewsSletter>
       <Footer></Footer>
     </>
   );
