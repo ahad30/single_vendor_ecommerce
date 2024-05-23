@@ -5,7 +5,7 @@ type TUser = {
   id: string;
   email: string;
   name: string;
-  role_name: string;
+  role_name?: string;
 };
 
 type TAuthState = {

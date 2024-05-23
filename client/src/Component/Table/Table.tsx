@@ -1,6 +1,5 @@
 import { Card, Typography } from "@material-tailwind/react";
 const TABLE_HEAD = ["Name", "Job", "Employed", ""];
-
 const TABLE_ROWS = [
   {
     name: "John Michael",
@@ -120,6 +119,7 @@ const Table = () => {
           })}
         </tbody>
       </table>
+      {/* <Pagination data={[]}></Pagination> */}
     </Card>
   );
 };
