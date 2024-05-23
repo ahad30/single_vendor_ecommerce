@@ -12,7 +12,7 @@ class AttributeValue extends Model
     protected $fillable = ['attribute_id', 'value'];
 
     // get attribute
-    protected function attribute()
+    public function attribute()
     {
         return $this->belongsTo(Attribute::class, 'attribute_id');
     }

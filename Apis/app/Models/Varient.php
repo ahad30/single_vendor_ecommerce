@@ -11,8 +11,11 @@ class Varient extends Model
 
     protected $fillable = [
         'product_id',
-        'price',
-        'discount',
-        'quantity'
     ];
+
+    // varient has many varient properties/values
+    public function varientValues()
+    {
+        return $this->hasMany(VarientValue::class, 'variant_id');
+    }
 }
