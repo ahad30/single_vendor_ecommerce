@@ -5,7 +5,7 @@ import rocket from "../../assets/payment/Rokect.png";
 import paypal from "../../assets/payment/paypal.png";
 const Footer = () => {
   return (
-    <footer className="mt-8 bg-secondary">
+    <footer className="bg-secondary">
       <div className="max-w-7xl mx-auto px-4 py-8 ">
         <div className="max-auto max-w-7xl grid grid-cols-1 text-center lg:text-left gap-8 lg:grid-cols-3">
           <div>
