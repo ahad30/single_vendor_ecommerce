@@ -26,12 +26,10 @@ const Header = () => {
         </div>
       </div>
   
-    <div className="lg:px-7 max-w-7xl mx-auto">
+    <div className="w-[90%] lg:px-7 lg:max-w-7xl mx-auto">
     <TopHeader></TopHeader>
+    <BottomHeader></BottomHeader>
      </div>
-    <div className="lg:px-7 max-w-7xl mx-auto">
-   <BottomHeader></BottomHeader>
-    </div>
     </>
     
   );
