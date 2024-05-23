@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\PermissionController;
 use App\Http\Controllers\Api\RoleController;
+use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
 
@@ -51,4 +52,6 @@ Route::middleware('auth:sanctum')->group(function () {
                 ->names(['destroy' => 'destroy']);
         });
     });
+
+    Route::apiResource('/brand', BrandController::class);
 });
