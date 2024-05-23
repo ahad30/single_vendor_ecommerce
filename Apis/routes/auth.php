@@ -1,8 +1,8 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthenticateSessionController;
-use App\Http\Controllers\Profile\UserProfileController;
 use App\Http\Controllers\Auth\RegisterUserController;
+use App\Http\Controllers\Profile\UserProfileController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -14,7 +14,7 @@ Route::post('/registration', [RegisterUserController::class, 'register']);
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/profile', [UserProfileController::class, 'profile']);
     // logged in user with role & permissions
-    Route::get('/me', [AuthenticateSessionController::class, 'loggedUser']);
+    Route::get('/profile', [UserProfileController::class, 'profile']);
     // logout api
     Route::post('/logout', [AuthenticateSessionController::class, 'logout']);
 });

@@ -47,27 +47,5 @@ class AuthenticateSessionController extends Controller
     }
 
     // auth me 
-    public function loggedUser(Request $request)
-    {
-        $user = $request->user();
-        $user->getPermissionsViaRoles();
-        $data = [
-            'id' => $user->id,
-            'name' => $user->name,
-            'email' => $user->email,
-            'role_name' => $user->roles->map(function ($role) {
-                return [
-                    'id' => $role->id,
-                    'name' => $role->name,
-                    'permissions' => $role->permissions->map(function ($permission) {
-                        return [
-                            'id' => $permission->id,
-                            'name' => $permission->name,
-                        ];
-                    }),
-                ];
-            }),
-        ];
-        return Response::success($data);
-    }
+    
 }
