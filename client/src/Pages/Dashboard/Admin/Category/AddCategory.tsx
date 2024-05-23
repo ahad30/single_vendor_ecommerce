@@ -34,7 +34,7 @@ const AddCategory = () => {
     const formData = new FormData();
     formData.append("name", data.name);
     formData.append("image", data.image);
-    // createCategory(formData);
+    createCategory(formData);
   };
   
   const handleCloseAndOpen = () => {

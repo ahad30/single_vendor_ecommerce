@@ -50,7 +50,6 @@ const ZForm = ({
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     submit(data);
   };
-
   useEffect(() => {
     if (!isAddModalOpen || !isEditModalOpen) {
       methods.reset();

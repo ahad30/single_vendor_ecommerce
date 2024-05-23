@@ -5,7 +5,7 @@ export const categoryApi = baseApi.injectEndpoints({
     createCategory: builder.mutation({
       query: (data) => {
         return {
-          url: "/category",
+          url: "/categories",
           method: "POST",
           body: data,
         };
@@ -14,7 +14,7 @@ export const categoryApi = baseApi.injectEndpoints({
     getCategories: builder.query({
       query: () => {
         return {
-          url: "/category",
+          url: "/categories",
           method: "GET",
         };
       },
