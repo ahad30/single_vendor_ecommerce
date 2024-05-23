@@ -3,11 +3,13 @@ import { useLoginMutation } from "../../Redux/Feature/auth/authApi";
 import { useAppDispatch, useAppSelector } from "../../Redux/hook";
 import { RootState } from "../../Redux/store";
 import { setUser } from "../../Redux/Feature/auth/authSlice";
+import { useNavigate } from "react-router-dom";
 
 
 
 const Login = () => {
     const dispatch = useAppDispatch();
+    const navigate = useNavigate()
     const user = useAppSelector((state: RootState) => state.auth)
     console.log(user)
     const [Login , {isError , isLoading , isSuccess}] = useLoginMutation()
@@ -21,6 +23,7 @@ const Login = () => {
         const { data: loginData } = await Login(data)
         if (loginData.status) {
             dispatch(setUser(loginData.data))
+            navigate('/admin')
         }
         console.log(loginData)
     }

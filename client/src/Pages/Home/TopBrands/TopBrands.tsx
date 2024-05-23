@@ -21,7 +21,7 @@ const brandsArr = [
 ];
 const TopBrands = () => {
   return (
-    <div className="mt-16">
+    <div className="mt-16 mb-16">
        <HomeTitle text="Top Brands"/>
       <div className="grid grid-cols-6 mt-12 gap-x-4">
         {brandsArr?.map((item , index) => (

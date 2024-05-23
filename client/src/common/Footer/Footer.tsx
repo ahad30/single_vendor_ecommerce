@@ -203,9 +203,11 @@ const Footer = () => {
               <p className="font-semibold text-white text-[14px] text-center">
                 Get in Touch
               </p>
-              <div></div>
-              <img src={map} className="mt-7 w-[286px] h-[150px] " />
-            </div>
+
+              <div className="flex justify-center">
+              <img src={map} className="mt-7 w-[280px] h-[150px] " />
+               </div>           
+               </div>
 
             <div>
               <p className="font-normal text-white text-[14px]">
