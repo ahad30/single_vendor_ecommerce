@@ -29,5 +29,10 @@ class PermissionSeeder extends Seeder
         Permission::firstOrCreate(['name' => 'create category']);
         Permission::firstOrCreate(['name' => 'edit category']);
         Permission::firstOrCreate(['name' => 'delete category']);
+
+        Permission::firstOrCreate(['name' => 'view brand']);
+        Permission::firstOrCreate(['name' => 'create brand']);
+        Permission::firstOrCreate(['name' => 'edit brand']);
+        Permission::firstOrCreate(['name' => 'delete brand']);
     }
 }

@@ -7,7 +7,6 @@ use App\Http\Requests\UpdateBrandRequest;
 use App\Http\Resources\BrandResource;
 use App\Models\Brand;
 use App\Trait\UploadImageTrait;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class BrandController extends Controller
