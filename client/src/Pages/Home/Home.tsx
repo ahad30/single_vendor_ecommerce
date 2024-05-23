@@ -1,6 +1,6 @@
 import Banner from "./Banner/Banner";
+import BusinessSummary from "./BusinessSummary";
 import Category from "./Category/Category";
-import NewsSletter from "./NewsSletter/NewsSletter";
 import Product from "./Product/Product";
 import TopBrands from "./TopBrands/TopBrands";
 
@@ -11,7 +11,7 @@ const Home = () => {
       <Category></Category>
       <Product></Product>
       <TopBrands></TopBrands>
-      <NewsSletter></NewsSletter>
+      <BusinessSummary></BusinessSummary>
     </div>
   );
 };
