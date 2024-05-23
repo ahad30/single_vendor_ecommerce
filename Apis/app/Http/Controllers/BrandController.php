@@ -67,7 +67,7 @@ class BrandController extends Controller
         $path = $this->uploadImage($request, 'image', 'assets/images/brands', $brand->image);
         $data = array_merge($validated, ['image' => $path ?: $brand->image]);
         $brand->update($data);
-        return Response::updated(new BrandResource($brand));
+        return Response::updated(new BrandResource($brand), "Brand successfully updated");
     }
 
     /**
@@ -77,6 +77,6 @@ class BrandController extends Controller
     {
         $this->deleteImage($brand->image);
         $brand->delete();
-        return Response::success(null, 'Brand deleted successfully');
+        return Response::success(null, 'Brand successfully deleted');
     }
 }
