@@ -41,7 +41,7 @@ const Product = () => {
    
       {/* product card */}
 
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4  gap-y-12 gap-x-5 mt-16">
+      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4  gap-y-12 gap-x-5 mt-16">
         {productCard.map((item, index) => (
              <div className="" key={index}>
               <div className="group h-[300px] relative block bg-black">
