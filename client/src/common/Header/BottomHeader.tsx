@@ -4,8 +4,10 @@ import {
   MobileNav,
   Typography,
   IconButton,
+  Collapse,
 } from "@material-tailwind/react";
 import React from "react";
+import { IoIosArrowDown } from "react-icons/io";
 import { NavLink } from "react-router-dom";
 
 const BottomHeader = () => {
@@ -18,7 +20,7 @@ const BottomHeader = () => {
   }, []);
 
   const navList = (
-    <ul className="flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
+    <ul className="flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-8">
       <Typography
         as="li"
         placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}
@@ -37,7 +39,7 @@ const BottomHeader = () => {
           to="/" className="flex items-center text-[#150B2BB3]">
           Home
         </NavLink>
-      </Typography>
+      </Typography>  
       <Typography
         as="li"
         
@@ -143,7 +145,7 @@ const BottomHeader = () => {
   return (
     <div className="max-h-[768px]">
       <Navbar className="sticky top-0 py-2 lg:py-5 shadow-none rounded-none
-      bg-white-[0px] border-none px-0"
+      bg-white-[0px] border-none  px-0"
       placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}
       >
         <div className="flex items-center justify-between">
@@ -167,7 +169,10 @@ const BottomHeader = () => {
 
           <div className="flex items-center gap-2">
 
-             
+          <div className="flex gap-x-1 items-center cursor-pointer text-[#2222228C]">
+              <p className="text-sm">EN</p>
+              <IoIosArrowDown size={18}></IoIosArrowDown>
+            </div>
 
             <IconButton 
             placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}
@@ -211,7 +216,7 @@ const BottomHeader = () => {
             </div>
           </div>
         </div>
-        <MobileNav open={openNav} className={`flex justify-start`}>{navList}</MobileNav>
+        <Collapse open={openNav} className={`flex justify-start`}>{navList}</Collapse>
       </Navbar>
     </div>
   );

@@ -5,10 +5,8 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RoleCreateRequest;
 use App\Http\Requests\RoleUpdateRequest;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Spatie\Permission\Models\Role;
-use Illuminate\Support\Str;
 use Spatie\Permission\Models\Permission;
 
 class RoleController extends Controller
@@ -19,7 +17,7 @@ class RoleController extends Controller
     public function index()
     {
 
-        $roles = Role::with('permissions:id,name')->get(['id','name']);
+        $roles = Role::with('permissions:id,name')->get(['id', 'name']);
 
         return Response::success($roles);
     }
@@ -29,10 +27,10 @@ class RoleController extends Controller
      */
     public function store(RoleCreateRequest $request)
     {
-        $role = Role::create(array_merge($request->validated(),['guard_name' => 'web']));
+        $role = Role::create(array_merge($request->validated(), ['guard_name' => 'web']));
 
         $role->syncPermissions($request->permissions);
-        return Response::created($role,"Role created");
+        return Response::created($role, "Role created");
     }
 
     /**
@@ -40,11 +38,12 @@ class RoleController extends Controller
      */
     public function show(string $id)
     {
-        $permissions = Permission::get(['id','name']);
-        $role = Role::with('permissions:id,name')->find($id,['id','name']);
+        $permissions = Permission::get(['id', 'name']);
+        $role = Role::with('permissions:id,name')->find($id, ['id', 'name']);
         if ($role) {
             $checkedPermissions = $role->permissions()->pluck('id')->toArray();
-            return Response::success(['role' => $role, 
+            return Response::success([
+                'role' => $role,
                 'checkedPermissions' => $checkedPermissions,
                 'permissions' => $permissions
             ]);
@@ -58,10 +57,10 @@ class RoleController extends Controller
     public function update(RoleUpdateRequest $request, string $id)
     {
         $role = Role::find($id);
-        if($role){
+        if ($role) {
             $role->update($request->validated());
             $role->syncPermissions($request->permissions);
-            return Response::updated($role,"Role Updated");
+            return Response::updated($role, "Role Updated");
         }
         return Response::notFound("Role not found");
     }
@@ -72,9 +71,9 @@ class RoleController extends Controller
     public function destroy(string $id)
     {
         $role = Role::find($id);
-        if($role){
+        if ($role) {
             $role->delete();
-            return Response::success(null,"Role Deleted");
+            return Response::success(null, "Role Deleted");
         }
         return Response::notFound("Role not found");
     }

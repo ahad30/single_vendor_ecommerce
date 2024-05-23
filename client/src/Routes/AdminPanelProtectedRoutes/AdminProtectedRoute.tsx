@@ -11,7 +11,7 @@ import LoadingPage from "../../Layout/Dashboard/LoadingPage";
 const AdminProtectedRoute = ({ children }: { children: ReactNode }) => {
   const user = useAppSelector(useCurrentUser);
   const token = useAppSelector(useCurrentToken);
-  const { data, isLoading, isFetching } = useGetLoggedInUserQuery(undefined, {
+  const { data, isLoading, isFetching , isError} = useGetLoggedInUserQuery(undefined, {
     skip: user == null ? true : false,
   });
 
@@ -21,7 +21,11 @@ const AdminProtectedRoute = ({ children }: { children: ReactNode }) => {
   if (isLoading || isFetching) {
     return <LoadingPage></LoadingPage>;
   }
-  if (!Array.isArray(data.data.role_name) && data.data.role_name.length == 0) {
+  if (isError) {
+    return <Navigate to={"/login"}></Navigate>;
+
+  }
+  if (!Array.isArray(data?.data?.role_name) && data?.data?.role_name.length == 0) {
     return <Navigate to={"/login"}></Navigate>;
   }
   return children;
