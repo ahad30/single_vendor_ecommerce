@@ -53,5 +53,23 @@ Route::middleware('auth:sanctum')->group(function () {
         });
     });
 
-    Route::apiResource('/brand', BrandController::class);
+    // brand management routes
+    Route::name('brand.')->group(function () {
+        Route::apiResource('brands', BrandController::class)->only(['index'])->middleware('permission:view brand')->names(['index' => 'index', 'show' => 'show']);
+
+        Route::middleware('permission:create brand')->group(function () {
+            Route::apiResource('brands', BrandController::class)->only(['store'])
+                ->names(['store' => 'store']);
+        });
+
+        Route::middleware('permission:edit brand')->group(function () {
+            Route::apiResource('brands', BrandController::class)->only(['update'])
+                ->names(['update' => 'update']);
+        });
+
+        Route::middleware('permission:delete brand')->group(function () {
+            Route::apiResource('brands', BrandController::class)->only(['destroy'])
+                ->names(['destroy' => 'destroy']);
+        });
+    });
 });

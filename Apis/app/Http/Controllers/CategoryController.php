@@ -78,12 +78,8 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        if (!empty($category)) {
-            $this->deleteImage($category->image);
-            $category->delete();
-            return Response::success(null, 'Category deleted successfully');
-        }
-
-        return Response::notFound("Category not found");
+        $this->deleteImage($category->image);
+        $category->delete();
+        return Response::success(null, 'Category deleted successfully');
     }
 }
