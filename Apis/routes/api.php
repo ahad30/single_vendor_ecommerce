@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\PermissionController;
 use App\Http\Controllers\Api\RoleController;
+use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\Profile\UserProfileController;
 use Illuminate\Support\Facades\Route;
@@ -18,5 +19,8 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Category api
     Route::apiResource('category', CategoryController::class);
+
+    // Brand api 
+    Route::apiResource('/brand', BrandController::class);
 });
     

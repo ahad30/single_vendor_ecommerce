@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreBrandRequest;
+use App\Http\Requests\UpdateBrandRequest;
 use App\Http\Resources\BrandResource;
 use App\Models\Brand;
 use App\Trait\UploadImageTrait;
@@ -40,9 +42,13 @@ class BrandController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreBrandRequest $request)
     {
-        //
+        $path = $this->uploadImage($request, 'image', 'assets/images/brands');
+
+        $data = Brand::create(array_merge($request->validated(), ['image' => $path]));
+
+        return Response::created(new BrandResource($data));
     }
 
     /**
@@ -56,9 +62,13 @@ class BrandController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Brand $brand)
+    public function update(UpdateBrandRequest $request, Brand $brand)
     {
-        //
+        $validated = $request->validated();
+        $path = $this->uploadImage($request, 'image', 'assets/images/brands', $brand->image);
+        $data = array_merge($validated, ['image' => $path ?: $brand->image]);
+        $brand->update($data);
+        return Response::updated(new BrandResource($brand));
     }
 
     /**
@@ -66,6 +76,8 @@ class BrandController extends Controller
      */
     public function destroy(Brand $brand)
     {
-        //
+        $this->deleteImage($brand->image);
+        $brand->delete();
+        return Response::success(null, 'Brand deleted successfully');
     }
 }
