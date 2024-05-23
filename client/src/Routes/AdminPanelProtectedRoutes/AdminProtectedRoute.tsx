@@ -19,11 +19,7 @@ const AdminProtectedRoute = ({ children }: { children: ReactNode }) => {
     return <Navigate to={"/login"}></Navigate>;
   }
   if (isLoading || isFetching) {
-    return (
-      <div className="flex justify-center items-center min-h-screen">
-        <div className="loader"></div>
-      </div>
-    );
+    return <LoadingPage></LoadingPage>;
   }
   if (!Array.isArray(data.data.role_name) && data.data.role_name.length == 0) {
     return <Navigate to={"/login"}></Navigate>;
