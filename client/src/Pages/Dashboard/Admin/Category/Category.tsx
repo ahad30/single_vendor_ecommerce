@@ -4,7 +4,6 @@ import TableTabs from "../../../../Component/Dashborad/TableTabs";
 import AddModal from "../../../../Component/Modal/AddModal";
 import SearchBar from "../../../../Component/SearchBar/SearchBar";
 import Table from "../../../../Component/Table/Table";
-import { useCreateCategoryMutation } from "../../../../Redux/Feature/Admin/category/categoryApi";
 import { useAppSelector } from "../../../../Redux/hook";
 import { RootState } from "../../../../Redux/store";
 import AddCategory from "./AddCategory";
@@ -14,11 +13,6 @@ const Category = () => {
     (state: RootState) => state.modal
   );
   // create a new category
-  const [
-    createCategory,
-    { isLoading: cIsloading, isError: cIsError, error: cError, data: cData },
-  ] = useCreateCategoryMutation();
-
   return (
     <div className="mt-12 px-5">
       <DashboardTitle text=" Total Category">12</DashboardTitle>

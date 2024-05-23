@@ -12,7 +12,7 @@ const ZImageInput = () => {
         // <Input {...field} type={type} placeholder="Basic usage" />
         <Form.Item label={"Picture"}>
           <Input
-            value={value?.fileName}
+            value={value?.fileName }
             {...field}
             type="file"
             onChange={(e) => onChange(e.target.files![0])}

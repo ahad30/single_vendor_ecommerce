@@ -21,7 +21,7 @@ const ZInput = ({
           validateStatus={error ? "error" : ""}
           help={error?.message}
         >
-          <Input {...field} type={"type"} placeholder="Basic usage" />
+          <Input {...field} type={type} placeholder="Basic usage" />
         </Form.Item>
       )}
     />
