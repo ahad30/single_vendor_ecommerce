@@ -36,7 +36,7 @@ const BusinessSummary = () => {
           <p className="text-[10px] text-[#5E5C5C]">Granted product quality</p>
         </div>
       </div>
-      {/* <div className="flex  gap-4 lg:px-6 ">
+      <div className="flex  gap-4 lg:px-6 ">
         <div>
           <LuPhone className="w-8 h-8  text-[#24354C]" />
         </div>
@@ -46,7 +46,7 @@ const BusinessSummary = () => {
             Call us free : ( 00000000000)
           </p>
         </div>
-      </div> */}
+      </div>
     </div>
   );
 };
