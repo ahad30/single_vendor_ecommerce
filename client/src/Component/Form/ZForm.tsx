@@ -22,7 +22,7 @@ type TZForm = {
   submit: SubmitHandler<FieldValues>;
   isSuccess?: boolean;
   isLoading?: boolean;
-  closeModal?: () => void;
+  closeModal: () => void;
 } & defaultAndResolver;
 
 const ZForm = ({
@@ -70,7 +70,7 @@ const ZForm = ({
       <Form layout="vertical" onFinish={methods.handleSubmit(onSubmit)}>
         <div>{children}</div>
         <SaveAndCloseButton
-        closeModal={closeModal}
+          closeModal={closeModal}
           isLoading={isLoading as boolean}
           isSuccess={isSuccess as boolean}
           title="Save"

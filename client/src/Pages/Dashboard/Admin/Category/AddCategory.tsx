@@ -30,10 +30,11 @@ const AddCategory = () => {
     },
   ] = useCreateCategoryMutation();
   const handleSubmit: SubmitHandler<FieldValues> = (data) => {
+    console.log(data)
     const formData = new FormData();
     formData.append("name", data.name);
     formData.append("image", data.image);
-    createCategory(formData);
+    // createCategory(formData);
   };
   
   const handleCloseAndOpen = () => {
