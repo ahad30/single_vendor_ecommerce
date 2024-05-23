@@ -9,8 +9,6 @@ use Illuminate\Support\Facades\Route;
 
 // Authenticate Routes
 Route::middleware('auth:sanctum')->group(function () {
-    Route::get('/profile', [UserProfileController::class, 'profile']);
-
     // all permissions by admin panel
     Route::get('/permissions', [PermissionController::class, 'index']);
 
@@ -20,4 +18,3 @@ Route::middleware('auth:sanctum')->group(function () {
     // Category api
     Route::apiResource('category', CategoryController::class);
 });
-    
