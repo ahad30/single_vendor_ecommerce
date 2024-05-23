@@ -22,16 +22,6 @@ class AuthenticateSessionController extends Controller
                 'name' => $user->name,
                 'email' => $user->email,
             ];
-
-            if ($user->roles->isNotEmpty()) {
-                $userData['role_name'] = $user->roles->map(function ($role) {
-                    return [
-                        'id' => $role->id,
-                        'name' => $role->name,
-                    ];
-                });
-            }
-
             $data = [
                 'token' => $user->createToken('token')->plainTextToken,
                 'user' => $userData,

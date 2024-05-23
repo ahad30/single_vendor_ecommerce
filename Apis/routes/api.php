@@ -20,3 +20,4 @@ Route::middleware('auth:sanctum')->group(function () {
     // Category api
     Route::apiResource('category', CategoryController::class);
 });
+    
