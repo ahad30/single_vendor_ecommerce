@@ -11,6 +11,8 @@ Route::post('/registration', [RegisterUserController::class, 'register']);
 
 // Authenticate Routes
 Route::middleware('auth:sanctum')->group(function () {
+    // logged in user with role & permissions
+    Route::get('/me', [AuthenticateSessionController::class, 'loggedUser']);
     // logout api
     Route::post('/logout', [AuthenticateSessionController::class, 'logout']);
 });

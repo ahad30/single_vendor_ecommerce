@@ -12,36 +12,36 @@ class AuthenticateSessionController extends Controller
 {
     // login
     public function login(LoginRequest $request)
-{
-    $credentials = $request->only('email', 'password');
+    {
+        $credentials = $request->only('email', 'password');
 
-    if (auth()->attempt($credentials)) {
-        $user = $request->user();
-        $userData = [
-            'id' => $user->id,
-            'name' => $user->name,
-            'email' => $user->email,
-        ];
+        if (auth()->attempt($credentials)) {
+            $user = $request->user();
+            $userData = [
+                'id' => $user->id,
+                'name' => $user->name,
+                'email' => $user->email,
+            ];
 
-        if($user->roles->isNotEmpty()){
-            $userData['role_name'] = $user->roles->map(function ($role){
-                return [
-                    'id' => $role->id,
-                    'name' => $role->name,
-                ];
-            });
+            if ($user->roles->isNotEmpty()) {
+                $userData['role_name'] = $user->roles->map(function ($role) {
+                    return [
+                        'id' => $role->id,
+                        'name' => $role->name,
+                    ];
+                });
+            }
+
+            $data = [
+                'token' => $user->createToken('token')->plainTextToken,
+                'user' => $userData,
+            ];
+
+            return Response::success($data, 'Login successfully');
         }
 
-        $data = [
-            'token' => $user->createToken('token')->plainTextToken,
-            'user' => $userData,
-        ];
-
-        return Response::success($data, 'Login successfully');
+        return Response::error('Credential doesn\'t match our records');
     }
-    
-    return Response::error('Credential doesn\'t match our records');
-}
 
 
     // logout
@@ -57,19 +57,19 @@ class AuthenticateSessionController extends Controller
     }
 
     // auth me 
-    public function loggedUser()
+    public function loggedUser(Request $request)
     {
-        $user = auth()->user();
+        $user = $request->user();
         $user->getPermissionsViaRoles();
         $data = [
             'id' => $user->id,
             'name' => $user->name,
             'email' => $user->email,
-            'role_name' => $user->roles->map(function($role){
+            'role_name' => $user->roles->map(function ($role) {
                 return [
                     'id' => $role->id,
                     'name' => $role->name,
-                    'permissions' => $role->permissions->map(function($permission){
+                    'permissions' => $role->permissions->map(function ($permission) {
                         return [
                             'id' => $permission->id,
                             'name' => $permission->name,
