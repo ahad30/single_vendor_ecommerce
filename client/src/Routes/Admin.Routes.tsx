@@ -14,7 +14,7 @@ export const adminRoutes = [
     icon: <MdOutlineDashboardCustomize></MdOutlineDashboardCustomize>,
   },
   {
-    path: "category",
+    path: "categories",
     label: "Category",
     element: <Category></Category>,
     icon: <MdOutlineCategory size={20}></MdOutlineCategory>,

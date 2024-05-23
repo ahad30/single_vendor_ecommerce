@@ -23,6 +23,8 @@ type TZForm = {
   isSuccess?: boolean;
   isLoading?: boolean;
   closeModal: () => void;
+  isError?: boolean;
+  error?: any;
 } & defaultAndResolver;
 
 const ZForm = ({
@@ -33,6 +35,8 @@ const ZForm = ({
   isSuccess,
   isLoading,
   closeModal,
+  isError,
+  error,
 }: TZForm) => {
   const { isAddModalOpen, isEditModalOpen } = useAppSelector(
     (state: RootState) => state.modal
@@ -46,10 +50,15 @@ const ZForm = ({
   if (resolver) {
     formConfig["resolver"] = resolver;
   }
+
   const methods = useForm({ ...formConfig, mode: "all" });
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     submit(data);
   };
+
+
+  console.log(error?.data);
+
   useEffect(() => {
     if (!isAddModalOpen || !isEditModalOpen) {
       methods.reset();

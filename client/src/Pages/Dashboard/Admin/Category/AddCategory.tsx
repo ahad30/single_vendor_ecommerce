@@ -46,8 +46,10 @@ const AddCategory = () => {
       <ZForm
         isLoading={cIsloading}
         isSuccess={CIsSuccess}
+        isError = {cIsError}
+        error = {cError}
         submit={handleSubmit}
-        resolver={zodResolver(categorySchema)}
+        // resolver={zodResolver(categorySchema)}
         closeModal ={handleCloseAndOpen}
       >
         <ZInput label={"Category name"} name={"name"} type={"text"}></ZInput>
