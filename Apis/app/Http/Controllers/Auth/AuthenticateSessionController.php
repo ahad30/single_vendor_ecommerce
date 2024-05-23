@@ -22,21 +22,10 @@ class AuthenticateSessionController extends Controller
             'name' => $user->name,
             'email' => $user->email,
         ];
-
-        if($user->roles->isNotEmpty()){
-            $userData['role_name'] = $user->roles->map(function ($role){
-                return [
-                    'id' => $role->id,
-                    'name' => $role->name,
-                ];
-            });
-        }
-
         $data = [
             'token' => $user->createToken('token')->plainTextToken,
             'user' => $userData,
         ];
-
         return Response::success($data, 'Login successfully');
     }
     
@@ -65,19 +54,29 @@ class AuthenticateSessionController extends Controller
             'id' => $user->id,
             'name' => $user->name,
             'email' => $user->email,
-            'role_name' => $user->roles->map(function($role){
-                return [
-                    'id' => $role->id,
-                    'name' => $role->name,
-                    'permissions' => $role->permissions->map(function($permission){
-                        return [
-                            'id' => $permission->id,
-                            'name' => $permission->name,
-                        ];
-                    }),
-                ];
-            }),
+            'role_name' => 'customer',
         ];
+
+        if($user->roles->isNotEmpty()){
+            $data = [
+                'id' => $user->id,
+                'name' => $user->name,
+                'email' => $user->email,
+                'role_name' => $user->roles->map(function($role){
+                    return [
+                        'id' => $role->id,
+                        'name' => $role->name,
+                        'permissions' => $role->permissions->map(function($permission){
+                            return [
+                                'id' => $permission->id,
+                                'name' => $permission->name,
+                            ];
+                        }),
+                    ];
+                }),
+            ];
+        }
+       
         return Response::success($data);
     }
 }
