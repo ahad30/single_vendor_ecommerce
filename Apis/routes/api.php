@@ -21,12 +21,13 @@ Route::middleware('auth:sanctum')->group(function () {
     
     // logged in user with role & permissions
     Route::get('/me', [AuthenticateSessionController::class, 'loggedUser']);
-
-    // permissions route
+    // all permissions by admin panel
     Route::get('/permissions', [PermissionController::class, 'index']);
 
     // Role routes
     Route::apiResource('/roles', RoleController::class);
+
+
     // Category api
     Route::apiResource('category', CategoryController::class);
 });
