@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Profile;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdatePasswordRequest;
 use App\Http\Requests\UpdateProfileRequest;
+use App\Models\User;
 use App\Trait\UploadImageTrait;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -49,7 +50,8 @@ class UserProfileController extends Controller
         }
     }
     public function updateProfile(UpdateProfileRequest $request){
-        $user = auth()->user();
+        $userId = auth()->user()->id;
+        $user = User::find($userId);
         $validated = $request->validated();
             $path = $this->uploadImage($request, 'image', 'assets/images/profiles', $user->image);
             $data = array_merge($validated, ['image' => $path ?: $user->image]);
