@@ -15,6 +15,13 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/profile', [UserProfileController::class, 'profile']);
     // logged in user with role & permissions
     Route::get('/profile', [UserProfileController::class, 'profile']);
+
+    // update password
+    Route::put('/profile/password', [UserProfileController::class, 'updatePassword']);
+
+    // update profile
+    Route::put('/profile', [UserProfileController::class, 'updateProfile']);
+    
     // logout api
     Route::post('/logout', [AuthenticateSessionController::class, 'logout']);
 });
