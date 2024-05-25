@@ -19,7 +19,7 @@ const categorySchema = z.object({
 });
 
 const AddCategory = () => {
-  const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
   const [
     createCategory,
     {
@@ -27,27 +27,32 @@ const AddCategory = () => {
       isError: cIsError,
       error: cError,
       isSuccess: CIsSuccess,
+      data,
     },
   ] = useCreateCategoryMutation();
   const handleSubmit: SubmitHandler<FieldValues> = (data) => {
+    console.log(data);
     const formData = new FormData();
     formData.append("name", data.name);
     formData.append("image", data.image);
     createCategory(formData);
   };
-  
+
   const handleCloseAndOpen = () => {
-    dispatch(setIsAddModalOpen())
-  }
+    dispatch(setIsAddModalOpen());
+  };
 
   return (
     <div>
       <ZForm
         isLoading={cIsloading}
         isSuccess={CIsSuccess}
+        isError={cIsError}
+        error={cError}
+        data={data}
         submit={handleSubmit}
         resolver={zodResolver(categorySchema)}
-        closeModal ={handleCloseAndOpen}
+        closeModal={handleCloseAndOpen}
       >
         <ZInput label={"Category name"} name={"name"} type={"text"}></ZInput>
         <ZImageInput></ZImageInput>

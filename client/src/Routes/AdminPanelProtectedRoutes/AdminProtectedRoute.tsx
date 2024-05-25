@@ -21,10 +21,10 @@ const AdminProtectedRoute = ({ children }: { children: ReactNode }) => {
   if (isLoading || isFetching) {
     return <LoadingPage></LoadingPage>;
   }
-  if (isError) {
-    return <Navigate to={"/login"}></Navigate>;
+  // if (isError) {
+  //   return <Navigate to={"/login"}></Navigate>;
 
-  }
+  // }
   if (!Array.isArray(data?.data?.role_name) && data?.data?.role_name.length == 0) {
     return <Navigate to={"/login"}></Navigate>;
   }
