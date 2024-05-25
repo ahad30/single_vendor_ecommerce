@@ -27,7 +27,7 @@ const BusinessSummary = () => {
           </p>
         </div>
       </div>
-      <div className="flex  gap-4 lg:px-6 ">
+      <div className="flex  gap-3 lg:px-6 ">
         <div>
           <AiOutlineLike className="w-8 h-8 text-[#24354C]" />
         </div>
