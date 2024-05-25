@@ -28,16 +28,18 @@ export const router = createBrowserRouter([
         element: <ProductDetails></ProductDetails>,
       },
 
-      {
-        path: "/login",
-        element: <Login></Login>,
-      },
-      {
-        path: "/register",
-        element: <Register></Register>,
-      },
+     
     ],
   },
+  {
+    path: "/login",
+    element: <Login></Login>,
+  },
+  {
+    path: "/register",
+    element: <Register></Register>,
+  },
+
   {
     path: "/admin",
     element: (
