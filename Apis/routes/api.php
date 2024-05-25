@@ -1,9 +1,10 @@
 <?php
 
+use App\Http\Controllers\Api\Ecommerce\AttributeController;
+use App\Http\Controllers\Api\Ecommerce\BrandController;
+use App\Http\Controllers\Api\Ecommerce\CategoryController;
 use App\Http\Controllers\Api\PermissionController;
 use App\Http\Controllers\Api\RoleController;
-use App\Http\Controllers\BrandController;
-use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -69,6 +70,26 @@ Route::middleware('auth:sanctum')->group(function () {
 
         Route::middleware('permission:delete brand')->group(function () {
             Route::apiResource('brands', BrandController::class)->only(['destroy'])
+                ->names(['destroy' => 'destroy']);
+        });
+    });
+
+    // attribute management routes
+    Route::name('attribute.')->group(function () {
+        Route::apiResource('attributes', AttributeController::class)->only(['index'])->middleware('permission:view attribute')->names(['index' => 'index', 'show' => 'show']);
+
+        Route::middleware('permission:create attribute')->group(function () {
+            Route::apiResource('attributes', AttributeController::class)->only(['store'])
+                ->names(['store' => 'store']);
+        });
+
+        Route::middleware('permission:edit attribute')->group(function () {
+            Route::apiResource('attributes', AttributeController::class)->only(['update'])
+                ->names(['update' => 'update']);
+        });
+
+        Route::middleware('permission:delete attribute')->group(function () {
+            Route::apiResource('attributes', AttributeController::class)->only(['destroy'])
                 ->names(['destroy' => 'destroy']);
         });
     });
