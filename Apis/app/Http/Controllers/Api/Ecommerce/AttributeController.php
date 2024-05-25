@@ -4,10 +4,10 @@ namespace App\Http\Controllers\Api\Ecommerce;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateAttributeRequest;
+use App\Http\Requests\UpdateAttributeRequest;
 use App\Http\Resources\AttributeResource;
 use App\Models\Attribute;
 use App\Models\AttributeValue;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 
@@ -74,9 +74,43 @@ class AttributeController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Attribute $attribute)
+    public function update(UpdateAttributeRequest $request, Attribute $attribute)
     {
-        //
+        return $request->all();
+        $data = DB::transaction(function () use ($attribute, $request) {
+            // Update attribute name
+            $attribute->update($request->validated());
+
+            // Check and delete old values
+            if (!empty($request->value_ids)) {
+                $attributeValueIds = $attribute->attributeValues()->pluck('id')->toArray();
+                $missingValueIds = array_diff($request->value_ids, $attributeValueIds);
+
+                if (!empty($missingValueIds)) {
+                    return Response::notFound("One or more attribute values not found");
+                }
+
+                AttributeValue::whereIn('id', $request->value_ids)->delete();
+            }
+
+            // Insert new values
+            if (!empty($request->values)) {
+                $attributeValues = array_map(function ($value) use ($attribute) {
+                    return [
+                        'attribute_id' => $attribute->id,
+                        'value' => $value,
+                        'created_at' => now(),
+                        'updated_at' => now(),
+                    ];
+                }, $request->values);
+
+                AttributeValue::insert($attributeValues);
+            }
+
+            return $attribute;
+        });
+
+        return Response::updated(new AttributeResource($data), "Attribute successfully updated");
     }
 
     /**
