@@ -25,9 +25,10 @@ class ResponseHandler
          * return Response::successWithPagination(data, statuscode);
          */
         Response::macro('successWithPagination', function ($data = null, $status = 200) {
-            return response()->json([
-                $data
-            ], $status);
+            return response()->json(
+                $data,
+                $status
+            );
         });
 
         /**

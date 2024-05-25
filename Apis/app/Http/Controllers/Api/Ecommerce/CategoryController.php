@@ -27,7 +27,7 @@ class CategoryController extends Controller
         // Merge the additional 'status' key with the paginated data
         $response = [
             'status' => true,
-            'categories' => $categories,
+            'data' => $categories,
             'meta' => [
                 'active_page' => $data->currentPage() ? false : true,
                 'current_page' => $data->currentPage(),
