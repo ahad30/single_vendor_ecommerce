@@ -11,6 +11,7 @@ import {
 import { useAppDispatch, useAppSelector } from "../../Redux/hook";
 import { RootState } from "../../Redux/store";
 import SaveAndCloseButton from "../Button/SaveAndCloseButton";
+import ErrorHandling, { TError } from "../../utils/ErrorHandling";
 
 type defaultAndResolver = {
   defaultValues?: Record<string, any>;
@@ -56,8 +57,8 @@ const ZForm = ({
     submit(data);
   };
 
-
-  console.log(error?.data);
+  const errors = ErrorHandling(error?.data?.errors , isAddModalOpen , isEditModalOpen );
+  console.log(errors);
 
   useEffect(() => {
     if (!isAddModalOpen || !isEditModalOpen) {
@@ -83,6 +84,14 @@ const ZForm = ({
           isSuccess={isSuccess as boolean}
           title="Save"
         ></SaveAndCloseButton>
+        <div className="mt-5">
+          {Array.isArray(errors) &&
+            errors.length > 0 &&
+            errors.map((item) => <div className="bg-red-100 my-2 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+            <span className="block sm:inline">{item}</span>
+           
+          </div>)}
+        </div>
       </Form>
     </FormProvider>
   );
