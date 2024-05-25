@@ -1,18 +1,33 @@
+import { useState } from "react";
 import ButtonWithModal from "../../../../Component/Button/ButtonWithModal";
 import DashboardTitle from "../../../../Component/Dashborad/DashboardTitle";
 import TableTabs from "../../../../Component/Dashborad/TableTabs";
 import AddModal from "../../../../Component/Modal/AddModal";
 import SearchBar from "../../../../Component/SearchBar/SearchBar";
 import Table from "../../../../Component/Table/Table";
+import { useGetCategoriesQuery } from "../../../../Redux/Feature/Admin/category/categoryApi";
 import { useAppSelector } from "../../../../Redux/hook";
 import { RootState } from "../../../../Redux/store";
 import AddCategory from "./AddCategory";
+import GetPageNumber from "../../../../helper/GetPageNumber";
+import { useLocation } from "react-router-dom";
 
 const Category = () => {
   const { isAddModalOpen, isEditModalOpen } = useAppSelector(
     (state: RootState) => state.modal
   );
-  // create a new category
+  const loaction = useLocation();
+  console.log(loaction.search);
+  // console.log(pageNumber)
+
+  const { data } = useGetCategoriesQuery([{ name: "page", value: 1 }]);
+  const [singleData, setSingleData] = useState({});
+  const columns = [
+    { name: "Image", value: "image" },
+    { name: "Name", value: "name" },
+    { name: "Action", value: "action" },
+  ];
+
   return (
     <div className="mt-12 px-5">
       <DashboardTitle text=" Total Category">12</DashboardTitle>
@@ -21,7 +36,7 @@ const Category = () => {
         <TableTabs></TableTabs>
         <ButtonWithModal title="Add Category"></ButtonWithModal>
       </div>
-      <Table></Table>
+      <Table columns={columns} data={data?.data[0]?.categories}></Table>
       <AddModal isAddModalOpen={isAddModalOpen} title="Create Category">
         <AddCategory></AddCategory>
       </AddModal>
@@ -30,3 +45,8 @@ const Category = () => {
 };
 
 export default Category;
+
+type Tdata = {
+  nmae: string;
+  age: string;
+};

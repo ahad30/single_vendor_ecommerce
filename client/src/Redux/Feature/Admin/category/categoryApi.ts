@@ -1,3 +1,5 @@
+import { BaseQueryApi } from "@reduxjs/toolkit/query";
+import { TError, TQueryParams } from "../../../../types/globalTypes";
 import { baseApi } from "../../../Api/baseApi";
 
 export const categoryApi = baseApi.injectEndpoints({
@@ -10,16 +12,24 @@ export const categoryApi = baseApi.injectEndpoints({
           body: data,
         };
       },
+      transformErrorResponse: (res: TError & BaseQueryApi) => {
+        return res;
+      },
     }),
     getCategories: builder.query({
-      query: () => {
+      query: (arg) => {
+        const params = new URLSearchParams();
+        arg?.forEach((element: TQueryParams) => {
+          params.append(element.name, element.value as string);
+        });
         return {
           url: "/categories",
           method: "GET",
+          params: params
         };
       },
-      transformErrorResponse: (res) => {
-        return { data: res.data };
+      transformResponse: (res) => {
+        return { data: res };
       },
     }),
   }),

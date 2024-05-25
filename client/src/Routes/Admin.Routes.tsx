@@ -20,6 +20,7 @@ export const adminRoutes = [
     icon: <MdOutlineCategory size={20}></MdOutlineCategory>,
   },
 
+
   {
     label: "Settings",
     icon: <CiSettings size={20}></CiSettings>,
