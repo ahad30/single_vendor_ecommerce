@@ -6,9 +6,8 @@ use Illuminate\Contracts\Validation\Validator as Validation;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Validation\Rule;
-use Illuminate\Validation\Rules\File;
 
-class UpdateCategoryRequest extends FormRequest
+class UpdateAttributeRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,9 +24,22 @@ class UpdateCategoryRequest extends FormRequest
      */
     public function rules(): array
     {
+        $id = $this->route('attribute');
         return [
-            'name' => ['required', 'string', 'max:255', Rule::unique('categories')->ignore($this->id)],
-            'image' => ['nullable', 'mimes:jpg,jpeg,png', File::image()->max('10mb')], // 10 MB max file size
+            'name' => [
+                'required',
+                'string',
+                Rule::unique('attributes')->ignore($id),
+                'max:255'
+            ],
+            'values' => 'required|array',
+            'values.*' => [
+                'string',
+                Rule::unique('attribute_values', 'value')->where(function ($query) use ($id) {
+                    $query->where('attribute_id', '!=', $id);
+                }),
+                'max:255'
+            ],
         ];
     }
     public function failedValidation(Validation $validator)

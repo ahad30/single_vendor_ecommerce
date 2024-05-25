@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api\Ecommerce;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
 use App\Http\Resources\CategoryResource;
@@ -26,7 +27,7 @@ class CategoryController extends Controller
         // Merge the additional 'status' key with the paginated data
         $response = [
             'status' => true,
-            'categories' => $categories,
+            'data' => $categories,
             'meta' => [
                 'active_page' => $data->currentPage() ? false : true,
                 'current_page' => $data->currentPage(),
