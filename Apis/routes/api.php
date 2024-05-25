@@ -3,8 +3,9 @@
 use App\Http\Controllers\Api\Ecommerce\AttributeController;
 use App\Http\Controllers\Api\Ecommerce\BrandController;
 use App\Http\Controllers\Api\Ecommerce\CategoryController;
-use App\Http\Controllers\Api\PermissionController;
-use App\Http\Controllers\Api\RoleController;
+use App\Http\Controllers\Api\Users\PermissionController;
+use App\Http\Controllers\Api\Users\RoleController;
+use App\Http\Controllers\Api\Users\UserController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -14,7 +15,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/permissions', [PermissionController::class, 'index'])->middleware('permission:view permissions');
 
     // Role management routes
-    Route::name('roles.')->group(function () {
+    Route::name('role.')->group(function () {
         Route::apiResource('roles', RoleController::class)->only(['index'])->middleware('permission:view role')->names(['index' => 'index', 'show' => 'show']);
 
         Route::middleware('permission:create role')->group(function () {
@@ -29,6 +30,26 @@ Route::middleware('auth:sanctum')->group(function () {
 
         Route::middleware('permission:delete role')->group(function () {
             Route::apiResource('roles', RoleController::class)->only(['destroy'])
+                ->names(['destroy' => 'destroy']);
+        });
+    });
+
+    // User management routes
+    Route::name('user.')->group(function () {
+        Route::apiResource('users', UserController::class)->only(['index'])->middleware('permission:view user')->names(['index' => 'index', 'show' => 'show']);
+
+        Route::middleware('permission:create user')->group(function () {
+            Route::apiResource('users', UserController::class)->only(['store'])
+                ->names(['store' => 'store']);
+        });
+
+        Route::middleware('permission:edit user')->group(function () {
+            Route::apiResource('users', UserController::class)->only(['update'])
+                ->names(['update' => 'update']);
+        });
+
+        Route::middleware('permission:delete user')->group(function () {
+            Route::apiResource('users', UserController::class)->only(['destroy'])
                 ->names(['destroy' => 'destroy']);
         });
     });
