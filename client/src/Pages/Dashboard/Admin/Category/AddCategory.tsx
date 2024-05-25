@@ -1,4 +1,4 @@
-import { Controller, FieldValues, SubmitHandler } from "react-hook-form";
+import {FieldValues, SubmitHandler } from "react-hook-form";
 import ZForm from "../../../../Component/Form/ZForm";
 import ZInput from "../../../../Component/Form/ZInput";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -40,7 +40,6 @@ const AddCategory = () => {
   const handleCloseAndOpen = () => {
     dispatch(setIsAddModalOpen());
   };
-
   return (
     <div>
       <ZForm

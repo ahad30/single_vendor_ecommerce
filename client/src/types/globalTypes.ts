@@ -1,6 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { BaseQueryApi } from "@reduxjs/toolkit/query";
 
+export type TQueryParams = {
+  name: string;
+  value: boolean | React.Key;
+};
+
 export type TError = {
  data: {
   errors: {
