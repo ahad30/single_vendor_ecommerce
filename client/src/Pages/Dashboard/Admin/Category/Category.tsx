@@ -23,7 +23,7 @@ const Category = () => {
       </div>
       <Table></Table>
       <AddModal isAddModalOpen={isAddModalOpen} title="Create Category">
-       <AddCategory></AddCategory>
+        <AddCategory></AddCategory>
       </AddModal>
     </div>
   );

@@ -12,6 +12,7 @@ import { useAppDispatch, useAppSelector } from "../../Redux/hook";
 import { RootState } from "../../Redux/store";
 import SaveAndCloseButton from "../Button/SaveAndCloseButton";
 import ErrorHandling, { TError } from "../../utils/ErrorHandling";
+import { toast } from "sonner";
 
 type defaultAndResolver = {
   defaultValues?: Record<string, any>;
@@ -26,6 +27,7 @@ type TZForm = {
   closeModal: () => void;
   isError?: boolean;
   error?: any;
+  data?: any;
 } & defaultAndResolver;
 
 const ZForm = ({
@@ -38,6 +40,7 @@ const ZForm = ({
   closeModal,
   isError,
   error,
+  data,
 }: TZForm) => {
   const { isAddModalOpen, isEditModalOpen } = useAppSelector(
     (state: RootState) => state.modal
@@ -57,9 +60,11 @@ const ZForm = ({
     submit(data);
   };
 
-  const errors = ErrorHandling(error?.data?.errors , isAddModalOpen , isEditModalOpen );
-  console.log(errors);
-
+  const errors = ErrorHandling(
+    error?.data?.errors,
+    isAddModalOpen,
+    isEditModalOpen
+  );
   useEffect(() => {
     if (!isAddModalOpen || !isEditModalOpen) {
       methods.reset();
@@ -72,6 +77,21 @@ const ZForm = ({
       closeModal();
     }
   }, [isSuccess]);
+
+  useEffect(() => {
+    if (isLoading || isSuccess || isError) {
+      toast.loading("loading ....", { id: 1 });
+      if (isSuccess) {
+        toast.success(data?.message, { id: 1 });
+      }
+      if (isError) {
+        toast.error(error?.data?.message, { id: 1 });
+      }
+    }
+    // if (isSuccess) {
+    //   const id = toast.success("Successfully created");
+    // }
+  }, [isSuccess, isLoading]);
 
   return (
     <FormProvider {...methods}>
@@ -87,10 +107,14 @@ const ZForm = ({
         <div className="mt-5">
           {Array.isArray(errors) &&
             errors.length > 0 &&
-            errors.map((item) => <div className="bg-red-100 my-2 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
-            <span className="block sm:inline">{item}</span>
-           
-          </div>)}
+            errors.map((item) => (
+              <div
+                className="bg-red-100 my-2 border border-red-400 text-red-700 px-4 py-3 rounded relative"
+                role="alert"
+              >
+                <span className="block sm:inline">{item}</span>
+              </div>
+            ))}
         </div>
       </Form>
     </FormProvider>
