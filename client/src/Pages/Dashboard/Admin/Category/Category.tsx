@@ -4,6 +4,7 @@ import TableTabs from "../../../../Component/Dashborad/TableTabs";
 import AddModal from "../../../../Component/Modal/AddModal";
 import SearchBar from "../../../../Component/SearchBar/SearchBar";
 import Table from "../../../../Component/Table/Table";
+import { useGetCategoriesQuery } from "../../../../Redux/Feature/Admin/category/categoryApi";
 import { useAppSelector } from "../../../../Redux/hook";
 import { RootState } from "../../../../Redux/store";
 import AddCategory from "./AddCategory";
@@ -12,7 +13,8 @@ const Category = () => {
   const { isAddModalOpen, isEditModalOpen } = useAppSelector(
     (state: RootState) => state.modal
   );
-  // create a new category
+  const { data } = useGetCategoriesQuery(undefined);
+  console.log(data);
   return (
     <div className="mt-12 px-5">
       <DashboardTitle text=" Total Category">12</DashboardTitle>
@@ -21,7 +23,7 @@ const Category = () => {
         <TableTabs></TableTabs>
         <ButtonWithModal title="Add Category"></ButtonWithModal>
       </div>
-      <Table></Table>
+      <Table data={data}></Table>
       <AddModal isAddModalOpen={isAddModalOpen} title="Create Category">
         <AddCategory></AddCategory>
       </AddModal>
@@ -30,3 +32,8 @@ const Category = () => {
 };
 
 export default Category;
+
+type Tdata = { 
+  nmae : string ;
+  age: string
+}

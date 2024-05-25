@@ -4,9 +4,8 @@ import ZInput from "../../../../Component/Form/ZInput";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import z from "zod";
-import { Button, Form, Input } from "antd";
 import ZImageInput from "../../../../Component/Form/ZImageInput";
-import SaveAndCloseButton from "../../../../Component/Button/SaveAndCloseButton";
+
 import { useCreateCategoryMutation } from "../../../../Redux/Feature/Admin/category/categoryApi";
 import { setIsAddModalOpen } from "../../../../Redux/Feature/Modal/modalSlice";
 import { useAppDispatch } from "../../../../Redux/hook";
@@ -31,7 +30,7 @@ const AddCategory = () => {
     },
   ] = useCreateCategoryMutation();
   const handleSubmit: SubmitHandler<FieldValues> = (data) => {
-    console.log(data);
+    // console.log(data);
     const formData = new FormData();
     formData.append("name", data.name);
     formData.append("image", data.image);

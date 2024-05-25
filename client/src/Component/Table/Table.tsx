@@ -27,7 +27,8 @@ const TABLE_ROWS = [
     date: "04/10/21",
   },
 ];
-const Table = () => {
+
+const Table = ({data}) => {
   return (
     <Card
       className="h-full w-full overflow-scroll"
