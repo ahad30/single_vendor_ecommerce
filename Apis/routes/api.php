@@ -2,31 +2,74 @@
 
 use App\Http\Controllers\Api\PermissionController;
 use App\Http\Controllers\Api\RoleController;
-use App\Http\Controllers\Auth\AuthenticateSessionController;
-use App\Http\Controllers\Auth\RegisterUserController;
+use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\Profile\UserProfileController;
 use Illuminate\Support\Facades\Route;
 
-// guest routes
-Route::post('/login', [AuthenticateSessionController::class, 'login']);
-Route::post('/registration', [RegisterUserController::class, 'register']);
 
 // Authenticate Routes
 Route::middleware('auth:sanctum')->group(function () {
-    Route::get('/profile', [UserProfileController::class, 'profile']);
+    // all permissions by admin panel
+    Route::get('/permissions', [PermissionController::class, 'index'])->middleware('permission:view permissions');
 
-    // logout api
-    Route::post('/logout', [AuthenticateSessionController::class, 'logout']);
-    
-    // logged in user with role & permissions
-    Route::get('/me', [AuthenticateSessionController::class, 'loggedUser']);
+    // Role management routes
+    Route::name('roles.')->group(function () {
+        Route::apiResource('roles', RoleController::class)->only(['index'])->middleware('permission:view role')->names(['index' => 'index', 'show' => 'show']);
 
-    // permissions route
-    Route::get('/permissions', [PermissionController::class, 'index']);
+        Route::middleware('permission:create role')->group(function () {
+            Route::apiResource('roles', RoleController::class)->only(['store'])
+                ->names(['store' => 'store']);
+        });
 
-    // Role routes
-    Route::apiResource('/roles', RoleController::class);
-    // Category api
-    Route::apiResource('category', CategoryController::class);
+        Route::middleware('permission:edit role')->group(function () {
+            Route::apiResource('roles', RoleController::class)->only(['update'])
+                ->names(['update' => 'update']);
+        });
+
+        Route::middleware('permission:delete role')->group(function () {
+            Route::apiResource('roles', RoleController::class)->only(['destroy'])
+                ->names(['destroy' => 'destroy']);
+        });
+    });
+
+
+    // category management routes
+    Route::name('category.')->group(function () {
+        Route::apiResource('categories', CategoryController::class)->only(['index'])->middleware('permission:view category')->names(['index' => 'index', 'show' => 'show']);
+
+        Route::middleware('permission:create category')->group(function () {
+            Route::apiResource('categories', CategoryController::class)->only(['store'])
+                ->names(['store' => 'store']);
+        });
+
+        Route::middleware('permission:edit category')->group(function () {
+            Route::apiResource('categories', CategoryController::class)->only(['update'])
+                ->names(['update' => 'update']);
+        });
+
+        Route::middleware('permission:delete category')->group(function () {
+            Route::apiResource('categories', CategoryController::class)->only(['destroy'])
+                ->names(['destroy' => 'destroy']);
+        });
+    });
+
+    // brand management routes
+    Route::name('brand.')->group(function () {
+        Route::apiResource('brands', BrandController::class)->only(['index'])->middleware('permission:view brand')->names(['index' => 'index', 'show' => 'show']);
+
+        Route::middleware('permission:create brand')->group(function () {
+            Route::apiResource('brands', BrandController::class)->only(['store'])
+                ->names(['store' => 'store']);
+        });
+
+        Route::middleware('permission:edit brand')->group(function () {
+            Route::apiResource('brands', BrandController::class)->only(['update'])
+                ->names(['update' => 'update']);
+        });
+
+        Route::middleware('permission:delete brand')->group(function () {
+            Route::apiResource('brands', BrandController::class)->only(['destroy'])
+                ->names(['destroy' => 'destroy']);
+        });
+    });
 });
