@@ -1,7 +1,6 @@
 import { LiaCarSideSolid } from "react-icons/lia";
 import { FaPercent } from "react-icons/fa";
 import { AiOutlineLike } from "react-icons/ai";
-import { LuPhone } from "react-icons/lu";
 const BusinessSummary = () => {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-4 gap-5 mt-20 px-5">
@@ -36,7 +35,7 @@ const BusinessSummary = () => {
           <p className="text-[10px] text-[#5E5C5C]">Granted product quality</p>
         </div>
       </div>
-      {/* <div className="flex  gap-4 lg:px-6 ">
+      <div className="flex  gap-4 lg:px-6 ">
         <div>
           <LuPhone className="w-8 h-8  text-[#24354C]" />
         </div>
@@ -46,7 +45,7 @@ const BusinessSummary = () => {
             Call us free : ( 00000000000)
           </p>
         </div>
-      </div> */}
+      </div>
     </div>
   );
 };
