@@ -16,11 +16,16 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Role management routes
     Route::name('role.')->group(function () {
-        Route::apiResource('roles', RoleController::class)->only(['index'])->middleware('permission:view role')->names(['index' => 'index', 'show' => 'show']);
+        Route::apiResource('roles', RoleController::class)->only(['index'])->middleware('permission:view role')->names(['index' => 'index']);
 
         Route::middleware('permission:create role')->group(function () {
             Route::apiResource('roles', RoleController::class)->only(['store'])
                 ->names(['store' => 'store']);
+        });
+
+        Route::middleware('permission:view role')->group(function () {
+            Route::apiResource('roles', RoleController::class)->only(['show'])
+                ->names(['show' => 'show']);
         });
 
         Route::middleware('permission:edit role')->group(function () {
