@@ -16,9 +16,10 @@ class BrandSeeder extends Seeder
     {
         Brand::create([
             'id' => '1',
-            'name' => 'Samsung',
+            'name' => 'Others',
             'image' => '',
         ]);
+
         Brand::create([
             'id' => '2',
             'name' => 'Apple',
