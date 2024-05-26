@@ -19,9 +19,9 @@ const UpdatePagination = () => {
 
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
-    searchParams.set("page", current);
+    searchParams.set("page", current.toString());
     const newUrl = `${location.pathname}?${searchParams.toString()}`;
-    window.history.replaceState(null, null, newUrl);
+    window.history.replaceState(null, "", newUrl);
   }, [location, current]);
 
   return (
