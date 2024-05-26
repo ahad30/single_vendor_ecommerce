@@ -14,7 +14,7 @@ const DashboardLayout = () => {
       {/* <div className="lg:hidden">
         <DashboardSidebarTwo className={"absolute"} isSidebarOpen={isSidebarOpen} ></DashboardSidebarTwo>
       </div> */}
-      <div className=" w-full">
+      <div className=" mt-12 px-5 w-full">
         <Outlet></Outlet>
       </div>
     </div>
