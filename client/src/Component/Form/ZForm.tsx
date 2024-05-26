@@ -8,11 +8,12 @@ import {
   SubmitHandler,
   useForm,
 } from "react-hook-form";
-import { useAppDispatch, useAppSelector } from "../../Redux/hook";
+import { useAppSelector } from "../../Redux/hook";
 import { RootState } from "../../Redux/store";
 import SaveAndCloseButton from "../Button/SaveAndCloseButton";
-import ErrorHandling, { TError } from "../../utils/ErrorHandling";
+import ErrorHandling from "../../utils/ErrorHandling";
 import { toast } from "sonner";
+import { TError } from "../../types/globalTypes";
 
 type defaultAndResolver = {
   defaultValues?: Record<string, any>;
@@ -26,7 +27,7 @@ type TZForm = {
   isLoading?: boolean;
   closeModal: () => void;
   isError?: boolean;
-  error?: any;
+  error?: TError;
   data?: any;
   formType: "edit" | "create";
 } & defaultAndResolver;
