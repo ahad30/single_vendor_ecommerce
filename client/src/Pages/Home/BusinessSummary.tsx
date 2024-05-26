@@ -2,6 +2,7 @@ import { LiaCarSideSolid } from "react-icons/lia";
 import { FaPercent } from "react-icons/fa";
 import { AiOutlineLike } from "react-icons/ai";
 import { LuPhone } from "react-icons/lu";
+
 const BusinessSummary = () => {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-4 gap-5 mt-20 px-5">
