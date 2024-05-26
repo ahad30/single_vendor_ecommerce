@@ -79,6 +79,10 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
+        if ($category->id == 1) {
+            return Response::error("This category cannot deleteable");
+        }
+
         $this->deleteImage($category->image);
         $category->delete();
         return Response::success(null, 'Category deleted successfully');

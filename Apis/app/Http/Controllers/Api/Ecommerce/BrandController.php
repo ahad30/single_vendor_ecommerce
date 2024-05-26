@@ -76,6 +76,10 @@ class BrandController extends Controller
      */
     public function destroy(Brand $brand)
     {
+        if ($brand->id == 1) {
+            return Response::error("This brand cannot deleteable");
+        }
+
         $this->deleteImage($brand->image);
         $brand->delete();
         return Response::success(null, 'Brand successfully deleted');
