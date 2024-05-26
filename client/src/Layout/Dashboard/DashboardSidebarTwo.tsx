@@ -58,6 +58,7 @@ const DashboardSidebarTwo = ({
           if (item.children) {
             return (
               <Accordion
+              key={item.key}
                 open={open === item.key}
                 icon={
                   <ChevronDownIcon
@@ -138,7 +139,7 @@ const DashboardSidebarTwo = ({
             );
           } else {
             return (
-              <Link to={item.key}>
+              <Link  key={item.key} to={item.key}>
                 <ListItem
                   placeholder={undefined}
                   onPointerEnterCapture={undefined}

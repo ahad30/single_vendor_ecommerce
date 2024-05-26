@@ -20,8 +20,9 @@ const Category = () => {
   const { isAddModalOpen, isEditModalOpen } = useAppSelector(
     (state: RootState) => state.modal
   );
-  const { data } = useGetCategoriesQuery([{ name: "page", value: 1 }]);
+  const [pageNumber, setPageNumber] = useState(1);
   const [singleData, setSingleData] = useState<TCategory | null>(null);
+  const { data } = useGetCategoriesQuery([{ name: "page", value: pageNumber }]);
   const columns = [
     { name: "Image", value: "image" },
     { name: "Name", value: "name" },
@@ -30,10 +31,10 @@ const Category = () => {
   const handleEditAndDelete = (data: TCategory, name: "delete" | "edit") => {
     setSingleData(data);
     if (name === "delete") {
-      console.log("delete", data)
+      console.log("delete", data);
       dispatch(setIsDeleteModalOpen());
     } else if (name === "edit") {
-      console.log("edit", data)
+      console.log("edit", data);
       dispatch(setIsEditModalOpen());
     }
   };
@@ -50,6 +51,8 @@ const Category = () => {
         meta={data?.meta as TMeta}
         data={data?.data || []}
         onDeleteAndEdit={handleEditAndDelete}
+        pageNumber={pageNumber}
+        setPageNumber={setPageNumber}
       ></Table>
       <AddModal isAddModalOpen={isAddModalOpen} title="Create Category">
         <AddCategory></AddCategory>
