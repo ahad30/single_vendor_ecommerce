@@ -1,11 +1,13 @@
 <?php
 
 namespace App\Trait;
+
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\File;
+
 trait UploadImageTrait
 {
-     /**
+    /**
      * Handle the image upload process.
      *
      * @param \Illuminate\Http\Request $request
@@ -28,9 +30,10 @@ trait UploadImageTrait
         }
         return null;
     }
+
     public function deleteImage($image)
     {
-        if($image && File::exists(public_path($image))){
+        if ($image && File::exists(public_path($image))) {
             File::delete(public_path($image));
         }
         return null;
