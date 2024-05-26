@@ -15,6 +15,8 @@ import {
   setIsDeleteModalOpen,
   setIsEditModalOpen,
 } from "../../../../Redux/Feature/Modal/modalSlice";
+import EditModal from "../../../../Component/Modal/EditModal";
+import EditCategory from "./EditCategory";
 const Category = () => {
   const dispatch = useAppDispatch();
   const { isAddModalOpen, isEditModalOpen } = useAppSelector(
@@ -46,6 +48,8 @@ const Category = () => {
         <TableTabs></TableTabs>
         <ButtonWithModal title="Add Category"></ButtonWithModal>
       </div>
+
+      {/* table */}
       <Table<TCategory>
         columns={columns}
         meta={data?.meta as TMeta}
@@ -54,9 +58,16 @@ const Category = () => {
         pageNumber={pageNumber}
         setPageNumber={setPageNumber}
       ></Table>
+      {/* add category modal */}
       <AddModal isAddModalOpen={isAddModalOpen} title="Create Category">
         <AddCategory></AddCategory>
       </AddModal>
+      {/* edit category modal */}
+      <EditModal isEditModalOpen={isEditModalOpen} title="Edit Category">
+        <EditCategory<TCategory>
+          itemData={singleData as TCategory}
+        ></EditCategory>
+      </EditModal>
     </div>
   );
 };

@@ -28,6 +28,7 @@ type TZForm = {
   isError?: boolean;
   error?: any;
   data?: any;
+  formType: "edit" | "create";
 } & defaultAndResolver;
 
 const ZForm = ({
@@ -41,6 +42,7 @@ const ZForm = ({
   isError,
   error,
   data,
+  formType,
 }: TZForm) => {
   const { isAddModalOpen, isEditModalOpen } = useAppSelector(
     (state: RootState) => state.modal
@@ -66,8 +68,10 @@ const ZForm = ({
     isEditModalOpen
   );
   useEffect(() => {
-    if (!isAddModalOpen || !isEditModalOpen) {
-      methods.reset();
+    if (formType === "create") {
+      if (!isAddModalOpen || !isEditModalOpen) {
+        methods.reset();
+      }
     }
   }, [isAddModalOpen, isEditModalOpen]);
 
@@ -88,7 +92,6 @@ const ZForm = ({
         toast.error(error?.data?.message, { id: 1 });
       }
     }
-
   }, [isSuccess, isLoading]);
 
   return (
@@ -120,5 +123,3 @@ const ZForm = ({
 };
 
 export default ZForm;
-
-
