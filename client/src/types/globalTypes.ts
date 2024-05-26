@@ -7,27 +7,30 @@ export type TQueryParams = {
 };
 
 export type TError = {
- data: {
-  errors: {
-    [key: string]: string[];
+  data: {
+    errors: {
+      [key: string]: string[];
+    };
+    status: false;
+    message: string;
   };
-  status: false;
-  message: string; 
- }
- status : number
+  status: number;
 };
+
+export type TMeta = {
+  active_page: boolean;
+  current_page: number;
+  last_page: number;
+  per_page: number;
+  total: number;
+  next_page_url: string;
+  prev_page_url: any;
+};
+
 export type TResponse<T> = {
   data?: T;
   error?: TError;
-  meta?: {
-    active_page: boolean;
-    current_page: number;
-    last_page: number;
-    per_page: number;
-    total: number;
-    next_page_url: string;
-    prev_page_url: any;
-  };
+  meta?: TMeta;
   status?: boolean;
   message?: string;
 };

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   Card,
   IconButton,
@@ -7,16 +8,30 @@ import {
 import { CiEdit } from "react-icons/ci";
 import { AiOutlineDelete } from "react-icons/ai";
 import UpdatePagination from "../Dashborad/UpdatePagination";
+import { TMeta } from "../../types/globalTypes";
 
-const Table = ({ data, columns }) => {
-  // console.log(columns);
-  // console.log(data);
-  if (Array.isArray(data) == false) {
-    return <h1>No date Found</h1>;
+export type TColumn = {
+  name: string;
+  value: "action" | string | "image";
+};
+
+type TableProps<T> = {
+  data: T[];
+  columns: TColumn[];
+  meta: TMeta;
+  onDeleteAndEdit: (data: T, name: "edit" | "delete") => void;
+};
+
+const Table = <T extends { id: string | number; [key: string]: any }>({
+  data,
+  columns,
+  meta,
+  onDeleteAndEdit,
+}: TableProps<T>) => {
+  if (Array.isArray(data) == false || data.length === 0) {
+    return <h1>No data Found</h1>;
   }
-  if (Array.isArray(data) && data.length === 0) {
-    return <h1>No date Found</h1>;
-  }
+
   return (
     <div className="pb-12">
       <Card
@@ -30,7 +45,7 @@ const Table = ({ data, columns }) => {
             <tr>
               {columns?.map((head) => (
                 <th
-                  key={head?.value}
+                  key={head?.value as string}
                   className="border-b border-blue-gray-100 bg-blue-gray-50 p-4"
                 >
                   <Typography
@@ -58,7 +73,7 @@ const Table = ({ data, columns }) => {
 
               return (
                 <tr key={item?.id}>
-                  {columns?.map((column, index) => {
+                  {columns?.map((column) => {
                     // action td start
                     if (column.value === "action") {
                       return (
@@ -74,6 +89,7 @@ const Table = ({ data, columns }) => {
                             <div className="flex justify-end items-center gap-x-2 lg:px-12">
                               <Tooltip content="Edit" placement="top">
                                 <IconButton
+                                  onClick={() => onDeleteAndEdit(item, "edit")}
                                   color="blue"
                                   placeholder={undefined}
                                   onPointerEnterCapture={undefined}
@@ -84,6 +100,9 @@ const Table = ({ data, columns }) => {
                               </Tooltip>
                               <Tooltip content="Delete" placement="top">
                                 <IconButton
+                                  onClick={() =>
+                                    onDeleteAndEdit(item, "delete")
+                                  }
                                   color="red"
                                   placeholder={undefined}
                                   onPointerEnterCapture={undefined}
