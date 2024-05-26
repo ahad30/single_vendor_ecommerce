@@ -9,6 +9,7 @@ import { CiEdit } from "react-icons/ci";
 import { AiOutlineDelete } from "react-icons/ai";
 import UpdatePagination from "../Dashborad/UpdatePagination";
 import { TMeta } from "../../types/globalTypes";
+import { Dispatch, SetStateAction } from "react";
 
 export type TColumn = {
   name: string;
@@ -20,18 +21,21 @@ type TableProps<T> = {
   columns: TColumn[];
   meta: TMeta;
   onDeleteAndEdit: (data: T, name: "edit" | "delete") => void;
+  pageNumber: number;
+  setPageNumber: Dispatch<SetStateAction<number>>;
 };
 
 const Table = <T extends { id: string | number; [key: string]: any }>({
   data,
   columns,
-  meta,
   onDeleteAndEdit,
+  meta,
+  setPageNumber,
+  pageNumber,
 }: TableProps<T>) => {
   if (Array.isArray(data) == false || data.length === 0) {
     return <h1>No data Found</h1>;
   }
-
   return (
     <div className="pb-12">
       <Card
@@ -77,7 +81,7 @@ const Table = <T extends { id: string | number; [key: string]: any }>({
                     // action td start
                     if (column.value === "action") {
                       return (
-                        <td className={classes}>
+                        <td key={column.value} className={classes}>
                           <Typography
                             variant="small"
                             color="blue-gray"
@@ -117,7 +121,7 @@ const Table = <T extends { id: string | number; [key: string]: any }>({
                       );
                     } else {
                       return (
-                        <td className={classes}>
+                        <td key={column.value} className={classes}>
                           <Typography
                             variant="small"
                             color="blue-gray"
@@ -148,7 +152,11 @@ const Table = <T extends { id: string | number; [key: string]: any }>({
           </tbody>
         </table>
       </Card>
-      <UpdatePagination></UpdatePagination>
+      <UpdatePagination
+        meta={meta}
+        pageNumber={pageNumber}
+        setPageNumber={setPageNumber}
+      ></UpdatePagination>
     </div>
   );
 };
