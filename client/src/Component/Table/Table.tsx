@@ -39,7 +39,7 @@ const Table = <T extends { id: string | number; [key: string]: any }>({
   return (
     <div className="pb-12">
       <Card
-        className="h-[70vh] w-full overflow-scroll"
+        className="h-[70vh] w-full overflow-scroll thin-scrollbar"
         placeholder={undefined}
         onPointerEnterCapture={undefined}
         onPointerLeaveCapture={undefined}
