@@ -22,6 +22,7 @@ export const adminRoutes = [
     element: <DashboardStatics></DashboardStatics>,
     icon: <MdOutlineDashboardCustomize></MdOutlineDashboardCustomize>,
   },
+
   // {
   //   path: "categories",
   //   label: "Category",
