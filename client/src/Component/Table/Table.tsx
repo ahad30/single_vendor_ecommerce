@@ -161,11 +161,13 @@ const Table = <T extends { id: string | number; [key: string]: any }>({
           </tbody>
         </table>
       </Card>
-      <UpdatePagination
-        meta={meta}
-        pageNumber={pageNumber}
-        setPageNumber={setPageNumber}
-      ></UpdatePagination>
+      {meta?.total && (
+        <UpdatePagination
+          meta={meta}
+          pageNumber={pageNumber}
+          setPageNumber={setPageNumber}
+        ></UpdatePagination>
+      )}
     </div>
   );
 };
