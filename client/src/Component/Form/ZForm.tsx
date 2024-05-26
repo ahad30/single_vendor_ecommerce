@@ -92,7 +92,7 @@ const ZForm = ({
         toast.error(error?.data?.message, { id: 1 });
       }
     }
-  }, [isSuccess, isLoading]);
+  }, [isSuccess, isLoading, isError]);
 
   return (
     <FormProvider {...methods}>

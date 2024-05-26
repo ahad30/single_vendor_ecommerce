@@ -15,7 +15,7 @@ const SaveAndCloseButton = ({
         onClick={() => closeModal()}
         disabled:cursor-not-allowed
         type="button"
-        className="bg-gray-200  text-center text-gray-600 w-full lg:w-[200px] h-[45px] rounded-md"
+        className="bg-gray-200 disabled:cursor-not-allowed text-center text-gray-600 w-full lg:w-[200px] h-[45px] rounded-md"
       >
         Close
       </button>
