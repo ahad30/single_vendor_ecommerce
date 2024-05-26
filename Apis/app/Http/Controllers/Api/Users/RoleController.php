@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\Users;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RoleCreateRequest;
 use App\Http\Requests\RoleUpdateRequest;
+use App\Http\Resources\RoleResource;
 use Illuminate\Http\Response;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
@@ -16,10 +17,25 @@ class RoleController extends Controller
      */
     public function index()
     {
+        $data = Role::with('permissions:id,name')->paginate();
+        $roles = RoleResource::collection($data);
 
-        $roles = Role::with('permissions:id,name')->get(['id', 'name']);
+        // Merge the additional 'status' key with the paginated data
+        $response = [
+            'status' => true,
+            'data' => $roles,
+            'meta' => [
+                'active_page' => $data->currentPage() ? false : true,
+                'current_page' => $data->currentPage(),
+                'last_page' => $data->lastPage(),
+                'per_page' => $data->perPage(),
+                'total' => $data->total(),
+                'next_page_url' => $data->nextPageUrl(),
+                'prev_page_url' => $data->previousPageUrl(),
+            ],
+        ];
 
-        return Response::success($roles);
+        return Response::successWithPagination($response);
     }
 
     /**
