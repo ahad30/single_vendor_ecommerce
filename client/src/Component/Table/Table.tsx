@@ -10,6 +10,7 @@ import { AiOutlineDelete } from "react-icons/ai";
 import UpdatePagination from "../Dashborad/UpdatePagination";
 import { TMeta } from "../../types/globalTypes";
 import { Dispatch, SetStateAction } from "react";
+import Skeleton from "../Dashborad/Skeleton/Skeleton";
 
 export type TColumn = {
   name: string;
@@ -23,6 +24,8 @@ type TableProps<T> = {
   onDeleteAndEdit: (data: T, name: "edit" | "delete") => void;
   pageNumber: number;
   setPageNumber: Dispatch<SetStateAction<number>>;
+  isFetching: boolean;
+  isLoading: boolean;
 };
 
 const Table = <T extends { id: string | number; [key: string]: any }>({
@@ -32,7 +35,13 @@ const Table = <T extends { id: string | number; [key: string]: any }>({
   meta,
   setPageNumber,
   pageNumber,
+  isLoading,
+  isFetching,
 }: TableProps<T>) => {
+  if (isLoading || isFetching) {
+    return <Skeleton></Skeleton>;
+  }
+
   if (Array.isArray(data) == false || data.length === 0) {
     return <h1>No data Found</h1>;
   }
