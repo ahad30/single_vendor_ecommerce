@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Button, Form, Upload } from "antd";
 import { useState, useEffect } from "react";
 import { Controller, useFormContext } from "react-hook-form";
@@ -6,7 +7,7 @@ import { UploadFile } from "antd/es/upload/interface";
 import { useAppSelector } from "../../Redux/hook";
 import { RootState } from "../../Redux/store";
 
-const ZImageInput = () => {
+const ZImageInput = ({ name, label }: { name: string; label: string }) => {
   const [imageList, setImageList] = useState<UploadFile[]>([]);
   const { control } = useFormContext();
   const { isAddModalOpen, isEditModalOpen } = useAppSelector(
@@ -18,15 +19,15 @@ const ZImageInput = () => {
     if (!isAddModalOpen || !isEditModalOpen) {
       setImageList([]);
     }
-  }, [isAddModalOpen]);
+  }, [isAddModalOpen, isEditModalOpen]);
 
   return (
     <Controller
-      name="image"
+      name={name}
       control={control}
       render={({ field: { onChange }, fieldState: { error } }) => (
         <Form.Item
-          label="Picture"
+          label={label}
           validateStatus={error ? "error" : ""}
           help={error?.message}
         >

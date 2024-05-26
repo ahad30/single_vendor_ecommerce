@@ -21,6 +21,20 @@ export const categoryApi = baseApi.injectEndpoints({
         return res;
       },
     }),
+
+    updateCategory: builder.mutation({
+      query: ({ data, id }) => {
+        return {
+          url: `/categories/${id}`,
+          method: "POST",
+          body: data,
+        };
+      },
+      transformErrorResponse: (res: TError & BaseQueryApi) => {
+        return res;
+      },
+    }),
+
     getCategories: builder.query({
       query: (arg) => {
         const params = new URLSearchParams();
@@ -40,4 +54,8 @@ export const categoryApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useCreateCategoryMutation, useGetCategoriesQuery } = categoryApi;
+export const {
+  useCreateCategoryMutation,
+  useGetCategoriesQuery,
+  useUpdateCategoryMutation,
+} = categoryApi;
