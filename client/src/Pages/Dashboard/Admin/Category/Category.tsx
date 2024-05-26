@@ -24,7 +24,9 @@ const Category = () => {
   );
   const [pageNumber, setPageNumber] = useState(1);
   const [singleData, setSingleData] = useState<TCategory | null>(null);
-  const { data } = useGetCategoriesQuery([{ name: "page", value: pageNumber }]);
+  const { data, isLoading, isFetching } = useGetCategoriesQuery([
+    { name: "page", value: pageNumber },
+  ]);
   const columns = [
     { name: "Image", value: "image" },
     { name: "Name", value: "name" },
@@ -51,6 +53,8 @@ const Category = () => {
 
       {/* table */}
       <Table<TCategory>
+        isLoading={isLoading}
+        isFetching={isFetching}
         columns={columns}
         meta={data?.meta as TMeta}
         data={data?.data || []}

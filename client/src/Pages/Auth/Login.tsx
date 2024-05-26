@@ -23,7 +23,7 @@ const Login = () => {
         const { data: loginData } = await Login(data)
         if (loginData.status) {
             dispatch(setUser(loginData.data))
-            navigate('/admin')
+            navigate('/')
         }
         console.log(loginData)
     }
