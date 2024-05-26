@@ -64,18 +64,27 @@ const DeleteModal = ({
           <Alert
             message="Are you sure you want to delete"
             description={
-              description
-                ? description
-                : "This is a warning notice about copywriting."
+              <strong>
+                {description
+                  ? description
+                  : "This is a warning notice about copywriting."}
+              </strong>
             }
             type="warning"
             showIcon
           />
         </div>
         <Flex justify="end" style={{ marginTop: "20px" }} wrap gap="small">
-          <Button disabled={isLoading} onClick={handleCancel}>cancel</Button>
-          <Button disabled={isLoading} onClick={() => onDelete()} type="primary" danger>
-            {isLoading ? "Deleting...": "Delete"}
+          <Button disabled={isLoading} onClick={handleCancel}>
+            cancel
+          </Button>
+          <Button
+            disabled={isLoading}
+            onClick={() => onDelete()}
+            type="primary"
+            danger
+          >
+            {isLoading ? "Deleting..." : "Delete"}
           </Button>
         </Flex>
       </Modal>
