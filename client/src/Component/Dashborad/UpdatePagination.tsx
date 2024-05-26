@@ -13,7 +13,6 @@ const UpdatePagination = ({
   setPageNumber: Dispatch<SetStateAction<number>>;
   meta: TMeta;
 }) => {
-
   const onChange: PaginationProps["onChange"] = (page) => {
     setPageNumber(page);
   };
@@ -27,14 +26,19 @@ const UpdatePagination = ({
 
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
-    searchParams.set("page", pageNumber.toString());
+    searchParams.set("page", pageNumber);
     const newUrl = `${location.pathname}?${searchParams.toString()}`;
-    window.history.replaceState(null, "", newUrl);
+    window.history.replaceState(null, null, newUrl);
   }, [location, pageNumber]);
 
   return (
     <div className=" mt-5 flex justify-center items-center">
-      <Pagination current={pageNumber} onChange={onChange} total={meta.total} pageSize={meta.per_page} />
+      <Pagination
+        current={pageNumber}
+        onChange={onChange}
+        total={meta.total}
+        pageSize={meta.per_page}
+      />
     </div>
   );
 };

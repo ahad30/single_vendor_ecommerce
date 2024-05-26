@@ -17,6 +17,7 @@ export const categoryApi = baseApi.injectEndpoints({
           body: data,
         };
       },
+      invalidatesTags: ["categories"],
       transformErrorResponse: (res: TError & BaseQueryApi) => {
         return res;
       },
@@ -30,6 +31,19 @@ export const categoryApi = baseApi.injectEndpoints({
           body: data,
         };
       },
+      invalidatesTags: ["categories"],
+      transformErrorResponse: (res: TError & BaseQueryApi) => {
+        return res;
+      },
+    }),
+    deleteCategory: builder.mutation({
+      query: (id) => {
+        return {
+          url: `/categories/${id}`,
+          method: "DELETE",
+        };
+      },
+      invalidatesTags: ["categories"],
       transformErrorResponse: (res: TError & BaseQueryApi) => {
         return res;
       },
@@ -47,6 +61,7 @@ export const categoryApi = baseApi.injectEndpoints({
           params: params,
         };
       },
+      providesTags: ["categories"],
       transformResponse: (res: TResponseWithRedux<TCategory[]>) => {
         return { data: res.data, meta: res.meta };
       },
@@ -58,4 +73,5 @@ export const {
   useCreateCategoryMutation,
   useGetCategoriesQuery,
   useUpdateCategoryMutation,
+  useDeleteCategoryMutation,
 } = categoryApi;
