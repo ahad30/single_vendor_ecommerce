@@ -25,8 +25,9 @@ class UpdateCategoryRequest extends FormRequest
      */
     public function rules(): array
     {
+        $id = $this->route('category');
         return [
-            'name' => ['required', 'string', 'max:255', Rule::unique('categories')->ignore($this->id)],
+            'name' => ['required', 'string', 'max:255', Rule::unique('categories', 'name')->ignore($id)],
             'image' => ['nullable', 'mimes:jpg,jpeg,png', File::image()->max('10mb')], // 10 MB max file size
         ];
     }
