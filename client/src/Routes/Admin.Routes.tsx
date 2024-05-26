@@ -13,6 +13,7 @@ import { LuUserCog2 } from "react-icons/lu";
 import Roles from "../Pages/Dashboard/Admin/UserManagement/Roles/Roles";
 import Users from "../Pages/Dashboard/Admin/UserManagement/Users/Users";
 import Permissions from "../Pages/Dashboard/Admin/UserManagement/Permissions/Permissions";
+import Brand from "../Pages/Dashboard/Admin/Brand/Brand";
 
 export const adminRoutes = [
   {
@@ -38,6 +39,11 @@ export const adminRoutes = [
         path: "categories",
         label: "Category",
         element: <Category></Category>,
+      },
+      {
+        path: "brands",
+        label: "Brands",
+        element: <Brand></Brand>,
       },
     ],
   },
