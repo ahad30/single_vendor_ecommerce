@@ -8,6 +8,11 @@ import DbBackup from "../Pages/Dashboard/Admin/Settings/DbBackup";
 import AdminProfile from "../Pages/Dashboard/Admin/Settings/AdminProfile";
 import DashboardStatics from "../Pages/Dashboard/Admin/DashboardStatics/DashboardStatics";
 import { MdOutlineDashboardCustomize } from "react-icons/md";
+import { LuUserCog2 } from "react-icons/lu";
+
+import Roles from "../Pages/Dashboard/Admin/UserManagement/Roles/Roles";
+import Users from "../Pages/Dashboard/Admin/UserManagement/Users/Users";
+import Permissions from "../Pages/Dashboard/Admin/UserManagement/Permissions/Permissions";
 
 export const adminRoutes = [
   {
@@ -33,6 +38,28 @@ export const adminRoutes = [
         path: "categories",
         label: "Category",
         element: <Category></Category>,
+      },
+    ],
+  },
+
+  {
+    label: "User Management",
+    icon: <LuUserCog2 size={20}></LuUserCog2>,
+    children: [
+      {
+        path: "permissions",
+        label: "Permissions",
+        element: <Permissions></Permissions>,
+      },
+      {
+        path: "roles",
+        label: "Roles",
+        element: <Roles></Roles>,
+      },
+      {
+        path: "users",
+        label: "Users",
+        element: <Users></Users>,
       },
     ],
   },
