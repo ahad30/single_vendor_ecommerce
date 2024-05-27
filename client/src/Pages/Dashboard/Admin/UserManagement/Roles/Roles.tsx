@@ -13,6 +13,8 @@ import SearchBar from "../../../../../Component/SearchBar/SearchBar";
 import DashboardTitle from "../../../../../Component/Dashborad/DashboardTitle";
 import ButtonWithModal from "../../../../../Component/Button/ButtonWithModal";
 import TableTabs from "../../../../../Component/Dashborad/TableTabs";
+import AddModal from "../../../../../Component/Modal/AddModal";
+import AddRoles from "./AddRoles";
 
 const Roles = () => {
   const dispatch = useAppDispatch();
@@ -61,9 +63,13 @@ const Roles = () => {
         setPageNumber={setPageNumber}
       ></Table>
       {/* add category modal */}
-      {/* <AddModal isAddModalOpen={isAddModalOpen} title="Create Category">
-    <AddCategory></AddCategory>
-  </AddModal> */}
+      <AddModal
+        width={1000}
+        isAddModalOpen={isAddModalOpen}
+        title="Create role"
+      >
+        <AddRoles></AddRoles>
+      </AddModal>
       {/* edit category modal */}
       {/* <EditModal isEditModalOpen={isEditModalOpen} title="Edit Category">
     <EditCategory<TCategory>

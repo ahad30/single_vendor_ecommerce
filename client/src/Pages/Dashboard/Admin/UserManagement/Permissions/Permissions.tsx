@@ -13,12 +13,12 @@ const Permissions = () => {
   }
   return (
     <div>
-      <DashboardTitle text="Total Permissions">
+      <DashboardTitle windowTitle="Permissions" text="Total Permissions">
         {data?.data?.length || 0}
       </DashboardTitle>
       <div className="grid lg:mt-12 mt-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {data?.data?.map((item, idx) => (
-          <Alert  key={item.id} message={item.name} type="info" />
+          <Alert key={item.id} message={item.name} type="info" />
         ))}
       </div>
     </div>

@@ -1,5 +1,7 @@
+import { BaseQueryApi } from "@reduxjs/toolkit/query";
 import { TRoles } from "../../../../types";
 import {
+  TError,
   TQueryParams,
   TResponseWithRedux,
 } from "../../../../types/globalTypes";
@@ -8,19 +10,19 @@ import { baseApi } from "../../../Api/baseApi";
 
 export const rolesApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    // createCategory: builder.mutation({
-    //   query: (data) => {
-    //     return {
-    //       url: "/categories",
-    //       method: "POST",
-    //       body: data,
-    //     };
-    //   },
-    //   invalidatesTags: ["categories"],
-    //   transformErrorResponse: (res: TError & BaseQueryApi) => {
-    //     return res;
-    //   },
-    // }),
+    createRoles: builder.mutation({
+      query: (data) => {
+        return {
+          url: "/roles",
+          method: "POST",
+          body: data,
+        };
+      },
+      invalidatesTags: ["roles"],
+      transformErrorResponse: (res: TError & BaseQueryApi) => {
+        return res;
+      },
+    }),
 
     // updateCategory: builder.mutation({
     //   query: ({ data, id }) => {
@@ -86,4 +88,4 @@ export const rolesApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useGetAllPermissionsQuery , useGetAllRolesQuery } = rolesApi;
+export const { useGetAllPermissionsQuery, useGetAllRolesQuery , useCreateRolesMutation } = rolesApi;
