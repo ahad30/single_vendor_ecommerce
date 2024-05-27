@@ -54,13 +54,25 @@ class RoleController extends Controller
      */
     public function show(Role $role)
     {
+        $permissionData = [];
+
+        // get all permissions
+        $permissions = $role->permissions;
+        // loop through permissions and create an array of permission data
+        foreach ($permissions as $permission) {
+            $permissionData[] = [
+                'id' => $permission->id,
+                'name' => $permission->name,
+            ];
+        }
+
         $data = [
             'role' => [
                 'id' => $role->id,
                 'name' => $role->name,
             ],
-            'total-permissions' => $role->permissions->count(),
-            'permissions' => $role->permissions->pluck('id', 'name'),
+            'total-permissions' => $permissions->count(),
+            'permissions' => $permissionData,
         ];
 
         return Response::success($data);
