@@ -15,6 +15,8 @@ import ButtonWithModal from "../../../../../Component/Button/ButtonWithModal";
 import TableTabs from "../../../../../Component/Dashborad/TableTabs";
 import AddModal from "../../../../../Component/Modal/AddModal";
 import AddRoles from "./AddRoles";
+import EditRoles from "./EditRoles";
+import EditModal from "../../../../../Component/Modal/EditModal";
 
 const Roles = () => {
   const dispatch = useAppDispatch();
@@ -62,7 +64,7 @@ const Roles = () => {
         pageNumber={pageNumber}
         setPageNumber={setPageNumber}
       ></Table>
-      {/* add category modal */}
+      {/* add role modal */}
       <AddModal
         width={1000}
         isAddModalOpen={isAddModalOpen}
@@ -71,11 +73,14 @@ const Roles = () => {
         <AddRoles></AddRoles>
       </AddModal>
       {/* edit category modal */}
-      {/* <EditModal isEditModalOpen={isEditModalOpen} title="Edit Category">
-    <EditCategory<TCategory>
-      itemData={singleData as TCategory}
-    ></EditCategory>
-  </EditModal> */}
+      <EditModal
+        width={1000}
+        isEditModalOpen={isEditModalOpen}
+        title="Edit Roles "
+      >
+
+        <EditRoles<TRoles> itemData={singleData as TRoles}></EditRoles>
+      </EditModal>
       {/* delete category */}
       {/* <DeleteModal
     data={dCData}
