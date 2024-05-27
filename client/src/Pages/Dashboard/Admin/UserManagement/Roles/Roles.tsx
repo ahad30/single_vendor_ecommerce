@@ -13,6 +13,10 @@ import SearchBar from "../../../../../Component/SearchBar/SearchBar";
 import DashboardTitle from "../../../../../Component/Dashborad/DashboardTitle";
 import ButtonWithModal from "../../../../../Component/Button/ButtonWithModal";
 import TableTabs from "../../../../../Component/Dashborad/TableTabs";
+import AddModal from "../../../../../Component/Modal/AddModal";
+import AddRoles from "./AddRoles";
+import EditRoles from "./EditRoles";
+import EditModal from "../../../../../Component/Modal/EditModal";
 
 const Roles = () => {
   const dispatch = useAppDispatch();
@@ -27,10 +31,8 @@ const Roles = () => {
   const handleEditAndDelete = (data: TRoles, name: "delete" | "edit") => {
     setSingleData(data);
     if (name === "delete") {
-      console.log("delete", data);
       dispatch(setIsDeleteModalOpen());
     } else if (name === "edit") {
-      console.log("edit", data);
       dispatch(setIsEditModalOpen());
     }
   };
@@ -60,16 +62,22 @@ const Roles = () => {
         pageNumber={pageNumber}
         setPageNumber={setPageNumber}
       ></Table>
-      {/* add category modal */}
-      {/* <AddModal isAddModalOpen={isAddModalOpen} title="Create Category">
-    <AddCategory></AddCategory>
-  </AddModal> */}
+      {/* add role modal */}
+      <AddModal
+        width={1000}
+        isAddModalOpen={isAddModalOpen}
+        title="Create role"
+      >
+        <AddRoles></AddRoles>
+      </AddModal>
       {/* edit category modal */}
-      {/* <EditModal isEditModalOpen={isEditModalOpen} title="Edit Category">
-    <EditCategory<TCategory>
-      itemData={singleData as TCategory}
-    ></EditCategory>
-  </EditModal> */}
+      <EditModal
+        width={1000}
+        isEditModalOpen={isEditModalOpen}
+        title="Edit Roles "
+      >
+        <EditRoles<TRoles> itemData={singleData as TRoles}></EditRoles>
+      </EditModal>
       {/* delete category */}
       {/* <DeleteModal
     data={dCData}

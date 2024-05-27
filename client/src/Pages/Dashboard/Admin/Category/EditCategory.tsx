@@ -7,6 +7,7 @@ import ZForm from "../../../../Component/Form/ZForm";
 import ZInput from "../../../../Component/Form/ZInput";
 import ZImageInput from "../../../../Component/Form/ZImageInput";
 import { Image } from "antd";
+import { TError } from "../../../../types/globalTypes";
 
 const EditCategory = <T extends { id: string | number; [key: string]: any }>({
   itemData,
@@ -44,7 +45,7 @@ const EditCategory = <T extends { id: string | number; [key: string]: any }>({
         isLoading={cIsloading}
         isSuccess={CIsSuccess}
         isError={cIsError}
-        error={cError}
+        error={cError as TError}
         data={data}
         submit={handleSubmit}
         closeModal={handleCloseAndOpen}

@@ -7,6 +7,7 @@ import ZImageInput from "../../../../Component/Form/ZImageInput";
 import { useCreateCategoryMutation } from "../../../../Redux/Feature/Admin/category/categoryApi";
 import { setIsAddModalOpen } from "../../../../Redux/Feature/Modal/modalSlice";
 import { useAppDispatch } from "../../../../Redux/hook";
+import { TError } from "../../../../types/globalTypes";
 const categorySchema = z.object({
   name: z.string().nonempty("Please fill the name"),
   image: z.any().refine((file) => file instanceof File, {
@@ -43,7 +44,7 @@ const AddCategory = () => {
         isLoading={cIsloading}
         isSuccess={CIsSuccess}
         isError={cIsError}
-        error={cError}
+        error={cError as TError}
         data={data}
         submit={handleSubmit}
         resolver={zodResolver(categorySchema)}
