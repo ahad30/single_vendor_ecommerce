@@ -17,6 +17,7 @@ const ZCheckbox = ({ value, label, name }: TZbox) => {
       render={({ field, fieldState: { error } }) => (
         <>
           <Checkbox
+          
             //   checked={field.value?.includes(value)}
             onChange={(e) => {
               const newValue = e.target.checked

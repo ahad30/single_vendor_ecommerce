@@ -28,10 +28,12 @@ const AddRoles = () => {
     { isLoading: rIsLoading, data: rData, isError, isSuccess, error },
   ] = useCreateRolesMutation();
 
-  const methods = useForm();
-
   if (isLoading || isFetching) {
-    return <p>loading ...</p>;
+    return (
+      <div className="text-lg flex justify-center items-center">
+        <p>loading ...</p>
+      </div>
+    );
   }
   if (!Array.isArray(data?.data) || data.data.length === 0) {
     return <p>No data available</p>;
@@ -42,35 +44,41 @@ const AddRoles = () => {
   };
 
   const handleSubmit: SubmitHandler<FieldValues> = (formData) => {
-    console.log(formData);
-    // Process formData and submit
+    const data = {
+      ...formData,
+      name: formData.name.toLowerCase(),
+    };
+    createRoles(data);
   };
 
   return (
     <div>
-      <FormProvider {...methods}>
-        <ZForm
-          formType="edit"
-          data={rData}
-          closeModal={handleCloseAndOpen}
-          isError={isError}
-          isLoading={rIsLoading}
-          isSuccess={isSuccess}
-          error={error as TError}
-          submit={handleSubmit}
-          resolver={zodResolver(rolesSchema)}
-        >
-          <ZInput label="Role name" name="name" type="text" />
+      <ZForm
+        formType="create"
+        data={rData}
+        closeModal={handleCloseAndOpen}
+        isError={isError}
+        isLoading={rIsLoading}
+        isSuccess={isSuccess}
+        error={error as TError}
+        submit={handleSubmit}
+        resolver={zodResolver(rolesSchema)}
+      >
+        <ZInput label="Role name" name="name" type="text" />
+        <p className="mt-4 mb-2">Permissions</p>
+        <div className="grid mb-10 h-[400px] thin-scrollbar overflow-scroll grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 ">
           {data?.data.map((item) => (
-            <ZCheckbox
-              key={item.id}
-              label={item.name}
-              name="permissions"
-              value={item.name}
-            />
+            <div className="bg-[#E6F4FF] rounded px-3 py-1 border border-[#CBDBF3]">
+              <ZCheckbox
+                key={item.id}
+                label={item.name}
+                name="permissions"
+                value={item.name}
+              />
+            </div>
           ))}
-        </ZForm>
-      </FormProvider>
+        </div>
+      </ZForm>
     </div>
   );
 };

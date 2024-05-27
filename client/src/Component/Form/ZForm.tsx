@@ -49,7 +49,6 @@ const ZForm = ({
     (state: RootState) => state.modal
   );
   const formConfig: defaultAndResolver = {};
-  // formConfig["mode"] = "onChange";
 
   if (defaultValues) {
     formConfig["defaultValues"] = defaultValues;
