@@ -31,10 +31,8 @@ const Roles = () => {
   const handleEditAndDelete = (data: TRoles, name: "delete" | "edit") => {
     setSingleData(data);
     if (name === "delete") {
-      console.log("delete", data);
       dispatch(setIsDeleteModalOpen());
     } else if (name === "edit") {
-      console.log("edit", data);
       dispatch(setIsEditModalOpen());
     }
   };
@@ -78,7 +76,6 @@ const Roles = () => {
         isEditModalOpen={isEditModalOpen}
         title="Edit Roles "
       >
-
         <EditRoles<TRoles> itemData={singleData as TRoles}></EditRoles>
       </EditModal>
       {/* delete category */}

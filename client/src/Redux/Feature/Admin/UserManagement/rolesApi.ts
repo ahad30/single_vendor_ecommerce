@@ -23,32 +23,19 @@ export const rolesApi = baseApi.injectEndpoints({
         return res;
       },
     }),
-
-    // updateCategory: builder.mutation({
-    //   query: ({ data, id }) => {
-    //     return {
-    //       url: `/categories/${id}`,
-    //       method: "POST",
-    //       body: data,
-    //     };
-    //   },
-    //   invalidatesTags: ["categories"],
-    //   transformErrorResponse: (res: TError & BaseQueryApi) => {
-    //     return res;
-    //   },
-    // }),
-    // deleteCategory: builder.mutation({
-    //   query: (id) => {
-    //     return {
-    //       url: `/categories/${id}`,
-    //       method: "DELETE",
-    //     };
-    //   },
-    //   invalidatesTags: ["categories"],
-    //   transformErrorResponse: (res: TError & BaseQueryApi) => {
-    //     return res;
-    //   },
-    // }),
+    editRole: builder.mutation({
+      query: (data) => {
+        return {
+          url: "/roles",
+          method: "POST",
+          body: data,
+        };
+      },
+      invalidatesTags: ["roles"],
+      transformErrorResponse: (res: TError & BaseQueryApi) => {
+        return res;
+      },
+    }),
 
     getAllRoles: builder.query({
       query: (arg) => {
@@ -88,4 +75,9 @@ export const rolesApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useGetAllPermissionsQuery, useGetAllRolesQuery , useCreateRolesMutation } = rolesApi;
+export const {
+  useGetAllPermissionsQuery,
+  useGetAllRolesQuery,
+  useCreateRolesMutation,
+  useEditRoleMutation,
+} = rolesApi;

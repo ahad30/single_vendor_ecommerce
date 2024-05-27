@@ -5,9 +5,10 @@ type TZbox = {
   label: string;
   name: string;
   value: string;
+  checked?: boolean;
 };
 
-const ZCheckbox = ({ value, label, name }: TZbox) => {
+const ZCheckbox = ({ value, label, name, checked }: TZbox) => {
   const { control } = useFormContext();
 
   return (
@@ -17,8 +18,7 @@ const ZCheckbox = ({ value, label, name }: TZbox) => {
       render={({ field, fieldState: { error } }) => (
         <>
           <Checkbox
-          
-            //   checked={field.value?.includes(value)}
+            defaultChecked={checked ? checked : false}
             onChange={(e) => {
               const newValue = e.target.checked
                 ? [...(field.value || []), value]
