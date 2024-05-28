@@ -10,12 +10,21 @@ import ZForm from "../../../../../Component/Form/ZForm";
 import ZInput from "../../../../../Component/Form/ZInput";
 import ZCheckbox from "../../../../../Component/Form/ZCheckbox";
 import { TError } from "../../../../../types/globalTypes";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { toast } from "sonner";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 type TPermissions = {
   id: number;
   name: string;
 };
+const rolesSchema = z.object({
+  name: z.string().nonempty("Please fill the name"),
+  // permissions: z
+  //   .array(z.string())
+  //   .min(1, "Please select at least one permission"),
+});
 const EditRoles = <T extends { id: string | number; [key: string]: any }>({
   itemData,
 }: {
@@ -76,14 +85,31 @@ const EditRoles = <T extends { id: string | number; [key: string]: any }>({
   }
 
   const handleSubmit: SubmitHandler<FieldValues> = (data) => {
-    console.log(data);
-    //   const formData = new FormData();
-    //   formData.append("name", data.name ? data.name : itemData.name);
-    //   if (data?.image) {
-    //     formData.append("image", data.image);
-    //   }
-    //   formData.append("_method", "PUT");
-    //   editCategory({ data: formData, id: itemData.id });
+    console.log(data)
+    const allPermissions: string[] = [];
+    if (
+      Array.isArray(data?.currentPermissions) &&
+      data.currentPermissions.length > 0
+    ) {
+      allPermissions.push(...data.currentPermissions);
+    }
+    if (
+      Array.isArray(data?.availablePermissions) &&
+      data.availablePermissions.length > 0
+    ) {
+      allPermissions.push(...data.availablePermissions);
+    }
+    const bodyData = {
+      name: data?.name || itemData.name,
+      permissions: allPermissions,
+      _method: "PUT",
+    };
+    
+    // if (bodyData?.permissions?.length > 0) {
+    //   editRole({ data: bodyData, id: itemData.id });
+    // } else {
+    //   toast.error("select at least one permission", { id: 1 });
+    // }
   };
 
   const handleCloseAndOpen = () => {
@@ -104,7 +130,7 @@ const EditRoles = <T extends { id: string | number; [key: string]: any }>({
         isSuccess={rIsSuccess}
         error={rError as TError}
         submit={handleSubmit}
-        // resolver={zodResolver(rolesSchema)}
+      
       >
         <ZInput
           value={itemData.name}
