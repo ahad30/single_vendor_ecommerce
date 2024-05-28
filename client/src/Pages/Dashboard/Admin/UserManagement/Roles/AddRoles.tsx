@@ -68,8 +68,13 @@ const AddRoles = () => {
         <p className="mt-4 mb-2">Permissions</p>
         <div className="grid mb-10 h-[400px] thin-scrollbar overflow-scroll grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 ">
           {data?.data.map((item) => (
-            <div className="bg-[#E6F4FF] rounded px-3 py-1 border border-[#CBDBF3]">
+            <div
+              key={item.id}
+              className="bg-[#E6F4FF] rounded px-3 py-1 border border-[#CBDBF3]"
+            >
               <ZCheckbox
+                isSuccess={isSuccess}
+                checkedAttributed={true}
                 key={item.id}
                 label={item.name}
                 name="permissions"
