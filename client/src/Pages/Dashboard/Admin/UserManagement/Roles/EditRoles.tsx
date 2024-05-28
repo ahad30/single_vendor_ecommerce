@@ -89,9 +89,13 @@ const EditRoles = <T extends { id: string | number; [key: string]: any }>({
   const handleCloseAndOpen = () => {
     dispatch(setIsEditModalOpen());
   };
+  const cPermissions = {
+    currentPermissions: previousPermissions.map((p: TPermissions) => p.name),
+  };
   return (
     <div>
       <ZForm
+        defaultValues={cPermissions}
         formType="edit"
         data={rData}
         closeModal={handleCloseAndOpen}
@@ -111,7 +115,7 @@ const EditRoles = <T extends { id: string | number; [key: string]: any }>({
 
         {/* previous permission */}
         <p className="mt-4 mb-2"> Current Permissions</p>
-        <div className="grid mb-10 h-[400px] thin-scrollbar overflow-scroll grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 ">
+        <div className="grid mb-10 max-h-[400px] thin-scrollbar overflow-scroll grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 ">
           {previousPermissions?.map((item) => (
             <div className="bg-[#E6F4FF] rounded h-[50px] flex  items-center px-2 border border-[#CBDBF3]">
               <ZCheckbox
