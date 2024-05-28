@@ -79,7 +79,7 @@ const Users = () => {
       ></Table>
       {/* add role modal */}
       <AddModal
-        width={1000}
+        width={700}
         isAddModalOpen={isAddModalOpen}
         title="Create role"
       >

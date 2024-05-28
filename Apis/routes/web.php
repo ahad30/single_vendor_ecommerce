@@ -17,7 +17,7 @@ Route::get('/products', function () {
     $product = Product::with([
         'varients.varientValues',
         'attributes.attributeValues'
-    ])->find(1);
+    ])->find(2);
 
     return response()->json($product);
 });
