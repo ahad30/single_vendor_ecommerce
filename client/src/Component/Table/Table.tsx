@@ -88,7 +88,7 @@ const Table = <T extends { id: string | number; [key: string]: any }>({
                 <tr key={item?.id}>
                   {columns?.map((column) => {
                     // action td start
-                    if (column.value === "action") {
+                    if (column.value === "action" && onDeleteAndEdit) {
                       return (
                         <td key={column.value} className={classes}>
                           <Typography
