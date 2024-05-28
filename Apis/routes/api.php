@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\Ecommerce\AttributeController;
 use App\Http\Controllers\Api\Ecommerce\BrandController;
 use App\Http\Controllers\Api\Ecommerce\CategoryController;
+use App\Http\Controllers\Api\Ecommerce\ProductController;
 use App\Http\Controllers\Api\Users\GetAllRoleName;
 use App\Http\Controllers\Api\Users\PermissionController;
 use App\Http\Controllers\Api\Users\RoleController;
@@ -45,7 +46,6 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::apiResource('users', UserController::class)->only(['index'])->middleware('permission:view user')->names(['index' => 'index', 'show' => 'show']);
 
         Route::get('role/list', GetAllRoleName::class)->middleware('permission:view user');
-
 
         Route::middleware('permission:create user')->group(function () {
             Route::apiResource('users', UserController::class)->only(['store'])
@@ -120,6 +120,26 @@ Route::middleware('auth:sanctum')->group(function () {
 
         Route::middleware('permission:delete attribute')->group(function () {
             Route::apiResource('attributes', AttributeController::class)->only(['destroy'])
+                ->names(['destroy' => 'destroy']);
+        });
+    });
+
+    // Product management routes
+    Route::name('product.')->group(function () {
+        Route::apiResource('products', ProductController::class)->only(['index'])->middleware('permission:view product')->names(['index' => 'index', 'show' => 'show']);
+
+        Route::middleware('permission:create product')->group(function () {
+            Route::apiResource('products', ProductController::class)->only(['store'])
+                ->names(['store' => 'store']);
+        });
+
+        Route::middleware('permission:edit product')->group(function () {
+            Route::apiResource('products', ProductController::class)->only(['update'])
+                ->names(['update' => 'update']);
+        });
+
+        Route::middleware('permission:delete product')->group(function () {
+            Route::apiResource('products', ProductController::class)->only(['destroy'])
                 ->names(['destroy' => 'destroy']);
         });
     });

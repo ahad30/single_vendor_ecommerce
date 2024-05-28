@@ -16,7 +16,7 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $data = Role::with('permissions:id,name')->paginate();
+        $data = Role::latest()->with('permissions:id,name')->paginate();
         $roles = RoleResource::collection($data);
 
         // Merge the additional 'status' key with the paginated data
