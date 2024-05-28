@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // import { Checkbox } from "antd";
 // import { Controller, useFormContext } from "react-hook-form";
@@ -43,7 +44,6 @@ import { Controller, useFormContext } from "react-hook-form";
 import { useAppSelector } from "../../Redux/hook";
 import { RootState } from "../../Redux/store";
 import { useEffect, useState } from "react";
-import { boolean } from "zod";
 
 type TZbox = {
   label: string;

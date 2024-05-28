@@ -2,13 +2,16 @@ import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../../../Redux/hook";
 import { RootState } from "../../../../../Redux/store";
 import { TRoles } from "../../../../../types";
-import { useGetAllRolesQuery } from "../../../../../Redux/Feature/Admin/UserManagement/rolesApi";
+import {
+  useDeleteRoleMutation,
+  useGetAllRolesQuery,
+} from "../../../../../Redux/Feature/Admin/UserManagement/rolesApi";
 import {
   setIsDeleteModalOpen,
   setIsEditModalOpen,
 } from "../../../../../Redux/Feature/Modal/modalSlice";
 import Table from "../../../../../Component/Table/Table";
-import { TMeta } from "../../../../../types/globalTypes";
+import { TError, TMeta } from "../../../../../types/globalTypes";
 import SearchBar from "../../../../../Component/SearchBar/SearchBar";
 import DashboardTitle from "../../../../../Component/Dashborad/DashboardTitle";
 import ButtonWithModal from "../../../../../Component/Button/ButtonWithModal";
@@ -17,6 +20,7 @@ import AddModal from "../../../../../Component/Modal/AddModal";
 import AddRoles from "./AddRoles";
 import EditRoles from "./EditRoles";
 import EditModal from "../../../../../Component/Modal/EditModal";
+import DeleteModal from "../../../../../Component/Modal/DeleteModal";
 
 const Roles = () => {
   const dispatch = useAppDispatch();
@@ -40,6 +44,13 @@ const Roles = () => {
     { name: "Name", value: "name" },
     { name: "Action", value: "action" },
   ];
+  const [
+    deleteRole,
+    { error, data: dCData, isSuccess, isLoading: dCIsloading, isError },
+  ] = useDeleteRoleMutation();
+  const handleDelete = () => {
+    deleteRole(singleData?.id);
+  };
   return (
     <div className="">
       <DashboardTitle windowTitle="Roles" text="Total Role">
@@ -79,17 +90,17 @@ const Roles = () => {
         <EditRoles<TRoles> itemData={singleData as TRoles}></EditRoles>
       </EditModal>
       {/* delete category */}
-      {/* <DeleteModal
-    data={dCData}
-    error={error as TError}
-    isLoading={dCIsloading}
-    isSuccess={isSuccess}
-    title="Delete Category"
-    onDelete={handleDelete}
-    isDeleteModalOpen={isDeleteModalOpen}
-    isError={isError}
-    description={"Under the category corresponding data will be removed "}
-  ></DeleteModal> */}
+      <DeleteModal
+        data={dCData}
+        error={error as TError}
+        isLoading={dCIsloading}
+        isSuccess={isSuccess}
+        title="Delete Category"
+        onDelete={handleDelete}
+        isDeleteModalOpen={isDeleteModalOpen}
+        isError={isError}
+        description={"Under the Role corresponding data will be removed "}
+      ></DeleteModal>
     </div>
   );
 };
