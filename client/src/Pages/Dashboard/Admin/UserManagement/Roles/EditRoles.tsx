@@ -85,7 +85,7 @@ const EditRoles = <T extends { id: string | number; [key: string]: any }>({
   }
 
   const handleSubmit: SubmitHandler<FieldValues> = (data) => {
-    console.log(data)
+    console.log(data);
     const allPermissions: string[] = [];
     if (
       Array.isArray(data?.currentPermissions) &&
@@ -104,12 +104,12 @@ const EditRoles = <T extends { id: string | number; [key: string]: any }>({
       permissions: allPermissions,
       _method: "PUT",
     };
-    
-    // if (bodyData?.permissions?.length > 0) {
-    //   editRole({ data: bodyData, id: itemData.id });
-    // } else {
-    //   toast.error("select at least one permission", { id: 1 });
-    // }
+
+    if (bodyData?.permissions?.length > 0) {
+      editRole({ data: bodyData, id: itemData.id });
+    } else {
+      toast.error("select at least one permission", { id: 1 });
+    }
   };
 
   const handleCloseAndOpen = () => {
@@ -130,7 +130,6 @@ const EditRoles = <T extends { id: string | number; [key: string]: any }>({
         isSuccess={rIsSuccess}
         error={rError as TError}
         submit={handleSubmit}
-      
       >
         <ZInput
           value={itemData.name}
