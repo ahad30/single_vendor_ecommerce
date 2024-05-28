@@ -24,11 +24,23 @@ export const rolesApi = baseApi.injectEndpoints({
       },
     }),
     editRole: builder.mutation({
-      query: ({data , id}) => {
+      query: ({ data, id }) => {
         return {
           url: `/roles/${id}`,
           method: "POST",
           body: data,
+        };
+      },
+      invalidatesTags: ["roles"],
+      transformErrorResponse: (res: TError & BaseQueryApi) => {
+        return res;
+      },
+    }),
+    deleteRole: builder.mutation({
+      query: (id) => {
+        return {
+          url: `/roles/${id}`,
+          method: "DELETE",
         };
       },
       invalidatesTags: ["roles"],
@@ -80,4 +92,5 @@ export const {
   useGetAllRolesQuery,
   useCreateRolesMutation,
   useEditRoleMutation,
+  useDeleteRoleMutation,
 } = rolesApi;

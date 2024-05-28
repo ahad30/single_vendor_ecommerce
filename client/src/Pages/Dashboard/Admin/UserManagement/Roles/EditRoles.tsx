@@ -10,8 +10,6 @@ import ZForm from "../../../../../Component/Form/ZForm";
 import ZInput from "../../../../../Component/Form/ZInput";
 import ZCheckbox from "../../../../../Component/Form/ZCheckbox";
 import { TError } from "../../../../../types/globalTypes";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -19,12 +17,7 @@ type TPermissions = {
   id: number;
   name: string;
 };
-const rolesSchema = z.object({
-  name: z.string().nonempty("Please fill the name"),
-  // permissions: z
-  //   .array(z.string())
-  //   .min(1, "Please select at least one permission"),
-});
+
 const EditRoles = <T extends { id: string | number; [key: string]: any }>({
   itemData,
 }: {
