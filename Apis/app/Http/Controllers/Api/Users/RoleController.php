@@ -8,7 +8,6 @@ use App\Http\Requests\RoleUpdateRequest;
 use App\Http\Resources\RoleResource;
 use Illuminate\Http\Response;
 use Spatie\Permission\Models\Role;
-use Spatie\Permission\Models\Permission;
 
 class RoleController extends Controller
 {
