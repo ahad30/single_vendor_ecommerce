@@ -43,6 +43,7 @@ import { Controller, useFormContext } from "react-hook-form";
 import { useAppSelector } from "../../Redux/hook";
 import { RootState } from "../../Redux/store";
 import { useEffect, useState } from "react";
+import { boolean } from "zod";
 
 type TZbox = {
   label: string;
@@ -51,6 +52,7 @@ type TZbox = {
   checked?: boolean;
   checkedAttributed: boolean;
   isSuccess: boolean;
+  keys?: boolean;
 };
 
 const ZCheckbox = ({
@@ -60,8 +62,9 @@ const ZCheckbox = ({
   checked,
   checkedAttributed,
   isSuccess,
+  keys,
 }: TZbox) => {
-  const { control } = useFormContext();
+  const { control, resetField } = useFormContext();
   const { isEditModalOpen, isAddModalOpen } = useAppSelector(
     (state: RootState) => state.modal
   );
@@ -70,8 +73,14 @@ const ZCheckbox = ({
   useEffect(() => {
     if (!isAddModalOpen || !isEditModalOpen || isSuccess) {
       setIsChecked(false);
+      if (checkedAttributed) {
+        resetField(name);
+      }
     }
-  }, [isAddModalOpen, isEditModalOpen, isSuccess]);
+    if (keys === true && (isAddModalOpen || isEditModalOpen)) {
+      setIsChecked(true);
+    }
+  }, [isAddModalOpen, isEditModalOpen, isSuccess, checkedAttributed, keys]);
 
   return (
     <Controller

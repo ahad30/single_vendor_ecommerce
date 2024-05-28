@@ -120,12 +120,13 @@ const EditRoles = <T extends { id: string | number; [key: string]: any }>({
             <div className="bg-[#E6F4FF] rounded h-[50px] flex  items-center px-2 border border-[#CBDBF3]">
               <ZCheckbox
                 isSuccess={rIsSuccess}
-                checkedAttributed={false}
+                checkedAttributed={true}
                 key={item.id}
                 label={item.name}
                 name="currentPermissions"
                 value={item.name}
                 checked={true}
+                keys={true}
               />
             </div>
           ))}
