@@ -26,4 +26,10 @@ class Product extends Model
     {
         return $this->belongsToMany(Attribute::class, 'product_has_attributes');
     }
+
+    // get all varients
+    public function varients()
+    {
+        return $this->hasMany(Varient::class, 'product_id');
+    }
 }
