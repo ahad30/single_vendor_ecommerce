@@ -10,7 +10,7 @@ class Product extends Model
     use HasFactory;
 
     protected $fillable = [
-        'title',
+        'name',
         'product_uid',
         'weight',
         'description',
@@ -20,9 +20,10 @@ class Product extends Model
         'brand_id'
     ];
 
+
     // many to many
-    public function attribute_values()
+    public function attributes()
     {
-        return $this->belongsToMany(AttributeValue::class, 'product_has_attributes');
+        return $this->belongsToMany(Attribute::class, 'product_has_attributes');
     }
 }

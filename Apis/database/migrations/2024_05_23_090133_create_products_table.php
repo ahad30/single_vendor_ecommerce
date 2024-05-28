@@ -15,14 +15,15 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('category_id');
             $table->unsignedBigInteger('brand_id')->nullable();
-            $table->string('title');
+            $table->string('name');
+            $table->string('slug')->unique();
             $table->string('product_uid')->unique();
             $table->string('weight')->nullable();
             $table->text('description')->nullable();
             $table->string('list_type')->default('new arrival')->comment('top sales | feature product');
             $table->boolean('is_published')->default(false);
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
-            $table->foreign('brand_id')->references('id')->on('brands')->onDelete('cascade');
+            $table->foreign('brand_id')->references('id')->on('brands')->onDelete('set null');
             $table->timestamps();
         });
     }
