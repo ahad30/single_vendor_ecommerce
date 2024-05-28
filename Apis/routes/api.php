@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\Ecommerce\AttributeController;
 use App\Http\Controllers\Api\Ecommerce\BrandController;
 use App\Http\Controllers\Api\Ecommerce\CategoryController;
+use App\Http\Controllers\Api\Users\GetAllRoleName;
 use App\Http\Controllers\Api\Users\PermissionController;
 use App\Http\Controllers\Api\Users\RoleController;
 use App\Http\Controllers\Api\Users\UserController;
@@ -42,6 +43,9 @@ Route::middleware('auth:sanctum')->group(function () {
     // User management routes
     Route::name('user.')->group(function () {
         Route::apiResource('users', UserController::class)->only(['index'])->middleware('permission:view user')->names(['index' => 'index', 'show' => 'show']);
+
+        Route::get('roles/list', GetAllRoleName::class)->middleware('permission:view user');
+
 
         Route::middleware('permission:create user')->group(function () {
             Route::apiResource('users', UserController::class)->only(['store'])
