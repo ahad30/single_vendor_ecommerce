@@ -18,7 +18,7 @@ class BrandController extends Controller
      */
     public function index()
     {
-        $data = Brand::paginate();
+        $data = Brand::latest()->paginate();
         $brand = BrandResource::collection($data);
 
         // Merge the additional 'status' key with the paginated data

@@ -20,6 +20,17 @@ class Product extends Model
         'brand_id'
     ];
 
+    // get category information
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'category_id');
+    }
+
+    // get brand information
+    public function brand()
+    {
+        return $this->belongsTo(Brand::class, 'brand_id');
+    }
 
     // many to many
     public function attributes()

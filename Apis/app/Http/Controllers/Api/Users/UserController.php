@@ -20,7 +20,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $data = User::paginate();
+        $data = User::latest()->paginate();
         $users = UserResource::collection($data);
 
         // Merge the additional 'status' key with the paginated data
