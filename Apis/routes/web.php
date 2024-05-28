@@ -7,17 +7,17 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/products', function () {
-    // Eager load the relationships
-    // $products = Product::with([
-    //     'varients.varientValues',
-    //     'attributes.attributeValues'
-    // ])->get();
+// Route::get('/products', function () {
+//     // Eager load the relationships
+//     $products = Product::with([
+//         'varients.varientValues',
+//         'attributes.attributeValues'
+//     ])->get();
 
-    $product = Product::with([
-        'varients.varientValues',
-        'attributes.attributeValues'
-    ])->find(2);
+//     $product = Product::with([
+//         'varients.varientValues',
+//         'attributes.attributeValues'
+//     ])->find(2);
 
-    return response()->json($product);
-});
+//     return response()->json($product);
+// });
