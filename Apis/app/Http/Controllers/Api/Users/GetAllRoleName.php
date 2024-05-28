@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api\Users;
 
 use App\Http\Controllers\Controller;
-use Spatie\Permission\Models\Role;
 use Illuminate\Http\Response;
+use Spatie\Permission\Models\Role;
 
 class GetAllRoleName extends Controller
 {
@@ -18,6 +18,6 @@ class GetAllRoleName extends Controller
             'name',
         ]);
 
-        return Response::successWithPagination($data);
+        return Response::success($data);
     }
 }

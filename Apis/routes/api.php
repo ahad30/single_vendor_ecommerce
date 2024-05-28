@@ -44,7 +44,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::name('user.')->group(function () {
         Route::apiResource('users', UserController::class)->only(['index'])->middleware('permission:view user')->names(['index' => 'index', 'show' => 'show']);
 
-        Route::get('roles/list', GetAllRoleName::class)->middleware('permission:view user');
+        Route::get('role/list', GetAllRoleName::class)->middleware('permission:view user');
 
 
         Route::middleware('permission:create user')->group(function () {
