@@ -1,4 +1,5 @@
-import { ReactNode } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { ReactNode, useContext, useEffect } from "react";
 import { useAppSelector } from "../../Redux/hook";
 import {
   useCurrentToken,
@@ -7,6 +8,7 @@ import {
 import { Navigate } from "react-router-dom";
 import { useGetLoggedInUserQuery } from "../../Redux/Feature/auth/authApi";
 import LoadingPage from "../../Layout/Dashboard/LoadingPage";
+import { PermissionContextProvider } from "../../contex/PermissionProvider";
 
 const AdminProtectedRoute = ({ children }: { children: ReactNode }) => {
   const user = useAppSelector(useCurrentUser);
@@ -17,6 +19,25 @@ const AdminProtectedRoute = ({ children }: { children: ReactNode }) => {
       skip: user == null ? true : false,
     }
   );
+  const { setLoggedInUserPermissions } = useContext(PermissionContextProvider);
+
+  useEffect(() => {
+    if (
+      Array.isArray(data?.data?.role_name) &&
+      data?.data?.role_name?.length > 0
+    ) {
+      const arr = data?.data?.role_name;
+      const array: string[] = [];
+      for (let index = 0; index < arr.length; index++) {
+        const element = arr[index];
+        element.permissions.forEach((item) => array.push(item?.name));
+      }
+      setLoggedInUserPermissions([...array]);
+    }
+  }, [data?.data?.role_name, data?.data]);
+
+
+  
   if (!token || token == null || user == null) {
     return <Navigate to={"/login"}></Navigate>;
   }
@@ -29,6 +50,7 @@ const AdminProtectedRoute = ({ children }: { children: ReactNode }) => {
   ) {
     return <Navigate to={"/login"}></Navigate>;
   }
+
   return children;
 };
 export default AdminProtectedRoute;

@@ -13,7 +13,6 @@ import { OptionsGenerator } from "../../../../../utils/OptionsGenerator";
 import ZEmail from "../../../../../Component/Form/ZEmail";
 import ZPhone from "../../../../../Component/Form/ZPhone";
 import ZImageInput from "../../../../../Component/Form/ZImageInput";
-import { zodResolver } from "@hookform/resolvers/zod";
 
 import { TUser } from "../../../../../types";
 import { Image } from "antd";

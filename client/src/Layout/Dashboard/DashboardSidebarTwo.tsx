@@ -19,21 +19,22 @@ import { TRoutesData } from "../../types/sidebarAndRouesTypes";
 
 const DashboardSidebarTwo = ({
   isSidebarOpen,
-  className
+  className,
 }: {
   isSidebarOpen?: boolean;
-  className? : string
+  className?: string;
 }) => {
   const [open, setOpen] = React.useState("");
   const handleOpen = (value: string) => {
     setOpen(open === value ? "" : value);
   };
   const sidebarData = sidebarGenerator(adminRoutes as TRoutesData[]);
-  // console.log(sidebarData)
-
+  
   return (
     <Card
-      className={`h-[calc(100vh-2rem)] ${className}  z-10 ${isSidebarOpen ?  "-ml-[500px]" : ""} max-w-[20rem] p-4 shadow-xl  shadow-blue-gray-900/5 duration-300`}
+      className={`h-[calc(100vh-2rem)] ${className}  z-10 ${
+        isSidebarOpen ? "-ml-[500px]" : ""
+      } max-w-[20rem] p-4 shadow-xl  shadow-blue-gray-900/5 duration-300`}
       placeholder={undefined}
       onPointerEnterCapture={undefined}
       onPointerLeaveCapture={undefined}
@@ -58,7 +59,7 @@ const DashboardSidebarTwo = ({
           if (item.children) {
             return (
               <Accordion
-              key={item.key}
+                key={item.key}
                 open={open === item.key}
                 icon={
                   <ChevronDownIcon
@@ -139,7 +140,7 @@ const DashboardSidebarTwo = ({
             );
           } else {
             return (
-              <Link  key={item.key} to={item.key}>
+              <Link key={item.key} to={item.key}>
                 <ListItem
                   placeholder={undefined}
                   onPointerEnterCapture={undefined}
