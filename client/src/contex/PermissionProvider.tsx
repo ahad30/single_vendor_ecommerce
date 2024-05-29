@@ -7,6 +7,7 @@ import {
   useEffect,
 } from "react";
 import { useGetAllPermissionsQuery } from "../Redux/Feature/Admin/UserManagement/rolesApi";
+import { TAllPermission, TPermissions } from "../types/permission.types";
 
 interface PermissionContextValue {
   loggedInUserPermissions: string[];
@@ -32,20 +33,25 @@ const PermissionProvider = ({ children }: { children: ReactNode }) => {
     isLoading,
     isFetching,
   } = useGetAllPermissionsQuery(undefined);
+
+  const handleCheckPermissions = (item: TAllPermission) => {
+    console.log(item);
+  };
+
   useEffect(() => {
     if (
       Array.isArray(allPermissionData?.data) &&
       allPermissionData?.data?.length > 0
     ) {
-      setAllPermissions(allPermissionData.data?.map((item) => item.name));
+      setAllPermissions(allPermissionData?.data?.map((item) => item?.name));
     }
   }, [allPermissionData, allPermissionData?.data]);
   
   const value = {
     loggedInUserPermissions,
     setLoggedInUserPermissions,
+    handleCheckPermissions,
   };
-
   return (
     <PermissionContextProvider.Provider value={value}>
       {children}
