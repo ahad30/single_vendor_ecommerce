@@ -31,7 +31,7 @@ class UpdateUserRequest extends FormRequest
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'max:255', Rule::unique('users', 'email')->ignore($id)],
             'image' => ['nullable', 'mimes:jpg,jpeg,png', File::image()->max('10mb')],
-            'phone' => ['required', 'digits_between:11,13', 'regex:/^\d+$/', Rule::unique('users', 'phone')->ignore($id)],
+            'phone' => ['required', Rule::unique('users', 'phone')->ignore($id)],
             'address' => ['nullable', 'string', 'max:255']
         ];
     }
