@@ -66,6 +66,23 @@ export const rolesApi = baseApi.injectEndpoints({
         return { data: res.data, meta: res.meta };
       },
     }),
+    getAllRolesList: builder.query({
+      query: (arg) => {
+        const params = new URLSearchParams();
+        arg?.forEach((element: TQueryParams) => {
+          params.append(element.name, element.value as string);
+        });
+        return {
+          url: "/role/list",
+          method: "GET",
+          params: params,
+        };
+      },
+      providesTags: ["roles"],
+      transformResponse: (res: TResponseWithRedux<TRoles[]>) => {
+        return { data: res.data, meta: res.meta };
+      },
+    }),
 
     getAllPermissions: builder.query({
       query: (arg) => {
@@ -93,4 +110,5 @@ export const {
   useCreateRolesMutation,
   useEditRoleMutation,
   useDeleteRoleMutation,
+  useGetAllRolesListQuery,
 } = rolesApi;
