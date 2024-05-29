@@ -5,6 +5,7 @@ import {
   TResponseWithRedux,
 } from "../../../../types/globalTypes";
 import { baseApi } from "../../../Api/baseApi";
+import { TBrand } from "../../../../types";
 
 export const brandApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -61,7 +62,7 @@ export const brandApi = baseApi.injectEndpoints({
         };
       },
       providesTags: ["brands"],
-      transformResponse: (res: TResponseWithRedux<TCategory[]>) => {
+      transformResponse: (res: TResponseWithRedux<TBrand[]>) => {
         return { data: res.data, meta: res.meta };
       },
     }),
