@@ -18,6 +18,7 @@ class BrandController extends Controller
      */
     public function index()
     {
+        // get all brands data from the database with pagination enabled
         $data = Brand::latest()->paginate();
         $brand = BrandResource::collection($data);
 
@@ -44,10 +45,12 @@ class BrandController extends Controller
      */
     public function store(StoreBrandRequest $request)
     {
+        // upload a new image
         $path = $this->uploadImage($request, 'image', 'assets/images/brands');
-
+        // insert data into database
         $data = Brand::create(array_merge($request->validated(), ['image' => $path]));
 
+        // return brand resource with created data
         return Response::created(new BrandResource($data));
     }
 
@@ -64,10 +67,12 @@ class BrandController extends Controller
      */
     public function update(UpdateBrandRequest $request, Brand $brand)
     {
-        $validated = $request->validated();
-        $path = $this->uploadImage($request, 'image', 'assets/images/brands', $brand->image);
-        $data = array_merge($validated, [$path ? ['image' => $path] : $brand->image]);
-        $brand->update($data);
+        // update image path
+        $path = $request->hasFile('image') ? $this->uploadImage($request, 'image', 'assets/images/brands', $brand->image) : $brand->image;
+        // update brand data
+        $brand->update(array_merge($request->validated(), ['image' => $path]));
+
+        // return brand resource with updated data
         return Response::updated(new BrandResource($brand), "Brand successfully updated");
     }
 
@@ -76,12 +81,17 @@ class BrandController extends Controller
      */
     public function destroy(Brand $brand)
     {
+        // check if brand id is 1 then return error message
         if ($brand->id == 1) {
             return Response::error("This brand cannot deleteable");
         }
 
+        // delete brand image
         $this->deleteImage($brand->image);
+        // delete brand data from the database
         $brand->delete();
+
+        // return success message
         return Response::success(null, 'Brand successfully deleted');
     }
 }
