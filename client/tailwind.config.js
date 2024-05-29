@@ -6,8 +6,16 @@ export default withMT({
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    fontFamily: {
+      Poppins : ["Poppins", "sans-serif"]
+    },
+    extend: {
+     colors : {
+      primary : "#24354C",
+      secondary: "#092635"
+     }
+
+    },
   },
   plugins: [],
 });
-

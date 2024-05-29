@@ -1,14 +1,24 @@
 import { Outlet } from "react-router-dom";
-import DashboardSidebar from "./DashboardSidebar";
+// import DashboardSidebar from "./DashboardSidebar";
 import DashboardSidebarTwo from "./DashboardSidebarTwo";
+import { useState } from "react";
 
 const DashboardLayout = () => {
+  const [isSidebarOpen , setIsSidebarOpen] = useState(false)
   return (
-    <div className="flex" >
-      {/* <DashboardSidebar></DashboardSidebar> */}
-      <DashboardSidebarTwo></DashboardSidebarTwo>
-      <Outlet></Outlet>
+   <>
+       <div className="flex">
+      <div className="hidden lg:block">
+        <DashboardSidebarTwo></DashboardSidebarTwo>
+      </div>
+      {/* <div className="lg:hidden">
+        <DashboardSidebarTwo className={"absolute"} isSidebarOpen={isSidebarOpen} ></DashboardSidebarTwo>
+      </div> */}
+      <div className=" mt-12 px-5 w-full">
+        <Outlet></Outlet>
+      </div>
     </div>
+   </>
   );
 };
 

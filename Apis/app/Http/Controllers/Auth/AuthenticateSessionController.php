@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Spatie\Permission\Models\Permission;
 
 class AuthenticateSessionController extends Controller
 {
@@ -14,22 +16,23 @@ class AuthenticateSessionController extends Controller
         $credentials = $request->only('email', 'password');
 
         if (auth()->attempt($credentials)) {
-            // create a new token for the user
-            $token = $request->user()->createToken('token');
+            $user = $request->user();
+            $userData = [
+                'id' => $user->id,
+                'name' => $user->name,
+                'email' => $user->email,
+            ];
+            $data = [
+                'token' => $user->createToken('token')->plainTextToken,
+                'user' => $userData,
+            ];
 
-            return response()->json([
-                'status' => true,
-                'message' => 'You are successfully logged in.',
-                'access-token' => $token->plainTextToken,
-                'token_type' => 'Bearer',
-            ]);
+            return Response::success($data, 'Login successfully');
         }
 
-        return response()->json([
-            'status' => false,
-            'message' => 'Invalid Credentials.'
-        ], 401);
+        return Response::error('Credential doesn\'t match our records');
     }
+
 
     // logout
     public function logout(Request $request)
@@ -42,4 +45,7 @@ class AuthenticateSessionController extends Controller
             'message' => 'You are successfully logged out.'
         ]);
     }
+
+    // auth me 
+    
 }

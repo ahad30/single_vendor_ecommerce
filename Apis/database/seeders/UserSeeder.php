@@ -16,7 +16,10 @@ class UserSeeder extends Seeder
         $user = User::factory()->create([
             'name' => 'Admin User',
             'email' => 'admin@gmail.com',
+            'phone' => '+880987645534',
+            'address' => 'Dhaka, Bangladesh',
             'password' => bcrypt('password'),
+            'is_active' => true,
             'is_administration' => true,
         ]);
 
