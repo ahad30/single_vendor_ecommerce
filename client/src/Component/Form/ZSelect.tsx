@@ -1,7 +1,15 @@
 import { Form, Select } from "antd";
 import { Controller, useFormContext } from "react-hook-form";
 
-const ZSelect = ({ name, label, mode }) => {
+type TSelect = {
+  name: string;
+  label: string;
+  mode: "multiple" | "tags" | undefined;
+  options: { label: string; value: string }[] | [];
+  isLoading: boolean;
+};
+
+const ZSelect = ({ name, label, mode, options, isLoading }: TSelect) => {
   const { control } = useFormContext();
   const onChange = (value: string) => {
     console.log(`selected ${value}`);
@@ -31,26 +39,15 @@ const ZSelect = ({ name, label, mode }) => {
             {...field}
             virtual={true}
             showSearch
-            placeholder="Select a person"
+            placeholder={label}
             optionFilterProp="children"
             onChange={field.onChange}
             onSearch={onSearch}
             filterOption={filterOption}
-            options={[
-              {
-                value: "jack",
-                label: "Jack",
-              },
-              {
-                value: "lucy",
-                label: "Lucy",
-              },
-              {
-                value: "tom",
-                label: "Tom",
-              },
-            ]}
+            options={options || []}
             mode={mode ? mode : undefined}
+            loading={isLoading}
+            disabled={isLoading}
           />
         </Form.Item>
       )}
