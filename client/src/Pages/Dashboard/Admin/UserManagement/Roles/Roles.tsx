@@ -1,10 +1,9 @@
-
 const Roles = () => {
-    return (
-        <div>
-            roles
-        </div>
-    );
+  return (
+    <div>
+      <p>Roles</p>
+    </div>
+  );
 };
 
 export default Roles;
