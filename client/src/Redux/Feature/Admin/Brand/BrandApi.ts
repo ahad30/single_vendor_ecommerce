@@ -5,7 +5,6 @@ import {
   TResponseWithRedux,
 } from "../../../../types/globalTypes";
 import { baseApi } from "../../../Api/baseApi";
-import { TBrand } from "../../../../types";
 
 export const brandApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
