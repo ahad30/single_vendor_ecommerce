@@ -21,7 +21,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $data = Category::paginate();
+        $data = Category::latest()->paginate();
         $categories = CategoryResource::collection($data);
 
         // Merge the additional 'status' key with the paginated data

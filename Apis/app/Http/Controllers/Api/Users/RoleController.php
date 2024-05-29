@@ -5,9 +5,9 @@ namespace App\Http\Controllers\Api\Users;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RoleCreateRequest;
 use App\Http\Requests\RoleUpdateRequest;
+use App\Http\Resources\RoleResource;
 use Illuminate\Http\Response;
 use Spatie\Permission\Models\Role;
-use Spatie\Permission\Models\Permission;
 
 class RoleController extends Controller
 {
@@ -16,10 +16,25 @@ class RoleController extends Controller
      */
     public function index()
     {
+        $data = Role::latest()->with('permissions:id,name')->paginate();
+        $roles = RoleResource::collection($data);
 
-        $roles = Role::with('permissions:id,name')->get(['id', 'name']);
+        // Merge the additional 'status' key with the paginated data
+        $response = [
+            'status' => true,
+            'data' => $roles,
+            'meta' => [
+                'active_page' => $data->currentPage() ? false : true,
+                'current_page' => $data->currentPage(),
+                'last_page' => $data->lastPage(),
+                'per_page' => $data->perPage(),
+                'total' => $data->total(),
+                'next_page_url' => $data->nextPageUrl(),
+                'prev_page_url' => $data->previousPageUrl(),
+            ],
+        ];
 
-        return Response::success($roles);
+        return Response::successWithPagination($response);
     }
 
     /**
@@ -30,51 +45,68 @@ class RoleController extends Controller
         $role = Role::create(array_merge($request->validated(), ['guard_name' => 'web']));
 
         $role->syncPermissions($request->permissions);
-        return Response::created($role, "Role created");
+        return Response::created(new RoleResource($role), "Role successfully created");
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Role $role)
     {
-        $permissions = Permission::get(['id', 'name']);
-        $role = Role::with('permissions:id,name')->find($id, ['id', 'name']);
-        if ($role) {
-            $checkedPermissions = $role->permissions()->pluck('id')->toArray();
-            return Response::success([
-                'role' => $role,
-                'checkedPermissions' => $checkedPermissions,
-                'permissions' => $permissions
-            ]);
+        $permissionData = [];
+
+        // get all permissions
+        $permissions = $role->permissions;
+        // loop through permissions and create an array of permission data
+        foreach ($permissions as $permission) {
+            $permissionData[] = [
+                'id' => $permission->id,
+                'name' => $permission->name,
+            ];
         }
-        return Response::notFound("Role not found");
+
+        $data = [
+            'role' => [
+                'id' => $role->id,
+                'name' => $role->name,
+            ],
+            'total-permissions' => $permissions->count(),
+            'permissions' => $permissionData,
+        ];
+
+        return Response::success($data);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(RoleUpdateRequest $request, string $id)
+    public function update(RoleUpdateRequest $request, Role $role)
     {
-        $role = Role::find($id);
-        if ($role) {
-            $role->update($request->validated());
-            $role->syncPermissions($request->permissions);
-            return Response::updated($role, "Role Updated");
+        if ($role->id == 1) {
+            return Response::notFound("This role cannot be editable");
         }
-        return Response::notFound("Role not found");
+        try {
+            // update role
+            $role->update($request->validated());
+            // sync permissions
+            $role->syncPermissions($request->permissions);
+
+            return Response::updated($role, "Role successfully Updated");
+        } catch (\Exception $e) {
+            return Response::notFound("Role not found");
+        };
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Role $role)
     {
-        $role = Role::find($id);
-        if ($role) {
-            $role->delete();
-            return Response::success(null, "Role Deleted");
+        if ($role->id == 1) {
+            return Response::notFound("This role cannot be able to delete");
         }
-        return Response::notFound("Role not found");
+
+        $role->delete();
+        return Response::success(null, "Role successfully deleted");
     }
 }

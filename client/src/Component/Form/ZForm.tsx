@@ -49,7 +49,6 @@ const ZForm = ({
     (state: RootState) => state.modal
   );
   const formConfig: defaultAndResolver = {};
-  // formConfig["mode"] = "onChange";
 
   if (defaultValues) {
     formConfig["defaultValues"] = defaultValues;
@@ -74,7 +73,7 @@ const ZForm = ({
         methods.reset();
       }
     }
-  }, [isAddModalOpen, isEditModalOpen]);
+  }, [isAddModalOpen, isEditModalOpen, methods]);
 
   useEffect(() => {
     if (isSuccess && closeModal) {
@@ -97,7 +96,6 @@ const ZForm = ({
 
   return (
     <FormProvider {...methods}>
-      {/* <form onSubmit={methods.handleSubmit(onSubmit)}>{children}</form> */}
       <Form layout="vertical" onFinish={methods.handleSubmit(onSubmit)}>
         <div>{children}</div>
         <SaveAndCloseButton

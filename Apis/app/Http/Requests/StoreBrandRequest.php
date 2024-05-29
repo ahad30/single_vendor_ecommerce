@@ -25,7 +25,7 @@ class StoreBrandRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required','string','max:255','unique:categories,name'],
+            'name' => ['required','string','max:255','unique:brands,name'],
             'image' => ['nullable','mimes:jpg,jpeg,png',File::image()->max('10mb')],
         ];
     }

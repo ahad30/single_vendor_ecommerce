@@ -18,7 +18,7 @@ class AttributeController extends Controller
      */
     public function index()
     {
-        $data = Attribute::with('attributeValues')->paginate();
+        $data = Attribute::latest()->with('attributeValues')->paginate();
         $attributes = AttributeResource::collection($data);
 
         // Merge the additional 'status' key with the paginated data

@@ -88,7 +88,7 @@
 }
 
 .thin-scrollbar::-webkit-scrollbar-track {
-  background: #f1f1f1; /* Optional: Track color */
+  background: white; /* Optional: Track color */
 }
 
 .thin-scrollbar::-webkit-scrollbar-thumb {

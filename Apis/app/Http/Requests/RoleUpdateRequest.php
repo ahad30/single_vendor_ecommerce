@@ -24,8 +24,9 @@ class RoleUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
+        $id = $this->route('role');
         return [
-            'name' => ['required','lowercase','max:25',Rule::unique('roles')->ignore($this->id)]
+            'name' => ['required', 'lowercase', 'max:25', Rule::unique('roles')->ignore($id)]
         ];
     }
     public function failedValidation(Validation $validator)

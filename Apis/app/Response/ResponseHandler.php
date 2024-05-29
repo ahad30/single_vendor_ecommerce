@@ -15,8 +15,8 @@ class ResponseHandler
         Response::macro('success', function ($data = null, $message = null, $status = 200) {
             return response()->json([
                 'status' => true,
-                'data' => $data,
                 'message' => $message,
+                'data' => $data,
             ], $status);
         });
 

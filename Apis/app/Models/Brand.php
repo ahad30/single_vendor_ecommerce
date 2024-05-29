@@ -13,4 +13,10 @@ class Brand extends Model
         'name',
         'image'
     ];
+
+    // get related products
+    public function products()
+    {
+        return $this->hasMany(Product::class, 'category_id');
+    }
 }
