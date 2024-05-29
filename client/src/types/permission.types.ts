@@ -24,4 +24,5 @@ export type TAllPermission =
   | "view category"
   | "view permissions"
   | "view role"
-  | "view user";
+  | "view user"
+  | "view dashboard";

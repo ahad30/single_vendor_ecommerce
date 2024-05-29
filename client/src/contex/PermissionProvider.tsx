@@ -12,7 +12,7 @@ import { TAllPermission, TPermissions } from "../types/permission.types";
 interface PermissionContextValue {
   loggedInUserPermissions: string[];
   setLoggedInUserPermissions: Dispatch<SetStateAction<string[]>>;
-  handleCheckPermissions: (item: TAllPermission) => boolean; //
+  handleCheckPermissions: (item: TAllPermission) => boolean;
 }
 
 const defaultPermissionContextValue: PermissionContextValue = {
@@ -36,19 +36,7 @@ const PermissionProvider = ({ children }: { children: ReactNode }) => {
     isFetching,
   } = useGetAllPermissionsQuery(undefined);
 
-  const handleCheckPermissions = (item: TAllPermission) => {
-    if (allPermissions?.length > 0 && loggedInUserPermissions?.length > 0) {
-      const checkInAllPermissions = allPermissions.some(
-        (permission) => permission === item
-      );
-      const checkInLoggedInUserPermissions = loggedInUserPermissions.some(
-        (per) => per === item
-      );
-      if (checkInAllPermissions && checkInLoggedInUserPermissions) {
-        return true;
-      } else return false;
-    } else return false;
-  };
+  
 
   useEffect(() => {
     if (
@@ -58,6 +46,29 @@ const PermissionProvider = ({ children }: { children: ReactNode }) => {
       setAllPermissions(allPermissionData?.data?.map((item) => item?.name));
     }
   }, [allPermissionData, allPermissionData?.data]);
+console.log(allPermissionData)
+  const handleCheckPermissions = (item: TAllPermission) => {
+    if (allPermissions?.length > 0 ) {
+      console.log("sfssdfsf")
+      // if (item == "view dashboard") {
+      //   console.log(item)
+      //   return true;
+      // }
+      const checkInAllPermissions = allPermissions.some(
+        (permission) => permission == item
+      );
+      const checkInLoggedInUserPermissions = loggedInUserPermissions.some(
+        (per) => per == item
+      );
+      if (checkInAllPermissions && checkInLoggedInUserPermissions) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
+  };
 
   const value = {
     loggedInUserPermissions,
