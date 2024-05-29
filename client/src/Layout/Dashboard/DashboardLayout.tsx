@@ -7,7 +7,7 @@ const DashboardLayout = () => {
   const [isSidebarOpen , setIsSidebarOpen] = useState(false)
   return (
    <>
-       <div className="flex">
+       <div className="flex max-w-[1600px] mx-auto">
       <div className="hidden lg:block">
         <DashboardSidebarTwo></DashboardSidebarTwo>
       </div>
