@@ -17,6 +17,7 @@ const AdminProtectedRoute = ({ children }: { children: ReactNode }) => {
       skip: user == null ? true : false,
     }
   );
+  console.log(data?.data?.role_name);
   if (!token || token == null || user == null) {
     return <Navigate to={"/login"}></Navigate>;
   }
@@ -27,6 +28,7 @@ const AdminProtectedRoute = ({ children }: { children: ReactNode }) => {
     !Array.isArray(data?.data?.role_name) ||
     data?.data?.role_name.length == 0
   ) {
+    
     return <Navigate to={"/login"}></Navigate>;
   }
   return children;
