@@ -5,9 +5,8 @@ namespace App\Http\Requests;
 use Illuminate\Contracts\Validation\Validator as Validation;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
-use Illuminate\Validation\Rules\File;
 
-class CreateUserRequest extends FormRequest
+class StoreProductRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,13 +24,18 @@ class CreateUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'role' => ['required', 'string'],
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'email', 'max:255', 'unique:users,email'],
-            'image' => ['nullable', 'image', 'mimes:jpg,jpeg,png', File::image()->max('10mb')],
-            'phone' => ['required', 'unique:users,phone'],
-            'address' => ['nullable', 'string', 'max:255'],
-            'password' => ['required', 'string', 'confirmed'],
+            'category_id' => 'required|integer',
+            'brand_id' => 'nullable|integer',
+            'name' => 'required|string|max:255',
+            'weight' => 'required|numeric',
+            'description' => 'nullable|string',
+            'is_published' => 'nullable|boolean',
+            'variants' => 'required|array',
+            'variants.*.attributes' => 'required|array',
+            'variants.*.attributes.*' => 'required|string',
+            'variants.*.variant_values' => 'required|array',
+            'variants.*.variant_values.price' => 'required|numeric',
+            'variants.*.variant_values.quantity' => 'required|integer',
         ];
     }
     public function failedValidation(Validation $validator)
