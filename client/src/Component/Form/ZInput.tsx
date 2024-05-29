@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Form, Input } from "antd";
 import { useEffect } from "react";
 import { Controller, useFormContext } from "react-hook-form";
@@ -19,8 +20,8 @@ const ZInput = ({
     if (value) {
       setValue(name, value);
     }
-  }, [value, setValue]);
-  console.log(value);
+  }, [value , setValue]);
+ 
   return (
     <Controller
       name={name}

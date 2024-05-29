@@ -1,10 +1,24 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Form, Input } from "antd";
+import { useEffect } from "react";
 import { Controller, useFormContext } from "react-hook-form";
 
 const phoneRegex = /^(\+?\d{1,3}[-.\s]?)?(\(?\d{3}\)?[-.\s]?)?[\d-.\s]{7,10}$/;
 
-const ZPhone = ({ name, label }) => {
-  const { control } = useFormContext();
+type TPhone = {
+  name: string;
+  label: string;
+  value?: string;
+};
+
+const ZPhone = ({ name, label , value}:TPhone) => {
+  const { control  , setValue} = useFormContext();
+
+  useEffect(() => {
+    if (value) {
+      setValue(name, value);
+    }
+  }, [value, setValue]);
 
   return (
     <Controller
