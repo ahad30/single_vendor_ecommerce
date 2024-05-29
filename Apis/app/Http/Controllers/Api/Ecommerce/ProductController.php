@@ -7,9 +7,12 @@ use App\Http\Requests\StoreProductRequest;
 use App\Http\Resources\ProductResource;
 use App\Models\Product;
 use App\Models\Attribute;
+use App\Models\AttributeValue;
+use App\Models\Varient;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
@@ -44,42 +47,58 @@ class ProductController extends Controller
      */
     public function store(StoreProductRequest $request)
     {
-        $attributes = Attribute::pluck('id', 'name')->toArray();
+        // return $request->all();
 
-        DB::transaction(function () use ($request, $attributes) {
+        DB::transaction(function () use ($request, &$product) {
+
             // Create the product
             $product = Product::create([
-                'category_id' => $request['category_id'],
-                'brand_id' => $request['brand_id'],
                 'name' => $request['name'],
-                'slug' => request('name')->str('slug')->slug('-'),
-                'product_uid' => uniqid("PRD-"),
-                'weight' => $request['weight'],
-                'description' => $request['description'],
-                'is_published' => $request['is_published'],
+                'category_id' => $request->category_id,
+                'brand_id' => $request->brand_id,
+                'description' => $request->description,
+                'is_published' => $request->is_published,
+                'list_type' => $request->list_type,
+                'weight' => $request->weight,
+                'slug' => Str::slug($request->name, '-'),
+                'product_uid' => uniqid('PRD-'),
             ]);
 
-            foreach ($request['variants'] as $variantData) {
-                // Create the variant
-                $variant = $product->variants()->create([]);
+            // Create the attributes and their values
+            foreach ($request['attributes'] as $attributeData) {
+                $attribute = Attribute::create(['name' => $attributeData['name']]);
 
-                // Attach attributes to the variant
-                foreach ($variantData['attributes'] as $attributeName => $attributeValueName) {
-                    $attributeId = $attributes[$attributeName];
-                    $attributeValueId = Attribute::where('name', $attributeValueName)->first()->id;
+                foreach ($attributeData['values'] as $valueData) {
+                    $attributeValue = AttributeValue::create([
+                        'attribute_id' => $attribute->id,
+                        'value' => $valueData['value'],
+                    ]);
 
-                    $variant->attributes()->attach($attributeId, ['attribute_value_id' => $attributeValueId]);
+                    // Attach attribute values to the product
+                    $product->attributes()->attach($attribute->id);
                 }
-
-                // Create the variant values
-                $variant->variantValues()->create([
-                    'price' => $variantData['variant_values']['price'],
-                    'quantity' => $variantData['variant_values']['quantity'],
-                ]);
             }
+
+            // Create the variants
+            foreach ($request['variants'] as $variantData) {
+                $variant = Varient::create([
+                    'product_id' => $product->id,
+                    'price' => $variantData['price'],
+                    'quantity' => $variantData['quantity'],
+                ]);
+
+                // Attach variant attributes
+                foreach ($variantData['attributes'] as $variantAttributeData) {
+                    $variant->varientAttributeValues()->attach($variantAttributeData['attribute_id'], [
+                        'attribute_value_id' => $variantAttributeData['value_id'],
+                    ]);
+                }
+            }
+
+            return $product;
         });
 
-        return response()->json(['message' => 'Product created successfully'], 201);
+        return response()->json(['message' => 'Product created successfully!', 'product' => $product], 201);
     }
 
     /**

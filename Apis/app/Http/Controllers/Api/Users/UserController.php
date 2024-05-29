@@ -86,7 +86,7 @@ class UserController extends Controller
             DB::transaction(function () use ($request, $user) {
                 // update user
                 $path = $this->uploadImage($request, 'image', 'assets/images/users', $user->image);
-                $data = array_merge($request->validated(), ['image' => $path ?: $user->image]);
+                $data = array_merge($request->validated(), [$path ? ['image' => $path] : $user->image]);
 
                 $user->update($data);
 

@@ -66,7 +66,7 @@ class BrandController extends Controller
     {
         $validated = $request->validated();
         $path = $this->uploadImage($request, 'image', 'assets/images/brands', $brand->image);
-        $data = array_merge($validated, ['image' => $path ?: $brand->image]);
+        $data = array_merge($validated, [$path ? ['image' => $path] : $brand->image]);
         $brand->update($data);
         return Response::updated(new BrandResource($brand), "Brand successfully updated");
     }
