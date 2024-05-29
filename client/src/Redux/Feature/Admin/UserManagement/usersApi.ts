@@ -22,19 +22,19 @@ const userApi = baseApi.injectEndpoints({
         return res;
       },
     }),
-    // editRole: builder.mutation({
-    //   query: ({ data, id }) => {
-    //     return {
-    //       url: `/roles/${id}`,
-    //       method: "POST",
-    //       body: data,
-    //     };
-    //   },
-    //   invalidatesTags: ["roles"],
-    //   transformErrorResponse: (res: TError & BaseQueryApi) => {
-    //     return res;
-    //   },
-    // }),
+    editUser: builder.mutation({
+      query: ({ data, id }) => {
+        return {
+          url: `/users/${id}`,
+          method: "POST",
+          body: data,
+        };
+      },
+      invalidatesTags: ["users"],
+      transformErrorResponse: (res: TError & BaseQueryApi) => {
+        return res;
+      },
+    }),
     deleteUser: builder.mutation({
       query: (id) => {
         return {
@@ -68,4 +68,4 @@ const userApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useCreateUserMutation , useGetAllUsersQuery , useDeleteUserMutation} = userApi;
+export const { useCreateUserMutation , useGetAllUsersQuery , useDeleteUserMutation , useEditUserMutation} = userApi;

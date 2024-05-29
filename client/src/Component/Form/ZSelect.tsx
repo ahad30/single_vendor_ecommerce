@@ -1,4 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Form, Select } from "antd";
+import { useEffect } from "react";
 import { Controller, useFormContext } from "react-hook-form";
 
 type TSelect = {
@@ -7,10 +9,20 @@ type TSelect = {
   mode: "multiple" | "tags" | undefined;
   options: { label: string; value: string }[] | [];
   isLoading: boolean;
+  value?: string | number | string[];
 };
 
-const ZSelect = ({ name, label, mode, options, isLoading }: TSelect) => {
-  const { control } = useFormContext();
+const ZSelect = ({ name, label, mode, options, isLoading, value }: TSelect) => {
+  const { control , setValue } = useFormContext();
+
+  useEffect(() => {
+    if (value) {
+      setValue(name, value);
+    }
+  }, [value , setValue]);
+
+
+
   const onChange = (value: string) => {
     console.log(`selected ${value}`);
   };

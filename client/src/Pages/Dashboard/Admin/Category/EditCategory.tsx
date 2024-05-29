@@ -59,6 +59,7 @@ const EditCategory = <T extends { id: string | number; [key: string]: any }>({
         ></ZInput>
         <ZImageInput label="Picture" name="image"></ZImageInput>
       </ZForm>
+      {/* image */}
       <div>
         <p className="text-lg mt-10 mb-3">Previous Picture</p>
         <Image
