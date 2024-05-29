@@ -25,8 +25,9 @@ class UpdateBrandRequest extends FormRequest
      */
     public function rules(): array
     {
+        $id = $this->route('brand');
         return [
-            'name' => ['required', 'string', 'max:255', Rule::unique('categories')->ignore($this->id)],
+            'name' => ['required', 'string', 'max:255', Rule::unique('bands')->ignore($id)],
             'image' => ['nullable', 'mimes:jpg,jpeg,png', File::image()->max('10mb')], // 10 MB max file size
         ];
     }
