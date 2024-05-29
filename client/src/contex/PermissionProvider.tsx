@@ -11,12 +11,14 @@ import { TAllPermission, TPermissions } from "../types/permission.types";
 
 interface PermissionContextValue {
   loggedInUserPermissions: string[];
-  setLoggedInUserPermissions: Dispatch<SetStateAction<string[]>>; //
+  setLoggedInUserPermissions: Dispatch<SetStateAction<string[]>>;
+  handleCheckPermissions: (item: TAllPermission) => boolean; //
 }
 
 const defaultPermissionContextValue: PermissionContextValue = {
   loggedInUserPermissions: [],
   setLoggedInUserPermissions: () => [],
+  handleCheckPermissions: (item: TAllPermission) => true || false,
 };
 
 export const PermissionContextProvider = createContext<PermissionContextValue>(
@@ -35,7 +37,17 @@ const PermissionProvider = ({ children }: { children: ReactNode }) => {
   } = useGetAllPermissionsQuery(undefined);
 
   const handleCheckPermissions = (item: TAllPermission) => {
-    console.log(item);
+    if (allPermissions?.length > 0 && loggedInUserPermissions?.length > 0) {
+      const checkInAllPermissions = allPermissions.some(
+        (permission) => permission === item
+      );
+      const checkInLoggedInUserPermissions = loggedInUserPermissions.some(
+        (per) => per === item
+      );
+      if (checkInAllPermissions && checkInLoggedInUserPermissions) {
+        return true;
+      } else return false;
+    } else return false;
   };
 
   useEffect(() => {
@@ -46,11 +58,11 @@ const PermissionProvider = ({ children }: { children: ReactNode }) => {
       setAllPermissions(allPermissionData?.data?.map((item) => item?.name));
     }
   }, [allPermissionData, allPermissionData?.data]);
-  
+
   const value = {
     loggedInUserPermissions,
     setLoggedInUserPermissions,
-    handleCheckPermissions,
+    handleCheckPermissions: handleCheckPermissions,
   };
   return (
     <PermissionContextProvider.Provider value={value}>

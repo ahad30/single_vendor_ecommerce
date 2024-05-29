@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../../Redux/hook";
 import { TBrand } from "../../../../types";
 import {
@@ -21,7 +21,10 @@ import {
   setIsEditModalOpen,
 } from "../../../../Redux/Feature/Modal/modalSlice";
 import { TError, TMeta } from "../../../../types/globalTypes";
+import { PermissionContextProvider } from "../../../../contex/PermissionProvider";
 const Brand = () => {
+  const { handleCheckPermissions } = useContext(PermissionContextProvider);
+
   const dispatch = useAppDispatch();
   const { isAddModalOpen, isEditModalOpen, isDeleteModalOpen } = useAppSelector(
     (state: RootState) => state.modal
@@ -31,7 +34,7 @@ const Brand = () => {
   const { data, isLoading, isFetching } = useGetBrandsQuery([
     { name: "page", value: pageNumber },
   ]);
-  console.log(data?.data);
+
   const handleEditAndDelete = (data: TBrand, name: "delete" | "edit") => {
     setSingleData(data);
     if (name === "delete") {
