@@ -17,12 +17,12 @@ class AttributeSeeder extends Seeder
     {
         $colorAttribute = Attribute::create([
             'id' => 1,
-            'name' => 'color',
+            'name' => 'Color',
         ]);
 
         $sizeAttribute = Attribute::create([
             'id' => 2,
-            'name' => 'size',
+            'name' => 'Size',
         ]);
 
         // color attribute

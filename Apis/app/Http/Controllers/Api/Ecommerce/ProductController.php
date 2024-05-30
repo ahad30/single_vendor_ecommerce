@@ -21,7 +21,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $data = Product::latest()->paginate();
+        $data = Product::with('skus')->paginate();
         $products = ProductResource::collection($data);
 
         // Merge the additional 'status' key with the paginated data
@@ -47,7 +47,7 @@ class ProductController extends Controller
      */
     public function store(StoreProductRequest $request)
     {
-        // return $request->all();
+        return $request->all();
 
         DB::transaction(function () use ($request, &$product) {
 
@@ -63,37 +63,6 @@ class ProductController extends Controller
                 'slug' => Str::slug($request->name, '-'),
                 'product_uid' => uniqid('PRD-'),
             ]);
-
-            // Create the attributes and their values
-            foreach ($request['attributes'] as $attributeData) {
-                $attribute = Attribute::create(['name' => $attributeData['name']]);
-
-                foreach ($attributeData['values'] as $valueData) {
-                    $attributeValue = AttributeValue::create([
-                        'attribute_id' => $attribute->id,
-                        'value' => $valueData['value'],
-                    ]);
-
-                    // Attach attribute values to the product
-                    $product->attributes()->attach($attribute->id);
-                }
-            }
-
-            // Create the variants
-            foreach ($request['variants'] as $variantData) {
-                $variant = Varient::create([
-                    'product_id' => $product->id,
-                    'price' => $variantData['price'],
-                    'quantity' => $variantData['quantity'],
-                ]);
-
-                // Attach variant attributes
-                foreach ($variantData['attributes'] as $variantAttributeData) {
-                    $variant->varientAttributeValues()->attach($variantAttributeData['attribute_id'], [
-                        'attribute_value_id' => $variantAttributeData['value_id'],
-                    ]);
-                }
-            }
 
             return $product;
         });
