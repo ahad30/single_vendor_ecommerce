@@ -83,11 +83,12 @@ const DashboardSidebarTwo = ({
     .filter((per) => per?.permission !== false);
   const { user } = useAppSelector((state: RootState) => state.auth);
   console.log(user);
+  // h-[calc(100vh-2rem)]
   return (
     <Card
-      className={`h-[calc(100vh-2rem)] ${className}  z-10 ${
+      className={` h-screen ${className}  z-10 ${
         isSidebarOpen ? "-ml-[500px]" : ""
-      } max-w-[20rem] p-4 shadow-xl  shadow-blue-gray-900/5 duration-300`}
+      } max-w-[20rem] rounded-none duration-300 bg-[#162447]`}
       placeholder={undefined}
       onPointerEnterCapture={undefined}
       onPointerLeaveCapture={undefined}
@@ -104,6 +105,7 @@ const DashboardSidebarTwo = ({
         </Typography>
       </div>
       <List
+        className="m-0 p-0"
         placeholder={undefined}
         onPointerEnterCapture={undefined}
         onPointerLeaveCapture={undefined}
@@ -112,6 +114,7 @@ const DashboardSidebarTwo = ({
           if (item?.children) {
             return (
               <Accordion
+                className="text-gray-200 p-0 m-0 hover:bg-green-500"
                 key={item?.key}
                 open={open === item?.key}
                 icon={
@@ -127,7 +130,7 @@ const DashboardSidebarTwo = ({
                 onPointerLeaveCapture={undefined}
               >
                 <ListItem
-                  className="p-0"
+                  className=" p-0 m-0 hover:bg-purple-500 text-gray-200"
                   selected={open === item?.key}
                   placeholder={undefined}
                   onPointerEnterCapture={undefined}
@@ -135,7 +138,7 @@ const DashboardSidebarTwo = ({
                 >
                   <AccordionHeader
                     onClick={() => handleOpen(item?.key)}
-                    className="border-b-0 p-3"
+                    className="text-gray-200 p-0 m-0 hover:bg-red-300 border-b-0"
                     placeholder={undefined}
                     onPointerEnterCapture={undefined}
                     onPointerLeaveCapture={undefined}
@@ -145,12 +148,11 @@ const DashboardSidebarTwo = ({
                       onPointerEnterCapture={undefined}
                       onPointerLeaveCapture={undefined}
                     >
-                      {/* <PresentationChartBarIcon className="h-5 w-5" /> */}
                       {item?.icon}
                     </ListItemPrefix>
                     <Typography
                       color="blue-gray"
-                      className="mr-auto font-normal"
+                      className="mr-auto text-gray-300 font-normal"
                       placeholder={undefined}
                       onPointerEnterCapture={undefined}
                       onPointerLeaveCapture={undefined}
@@ -159,9 +161,9 @@ const DashboardSidebarTwo = ({
                     </Typography>
                   </AccordionHeader>
                 </ListItem>
-                <AccordionBody className="py-1">
+                <AccordionBody className="">
                   <List
-                    className="p-0"
+                    className="p-0 m-0"
                     placeholder={undefined}
                     onPointerEnterCapture={undefined}
                     onPointerLeaveCapture={undefined}
@@ -169,6 +171,7 @@ const DashboardSidebarTwo = ({
                     {item?.children?.map((subItem) => (
                       <Link to={subItem.key}>
                         <ListItem
+                          className="text-gray-200 m-0 p-0"
                           placeholder={undefined}
                           onPointerEnterCapture={undefined}
                           onPointerLeaveCapture={undefined}
@@ -195,6 +198,7 @@ const DashboardSidebarTwo = ({
             return (
               <Link key={item?.key} to={item?.key}>
                 <ListItem
+                  className="text-gray-200 p-0 m-0"
                   placeholder={undefined}
                   onPointerEnterCapture={undefined}
                   onPointerLeaveCapture={undefined}
@@ -209,12 +213,6 @@ const DashboardSidebarTwo = ({
                     {item?.icon}
                   </ListItemPrefix>
                   {item?.label}
-                  <ListItemSuffix
-                    placeholder={undefined}
-                    onPointerEnterCapture={undefined}
-                    onPointerLeaveCapture={undefined}
-                    children={undefined}
-                  ></ListItemSuffix>
                 </ListItem>
               </Link>
             );

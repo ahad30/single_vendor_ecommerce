@@ -32,7 +32,7 @@ const UpdatePagination = ({
   }, [location, pageNumber]);
 
   return (
-    <div className=" mt-5 flex justify-center items-center">
+    <div className=" my-5 flex justify-center items-center">
       <Pagination
         current={pageNumber}
         onChange={onChange}
