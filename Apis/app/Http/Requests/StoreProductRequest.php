@@ -30,16 +30,6 @@ class StoreProductRequest extends FormRequest
             'weight' => 'required|numeric',
             'description' => 'nullable|string',
             'is_published' => 'nullable|boolean',
-            'attributes' => 'required|array',
-            'attributes.*.name' => 'required|string|max:255',
-            'attributes.*.values' => 'required|array',
-            'attributes.*.values.*.value' => 'required|string|max:255',
-            'variants' => 'required|array',
-            'variants.*.price' => 'required|numeric',
-            'variants.*.quantity' => 'required|integer',
-            'variants.*.attributes' => 'required|array',
-            'variants.*.attributes.*.attribute_id' => 'required|integer|exists:attributes,id',
-            'variants.*.attributes.*.value_id' => 'required|integer|exists:attribute_values,id',
         ];
     }
     public function failedValidation(Validation $validator)
