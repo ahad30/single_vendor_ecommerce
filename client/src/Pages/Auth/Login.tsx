@@ -11,21 +11,21 @@ const Login = () => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate()
     const user = useAppSelector((state: RootState) => state.auth)
-    console.log(user)
+    // console.log(user)
     const [Login , {isError , isLoading , isSuccess}] = useLoginMutation()
     const {
         register,
         handleSubmit,
         // formState: { errors },
     } = useForm()
-
     const onSubmit: SubmitHandler<FieldValues> = async (data) => {
         const { data: loginData } = await Login(data)
         if (loginData.status) {
+            console.log(loginData.data)
             dispatch(setUser(loginData.data))
             navigate('/')
         }
-        console.log(loginData)
+      
     }
 
 

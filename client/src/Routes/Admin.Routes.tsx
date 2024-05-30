@@ -1,15 +1,8 @@
-import {
-  MdOutlineCategory,
-  MdOutlineShoppingCartCheckout,
-} from "react-icons/md";
-import { CiSettings } from "react-icons/ci";
-import Category from "../Pages/Dashboard/Admin/Category/Category";
-import DbBackup from "../Pages/Dashboard/Admin/Settings/DbBackup";
-import AdminProfile from "../Pages/Dashboard/Admin/Settings/AdminProfile";
+import { MdOutlineShoppingCartCheckout } from "react-icons/md";
+
 import DashboardStatics from "../Pages/Dashboard/Admin/DashboardStatics/DashboardStatics";
 import { MdOutlineDashboardCustomize } from "react-icons/md";
 import { LuUserCog2 } from "react-icons/lu";
-
 import Roles from "../Pages/Dashboard/Admin/UserManagement/Roles/Roles";
 import Users from "../Pages/Dashboard/Admin/UserManagement/Users/Users";
 import Permissions from "../Pages/Dashboard/Admin/UserManagement/Permissions/Permissions";
