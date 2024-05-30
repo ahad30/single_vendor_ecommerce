@@ -4,12 +4,10 @@ namespace App\Http\Controllers\Api\Ecommerce;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProductRequest;
+use App\Http\Requests\UpdateProductRequest;
 use App\Http\Resources\ProductResource;
 use App\Models\Product;
-use App\Models\Attribute;
 use App\Models\AttributeValue;
-use App\Models\Varient;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -21,7 +19,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $data = Product::with('skus')->paginate();
+        $data = Product::latest()->with('skus')->paginate();
         $products = ProductResource::collection($data);
 
         // Merge the additional 'status' key with the paginated data
@@ -47,10 +45,7 @@ class ProductController extends Controller
      */
     public function store(StoreProductRequest $request)
     {
-        // return $request->all();
-
         DB::transaction(function () use ($request, &$product) {
-
             // Create the product
             $product = Product::create([
                 'name' => $request['name'],
@@ -64,29 +59,17 @@ class ProductController extends Controller
                 'product_uid' => uniqid('PRD-'),
             ]);
 
-            // Handle SKU creation logic...
-            foreach ($request['skus'] as $skuData) {
-                // Create the SKU
-                $sku = $product->skus()->create([
-                    'code' => $skuData['sku'],
-                    'price' => $skuData['price'],
-                    'quantity' => $skuData['quantity'],
-                ]);
-
-                // Attach attributes to the SKU
-                foreach ($skuData['attributes'] as $attributeName => $attributeValue) {
-                    $attributeId = Attribute::where('name', $attributeName)->pluck('id');
-                    $attributeValueId = AttributeValue::where('attribute_id', $attributeId)
-                        ->where('value', $attributeValue)
-                        ->value('id');
-
-                    $sku->attributeValues()->attach($attributeValueId);
-                }
+            // Create SKU with attributes from the request
+            if (isset($request['skus'])) {
+                $this->CreateSkuAttribute($product, $request);
             }
+
+            return $product;
         });
 
-        return response()->json(['message' => 'Product created successfully!', 'product' => $product], 201);
+        return Response::created(new ProductResource($product), "Product successfully created");
     }
+
 
     /**
      * Display the specified resource.
@@ -99,9 +82,9 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Product $product)
+    public function update(UpdateProductRequest $request, Product $product)
     {
-        //
+        return new ProductResource($product);
     }
 
     /**
@@ -110,5 +93,52 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         //
+    }
+
+
+    protected function CreateSkuAttribute($product, $request)
+    {
+        foreach ($request['skus'] as $skuData) {
+            // create sku
+            $sku = $product->skus()->create([
+                'code' => $this->skuMaker($skuData['attributes'], $product->id),
+                'price' => $skuData['price'],
+                'quantity' => $skuData['quantity'],
+            ]);
+
+            $attributeNames = array_keys($skuData['attributes']);
+
+            // find all attribute values
+            $attributeValues = AttributeValue::whereIn('attribute_id', function ($query) use ($attributeNames) {
+                $query->select('id')
+                    ->from('attributes')
+                    ->whereIn('name', $attributeNames);
+            })->whereIn('value', array_values($skuData['attributes']))->get(['id', 'attribute_id', 'value']);
+
+            // mapping from attribute name to attribute value
+            $attributeValueMap = $attributeValues->groupBy('attribute_id')->mapWithKeys(function ($attributeValues) {
+                return [$attributeValues[0]->getAttribute('attribute_id') => $attributeValues->pluck('id', 'value')->toArray()];
+            });
+
+            // attach attributevalues to sku
+            foreach ($skuData['attributes'] as $attributeName => $attributeValue) {
+                if (isset($attributeValueMap[$attributeName][$attributeValue])) {
+                    $sku->attributeValues()->attach($attributeValueMap[$attributeName][$attributeValue]);
+                }
+            }
+        }
+    }
+
+    protected function SkuMaker(array $data, int $id): string
+    {
+        $skuAttributes = [];
+        // Create the SKU by concatenating attribute values
+        foreach ($data as $key => $value) {
+            $skuAttributes[] = strtoupper($value);
+        }
+        // generate the SKU like "SKU3-BLACK-L"
+        $sku = "SKU" . $id . "-" . implode('-', $skuAttributes);
+
+        return $sku;
     }
 }
