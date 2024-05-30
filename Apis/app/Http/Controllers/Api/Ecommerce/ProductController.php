@@ -47,7 +47,7 @@ class ProductController extends Controller
      */
     public function store(StoreProductRequest $request)
     {
-        return $request->all();
+        // return $request->all();
 
         DB::transaction(function () use ($request, &$product) {
 
@@ -64,7 +64,25 @@ class ProductController extends Controller
                 'product_uid' => uniqid('PRD-'),
             ]);
 
-            return $product;
+            // Handle SKU creation logic...
+            foreach ($request['skus'] as $skuData) {
+                // Create the SKU
+                $sku = $product->skus()->create([
+                    'code' => $skuData['sku'],
+                    'price' => $skuData['price'],
+                    'quantity' => $skuData['quantity'],
+                ]);
+
+                // Attach attributes to the SKU
+                foreach ($skuData['attributes'] as $attributeName => $attributeValue) {
+                    $attributeId = Attribute::where('name', $attributeName)->pluck('id');
+                    $attributeValueId = AttributeValue::where('attribute_id', $attributeId)
+                        ->where('value', $attributeValue)
+                        ->value('id');
+
+                    $sku->attributeValues()->attach($attributeValueId);
+                }
+            }
         });
 
         return response()->json(['message' => 'Product created successfully!', 'product' => $product], 201);
