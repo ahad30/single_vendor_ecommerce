@@ -73,6 +73,11 @@ const ZForm = ({
         methods.reset();
       }
     }
+    if (formType === "edit") {
+      if (!isEditModalOpen) {
+        methods.clearErrors();
+      }
+    }
   }, [isAddModalOpen, isEditModalOpen, methods]);
 
   useEffect(() => {

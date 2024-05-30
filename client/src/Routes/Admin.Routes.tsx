@@ -7,6 +7,7 @@ import Roles from "../Pages/Dashboard/Admin/UserManagement/Roles/Roles";
 import Users from "../Pages/Dashboard/Admin/UserManagement/Users/Users";
 import Permissions from "../Pages/Dashboard/Admin/UserManagement/Permissions/Permissions";
 import Brand from "../Pages/Dashboard/Admin/Brand/Brand";
+import Category from "../Pages/Dashboard/Admin/Category/Category";
 
 export const adminRoutes = [
   {
@@ -16,13 +17,6 @@ export const adminRoutes = [
     icon: <MdOutlineDashboardCustomize></MdOutlineDashboardCustomize>,
     permissionName: "view dashboard",
   },
-
-  // {
-  //   path: "categories",
-  //   label: "Category",
-  //   element: <Category></Category>,
-  //   icon: <MdOutlineCategory size={20}></MdOutlineCategory>,
-  // },
 
   {
     label: "E-commerce",
