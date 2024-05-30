@@ -26,19 +26,35 @@ const DashboardSidebarTwo = ({
   isSidebarOpen?: boolean;
   className?: string;
 }) => {
-  const { handleCheckPermissions, loggedInUserPermissions } = useContext(
-    PermissionContextProvider
-  );
+  const { loggedInUserPermissions } = useContext(PermissionContextProvider);
+
+  const handleCheckPermissions = (item: TAllPermission) => {
+    if (loggedInUserPermissions.length > 0) {
+      if (item == "view dashboard") {
+        return true;
+      }
+
+      const checkInLoggedInUserPermissions = loggedInUserPermissions.find(
+        (per) => per == item
+      );
+      if (checkInLoggedInUserPermissions) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
+  };
+
   const [open, setOpen] = React.useState("");
   const [newSidebar, setNewSidebar] = useState([]);
   const handleOpen = (value: string) => {
     setOpen(open === value ? "" : value);
   };
-
-  useEffect(() => {
-    const sidebarData = sidebarGenerator(adminRoutes as TRoutesData[]);
-    setNewSidebar([...sidebarData]);
-    const s = sidebarData.map((item) => {
+  const sidebarData = sidebarGenerator(adminRoutes as TRoutesData[]);
+  const actualSideBar = sidebarData
+    ?.map((item) => {
       if (item?.permissionName) {
         item = {
           ...item,
@@ -46,49 +62,23 @@ const DashboardSidebarTwo = ({
             item.permissionName as TAllPermission
           ),
         };
+      } else if (item?.children) {
+        item.children =
+          item.children
+            .map((child) => {
+              return {
+                ...child,
+                permission: handleCheckPermissions(
+                  child.permissionName as TAllPermission
+                ),
+              };
+            })
+            .filter((i) => i?.permission === true) || [];
+        item = { ...item, permission: item.children.length > 0 ? true : false };
       }
-      //  else if (item?.children) {
-      //   item.children = item.children
-      //     .map((child) => {
-      //       return {
-      //         ...child,
-      //         permission: handleCheckPermissions(
-      //           child.permissionName as TAllPermission
-      //         ),
-      //       };
-      //     })
-      // }
       return item;
-    });
-    console.log(s);
-  }, []);
-  // const actualSidebarData = sayem
-  //   .map((item) => {
-  //     if (item.children) {
-  //       item.children = item.children
-  //         ?.map((child) => ({
-  //           ...child,
-  //           permission: handleCheckPermissions(
-  //             child.permissionName as TAllPermission
-  //           ),
-  //         }))
-  //         .filter((i) => i.permission === true);
-  //     }
-  //     if (item?.permissionName) {
-  //       item = {
-  //         ...item,
-  //         permission: handleCheckPermissions(
-  //           item.permissionName as TAllPermission
-  //         ),
-  //       };
-  //     }
-
-  //     return item;
-  //   })
-  //   .filter((i) => i.permission !== false);
-
-  // console.log(newSidebar);
-  // console.log(loggedInUserPermissions);
+    })
+    .filter((per) => per?.permission !== false);
 
   return (
     <Card
@@ -115,7 +105,7 @@ const DashboardSidebarTwo = ({
         onPointerEnterCapture={undefined}
         onPointerLeaveCapture={undefined}
       >
-        {newSidebar?.map((item) => {
+        {actualSideBar?.map((item) => {
           if (item?.children) {
             return (
               <Accordion
