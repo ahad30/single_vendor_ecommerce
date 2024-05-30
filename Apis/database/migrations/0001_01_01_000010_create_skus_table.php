@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('skus', function (Blueprint $table) {
             $table->id();
             $table->foreignId('product_id')->constrained('products')->cascadeOnDelete();
-            $table->string('code')->unique();
+            $table->string('code');
             $table->integer('price');
             $table->integer('quantity');
             $table->timestamps();
