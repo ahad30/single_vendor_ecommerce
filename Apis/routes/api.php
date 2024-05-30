@@ -63,7 +63,6 @@ Route::middleware('auth:sanctum')->group(function () {
         });
     });
 
-
     // category management routes
     Route::name('category.')->group(function () {
         Route::apiResource('categories', CategoryController::class)->only(['index'])->middleware('permission:view category')->names(['index' => 'index', 'show' => 'show']);

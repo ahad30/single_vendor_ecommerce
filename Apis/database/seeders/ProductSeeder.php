@@ -5,8 +5,6 @@ namespace Database\Seeders;
 use App\Models\Attribute;
 use App\Models\AttributeValue;
 use App\Models\Product;
-use App\Models\Variant;
-use App\Models\VariantValue;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
