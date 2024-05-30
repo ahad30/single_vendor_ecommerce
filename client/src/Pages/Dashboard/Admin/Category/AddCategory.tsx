@@ -8,6 +8,7 @@ import { useCreateCategoryMutation } from "../../../../Redux/Feature/Admin/categ
 import { setIsAddModalOpen } from "../../../../Redux/Feature/Modal/modalSlice";
 import { useAppDispatch } from "../../../../Redux/hook";
 import { TError } from "../../../../types/globalTypes";
+import IconInputField from "../../../../Component/IconInputField";
 const categorySchema = z.object({
   name: z.string().nonempty("Please fill the name"),
   image: z.any().refine((file) => file instanceof File, {
@@ -54,6 +55,7 @@ const AddCategory = () => {
         <ZInput label={"Category name"} name={"name"} type={"text"}></ZInput>
         <ZImageInput label="Picture" name="image"></ZImageInput>
       </ZForm>
+
     </div>
   );
 };

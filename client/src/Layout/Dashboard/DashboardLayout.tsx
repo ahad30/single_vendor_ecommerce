@@ -16,11 +16,11 @@ const DashboardLayout = () => {
         <DashboardSidebarTwo className={"absolute"} isSidebarOpen={isSidebarOpen} ></DashboardSidebarTwo>
       </div> */}
 
-        <div className="relative w-full">
+        <div className="relative h-screen overflow-y-scroll w-full">
           <div className="w-full text-gray-900">
             <Navbar></Navbar>
           </div>
-          <div className=" mt-12 px-5 w-full">
+          <div className="mt-12 h-screen bg-[#F3F5F7] px-5 w-full">
             <Outlet></Outlet>
           </div>
         </div>

@@ -19,7 +19,7 @@ export const adminRoutes = [
   },
 
   {
-    label: "Product Management",
+    label: "Products",
     icon: (
       <MdOutlineShoppingCartCheckout size={20}></MdOutlineShoppingCartCheckout>
     ),

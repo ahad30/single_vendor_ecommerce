@@ -14,7 +14,7 @@ import {
 import { ChevronRightIcon, ChevronDownIcon } from "@heroicons/react/24/outline";
 import { adminRoutes } from "../../Routes/Admin.Routes";
 import { sidebarGenerator } from "../../utils/sidebarGenerator";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { TRoutesData } from "../../types/sidebarAndRouesTypes";
 import { PermissionContextProvider } from "../../contex/PermissionProvider";
 import { TAllPermission } from "../../types/permission.types";
@@ -83,6 +83,9 @@ const DashboardSidebarTwo = ({
     .filter((per) => per?.permission !== false);
   const { user } = useAppSelector((state: RootState) => state.auth);
   console.log(user);
+  // h-[calc(100vh-2rem)]
+  const location = useLocation();
+
   return (
     <Card
       className={`h-[calc(100vh-2rem)] ${className}  z-10 ${
