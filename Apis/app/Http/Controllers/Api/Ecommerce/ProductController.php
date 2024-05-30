@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Http\Resources\ProductResource;
+use App\Models\Attribute;
 use App\Models\Product;
 use App\Models\AttributeValue;
 use Illuminate\Http\Response;
@@ -92,41 +93,42 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        $product->delete();
+        return Response::success(null, 'Product deleted successfully');
     }
 
 
     protected function CreateSkuAttribute($product, $request)
     {
+        // Create skus
         foreach ($request['skus'] as $skuData) {
-            // create sku
+            $attributeIds = Attribute::whereIn('name', array_keys($skuData['attributes']))
+                ->pluck('id', 'name');
+            // Create the SKU
             $sku = $product->skus()->create([
-                'code' => $this->skuMaker($skuData['attributes'], $product->id),
+                'code' => $this->SkuMaker($skuData['attributes'], $product->id),
                 'price' => $skuData['price'],
                 'quantity' => $skuData['quantity'],
             ]);
 
-            $attributeNames = array_keys($skuData['attributes']);
-
-            // find all attribute values
-            $attributeValues = AttributeValue::whereIn('attribute_id', function ($query) use ($attributeNames) {
-                $query->select('id')
-                    ->from('attributes')
-                    ->whereIn('name', $attributeNames);
-            })->whereIn('value', array_values($skuData['attributes']))->get(['id', 'attribute_id', 'value']);
-
-            // mapping from attribute name to attribute value
-            $attributeValueMap = $attributeValues->groupBy('attribute_id')->mapWithKeys(function ($attributeValues) {
-                return [$attributeValues[0]->getAttribute('attribute_id') => $attributeValues->pluck('id', 'value')->toArray()];
-            });
-
-            // attach attributevalues to sku
+            // Prepare data for bulk attachment
+            $attributesToAttach = [];
             foreach ($skuData['attributes'] as $attributeName => $attributeValue) {
-                if (isset($attributeValueMap[$attributeName][$attributeValue])) {
-                    $sku->attributeValues()->attach($attributeValueMap[$attributeName][$attributeValue]);
+                $attributeId = $attributeIds[$attributeName] ?? null;
+                if ($attributeId !== null) {
+                    $attributeValueId = AttributeValue::where('attribute_id', $attributeId)
+                        ->where('value', $attributeValue)
+                        ->value('id');
+
+                    if ($attributeValueId) {
+                        $attributesToAttach[] = $attributeValueId;
+                    }
                 }
             }
         }
+
+        // Attach all attribute values in bulk
+        $sku->attributeValues()->attach($attributesToAttach);
     }
 
     protected function SkuMaker(array $data, int $id): string
