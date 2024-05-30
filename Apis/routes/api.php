@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\Ecommerce\AttributeController;
 use App\Http\Controllers\Api\Ecommerce\BrandController;
 use App\Http\Controllers\Api\Ecommerce\CategoryController;
+use App\Http\Controllers\Api\Ecommerce\GetAtrributeValueController;
 use App\Http\Controllers\Api\Ecommerce\ProductController;
 use App\Http\Controllers\Api\Users\GetAllRoleName;
 use App\Http\Controllers\Api\Users\PermissionController;
@@ -126,6 +127,9 @@ Route::middleware('auth:sanctum')->group(function () {
     // Product management routes
     Route::name('product.')->group(function () {
         Route::apiResource('products', ProductController::class)->only(['index'])->middleware('permission:view product')->names(['index' => 'index', 'show' => 'show']);
+
+        // get all attributes with values
+        Route::get('products/attributes/values', GetAtrributeValueController::class)->middleware('permission:create product');
 
         Route::middleware('permission:create product')->group(function () {
             Route::apiResource('products', ProductController::class)->only(['store'])

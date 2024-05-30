@@ -48,7 +48,6 @@ class ProductSeeder extends Seeder
                     ],
                 ],
             ],
-
             [
                 'name' => 'Product 2',
                 'slug' => 'product-2',
