@@ -7,13 +7,16 @@ import { Provider } from "react-redux";
 import { persistor, store } from "./Redux/store";
 import { PersistGate } from "redux-persist/integration/react";
 import { Toaster } from "sonner";
+import PermissionProvider from "./contex/PermissionProvider";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <Provider store={store}>
       <PersistGate persistor={persistor} loading={null}>
         <Toaster richColors />
-        <RouterProvider router={router} />
+        <PermissionProvider>
+          <RouterProvider router={router} />
+        </PermissionProvider>
       </PersistGate>
     </Provider>
   </React.StrictMode>

@@ -3,10 +3,16 @@
 namespace App\Http\Controllers\Api\Ecommerce;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreProductRequest;
 use App\Http\Resources\ProductResource;
 use App\Models\Product;
+use App\Models\Attribute;
+use App\Models\AttributeValue;
+use App\Models\Varient;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
@@ -15,7 +21,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $data = Product::latest()->paginate();
+        $data = Product::with('skus')->paginate();
         $products = ProductResource::collection($data);
 
         // Merge the additional 'status' key with the paginated data
@@ -39,9 +45,29 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreProductRequest $request)
     {
-        //
+        return $request->all();
+
+        DB::transaction(function () use ($request, &$product) {
+
+            // Create the product
+            $product = Product::create([
+                'name' => $request['name'],
+                'category_id' => $request->category_id,
+                'brand_id' => $request->brand_id,
+                'description' => $request->description,
+                'is_published' => $request->is_published,
+                'list_type' => $request->list_type,
+                'weight' => $request->weight,
+                'slug' => Str::slug($request->name, '-'),
+                'product_uid' => uniqid('PRD-'),
+            ]);
+
+            return $product;
+        });
+
+        return response()->json(['message' => 'Product created successfully!', 'product' => $product], 201);
     }
 
     /**

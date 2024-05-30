@@ -6,7 +6,6 @@ use Illuminate\Contracts\Validation\Validator as Validation;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Validation\Rule;
-use Illuminate\Validation\Rules\File;
 
 class UpdateUserRequest extends FormRequest
 {
@@ -30,8 +29,8 @@ class UpdateUserRequest extends FormRequest
             'role' => ['required', 'string'],
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'max:255', Rule::unique('users', 'email')->ignore($id)],
-            'image' => ['nullable', 'mimes:jpg,jpeg,png', File::image()->max('10mb')],
-            'phone' => ['required', 'digits_between:11,13', 'regex:/^\d+$/', Rule::unique('users', 'phone')->ignore($id)],
+            'image' => ['nullable', 'image', 'mimes:jpg,jpeg,png', 'max:5120'],
+            'phone' => ['required', Rule::unique('users', 'phone')->ignore($id)],
             'address' => ['nullable', 'string', 'max:255']
         ];
     }

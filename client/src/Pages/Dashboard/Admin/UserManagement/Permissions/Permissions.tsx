@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Alert } from "antd";
 import { useGetAllPermissionsQuery } from "../../../../../Redux/Feature/Admin/UserManagement/rolesApi";
 import DashboardTitle from "../../../../../Component/Dashborad/DashboardTitle";
@@ -17,7 +18,7 @@ const Permissions = () => {
         {data?.data?.length || 0}
       </DashboardTitle>
       <div className="grid lg:mt-12 mt-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-        {data?.data?.map((item, idx) => (
+        {data?.data?.map((item) => (
           <Alert key={item.id} message={item.name} type="info" />
         ))}
       </div>

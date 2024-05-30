@@ -10,14 +10,15 @@ class Product extends Model
     use HasFactory;
 
     protected $fillable = [
+        'category_id',
+        'brand_id',
         'name',
+        'slug',
         'product_uid',
         'weight',
         'description',
         'list_type',
         'is_published',
-        'category_id',
-        'brand_id'
     ];
 
     // get category information
@@ -32,15 +33,9 @@ class Product extends Model
         return $this->belongsTo(Brand::class, 'brand_id');
     }
 
-    // many to many
-    public function attributes()
+    // get all sku informations
+    public function skus()
     {
-        return $this->belongsToMany(Attribute::class, 'product_has_attributes');
-    }
-
-    // get all varients
-    public function varients()
-    {
-        return $this->hasMany(Varient::class, 'product_id');
+        return $this->hasMany(Sku::class, 'product_id');
     }
 }

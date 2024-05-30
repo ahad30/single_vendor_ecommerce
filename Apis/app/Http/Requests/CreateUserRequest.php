@@ -28,8 +28,8 @@ class CreateUserRequest extends FormRequest
             'role' => ['required', 'string'],
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'max:255', 'unique:users,email'],
-            'image' => ['nullable', 'mimes:jpg,jpeg,png', File::image()->max('10mb')],
-            'phone' => ['required', 'digits_between:11,13', 'regex:/^\d+$/', 'unique:users,phone'],
+            'image' => ['nullable', 'image', 'mimes:jpg,jpeg,png', File::image()->max('10mb')],
+            'phone' => ['required', 'unique:users,phone'],
             'address' => ['nullable', 'string', 'max:255'],
             'password' => ['required', 'string', 'confirmed'],
         ];

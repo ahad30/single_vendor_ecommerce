@@ -48,7 +48,7 @@ const Table = <T extends { id: string | number; [key: string]: any }>({
   return (
     <div className="pb-12">
       <Card
-        className="h-[70vh] w-full overflow-scroll thin-scrollbar"
+        className="w-full "
         placeholder={undefined}
         onPointerEnterCapture={undefined}
         onPointerLeaveCapture={undefined}
@@ -160,14 +160,15 @@ const Table = <T extends { id: string | number; [key: string]: any }>({
             })}
           </tbody>
         </table>
-      </Card>
-      {meta?.total && (
+        {meta?.total && (
         <UpdatePagination
           meta={meta}
           pageNumber={pageNumber}
           setPageNumber={setPageNumber}
         ></UpdatePagination>
       )}
+      </Card>
+    
     </div>
   );
 };

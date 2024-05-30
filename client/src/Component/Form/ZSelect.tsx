@@ -1,8 +1,28 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Form, Select } from "antd";
+import { useEffect } from "react";
 import { Controller, useFormContext } from "react-hook-form";
 
-const ZSelect = ({ name, label, mode }) => {
-  const { control } = useFormContext();
+type TSelect = {
+  name: string;
+  label: string;
+  mode: "multiple" | "tags" | undefined;
+  options: { label: string; value: string }[] | [];
+  isLoading: boolean;
+  value?: string | number | string[];
+};
+
+const ZSelect = ({ name, label, mode, options, isLoading, value }: TSelect) => {
+  const { control , setValue } = useFormContext();
+
+  useEffect(() => {
+    if (value) {
+      setValue(name, value);
+    }
+  }, [value , setValue]);
+
+
+
   const onChange = (value: string) => {
     console.log(`selected ${value}`);
   };
@@ -31,26 +51,15 @@ const ZSelect = ({ name, label, mode }) => {
             {...field}
             virtual={true}
             showSearch
-            placeholder="Select a person"
+            placeholder={label}
             optionFilterProp="children"
             onChange={field.onChange}
             onSearch={onSearch}
             filterOption={filterOption}
-            options={[
-              {
-                value: "jack",
-                label: "Jack",
-              },
-              {
-                value: "lucy",
-                label: "Lucy",
-              },
-              {
-                value: "tom",
-                label: "Tom",
-              },
-            ]}
+            options={options || []}
             mode={mode ? mode : undefined}
+            loading={isLoading}
+            disabled={isLoading}
           />
         </Form.Item>
       )}

@@ -63,7 +63,7 @@ const Users = () => {
       <div className="flex flex-col lg:flex-row items-center gap-x-2 justify-between my-5">
         <SearchBar></SearchBar>
         <TableTabs></TableTabs>
-        <ButtonWithModal title="Add Role"></ButtonWithModal>
+        <ButtonWithModal title="Add User"></ButtonWithModal>
       </div>
 
       {/* table */}
@@ -78,11 +78,7 @@ const Users = () => {
         setPageNumber={setPageNumber}
       ></Table>
       {/* add role modal */}
-      <AddModal
-        width={700}
-        isAddModalOpen={isAddModalOpen}
-        title="Create role"
-      >
+      <AddModal width={500} isAddModalOpen={isAddModalOpen} title="Create role">
         {/* <AddRoles></AddRoles> */}
         <AddUser></AddUser>
       </AddModal>
@@ -93,7 +89,7 @@ const Users = () => {
         title="Edit Users"
       >
         {/* <EditRoles<TRoles> itemData={singleData as TRoles}></EditRoles> */}
-        <EditUser></EditUser>
+        <EditUser itemData={singleData as TUser}></EditUser>
       </EditModal>
       {/* delete category */}
       <DeleteModal
