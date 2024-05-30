@@ -25,8 +25,9 @@ class ProductResource extends JsonResource
             'list_type' => $this->list_type,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
-            'category' => new CategoryResource($this->category),
-            'brand' => new BrandResource($this->brand),
+            'category' => $this->category->name,
+            'brand' => $this->brand->name,
+            'skus' => $this->skus,
         ];
     }
 }
