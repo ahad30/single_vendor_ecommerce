@@ -85,10 +85,11 @@ class UserController extends Controller
         try {
             DB::transaction(function () use ($request, $user) {
                 // update user
-                $path = $this->uploadImage($request, 'image', 'assets/images/users', $user->image);
-                $data = array_merge($request->validated(), [$path ? ['image' => $path] : $user->image]);
-
-                $user->update($data);
+                $inputs = $request->validated();
+                if ($path = $this->uploadImage($request, 'image', 'assets/images/users', $user->image)) {
+                    $inputs['image'] = $path;
+                }
+                $user->update($inputs);
 
                 // remove previous role and assign new role
                 $user->syncRoles($request->role);
