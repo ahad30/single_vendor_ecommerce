@@ -62,7 +62,7 @@ const Brand = () => {
 
   return (
     <div>
-      <DashboardTitle windowTitle="Categories" text=" Total brand">
+      <DashboardTitle windowTitle="brands" text=" Total brand">
         {data?.meta?.total}
       </DashboardTitle>
       <div className="flex flex-col lg:flex-row items-center gap-x-2 justify-between my-5">

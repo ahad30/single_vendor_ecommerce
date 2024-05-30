@@ -27,8 +27,8 @@ class UpdateBrandRequest extends FormRequest
     {
         $id = $this->route('brand');
         return [
-            'name' => ['required', 'string', 'max:255', Rule::unique('bands')->ignore($id)],
-            'image' => ['nullable', 'mimes:jpg,jpeg,png', File::image()->max('10mb')], // 10 MB max file size
+            'name' => ['required', 'string', 'max:255', Rule::unique('brands')->ignore($id)],
+            'image' => ['nullable', 'mimes:jpg,jpeg,png', 'max:2024',] // 10 MB max file size
         ];
     }
     public function failedValidation(Validation $validator)
