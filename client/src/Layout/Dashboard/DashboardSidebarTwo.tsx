@@ -18,6 +18,8 @@ import { Link } from "react-router-dom";
 import { TRoutesData } from "../../types/sidebarAndRouesTypes";
 import { PermissionContextProvider } from "../../contex/PermissionProvider";
 import { TAllPermission } from "../../types/permission.types";
+import { useAppSelector } from "../../Redux/hook";
+import { RootState } from "../../Redux/store";
 
 const DashboardSidebarTwo = ({
   isSidebarOpen,
@@ -79,7 +81,8 @@ const DashboardSidebarTwo = ({
       return item;
     })
     .filter((per) => per?.permission !== false);
-
+  const { user } = useAppSelector((state: RootState) => state.auth);
+  console.log(user);
   return (
     <Card
       className={`h-[calc(100vh-2rem)] ${className}  z-10 ${

@@ -12,6 +12,8 @@ import ErrorPage from "../common/ErrorPage/ErrorPage";
 import ProductDetails from "../Pages/Home/ProductDetails/ProductDetails";
 import AdminProtectedRoute from "./AdminPanelProtectedRoutes/AdminProtectedRoute";
 import ErrorPageDashboard from "../Pages/Error/ErrorPageDashboard";
+import CustomerDashboardLayout from "../Layout/Dashboard/CustomerDashboardLayout";
+import { CustomerRoutes } from "./Customer.Routes";
 
 export const router = createBrowserRouter([
   {
@@ -27,8 +29,6 @@ export const router = createBrowserRouter([
         path: "/productDetails/:id",
         element: <ProductDetails></ProductDetails>,
       },
-
-     
     ],
   },
   {
@@ -52,9 +52,10 @@ export const router = createBrowserRouter([
   },
   {
     path: "/user",
+    children: routesGenerator(CustomerRoutes as TRoutesData[]),
     element: (
       <ProtectedRoutes role="user">
-        <DashboardLayout></DashboardLayout>
+        <CustomerDashboardLayout></CustomerDashboardLayout>
       </ProtectedRoutes>
     ),
   },
