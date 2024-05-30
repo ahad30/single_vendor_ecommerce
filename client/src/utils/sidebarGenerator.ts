@@ -1,10 +1,14 @@
 import { TRoutesData, TSidebar } from "../types/sidebarAndRouesTypes";
 
-
 export const sidebarGenerator = (arr: TRoutesData[]) => {
-  const sidebarGeneratorModified = arr.reduce((acc:TSidebar[], item) => {
+  const sidebarGeneratorModified = arr.reduce((acc: TSidebar[], item) => {
     if (item?.path) {
-      acc?.push({ key: item?.path, icon: item?.icon, label: item?.label });
+      acc?.push({
+        key: item?.path,
+        icon: item?.icon,
+        label: item?.label,
+        permissionName: item?.permissionName,
+      });
     }
     if (item?.children) {
       acc?.push({
@@ -14,10 +18,11 @@ export const sidebarGenerator = (arr: TRoutesData[]) => {
         children: item?.children.map((child) => ({
           key: child?.path,
           label: child?.label,
+          permissionName: child?.permissionName,
         })),
       });
     }
-    return acc
+    return acc;
   }, []);
-  return sidebarGeneratorModified
+  return sidebarGeneratorModified;
 };

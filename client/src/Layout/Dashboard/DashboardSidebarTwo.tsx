@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   Card,
   Typography,
@@ -16,6 +16,8 @@ import { adminRoutes } from "../../Routes/Admin.Routes";
 import { sidebarGenerator } from "../../utils/sidebarGenerator";
 import { Link } from "react-router-dom";
 import { TRoutesData } from "../../types/sidebarAndRouesTypes";
+import { PermissionContextProvider } from "../../contex/PermissionProvider";
+import { TAllPermission } from "../../types/permission.types";
 
 const DashboardSidebarTwo = ({
   isSidebarOpen,
@@ -24,12 +26,60 @@ const DashboardSidebarTwo = ({
   isSidebarOpen?: boolean;
   className?: string;
 }) => {
+  const { loggedInUserPermissions } = useContext(PermissionContextProvider);
+
+  const handleCheckPermissions = (item: TAllPermission) => {
+    if (loggedInUserPermissions.length > 0) {
+      if (item == "view dashboard") {
+        return true;
+      }
+
+      const checkInLoggedInUserPermissions = loggedInUserPermissions.find(
+        (per) => per == item
+      );
+      if (checkInLoggedInUserPermissions) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
+  };
+
   const [open, setOpen] = React.useState("");
+  const [newSidebar, setNewSidebar] = useState([]);
   const handleOpen = (value: string) => {
     setOpen(open === value ? "" : value);
   };
   const sidebarData = sidebarGenerator(adminRoutes as TRoutesData[]);
-  
+  const actualSideBar = sidebarData
+    ?.map((item) => {
+      if (item?.permissionName) {
+        item = {
+          ...item,
+          permission: handleCheckPermissions(
+            item.permissionName as TAllPermission
+          ),
+        };
+      } else if (item?.children) {
+        item.children =
+          item.children
+            .map((child) => {
+              return {
+                ...child,
+                permission: handleCheckPermissions(
+                  child.permissionName as TAllPermission
+                ),
+              };
+            })
+            .filter((i) => i?.permission === true) || [];
+        item = { ...item, permission: item.children.length > 0 ? true : false };
+      }
+      return item;
+    })
+    .filter((per) => per?.permission !== false);
+
   return (
     <Card
       className={`h-[calc(100vh-2rem)] ${className}  z-10 ${
@@ -55,17 +105,17 @@ const DashboardSidebarTwo = ({
         onPointerEnterCapture={undefined}
         onPointerLeaveCapture={undefined}
       >
-        {sidebarData.map((item) => {
-          if (item.children) {
+        {actualSideBar?.map((item) => {
+          if (item?.children) {
             return (
               <Accordion
-                key={item.key}
-                open={open === item.key}
+                key={item?.key}
+                open={open === item?.key}
                 icon={
                   <ChevronDownIcon
                     strokeWidth={2.5}
                     className={`mx-auto h-4 w-4 transition-transform ${
-                      open === item.key ? "rotate-180" : ""
+                      open === item?.key ? "rotate-180" : ""
                     }`}
                   />
                 }
@@ -75,13 +125,13 @@ const DashboardSidebarTwo = ({
               >
                 <ListItem
                   className="p-0"
-                  selected={open === item.key}
+                  selected={open === item?.key}
                   placeholder={undefined}
                   onPointerEnterCapture={undefined}
                   onPointerLeaveCapture={undefined}
                 >
                   <AccordionHeader
-                    onClick={() => handleOpen(item.key)}
+                    onClick={() => handleOpen(item?.key)}
                     className="border-b-0 p-3"
                     placeholder={undefined}
                     onPointerEnterCapture={undefined}
@@ -102,7 +152,7 @@ const DashboardSidebarTwo = ({
                       onPointerEnterCapture={undefined}
                       onPointerLeaveCapture={undefined}
                     >
-                      {item.label}
+                      {item?.label}
                     </Typography>
                   </AccordionHeader>
                 </ListItem>
@@ -113,7 +163,7 @@ const DashboardSidebarTwo = ({
                     onPointerEnterCapture={undefined}
                     onPointerLeaveCapture={undefined}
                   >
-                    {item.children.map((subItem) => (
+                    {item?.children?.map((subItem) => (
                       <Link to={subItem.key}>
                         <ListItem
                           placeholder={undefined}
@@ -130,7 +180,7 @@ const DashboardSidebarTwo = ({
                               className="h-3 w-5"
                             />
                           </ListItemPrefix>
-                          {subItem.label}
+                          {subItem?.label}
                         </ListItem>
                       </Link>
                     ))}
@@ -140,7 +190,7 @@ const DashboardSidebarTwo = ({
             );
           } else {
             return (
-              <Link key={item.key} to={item.key}>
+              <Link key={item?.key} to={item?.key}>
                 <ListItem
                   placeholder={undefined}
                   onPointerEnterCapture={undefined}
@@ -153,9 +203,9 @@ const DashboardSidebarTwo = ({
                   >
                     {/* <InboxIcon className="h-5 w-5" />
                      */}
-                    {item.icon}
+                    {item?.icon}
                   </ListItemPrefix>
-                  {item.label}
+                  {item?.label}
                   <ListItemSuffix
                     placeholder={undefined}
                     onPointerEnterCapture={undefined}

@@ -21,6 +21,7 @@ export const adminRoutes = [
     label: "Dashboard",
     element: <DashboardStatics></DashboardStatics>,
     icon: <MdOutlineDashboardCustomize></MdOutlineDashboardCustomize>,
+    permissionName: "view dashboard",
   },
 
   // {
@@ -40,11 +41,13 @@ export const adminRoutes = [
         path: "categories",
         label: "Category",
         element: <Category></Category>,
+        permissionName: "view category",
       },
       {
         path: "brands",
         label: "Brands",
         element: <Brand></Brand>,
+        permissionName: "view brand",
       },
     ],
   },
@@ -57,30 +60,33 @@ export const adminRoutes = [
         path: "permissions",
         label: "Permissions",
         element: <Permissions></Permissions>,
+        permissionName: "view permissions",
       },
       {
         path: "roles",
         label: "Roles",
         element: <Roles></Roles>,
+        permissionName: "view role",
       },
       {
         path: "users",
         label: "Users",
         element: <Users></Users>,
+        permissionName: "view user",
       },
     ],
   },
 
-  {
-    label: "Configuration",
-    icon: <CiSettings size={20}></CiSettings>,
-    children: [
-      { path: "db-backup", label: "DB Backup", element: <DbBackup></DbBackup> },
-      {
-        path: "admin-profile",
-        label: "Admin Profile",
-        element: <AdminProfile></AdminProfile>,
-      },
-    ],
-  },
+  // {
+  //   label: "Configuration",
+  //   icon: <CiSettings size={20}></CiSettings>,
+  //   children: [
+  //     { path: "db-backup", label: "DB Backup", element: <DbBackup></DbBackup> },
+  //     {
+  //       path: "admin-profile",
+  //       label: "Admin Profile",
+  //       element: <AdminProfile></AdminProfile>,
+  //     },
+  //   ],
+  // },
 ];
