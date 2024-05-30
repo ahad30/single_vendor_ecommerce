@@ -15,90 +15,104 @@ class ProductSeeder extends Seeder
      */
     public function run(): void
     {
-        $attributes = Attribute::pluck('id', 'name')->toArray();
-        $attribute_values = AttributeValue::pluck('id', 'name')->toArray();
+        $attributesMapping = Attribute::pluck('id', 'name')->toArray();
 
-        $products = [
+        $productsConfig = [
             [
-                'category_id' => 1,
-                'brand_id' => 1,
                 'name' => 'Product 1',
                 'slug' => 'product-1',
-                'product_uid' => 'PD-1223',
-                'weight' => '.454',
-                'description' => 'Product 1 description',
+                'category_id' => 1,
+                'brand_id' => 1,
+                'product_uid' => uniqid("PRD-"),
+                'weight' => '.5',
+                'description' => 'Product 1 Description',
                 'is_published' => true,
-
-                'variants' => [
+                'skus' => [
                     [
+                        'sku' => 'SKU1-RED-2GB-32GB',
                         'attributes' => [
-                            'color' => 'red',
-                            'size' => 'L',
+                            'Color' => 'Red',
+                            'Size' => 'M',
                         ],
-                        'variant_values' => [
-                            'price' => '100',
-                            'quantity' => '10'
+                        'quantity' => 10,
+                        'price' => 100,
+                    ],
+                    [
+                        'sku' => 'SKU1-BLUE-4GB-64GB',
+                        'attributes' => [
+                            'Color' => 'Blue',
+                            'Size' => 'XL',
                         ],
+                        'quantity' => 5,
+                        'price' => 85,
                     ],
                 ],
             ],
 
             [
-                'category_id' => 1,
-                'brand_id' => 1,
                 'name' => 'Product 2',
                 'slug' => 'product-2',
-                'product_uid' => 'PD-2223',
-                'weight' => '.784',
-                'description' => 'Product 2 description',
+                'category_id' => 1,
+                'brand_id' => 1,
+                'product_uid' => uniqid("PRD-"),
+                'weight' => '.3',
+                'description' => 'Product 2 Description',
                 'is_published' => true,
-
-                'variants' => [
+                'skus' => [
                     [
+                        'sku' => 'SKU2-GREEN-8GB-128GB',
                         'attributes' => [
-                            'color' => 'blue',
-                            'size' => 'M',
+                            'Color' => 'Black',
+                            'Size' => 'L',
                         ],
-                        'variant_values' => [
-                            'price' => '120',
-                            'quantity' => '20'
+                        'quantity' => 20,
+                        'price' => 200,
+                    ],
+                    [
+                        'sku' => 'SKU2-BLACK-16GB-256GB',
+                        'attributes' => [
+                            'Color' => 'Red',
+                            'Size' => 'XXL',
                         ],
+                        'quantity' => 15,
+                        'price' => 150,
                     ],
                 ],
             ],
         ];
 
-        foreach ($products as $productData) {
-            DB::transaction(function () use ($productData, $attributes, $attribute_values) {
+        foreach ($productsConfig as $productData) {
+            DB::transaction(function () use ($productData, $attributesMapping) {
                 // Create the product
                 $product = Product::create([
-                    'category_id' => $productData['category_id'],
-                    'brand_id' => $productData['brand_id'],
                     'name' => $productData['name'],
                     'slug' => $productData['slug'],
+                    'category_id' => $productData['category_id'],
+                    'brand_id' => $productData['brand_id'],
                     'product_uid' => $productData['product_uid'],
                     'weight' => $productData['weight'],
                     'description' => $productData['description'],
                     'is_published' => $productData['is_published'],
                 ]);
 
-                foreach ($productData['variants'] as $variantData) {
-                    // Create the variant
-                    $variant = $product->variants()->create([]);
-
-                    // Attach attributes to the variant
-                    foreach ($variantData['attributes'] as $attributeName => $attributeValueName) {
-                        $attributeId = $attributes[$attributeName];
-                        $attributeValueId = $attribute_values[$attributeValueName];
-
-                        $variant->attributes()->attach($attributeId, ['attribute_value_id' => $attributeValueId]);
-                    }
-
-                    // Create the variant values
-                    $variant->variantValues()->create([
-                        'price' => $variantData['variant_values']['price'],
-                        'quantity' => $variantData['variant_values']['quantity'],
+                // Create SKUs for the product
+                foreach ($productData['skus'] as $skuData) {
+                    // Create the SKU
+                    $sku = $product->skus()->create([
+                        'code' => $skuData['sku'],
+                        'price' => $skuData['price'],
+                        'quantity' => $skuData['quantity'],
                     ]);
+
+                    // Attach attributes to the SKU
+                    foreach ($skuData['attributes'] as $attributeName => $attributeValue) {
+                        $attributeId = $attributesMapping[$attributeName];
+                        $attributeValueId = AttributeValue::where('attribute_id', $attributeId)
+                            ->where('value', $attributeValue)
+                            ->value('id');
+
+                        $sku->attributeValues()->attach($attributeValueId);
+                    }
                 }
             });
         }
