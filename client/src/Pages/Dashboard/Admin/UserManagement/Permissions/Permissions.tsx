@@ -5,7 +5,6 @@ import DashboardTitle from "../../../../../Component/Dashborad/DashboardTitle";
 
 const Permissions = () => {
   const { data, isLoading, isFetching } = useGetAllPermissionsQuery(undefined);
-  console.log(data);
   if (isLoading || isFetching) {
     return <p>loading ...</p>;
   }
