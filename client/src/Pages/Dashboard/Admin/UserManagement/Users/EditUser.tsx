@@ -3,7 +3,6 @@ import ZForm from "../../../../../Component/Form/ZForm";
 import { setIsEditModalOpen } from "../../../../../Redux/Feature/Modal/modalSlice";
 import { useAppDispatch } from "../../../../../Redux/hook";
 import {
-  useEditRoleMutation,
   useGetAllRolesListQuery,
 } from "../../../../../Redux/Feature/Admin/UserManagement/rolesApi";
 import { TError } from "../../../../../types/globalTypes";
@@ -16,6 +15,7 @@ import ZImageInput from "../../../../../Component/Form/ZImageInput";
 
 import { TUser } from "../../../../../types";
 import { Image } from "antd";
+import { useEditUserMutation } from "../../../../../Redux/Feature/Admin/UserManagement/usersApi";
 
 const EditUser = ({ itemData }: { itemData: TUser }) => {
   const dispatch = useAppDispatch();
@@ -35,7 +35,7 @@ const EditUser = ({ itemData }: { itemData: TUser }) => {
       error: uError,
       isSuccess: uIsSuccess,
     },
-  ] = useEditRoleMutation();
+  ] = useEditUserMutation();
 
   if (roleIsloading) {
     return (

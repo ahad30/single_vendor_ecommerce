@@ -30,7 +30,7 @@ const userApi = baseApi.injectEndpoints({
           body: data,
         };
       },
-      invalidatesTags: ["users"],
+      invalidatesTags: ["users" , "roles"],
       transformErrorResponse: (res: TError & BaseQueryApi) => {
         return res;
       },
@@ -68,4 +68,9 @@ const userApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useCreateUserMutation , useGetAllUsersQuery , useDeleteUserMutation , useEditUserMutation} = userApi;
+export const {
+  useCreateUserMutation,
+  useGetAllUsersQuery,
+  useDeleteUserMutation,
+  useEditUserMutation,
+} = userApi;

@@ -85,6 +85,7 @@ const DashboardSidebarTwo = ({
   console.log(user);
   // h-[calc(100vh-2rem)]
   const location = useLocation();
+  console.log(actualSideBar);
 
   return (
     <Card
@@ -225,6 +226,26 @@ const DashboardSidebarTwo = ({
         })}
       </List>
     </Card>
+    // <div className="w-[300px] duration-300">
+    //   {actualSideBar.map((item) => {
+    //     if (item.children) {
+    //       return (
+    //         <div>
+    //           <p onClick={() => handleOpen(item.key)}>{item.label}</p>
+    //           <div
+    //             className={`ml-5 my-2 duration-600 bg-green-400 min-h-fit ${
+    //               open === item.key ? "" : "hidden"
+    //             }`}
+    //           >
+    //             {item.children.map((subItem) => (
+    //               <p>{subItem.label}</p>
+    //             ))}
+    //           </div>
+    //         </div>
+    //       );
+    //     }
+    //   })}
+    // </div>
   );
 };
 
