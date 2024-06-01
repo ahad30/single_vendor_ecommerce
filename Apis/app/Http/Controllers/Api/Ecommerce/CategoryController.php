@@ -36,10 +36,12 @@ class CategoryController extends Controller
      */
     public function store(StoreCategoryRequest $request)
     {
+        // store Category Image
         $path = $this->uploadImage($request, 'image', 'assets/images/categories');
-
+        // store data into database
         $data = Category::create(array_merge($request->validated(), ['image' => $path]));
 
+        // return response
         return Response::created(new CategoryResource($data), "Category successfully created");
     }
 
@@ -56,10 +58,10 @@ class CategoryController extends Controller
      */
     public function update(UpdateCategoryRequest $request, Category $category)
     {
-        $validated = $request->validated();
         $path = $this->uploadImage($request, 'image', 'assets/images/categories', $category->image);
-        $data = array_merge($validated, ['image' => $path ?: $category->image]);
+        $data = array_merge($request->validated(), ['image' => $path ?: $category->image]);
         $category->update($data);
+
         return Response::updated(new CategoryResource($category));
     }
 
