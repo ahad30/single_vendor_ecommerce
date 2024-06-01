@@ -26,6 +26,7 @@ type TableProps<T> = {
   setPageNumber: Dispatch<SetStateAction<number>>;
   isFetching: boolean;
   isLoading: boolean;
+  handleViewModal?: (data: T) => void;
 };
 
 const Table = <T extends { id: string | number; [key: string]: any }>({
@@ -37,6 +38,7 @@ const Table = <T extends { id: string | number; [key: string]: any }>({
   pageNumber,
   isLoading,
   isFetching,
+  handleViewModal,
 }: TableProps<T>) => {
   if (isLoading || isFetching) {
     return <Skeleton></Skeleton>;
@@ -147,6 +149,15 @@ const Table = <T extends { id: string | number; [key: string]: any }>({
                                 }`}
                                 alt=""
                               />
+                            ) : column.value === "view" && handleViewModal ? (
+                              <span
+                                onClick={() => {
+                                  handleViewModal(item);
+                                }}
+                                className="border cursor-pointer border-blue-400 px-7 py-1 rounded-full"
+                              >
+                                view all
+                              </span>
                             ) : (
                               <span>{item[column?.value]}</span>
                             )}
@@ -161,14 +172,13 @@ const Table = <T extends { id: string | number; [key: string]: any }>({
           </tbody>
         </table>
         {meta?.total && (
-        <UpdatePagination
-          meta={meta}
-          pageNumber={pageNumber}
-          setPageNumber={setPageNumber}
-        ></UpdatePagination>
-      )}
+          <UpdatePagination
+            meta={meta}
+            pageNumber={pageNumber}
+            setPageNumber={setPageNumber}
+          ></UpdatePagination>
+        )}
       </Card>
-    
     </div>
   );
 };

@@ -2,10 +2,7 @@ import { FieldValues, SubmitHandler } from "react-hook-form";
 import ZForm from "../../../../../Component/Form/ZForm";
 import { setIsEditModalOpen } from "../../../../../Redux/Feature/Modal/modalSlice";
 import { useAppDispatch } from "../../../../../Redux/hook";
-import {
-  useEditRoleMutation,
-  useGetAllRolesListQuery,
-} from "../../../../../Redux/Feature/Admin/UserManagement/rolesApi";
+import { useGetAllRolesListQuery } from "../../../../../Redux/Feature/Admin/UserManagement/rolesApi";
 import { TError } from "../../../../../types/globalTypes";
 import ZInput from "../../../../../Component/Form/ZInput";
 import ZSelect from "../../../../../Component/Form/ZSelect";
@@ -16,6 +13,7 @@ import ZImageInput from "../../../../../Component/Form/ZImageInput";
 
 import { TUser } from "../../../../../types";
 import { Image } from "antd";
+import { useEditUserMutation } from "../../../../../Redux/Feature/Admin/UserManagement/usersApi";
 
 const EditUser = ({ itemData }: { itemData: TUser }) => {
   const dispatch = useAppDispatch();
@@ -35,7 +33,7 @@ const EditUser = ({ itemData }: { itemData: TUser }) => {
       error: uError,
       isSuccess: uIsSuccess,
     },
-  ] = useEditRoleMutation();
+  ] = useEditUserMutation();
 
   if (roleIsloading) {
     return (
@@ -49,10 +47,14 @@ const EditUser = ({ itemData }: { itemData: TUser }) => {
   }
 
   const handleSubmit: SubmitHandler<FieldValues> = (formData) => {
-  
+    const remainData = { ...formData };
+    delete remainData.image;
     const formD = new FormData();
-    for (const key in formData) {
+    for (const key in remainData) {
       formD.append(key, formData[key]);
+    }
+    if (formData.image) {
+      formD.append("image", formData.image);
     }
     formD.append("_method", "PUT");
     editUser({ data: formD, id: itemData.id });

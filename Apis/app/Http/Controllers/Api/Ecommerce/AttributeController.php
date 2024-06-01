@@ -8,11 +8,13 @@ use App\Http\Requests\UpdateAttributeRequest;
 use App\Http\Resources\AttributeResource;
 use App\Models\Attribute;
 use App\Models\AttributeValue;
+use App\Trait\PaginationTrait;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 
 class AttributeController extends Controller
 {
+    use PaginationTrait;
     /**
      * Display a listing of the resource.
      */
@@ -21,20 +23,8 @@ class AttributeController extends Controller
         $data = Attribute::latest()->with('attributeValues')->paginate();
         $attributes = AttributeResource::collection($data);
 
-        // Merge the additional 'status' key with the paginated data
-        $response = [
-            'status' => true,
-            'data' => $attributes,
-            'meta' => [
-                'active_page' => $data->currentPage() ? false : true,
-                'current_page' => $data->currentPage(),
-                'last_page' => $data->lastPage(),
-                'per_page' => $data->perPage(),
-                'total' => $data->total(),
-                'next_page_url' => $data->nextPageUrl(),
-                'prev_page_url' => $data->previousPageUrl(),
-            ],
-        ];
+        // Get response paginated data
+        $response = $this->getMetaPagination($data, $attributes);
 
         return Response::successWithPagination($response);
     }
@@ -76,7 +66,6 @@ class AttributeController extends Controller
      */
     public function update(UpdateAttributeRequest $request, Attribute $attribute)
     {
-        return $request->all();
         $data = DB::transaction(function () use ($attribute, $request) {
             // Update attribute name
             $attribute->update($request->validated());

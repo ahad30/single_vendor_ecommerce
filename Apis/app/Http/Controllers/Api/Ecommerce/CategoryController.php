@@ -7,6 +7,7 @@ use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
 use App\Http\Resources\CategoryResource;
 use App\Models\Category;
+use App\Trait\PaginationTrait;
 use App\Trait\UploadImageTrait;
 use Illuminate\Http\Response;
 
@@ -15,7 +16,7 @@ class CategoryController extends Controller
     /**
      * Display a listing of the resource.
      */
-    use UploadImageTrait;
+    use UploadImageTrait, PaginationTrait;
     /**
      * Display a listing of the resource.
      */
@@ -24,20 +25,8 @@ class CategoryController extends Controller
         $data = Category::latest()->paginate();
         $categories = CategoryResource::collection($data);
 
-        // Merge the additional 'status' key with the paginated data
-        $response = [
-            'status' => true,
-            'data' => $categories,
-            'meta' => [
-                'active_page' => $data->currentPage() ? false : true,
-                'current_page' => $data->currentPage(),
-                'last_page' => $data->lastPage(),
-                'per_page' => $data->perPage(),
-                'total' => $data->total(),
-                'next_page_url' => $data->nextPageUrl(),
-                'prev_page_url' => $data->previousPageUrl(),
-            ],
-        ];
+        // Get response paginated data
+        $response = $this->getMetaPagination($data, $categories);
 
         return Response::successWithPagination($response);
     }
@@ -47,10 +36,12 @@ class CategoryController extends Controller
      */
     public function store(StoreCategoryRequest $request)
     {
+        // store Category Image
         $path = $this->uploadImage($request, 'image', 'assets/images/categories');
-
+        // store data into database
         $data = Category::create(array_merge($request->validated(), ['image' => $path]));
 
+        // return response
         return Response::created(new CategoryResource($data), "Category successfully created");
     }
 
@@ -67,10 +58,10 @@ class CategoryController extends Controller
      */
     public function update(UpdateCategoryRequest $request, Category $category)
     {
-        $validated = $request->validated();
         $path = $this->uploadImage($request, 'image', 'assets/images/categories', $category->image);
-        $data = array_merge($validated, ['image' => $path ?: $category->image]);
+        $data = array_merge($request->validated(), ['image' => $path ?: $category->image]);
         $category->update($data);
+
         return Response::updated(new CategoryResource($category));
     }
 

@@ -44,5 +44,10 @@ class PermissionSeeder extends Seeder
         Permission::firstOrCreate(['name' => 'create product']);
         Permission::firstOrCreate(['name' => 'edit product']);
         Permission::firstOrCreate(['name' => 'delete product']);
+
+        Permission::firstOrCreate(['name' => 'view slider']);
+        Permission::firstOrCreate(['name' => 'create slider']);
+        Permission::firstOrCreate(['name' => 'edit slider']);
+        Permission::firstOrCreate(['name' => 'delete slider']);
     }
 }

@@ -1,67 +1,68 @@
 import { BaseQueryApi } from "@reduxjs/toolkit/query";
+import { TAttributes } from "../../../../types/attribute.types";
 import {
   TError,
   TQueryParams,
   TResponseWithRedux,
 } from "../../../../types/globalTypes";
 import { baseApi } from "../../../Api/baseApi";
-import { TUser } from "../../../../types";
 
-const userApi = baseApi.injectEndpoints({
+const attributeApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    createUser: builder.mutation({
+    createAttribute: builder.mutation({
       query: (data) => {
         return {
-          url: "/users",
+          url: "/attributes",
           method: "POST",
           body: data,
         };
       },
-      invalidatesTags: ["users"],
+      invalidatesTags: ["attributes"],
       transformErrorResponse: (res: TError & BaseQueryApi) => {
         return res;
       },
     }),
-    editUser: builder.mutation({
+
+    updateAttribute: builder.mutation({
       query: ({ data, id }) => {
         return {
-          url: `/users/${id}`,
+          url: `/attributes/${id}`,
           method: "POST",
           body: data,
         };
       },
-      invalidatesTags: ["users" , "roles"],
+      invalidatesTags: ["attributes"],
       transformErrorResponse: (res: TError & BaseQueryApi) => {
         return res;
       },
     }),
-    deleteUser: builder.mutation({
+    deleteAttribute: builder.mutation({
       query: (id) => {
         return {
-          url: `/users/${id}`,
+          url: `/attributes/${id}`,
           method: "DELETE",
         };
       },
-      invalidatesTags: ["users"],
+      invalidatesTags: ["attributes"],
       transformErrorResponse: (res: TError & BaseQueryApi) => {
         return res;
       },
     }),
 
-    getAllUsers: builder.query({
+    getAttributes: builder.query({
       query: (arg) => {
         const params = new URLSearchParams();
         arg?.forEach((element: TQueryParams) => {
           params.append(element.name, element.value as string);
         });
         return {
-          url: "/users",
+          url: "/attributes",
           method: "GET",
           params: params,
         };
       },
-      providesTags: ["users"],
-      transformResponse: (res: TResponseWithRedux<TUser[]>) => {
+      providesTags: ["attributes"],
+      transformResponse: (res: TResponseWithRedux<TAttributes[]>) => {
         return { data: res.data, meta: res.meta };
       },
     }),
@@ -69,8 +70,8 @@ const userApi = baseApi.injectEndpoints({
 });
 
 export const {
-  useCreateUserMutation,
-  useGetAllUsersQuery,
-  useDeleteUserMutation,
-  useEditUserMutation,
-} = userApi;
+  useGetAttributesQuery,
+  useDeleteAttributeMutation,
+  useCreateAttributeMutation,
+  useUpdateAttributeMutation
+} = attributeApi;
