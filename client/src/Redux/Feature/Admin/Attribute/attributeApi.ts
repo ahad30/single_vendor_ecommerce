@@ -23,19 +23,19 @@ const attributeApi = baseApi.injectEndpoints({
       },
     }),
 
-    // updateBrand: builder.mutation({
-    //   query: ({ data, id }) => {
-    //     return {
-    //       url: `/brands/${id}`,
-    //       method: "POST",
-    //       body: data,
-    //     };
-    //   },
-    //   invalidatesTags: ["brands"],
-    //   transformErrorResponse: (res: TError & BaseQueryApi) => {
-    //     return res;
-    //   },
-    // }),
+    updateAttribute: builder.mutation({
+      query: ({ data, id }) => {
+        return {
+          url: `/attributes/${id}`,
+          method: "POST",
+          body: data,
+        };
+      },
+      invalidatesTags: ["attributes"],
+      transformErrorResponse: (res: TError & BaseQueryApi) => {
+        return res;
+      },
+    }),
     deleteAttribute: builder.mutation({
       query: (id) => {
         return {
@@ -69,4 +69,9 @@ const attributeApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useGetAttributesQuery  , useDeleteAttributeMutation , useCreateAttributeMutation} = attributeApi;
+export const {
+  useGetAttributesQuery,
+  useDeleteAttributeMutation,
+  useCreateAttributeMutation,
+  useUpdateAttributeMutation
+} = attributeApi;

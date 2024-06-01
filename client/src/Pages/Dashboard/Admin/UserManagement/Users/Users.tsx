@@ -57,7 +57,7 @@ const Users = () => {
   };
   return (
     <div className="">
-      <DashboardTitle windowTitle="users" text="Total Users">
+      <DashboardTitle windowTitle="Users" text="Total Users">
         {data?.meta?.total || data?.data?.length || 0}
       </DashboardTitle>
       <div className="flex flex-col lg:flex-row items-center gap-x-2 justify-between my-5">

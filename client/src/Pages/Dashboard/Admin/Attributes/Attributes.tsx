@@ -23,6 +23,7 @@ import EditModal from "../../../../Component/Modal/EditModal";
 import ViewModal from "../../../../Component/Modal/ViewModal";
 import ViewAllAttribute from "./ViewAllAttribute";
 import AddAttributes from "./AddAttributes";
+import EditAttributes from "./EditAttributes";
 
 const Attributes = () => {
   const dispatch = useAppDispatch();
@@ -91,15 +92,19 @@ const Attributes = () => {
         setPageNumber={setPageNumber}
       ></Table>
       {/* add category modal */}
-      <AddModal isAddModalOpen={isAddModalOpen} width={500} title="Create Attribute">
-        <AddAttributes ></AddAttributes>
+      <AddModal
+        isAddModalOpen={isAddModalOpen}
+        width={500}
+        title="Create Attribute"
+      >
+        <AddAttributes></AddAttributes>
       </AddModal>
       {/* edit category modal */}
-      <EditModal isEditModalOpen={isEditModalOpen} title="Edit Category">
+      <EditModal width={1000} isEditModalOpen={isEditModalOpen} title="Edit Attribute">
         {/* <EditCategory<TCategory>
             itemData={singleData as TCategory}
           ></EditCategory> */}
-        <></>
+    <EditAttributes<TAttributes> itemData={singleData as TAttributes}></EditAttributes>
       </EditModal>
       {/* view modal */}
       <ViewModal

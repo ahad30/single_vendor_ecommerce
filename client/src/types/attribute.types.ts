@@ -2,10 +2,10 @@ export interface TAttributes {
   id: number;
   name: string;
   created_by: number;
-  values: Value[];
+  values: TValue[];
 }
 
-export interface Value {
+export interface TValue {
   id: number;
   attribute: string;
   name: string;
