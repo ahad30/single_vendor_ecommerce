@@ -64,12 +64,15 @@ const DashboardSidebarTwo = ({
 
   useEffect(() => {
     localStorage.setItem("sidebarOpen", open as string);
+    if (open) {
+      localStorage.removeItem("dropdownItem");
+      setDropdownItem("");
+    }
   }, [open]);
   useEffect(() => {
     localStorage.setItem("dropdownItem", dropdownItem as string);
   }, [dropdownItem]);
 
-  const [newSidebar, setNewSidebar] = useState([]);
   const handleOpen = (value: string) => {
     setOpen(open === value ? "" : value);
   };
@@ -103,147 +106,8 @@ const DashboardSidebarTwo = ({
   const { user } = useAppSelector((state: RootState) => state.auth);
 
   return (
-    // <Card
-    //   className={`h-[calc(100vh-2rem)] ${className}  z-10 ${
-    //     isSidebarOpen ? "-ml-[500px]" : ""
-    //   } max-w-[20rem] p-4 shadow-xl  shadow-blue-gray-900/5 duration-300`}
-    //   placeholder={undefined}
-    //   onPointerEnterCapture={undefined}
-    //   onPointerLeaveCapture={undefined}
-    // >
-    //   <div className="mb-2 p-4">
-    //     <Typography
-    //       variant="h5"
-    //       color="blue-gray"
-    //       placeholder={undefined}
-    //       onPointerEnterCapture={undefined}
-    //       onPointerLeaveCapture={undefined}
-    //     >
-    //       Sidebar
-    //     </Typography>
-    //   </div>
-    //   <List
-    //     placeholder={undefined}
-    //     onPointerEnterCapture={undefined}
-    //     onPointerLeaveCapture={undefined}
-    //   >
-    //     {actualSideBar?.map((item) => {
-    //       if (item?.children) {
-    //         return (
-    //           <Accordion
-    //             key={item?.key}
-    //             open={open === item?.key}
-    //             icon={
-    //               <ChevronDownIcon
-    //                 strokeWidth={2.5}
-    //                 className={`mx-auto h-4 w-4 transition-transform ${
-    //                   open === item?.key ? "rotate-180" : ""
-    //                 }`}
-    //               />
-    //             }
-    //             placeholder={undefined}
-    //             onPointerEnterCapture={undefined}
-    //             onPointerLeaveCapture={undefined}
-    //           >
-    //             <ListItem
-    //               className="p-0"
-    //               selected={open === item?.key}
-    //               placeholder={undefined}
-    //               onPointerEnterCapture={undefined}
-    //               onPointerLeaveCapture={undefined}
-    //             >
-    //               <AccordionHeader
-    //                 onClick={() => handleOpen(item?.key)}
-    //                 className="border-b-0 p-3"
-    //                 placeholder={undefined}
-    //                 onPointerEnterCapture={undefined}
-    //                 onPointerLeaveCapture={undefined}
-    //               >
-    //                 <ListItemPrefix
-    //                   placeholder={undefined}
-    //                   onPointerEnterCapture={undefined}
-    //                   onPointerLeaveCapture={undefined}
-    //                 >
-    //                   {/* <PresentationChartBarIcon className="h-5 w-5" /> */}
-    //                   {item?.icon}
-    //                 </ListItemPrefix>
-    //                 <Typography
-    //                   color="blue-gray"
-    //                   className="mr-auto font-normal"
-    //                   placeholder={undefined}
-    //                   onPointerEnterCapture={undefined}
-    //                   onPointerLeaveCapture={undefined}
-    //                 >
-    //                   {item?.label}
-    //                 </Typography>
-    //               </AccordionHeader>
-    //             </ListItem>
-    //             <AccordionBody className="py-1">
-    //               <List
-    //                 className="p-0"
-    //                 placeholder={undefined}
-    //                 onPointerEnterCapture={undefined}
-    //                 onPointerLeaveCapture={undefined}
-    //               >
-    //                 {item?.children?.map((subItem) => (
-    //                   <Link to={subItem.key}>
-    //                     <ListItem
-    //                       placeholder={undefined}
-    //                       onPointerEnterCapture={undefined}
-    //                       onPointerLeaveCapture={undefined}
-    //                     >
-    //                       <ListItemPrefix
-    //                         placeholder={undefined}
-    //                         onPointerEnterCapture={undefined}
-    //                         onPointerLeaveCapture={undefined}
-    //                       >
-    //                         <ChevronRightIcon
-    //                           strokeWidth={3}
-    //                           className="h-3 w-5"
-    //                         />
-    //                       </ListItemPrefix>
-    //                       {subItem?.label}
-    //                     </ListItem>
-    //                   </Link>
-    //                 ))}
-    //               </List>
-    //             </AccordionBody>
-    //           </Accordion>
-    //         );
-    //       } else {
-    //         return (
-    //           <Link key={item?.key} to={item?.key}>
-    //             <ListItem
-    //               placeholder={undefined}
-    //               onPointerEnterCapture={undefined}
-    //               onPointerLeaveCapture={undefined}
-    //             >
-    //               <ListItemPrefix
-    //                 placeholder={undefined}
-    //                 onPointerEnterCapture={undefined}
-    //                 onPointerLeaveCapture={undefined}
-    //               >
-    //                 {/* <InboxIcon className="h-5 w-5" />
-    //                  */}
-    //                 {item?.icon}
-    //               </ListItemPrefix>
-    //               {item?.label}
-    //               <ListItemSuffix
-    //                 placeholder={undefined}
-    //                 onPointerEnterCapture={undefined}
-    //                 onPointerLeaveCapture={undefined}
-    //                 children={undefined}
-    //               ></ListItemSuffix>
-    //             </ListItem>
-    //           </Link>
-    //         );
-    //       }
-    //     })}
-    //   </List>
-    // </Card>
-
     <div
-      className={`w-[250px] pt-12 bg-[#162447] duration-300 ${className} h-screen thin-scrollbar overflow-y-scroll text-[13px] text-[#E0E0E0]`}
+      className={`w-[250px] z-10 pt-12 bg-[#162447] duration-300 ${className} h-screen thin-scrollbar overflow-y-scroll text-[13px] text-[#E0E0E0]`}
     >
       {actualSideBar.map((item) => {
         if (item.children) {
