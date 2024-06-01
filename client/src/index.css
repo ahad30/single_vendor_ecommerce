@@ -92,12 +92,12 @@
 }
 
 .thin-scrollbar::-webkit-scrollbar-thumb {
-  background: #888; /* Optional: Thumb color */
-  border-radius: 2px; /* Optional: Round corners */
+  background: #ffffff; /* Optional: Thumb color */
+  border-radius: 0px; /* Optional: Round corners */
 }
 
 .thin-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: #555; /* Optional: Thumb color on hover */
+  background: #ffffff; /* Optional: Thumb color on hover */
 }
 
 .transition-max-height {

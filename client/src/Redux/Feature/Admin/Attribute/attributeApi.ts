@@ -9,19 +9,19 @@ import { baseApi } from "../../../Api/baseApi";
 
 const attributeApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    // createBrand: builder.mutation({
-    //   query: (data) => {
-    //     return {
-    //       url: "/brands",
-    //       method: "POST",
-    //       body: data,
-    //     };
-    //   },
-    //   invalidatesTags: ["brands"],
-    //   transformErrorResponse: (res: TError & BaseQueryApi) => {
-    //     return res;
-    //   },
-    // }),
+    createAttribute: builder.mutation({
+      query: (data) => {
+        return {
+          url: "/attributes",
+          method: "POST",
+          body: data,
+        };
+      },
+      invalidatesTags: ["attributes"],
+      transformErrorResponse: (res: TError & BaseQueryApi) => {
+        return res;
+      },
+    }),
 
     // updateBrand: builder.mutation({
     //   query: ({ data, id }) => {
@@ -69,4 +69,4 @@ const attributeApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useGetAttributesQuery  , useDeleteAttributeMutation} = attributeApi;
+export const { useGetAttributesQuery  , useDeleteAttributeMutation , useCreateAttributeMutation} = attributeApi;
