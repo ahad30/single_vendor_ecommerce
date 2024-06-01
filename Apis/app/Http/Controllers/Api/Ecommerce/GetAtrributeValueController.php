@@ -15,7 +15,7 @@ class GetAtrributeValueController extends Controller
      */
     public function __invoke(Request $request)
     {
-        $attributes = AttributeResource::collection(Attribute::get());
+        $attributes = AttributeResource::collection(Attribute::orderBy('name')->get());
 
         return Response::success($attributes);
     }

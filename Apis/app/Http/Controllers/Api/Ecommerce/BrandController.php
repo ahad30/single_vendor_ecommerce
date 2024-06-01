@@ -7,12 +7,13 @@ use App\Http\Requests\StoreBrandRequest;
 use App\Http\Requests\UpdateBrandRequest;
 use App\Http\Resources\BrandResource;
 use App\Models\Brand;
+use App\Trait\PaginationTrait;
 use App\Trait\UploadImageTrait;
 use Illuminate\Http\Response;
 
 class BrandController extends Controller
 {
-    use UploadImageTrait;
+    use UploadImageTrait, PaginationTrait;
     /**
      * Display a listing of the resource.
      */
@@ -20,22 +21,10 @@ class BrandController extends Controller
     {
         // get all brands data from the database with pagination enabled
         $data = Brand::latest()->paginate();
-        $brand = BrandResource::collection($data);
+        $brands = BrandResource::collection($data);
 
-        // Merge the additional 'status' key with the paginated data
-        $response = [
-            'status' => true,
-            'data' => $brand,
-            'meta' => [
-                'active_page' => $data->currentPage() ? false : true,
-                'current_page' => $data->currentPage(),
-                'last_page' => $data->lastPage(),
-                'per_page' => $data->perPage(),
-                'total' => $data->total(),
-                'next_page_url' => $data->nextPageUrl(),
-                'prev_page_url' => $data->previousPageUrl(),
-            ],
-        ];
+        // Get response paginated data
+        $response = $this->getMetaPagination($data, $brands);
 
         return Response::successWithPagination($response);
     }

@@ -9,12 +9,13 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Resources\UserResource;
+use App\Trait\PaginationTrait;
 use App\Trait\UploadImageTrait;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    use UploadImageTrait;
+    use UploadImageTrait, PaginationTrait;
     /**
      * Display a listing of the resource.
      */
@@ -23,20 +24,8 @@ class UserController extends Controller
         $data = User::latest()->paginate();
         $users = UserResource::collection($data);
 
-        // Merge the additional 'status' key with the paginated data
-        $response = [
-            'status' => true,
-            'data' => $users,
-            'meta' => [
-                'active_page' => $data->currentPage() ? false : true,
-                'current_page' => $data->currentPage(),
-                'last_page' => $data->lastPage(),
-                'per_page' => $data->perPage(),
-                'total' => $data->total(),
-                'next_page_url' => $data->nextPageUrl(),
-                'prev_page_url' => $data->previousPageUrl(),
-            ],
-        ];
+        // Get response paginated data
+        $response = $this->getMetaPagination($data, $users);
 
         return Response::successWithPagination($response);
     }

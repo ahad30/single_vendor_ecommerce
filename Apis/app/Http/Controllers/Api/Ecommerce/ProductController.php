@@ -9,12 +9,14 @@ use App\Http\Resources\ProductResource;
 use App\Models\Attribute;
 use App\Models\Product;
 use App\Models\AttributeValue;
+use App\Trait\PaginationTrait;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
+    use PaginationTrait;
     /**
      * Display a listing of the resource.
      */
@@ -23,20 +25,8 @@ class ProductController extends Controller
         $data = Product::latest()->with('skus')->paginate();
         $products = ProductResource::collection($data);
 
-        // Merge the additional 'status' key with the paginated data
-        $response = [
-            'status' => true,
-            'data' => $products,
-            'meta' => [
-                'active_page' => $data->currentPage() ? false : true,
-                'current_page' => $data->currentPage(),
-                'last_page' => $data->lastPage(),
-                'per_page' => $data->perPage(),
-                'total' => $data->total(),
-                'next_page_url' => $data->nextPageUrl(),
-                'prev_page_url' => $data->previousPageUrl(),
-            ],
-        ];
+        // Get response paginated data
+        $response = $this->getMetaPagination($data, $products);
 
         return Response::successWithPagination($response);
     }
