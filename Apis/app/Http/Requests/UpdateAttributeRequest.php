@@ -32,7 +32,7 @@ class UpdateAttributeRequest extends FormRequest
                 Rule::unique('attributes')->ignore($id),
                 'max:255'
             ],
-            'values' => 'required|array',
+            'values' => 'nullable|array',
             'values.*' => [
                 'string',
                 Rule::unique('attribute_values', 'value')->where(function ($query) use ($id) {
@@ -40,6 +40,8 @@ class UpdateAttributeRequest extends FormRequest
                 }),
                 'max:255'
             ],
+            'value_ids' => 'nullable|array',
+            'value_ids.*' => ['numeric'],
         ];
     }
     public function failedValidation(Validation $validator)
