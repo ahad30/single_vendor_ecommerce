@@ -7,8 +7,17 @@ import {
   IoPersonOutline,
   IoPersonSharp,
 } from "react-icons/io5";
+import { useAppDispatch } from "../../Redux/hook";
+import { useLogoutMutation } from "../../Redux/Feature/auth/authApi";
+import { logout } from "../../Redux/Feature/auth/authSlice";
 
 const Dropdown = () => {
+  const dispatch = useAppDispatch();
+  const [logoutUser] = useLogoutMutation();
+  const handleLogout = () => {
+    logoutUser(undefined);
+    dispatch(logout());
+  };
   return (
     <Menu as="div" className="relative inline-block text-left">
       <div>
@@ -55,6 +64,7 @@ const Dropdown = () => {
             <Menu.Item>
               {({ active }) => (
                 <button
+                  onClick={() => handleLogout()}
                   className={`${
                     active ? "bg-violet-500 text-green" : "text-gray-900"
                   } group flex w-full items-center rounded-md px-2 py-2 text-sm`}

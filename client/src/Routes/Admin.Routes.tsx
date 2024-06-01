@@ -6,8 +6,9 @@ import { LuUserCog2 } from "react-icons/lu";
 import Roles from "../Pages/Dashboard/Admin/UserManagement/Roles/Roles";
 import Users from "../Pages/Dashboard/Admin/UserManagement/Users/Users";
 import Permissions from "../Pages/Dashboard/Admin/UserManagement/Permissions/Permissions";
-import Brand from "../Pages/Dashboard/Admin/Brand/Brand";
 import Category from "../Pages/Dashboard/Admin/Category/Category";
+import Brand from "../Pages/Dashboard/Admin/Brand/Brand";
+import Attributes from "../Pages/Dashboard/Admin/Attributes/Attributes";
 
 export const adminRoutes = [
   {
@@ -35,6 +36,12 @@ export const adminRoutes = [
         label: "Brands",
         element: <Brand></Brand>,
         permissionName: "view brand",
+      },
+      {
+        path: "attributes",
+        label: "Attribute",
+        element: <Attributes></Attributes>,
+        permissionName: "view attribute",
       },
     ],
   },
