@@ -107,7 +107,7 @@ const DashboardSidebarTwo = ({
 
   return (
     <div
-      className={`w-[250px] pt-12 bg-[#162447] duration-300 ${className} h-screen thin-scrollbar overflow-y-scroll text-[13px] text-[#E0E0E0]`}
+      className={`w-[250px] z-10 pt-12 bg-[#162447] duration-300 ${className} h-screen thin-scrollbar overflow-y-scroll text-[13px] text-[#E0E0E0]`}
     >
       {actualSideBar.map((item) => {
         if (item.children) {
