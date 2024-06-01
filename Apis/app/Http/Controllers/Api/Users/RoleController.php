@@ -6,11 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\RoleCreateRequest;
 use App\Http\Requests\RoleUpdateRequest;
 use App\Http\Resources\RoleResource;
+use App\Trait\PaginationTrait;
 use Illuminate\Http\Response;
 use Spatie\Permission\Models\Role;
 
 class RoleController extends Controller
 {
+    use PaginationTrait;
     /**
      * Display a listing of the resource.
      */
@@ -19,20 +21,8 @@ class RoleController extends Controller
         $data = Role::latest()->with('permissions:id,name')->paginate();
         $roles = RoleResource::collection($data);
 
-        // Merge the additional 'status' key with the paginated data
-        $response = [
-            'status' => true,
-            'data' => $roles,
-            'meta' => [
-                'active_page' => $data->currentPage() ? false : true,
-                'current_page' => $data->currentPage(),
-                'last_page' => $data->lastPage(),
-                'per_page' => $data->perPage(),
-                'total' => $data->total(),
-                'next_page_url' => $data->nextPageUrl(),
-                'prev_page_url' => $data->previousPageUrl(),
-            ],
-        ];
+        // Get response paginated data
+        $response = $this->getMetaPagination($data, $roles);
 
         return Response::successWithPagination($response);
     }
