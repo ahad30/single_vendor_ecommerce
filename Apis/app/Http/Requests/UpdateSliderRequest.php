@@ -5,9 +5,10 @@ namespace App\Http\Requests;
 use Illuminate\Contracts\Validation\Validator as Validation;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\File;
 
-class StoreSliderRequest extends FormRequest
+class UpdateSliderRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,9 +25,10 @@ class StoreSliderRequest extends FormRequest
      */
     public function rules(): array
     {
+        $id = $this->route('slider');
         return [
-            'name' => ['nullable', 'string', 'max:255', 'unique:sliders,name'],
-            'image' => ['required', 'mimes:jpg,jpeg,png', File::image()->max('10mb')],
+            'name' => ['nullable', 'string', 'max:255', Rule::unique('sliders', 'name')->ignore($id)],
+            'image' => ['nullable', 'mimes:jpg,jpeg,png', File::image()->max('10mb')], // 10 MB max file size
             'status' => ['nullable'],
         ];
     }
