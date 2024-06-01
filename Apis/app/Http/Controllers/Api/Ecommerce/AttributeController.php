@@ -66,7 +66,6 @@ class AttributeController extends Controller
      */
     public function update(UpdateAttributeRequest $request, Attribute $attribute)
     {
-        return $request->all();
         $data = DB::transaction(function () use ($attribute, $request) {
             // Update attribute name
             $attribute->update($request->validated());
