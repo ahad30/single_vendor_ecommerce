@@ -26,7 +26,7 @@ export const rolesApi = baseApi.injectEndpoints({
     editRole: builder.mutation({
       query: ({ data, id }) => {
         return {
-          url: `/users/${id}`,
+          url: `/roles/${id}`,
           method: "POST",
           body: data,
         };

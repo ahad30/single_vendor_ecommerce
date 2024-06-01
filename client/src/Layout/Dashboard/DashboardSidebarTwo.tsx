@@ -20,6 +20,7 @@ import { PermissionContextProvider } from "../../contex/PermissionProvider";
 import { TAllPermission } from "../../types/permission.types";
 import { useAppSelector } from "../../Redux/hook";
 import { RootState } from "../../Redux/store";
+import { ChevronUpIcon } from "@heroicons/react/24/outline";
 
 const DashboardSidebarTwo = ({
   isSidebarOpen,
@@ -49,7 +50,25 @@ const DashboardSidebarTwo = ({
     }
   };
 
-  const [open, setOpen] = React.useState("");
+  const [open, setOpen] = React.useState(
+    localStorage.getItem("sidebarOpen")
+      ? localStorage.getItem("sidebarOpen")
+      : ""
+  );
+
+  const [dropdownItem, setDropdownItem] = useState(
+    localStorage.getItem("dropdownItem")
+      ? localStorage.getItem("dropdownItem")
+      : ""
+  );
+
+  useEffect(() => {
+    localStorage.setItem("sidebarOpen", open as string);
+  }, [open]);
+  useEffect(() => {
+    localStorage.setItem("dropdownItem", dropdownItem as string);
+  }, [dropdownItem]);
+
   const [newSidebar, setNewSidebar] = useState([]);
   const handleOpen = (value: string) => {
     setOpen(open === value ? "" : value);
@@ -82,149 +101,219 @@ const DashboardSidebarTwo = ({
     })
     .filter((per) => per?.permission !== false);
   const { user } = useAppSelector((state: RootState) => state.auth);
-  console.log(user);
-  // h-[calc(100vh-2rem)]
-  const location = useLocation();
 
   return (
-    <Card
-      className={`h-[calc(100vh-2rem)] ${className}  z-10 ${
-        isSidebarOpen ? "-ml-[500px]" : ""
-      } max-w-[20rem] p-4 shadow-xl  shadow-blue-gray-900/5 duration-300`}
-      placeholder={undefined}
-      onPointerEnterCapture={undefined}
-      onPointerLeaveCapture={undefined}
+    // <Card
+    //   className={`h-[calc(100vh-2rem)] ${className}  z-10 ${
+    //     isSidebarOpen ? "-ml-[500px]" : ""
+    //   } max-w-[20rem] p-4 shadow-xl  shadow-blue-gray-900/5 duration-300`}
+    //   placeholder={undefined}
+    //   onPointerEnterCapture={undefined}
+    //   onPointerLeaveCapture={undefined}
+    // >
+    //   <div className="mb-2 p-4">
+    //     <Typography
+    //       variant="h5"
+    //       color="blue-gray"
+    //       placeholder={undefined}
+    //       onPointerEnterCapture={undefined}
+    //       onPointerLeaveCapture={undefined}
+    //     >
+    //       Sidebar
+    //     </Typography>
+    //   </div>
+    //   <List
+    //     placeholder={undefined}
+    //     onPointerEnterCapture={undefined}
+    //     onPointerLeaveCapture={undefined}
+    //   >
+    //     {actualSideBar?.map((item) => {
+    //       if (item?.children) {
+    //         return (
+    //           <Accordion
+    //             key={item?.key}
+    //             open={open === item?.key}
+    //             icon={
+    //               <ChevronDownIcon
+    //                 strokeWidth={2.5}
+    //                 className={`mx-auto h-4 w-4 transition-transform ${
+    //                   open === item?.key ? "rotate-180" : ""
+    //                 }`}
+    //               />
+    //             }
+    //             placeholder={undefined}
+    //             onPointerEnterCapture={undefined}
+    //             onPointerLeaveCapture={undefined}
+    //           >
+    //             <ListItem
+    //               className="p-0"
+    //               selected={open === item?.key}
+    //               placeholder={undefined}
+    //               onPointerEnterCapture={undefined}
+    //               onPointerLeaveCapture={undefined}
+    //             >
+    //               <AccordionHeader
+    //                 onClick={() => handleOpen(item?.key)}
+    //                 className="border-b-0 p-3"
+    //                 placeholder={undefined}
+    //                 onPointerEnterCapture={undefined}
+    //                 onPointerLeaveCapture={undefined}
+    //               >
+    //                 <ListItemPrefix
+    //                   placeholder={undefined}
+    //                   onPointerEnterCapture={undefined}
+    //                   onPointerLeaveCapture={undefined}
+    //                 >
+    //                   {/* <PresentationChartBarIcon className="h-5 w-5" /> */}
+    //                   {item?.icon}
+    //                 </ListItemPrefix>
+    //                 <Typography
+    //                   color="blue-gray"
+    //                   className="mr-auto font-normal"
+    //                   placeholder={undefined}
+    //                   onPointerEnterCapture={undefined}
+    //                   onPointerLeaveCapture={undefined}
+    //                 >
+    //                   {item?.label}
+    //                 </Typography>
+    //               </AccordionHeader>
+    //             </ListItem>
+    //             <AccordionBody className="py-1">
+    //               <List
+    //                 className="p-0"
+    //                 placeholder={undefined}
+    //                 onPointerEnterCapture={undefined}
+    //                 onPointerLeaveCapture={undefined}
+    //               >
+    //                 {item?.children?.map((subItem) => (
+    //                   <Link to={subItem.key}>
+    //                     <ListItem
+    //                       placeholder={undefined}
+    //                       onPointerEnterCapture={undefined}
+    //                       onPointerLeaveCapture={undefined}
+    //                     >
+    //                       <ListItemPrefix
+    //                         placeholder={undefined}
+    //                         onPointerEnterCapture={undefined}
+    //                         onPointerLeaveCapture={undefined}
+    //                       >
+    //                         <ChevronRightIcon
+    //                           strokeWidth={3}
+    //                           className="h-3 w-5"
+    //                         />
+    //                       </ListItemPrefix>
+    //                       {subItem?.label}
+    //                     </ListItem>
+    //                   </Link>
+    //                 ))}
+    //               </List>
+    //             </AccordionBody>
+    //           </Accordion>
+    //         );
+    //       } else {
+    //         return (
+    //           <Link key={item?.key} to={item?.key}>
+    //             <ListItem
+    //               placeholder={undefined}
+    //               onPointerEnterCapture={undefined}
+    //               onPointerLeaveCapture={undefined}
+    //             >
+    //               <ListItemPrefix
+    //                 placeholder={undefined}
+    //                 onPointerEnterCapture={undefined}
+    //                 onPointerLeaveCapture={undefined}
+    //               >
+    //                 {/* <InboxIcon className="h-5 w-5" />
+    //                  */}
+    //                 {item?.icon}
+    //               </ListItemPrefix>
+    //               {item?.label}
+    //               <ListItemSuffix
+    //                 placeholder={undefined}
+    //                 onPointerEnterCapture={undefined}
+    //                 onPointerLeaveCapture={undefined}
+    //                 children={undefined}
+    //               ></ListItemSuffix>
+    //             </ListItem>
+    //           </Link>
+    //         );
+    //       }
+    //     })}
+    //   </List>
+    // </Card>
+
+    <div
+      className={`w-[250px] pt-12 bg-[#162447] duration-300 ${className} h-screen thin-scrollbar overflow-y-scroll text-[13px] text-[#E0E0E0]`}
     >
-      <div className="mb-2 p-4">
-        <Typography
-          variant="h5"
-          color="blue-gray"
-          placeholder={undefined}
-          onPointerEnterCapture={undefined}
-          onPointerLeaveCapture={undefined}
-        >
-          Sidebar
-        </Typography>
-      </div>
-      <List
-        placeholder={undefined}
-        onPointerEnterCapture={undefined}
-        onPointerLeaveCapture={undefined}
-      >
-        {actualSideBar?.map((item) => {
-          if (item?.children) {
-            return (
-              <Accordion
-                key={item?.key}
-                open={open === item?.key}
-                icon={
-                  <ChevronDownIcon
-                    strokeWidth={2.5}
-                    className={`mx-auto h-4 w-4 transition-transform ${
-                      open === item?.key ? "rotate-180" : ""
-                    }`}
-                  />
-                }
-                placeholder={undefined}
-                onPointerEnterCapture={undefined}
-                onPointerLeaveCapture={undefined}
+      {actualSideBar.map((item) => {
+        if (item.children) {
+          return (
+            <div key={item.key}>
+              {/* dropdown header */}
+              <div
+                onClick={() => handleOpen(item.key)}
+                className="px-4 cursor-pointer py-3 flex items-center justify-between mr-4 mb-1"
               >
-                <ListItem
-                  className="p-0"
-                  selected={open === item?.key}
-                  placeholder={undefined}
-                  onPointerEnterCapture={undefined}
-                  onPointerLeaveCapture={undefined}
-                >
-                  <AccordionHeader
-                    onClick={() => handleOpen(item?.key)}
-                    className="border-b-0 p-3"
-                    placeholder={undefined}
-                    onPointerEnterCapture={undefined}
-                    onPointerLeaveCapture={undefined}
-                  >
-                    <ListItemPrefix
-                      placeholder={undefined}
-                      onPointerEnterCapture={undefined}
-                      onPointerLeaveCapture={undefined}
+                {/* text */}
+                <div className="flex  items-center gap-x-2">
+                  <span>{item.icon}</span>
+                  <p className="">{item.label}</p>
+                </div>
+                {/* icon */}
+                <p>
+                  {open === item.key ? (
+                    <ChevronDownIcon className="h-4 w-4" />
+                  ) : (
+                    <ChevronUpIcon className="h-4 w-4" />
+                  )}
+                </p>
+              </div>
+              {/* dropDown menu */}
+              <div
+                className={`overflow-hidden transition-max-height ${
+                  open === item.key
+                    ? "max-h-96 opacity-100 opening"
+                    : "max-h-0 opacity-0 closing"
+                }`}
+              >
+                {item.children?.map((subItem) => (
+                  <Link key={subItem.key} to={subItem.key} className="">
+                    <div
+                      onClick={() => setDropdownItem(subItem.key)}
+                      className={`pl-7 py-2 mr-4 mb-1  ${
+                        dropdownItem === subItem.key
+                          ? "bg-[#323F5D] rounded-r-full"
+                          : ""
+                      }`}
                     >
-                      {/* <PresentationChartBarIcon className="h-5 w-5" /> */}
-                      {item?.icon}
-                    </ListItemPrefix>
-                    <Typography
-                      color="blue-gray"
-                      className="mr-auto font-normal"
-                      placeholder={undefined}
-                      onPointerEnterCapture={undefined}
-                      onPointerLeaveCapture={undefined}
-                    >
-                      {item?.label}
-                    </Typography>
-                  </AccordionHeader>
-                </ListItem>
-                <AccordionBody className="py-1">
-                  <List
-                    className="p-0"
-                    placeholder={undefined}
-                    onPointerEnterCapture={undefined}
-                    onPointerLeaveCapture={undefined}
-                  >
-                    {item?.children?.map((subItem) => (
-                      <Link to={subItem.key}>
-                        <ListItem
-                          placeholder={undefined}
-                          onPointerEnterCapture={undefined}
-                          onPointerLeaveCapture={undefined}
-                        >
-                          <ListItemPrefix
-                            placeholder={undefined}
-                            onPointerEnterCapture={undefined}
-                            onPointerLeaveCapture={undefined}
-                          >
-                            <ChevronRightIcon
-                              strokeWidth={3}
-                              className="h-3 w-5"
-                            />
-                          </ListItemPrefix>
-                          {subItem?.label}
-                        </ListItem>
-                      </Link>
-                    ))}
-                  </List>
-                </AccordionBody>
-              </Accordion>
-            );
-          } else {
-            return (
-              <Link key={item?.key} to={item?.key}>
-                <ListItem
-                  placeholder={undefined}
-                  onPointerEnterCapture={undefined}
-                  onPointerLeaveCapture={undefined}
+                      <p className="">- {subItem.label}</p>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          );
+        } else if (item.permissionName) {
+          return (
+            <Link to={item.key}>
+              <div
+                className={`px-4 py-3  mr-4 mb-1 ${
+                  open === item.key ? "bg-[#323F5D] rounded-r-full" : ""
+                }`}
+              >
+                <div
+                  onClick={() => handleOpen(item.key)}
+                  className="flex  items-center gap-x-2"
                 >
-                  <ListItemPrefix
-                    placeholder={undefined}
-                    onPointerEnterCapture={undefined}
-                    onPointerLeaveCapture={undefined}
-                  >
-                    {/* <InboxIcon className="h-5 w-5" />
-                     */}
-                    {item?.icon}
-                  </ListItemPrefix>
-                  {item?.label}
-                  <ListItemSuffix
-                    placeholder={undefined}
-                    onPointerEnterCapture={undefined}
-                    onPointerLeaveCapture={undefined}
-                    children={undefined}
-                  ></ListItemSuffix>
-                </ListItem>
-              </Link>
-            );
-          }
-        })}
-      </List>
-    </Card>
+                  <span>{item.icon}</span>
+                  <p className="">{item.label}</p>
+                </div>
+              </div>
+            </Link>
+          );
+        }
+      })}
+    </div>
   );
 };
 
