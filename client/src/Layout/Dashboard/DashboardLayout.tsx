@@ -9,14 +9,14 @@ const DashboardLayout = () => {
   return (
     <>
       <div className="flex max-w-[1600px] mx-auto">
-        <div className="hidden lg:block">
+        <div className="hidden  lg:block">
           <DashboardSidebarTwo></DashboardSidebarTwo>
         </div>
         {/* <div className="lg:hidden">
         <DashboardSidebarTwo className={"absolute"} isSidebarOpen={isSidebarOpen} ></DashboardSidebarTwo>
       </div> */}
 
-        <div className="relative h-screen overflow-y-scroll w-full">
+        <div className="relative thin-scrollbar h-screen overflow-y-scroll w-full">
           <div className="w-full text-gray-900">
             <Navbar></Navbar>
           </div>
