@@ -20,17 +20,6 @@ const EditAttributes = <T extends { id: string | number; [key: string]: any }>({
 }: {
   itemData: T | TAttributes;
 }) => {
-  const [attributeValues, setAttributes] = useState<number[]>([1]);
-  const [previousValues, setPreviousValues] = useState<TValue[]>([]);
-  const [deletedIds, setDeletedIds] = useState<number[]>([]);
-
-  useEffect(() => {
-    if (itemData?.values) {
-      setPreviousValues(itemData?.values);
-    }
-  }, [itemData?.values, itemData]);
-
-  const dispatch = useAppDispatch();
   const [
     editAttribute,
     {
@@ -42,12 +31,28 @@ const EditAttributes = <T extends { id: string | number; [key: string]: any }>({
     },
   ] = useUpdateAttributeMutation();
 
+  const [attributeValues, setAttributes] = useState<number[]>([1]);
+  const [previousValues, setPreviousValues] = useState<TValue[]>([]);
+  const [deletedIds, setDeletedIds] = useState<number[]>([]);
   const { isEditModalOpen } = useAppSelector((state: RootState) => state.modal);
   useEffect(() => {
-    if (!isEditModalOpen) {
+    if (itemData?.values || !isEditModalOpen || cIsSuccess) {
+      setPreviousValues(itemData?.values);
+    }
+  }, [itemData?.values, itemData, cIsSuccess, isEditModalOpen]);
+
+  useEffect(() => {
+    if (!isEditModalOpen || cIsSuccess) {
+      setDeletedIds([]);
+    }
+  }, [isEditModalOpen, cIsSuccess]);
+
+  useEffect(() => {
+    if (!isEditModalOpen || cIsSuccess) {
       setAttributes([1]);
     }
-  }, [isEditModalOpen]);
+  }, [isEditModalOpen, cIsSuccess]);
+  const dispatch = useAppDispatch();
 
   const handleCloseAndOpen = () => {
     dispatch(setIsEditModalOpen());
@@ -72,7 +77,6 @@ const EditAttributes = <T extends { id: string | number; [key: string]: any }>({
     const valuesData = data?.values?.filter(
       (item: any) => item !== undefined && item !== ""
     );
-    console.log(valuesData)
     const formData = new FormData();
     formData.append("name", data.name);
     if (Array.isArray(valuesData) && valuesData.length > 0) {
@@ -140,6 +144,7 @@ const EditAttributes = <T extends { id: string | number; [key: string]: any }>({
             >
               <div className="w-[85%]">
                 <ZInput
+                  reset={true}
                   label={`Attribute Value ${index + 1}`}
                   name={`values.${index}`}
                   type={"text"}

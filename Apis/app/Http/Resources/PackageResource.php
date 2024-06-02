@@ -17,9 +17,12 @@ class PackageResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
+            'slug' => $this->slug,
             'price' => $this->price,
             'quantity' => $this->quantity,
-            'total-items' => $this->packageItems->count(),
+            'total_items' => $this->packageItems->count(),
+            'status' => $this->status == true ? 'Active' : 'Inactive',
+            'total_orders' => $this->total_orders,
         ];
     }
 }

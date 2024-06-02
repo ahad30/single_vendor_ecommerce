@@ -30,7 +30,7 @@ class ProductSeeder extends Seeder
                 'is_published' => true,
                 'unit_price' => '',
                 'unit_quantity' => '',
-                'is_single_product' => true,
+                'is_single_product' => false,
                 'list_type' => 'new-arrival',
                 'skus' => [
                     [

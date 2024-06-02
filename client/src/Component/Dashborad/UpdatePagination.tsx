@@ -17,6 +17,8 @@ const UpdatePagination = ({
     setPageNumber(page);
   };
 
+  console.log(pageNumber);
+
   const location = useLocation();
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
