@@ -21,7 +21,9 @@ class UserResource extends JsonResource
             'phone' => $this->phone,
             'address' => $this->address,
             'image' => $this->image,
-            'is_active' => $this->is_active,
+            'is_active' => $this->is_active ? 'Active' : 'Inactive',
+            'is_staff' => $this->is_staff,
+            'is_customer' => $this->is_customer,
             'is_administration' => $this->is_administration,
             'role' => $this->getRoleNames()
         ];
