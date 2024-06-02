@@ -21,6 +21,7 @@ return new class extends Migration
             $table->text('address')->nullable();
             $table->string('password');
             $table->rememberToken();
+            $table->boolean('is_customer')->default(true);
             $table->boolean('is_active')->default(true);
             $table->boolean('is_administration')->default(false);
             $table->timestamps();
