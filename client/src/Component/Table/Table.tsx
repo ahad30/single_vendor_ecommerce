@@ -11,6 +11,7 @@ import UpdatePagination from "../Dashborad/UpdatePagination";
 import { TMeta } from "../../types/globalTypes";
 import { Dispatch, SetStateAction } from "react";
 import Skeleton from "../Dashborad/Skeleton/Skeleton";
+import { Image } from "antd";
 
 export type TColumn = {
   name: string;
@@ -142,13 +143,22 @@ const Table = <T extends { id: string | number; [key: string]: any }>({
                             onPointerLeaveCapture={undefined}
                           >
                             {column?.value === "image" ? (
-                              <img
-                                className="size-10"
-                                src={`${import.meta.env.VITE_IMAGE_URL}${
+                              // <img
+                              //   className="size-10"
+                              //   src={`${import.meta.env.VITE_IMAGE_URL}${
+                              //     item[column?.value]
+                              //   }`}
+                              //   alt=""
+                              // />
+                              <Image
+                              width={40}
+                              height={40}
+                              // src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+                                  src={`${import.meta.env.VITE_IMAGE_URL}${
                                   item[column?.value]
                                 }`}
-                                alt=""
-                              />
+                            />
+                          
                             ) : column.value === "view" && handleViewModal ? (
                               <span
                                 onClick={() => {
