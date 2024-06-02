@@ -14,20 +14,7 @@ import { AiOutlineDelete } from "react-icons/ai";
 import { TAttributes, TValue } from "../../../../types/attribute.types";
 import { RootState } from "../../../../Redux/store";
 import { CiTrash } from "react-icons/ci";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
 
-type TBodyData = {
-  name: string;
-  values: string[];
-  value_ids: number[];
-};
-const attributesSchema = z.object({
-  name: z.string().nonempty("Please fill the name"),
-  values: z
-    .array(z.string().nonempty("Attribute value cannot be empty"))
-    .nonempty("At least one attribute value is required"),
-});
 
 const EditAttributes = <T extends { id: string | number; [key: string]: any }>({
   itemData,
