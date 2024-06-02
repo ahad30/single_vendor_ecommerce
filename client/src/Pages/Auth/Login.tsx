@@ -49,7 +49,7 @@ const Login = () => {
                                         <input
 
                                             {...register("email")}
-                                             id="email" name="email" type="text" className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:border-b-blue-600 focus:borer-rose-600" placeholder="Email address" />
+                                             id="email" name="email" type="text" className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:border-b-blue-600 focus:borer-rose-600 mt-5" placeholder="Email address" />
                                         <label htmlFor="email" className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">Email Address</label>
 
                                     </div>
@@ -57,13 +57,13 @@ const Login = () => {
                                         <input
                                             {...register("password")}
                                              id="password" name="password" type="password" className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 
-                                    focus:outline-none focus:border-b-blue-600" placeholder="Password" />
+                                    focus:outline-none focus:border-b-blue-600 mt-5" placeholder="Password" />
                                         <label htmlFor="password" className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">Password</label>
                                     </div>
                                     <div className="relative">
 
-                                        <button
-                                            className="bg-blue-500 text-white rounded-md px-2 py-1"><input type="submit" value="Submit" className="bg-blue-500 text-white rounded-md px-2 py-1" /></button>
+                                    
+                                           <input type="submit" value="Login" className="bg-blue-500 text-white rounded-md px-3 py-1  cursor-pointer" />
                                     </div>
                                 </div>
                             </div>
