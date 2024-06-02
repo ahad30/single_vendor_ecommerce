@@ -1,17 +1,6 @@
-import React, { useContext, useEffect, useState } from "react";
-import {
-  Card,
-  Typography,
-  List,
-  ListItem,
-  ListItemPrefix,
-  ListItemSuffix,
-  Accordion,
-  AccordionHeader,
-  AccordionBody,
-} from "@material-tailwind/react";
+import { useContext, useEffect, useState } from "react";
 
-import { ChevronRightIcon, ChevronDownIcon } from "@heroicons/react/24/outline";
+import { ChevronDownIcon } from "@heroicons/react/24/outline";
 import { adminRoutes } from "../../Routes/Admin.Routes";
 import { sidebarGenerator } from "../../utils/sidebarGenerator";
 import { Link, useLocation } from "react-router-dom";
@@ -50,29 +39,7 @@ const DashboardSidebarTwo = ({
     }
   };
 
-  const [open, setOpen] = React.useState(
-    localStorage.getItem("sidebarOpen")
-      ? localStorage.getItem("sidebarOpen")
-      : ""
-  );
-
-  const [dropdownItem, setDropdownItem] = useState(
-    localStorage.getItem("dropdownItem")
-      ? localStorage.getItem("dropdownItem")
-      : ""
-  );
-
-  useEffect(() => {
-    localStorage.setItem("sidebarOpen", open as string);
-    if (open) {
-      localStorage.removeItem("dropdownItem");
-      setDropdownItem("");
-    }
-  }, [open]);
-  useEffect(() => {
-    localStorage.setItem("dropdownItem", dropdownItem as string);
-  }, [dropdownItem]);
-
+  const [open, setOpen] = useState("");
   const handleOpen = (value: string) => {
     setOpen(open === value ? "" : value);
   };
@@ -104,7 +71,15 @@ const DashboardSidebarTwo = ({
     })
     .filter((per) => per?.permission !== false);
   const { user } = useAppSelector((state: RootState) => state.auth);
-
+  const location = useLocation();
+  useEffect(() => {
+    if (localStorage.getItem("dropDown")) {
+      const dropDown = JSON.parse(localStorage.getItem("dropDown") as string);
+      if (dropDown.collapse) {
+        setOpen(dropDown.collapse);
+      }
+    }
+  }, []);
   return (
     <div
       className={`w-[250px] z-10 pt-12 bg-[#162447] duration-300 ${className} h-screen thin-scrollbar overflow-y-scroll text-[13px] text-[#E0E0E0]`}
@@ -119,7 +94,7 @@ const DashboardSidebarTwo = ({
                 className="px-4 cursor-pointer py-3 flex items-center justify-between mr-4 mb-1"
               >
                 {/* text */}
-                <div className="flex  items-center gap-x-2">
+                <div className="flex items-center gap-x-2">
                   <span>{item.icon}</span>
                   <p className="">{item.label}</p>
                 </div>
@@ -135,7 +110,7 @@ const DashboardSidebarTwo = ({
               {/* dropDown menu */}
               <div
                 className={`overflow-hidden transition-max-height ${
-                  open === item.key
+                  open === item?.key
                     ? "max-h-96 opacity-100 opening"
                     : "max-h-0 opacity-0 closing"
                 }`}
@@ -143,9 +118,17 @@ const DashboardSidebarTwo = ({
                 {item.children?.map((subItem) => (
                   <Link key={subItem.key} to={subItem.key} className="">
                     <div
-                      onClick={() => setDropdownItem(subItem.key)}
+                      onClick={() => {
+                        localStorage.setItem(
+                          "dropDown",
+                          JSON.stringify({
+                            location: location.pathname,
+                            collapse: item.key,
+                          })
+                        );
+                      }}
                       className={`pl-7 py-2 mr-4 mb-1  ${
-                        dropdownItem === subItem.key
+                        location.pathname === `/admin/${subItem.key}`
                           ? "bg-[#323F5D] rounded-r-full"
                           : ""
                       }`}
@@ -161,12 +144,18 @@ const DashboardSidebarTwo = ({
           return (
             <Link to={item.key}>
               <div
+                onClick={() => {
+                  setOpen("");
+                  localStorage.removeItem("dropDown");
+                }}
                 className={`px-4 py-3  mr-4 mb-1 ${
-                  open === item.key ? "bg-[#323F5D] rounded-r-full" : ""
+                  location.pathname === item.key
+                    ? "bg-[#323F5D] rounded-r-full"
+                    : ""
                 }`}
               >
                 <div
-                  onClick={() => handleOpen(item.key)}
+                  // onClick={() => handleOpen(item.key)}
                   className="flex  items-center gap-x-2"
                 >
                   <span>{item.icon}</span>
