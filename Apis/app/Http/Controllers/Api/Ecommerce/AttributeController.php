@@ -71,15 +71,16 @@ class AttributeController extends Controller
             $attribute->update($request->validated());
 
             // Check and delete old values
-            if (!empty($request->value_ids)) {
-                $attributeValueIds = $attribute->attributeValues()->pluck('id')->toArray();
-                $missingValueIds = array_diff($request->value_ids, $attributeValueIds);
+            if (!empty($request['value_ids'])) {
+                // Delete old values
+                foreach ($request['value_ids'] as $valueId) {
+                    $attributeValue = $attribute->attributeValues()->find((int) $valueId);
+                    if (!$attributeValue) {
+                        return Response::error("Some attribute values are not available");
+                    }
 
-                if (!empty($missingValueIds)) {
-                    return Response::notFound("One or more attribute values not found");
+                    $attributeValue->delete();
                 }
-
-                AttributeValue::whereIn('id', $request->value_ids)->delete();
             }
 
             // Insert new values
@@ -95,8 +96,6 @@ class AttributeController extends Controller
 
                 AttributeValue::insert($attributeValues);
             }
-
-            return $attribute;
         });
 
         return Response::updated(new AttributeResource($data), "Attribute successfully updated");

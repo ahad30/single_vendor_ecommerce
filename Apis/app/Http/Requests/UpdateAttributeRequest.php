@@ -41,7 +41,7 @@ class UpdateAttributeRequest extends FormRequest
                 'max:255'
             ],
             'value_ids' => 'nullable|array',
-            'value_ids.*' => ['numeric'],
+            'value_ids.*' => ['string'],
         ];
     }
     public function failedValidation(Validation $validator)
