@@ -18,7 +18,7 @@ class SliderResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'image' => $this->image,
-            'status' => $this->status,
+            'status' => $this->status == true ? 'Active' : 'Inactive',
         ];
     }
 }

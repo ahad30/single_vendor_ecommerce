@@ -24,5 +24,6 @@ export const baseApi = createApi({
     "brands",
     "users",
     "attributes",
+    "sliders"
   ],
 });
