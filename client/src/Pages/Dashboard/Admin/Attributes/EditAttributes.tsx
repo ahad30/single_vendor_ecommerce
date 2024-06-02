@@ -15,7 +15,6 @@ import { TAttributes, TValue } from "../../../../types/attribute.types";
 import { RootState } from "../../../../Redux/store";
 import { CiTrash } from "react-icons/ci";
 
-
 const EditAttributes = <T extends { id: string | number; [key: string]: any }>({
   itemData,
 }: {
@@ -68,16 +67,21 @@ const EditAttributes = <T extends { id: string | number; [key: string]: any }>({
   };
 
   const handleSubmit: SubmitHandler<FieldValues> = (data) => {
-    
-
+    console.log(data.values);
+    const valuesData = data.values.filter(
+      (item: any) => item !== undefined && item !== ""
+    );
+    // console.log(valuesData);
     const formData = new FormData();
- 
-      formData.append("name", data.name);
-      formData.append("values[]", data.values);
+    formData.append("name", data.name);
+    if (valuesData.length > 0) {
+      formData.append("values[]", valuesData);
+    }
+    if (deletedIds.length > 0) {
       formData.append("value_ids[]", deletedIds);
-  
+    }
     formData.append("_method", "PUT");
-    editAttribute({ data: formData, id: itemData.id })
+    editAttribute({ data: formData, id: itemData.id });
   };
 
   return (

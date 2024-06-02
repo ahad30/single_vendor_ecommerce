@@ -154,10 +154,7 @@ const DashboardSidebarTwo = ({
                     : ""
                 }`}
               >
-                <div
-                  // onClick={() => handleOpen(item.key)}
-                  className="flex  items-center gap-x-2"
-                >
+                <div className="flex  items-center gap-x-2">
                   <span>{item.icon}</span>
                   <p className="">{item.label}</p>
                 </div>
