@@ -76,7 +76,8 @@ class AttributeController extends Controller
                 foreach ($request['value_ids'] as $valueId) {
                     $attributeValue = $attribute->attributeValues()->find((int) $valueId);
                     if (!$attributeValue) {
-                        return Response::error("Some attribute values are not available");
+                        // Rollback transaction and return an error response
+                        throw new \Exception("Some attribute values are not available");
                     }
 
                     $attributeValue->delete();
@@ -96,6 +97,9 @@ class AttributeController extends Controller
 
                 AttributeValue::insert($attributeValues);
             }
+
+            // Return the updated attribute
+            return $attribute;
         });
 
         return Response::updated(new AttributeResource($data), "Attribute successfully updated");
