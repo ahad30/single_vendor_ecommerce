@@ -23,7 +23,7 @@ class PackageSeeder extends Seeder
             'description' => 'Package 1 description',
             'price' => 1000,
             'quantity' => 3,
-            'created_by' => 'admin',
+            'created_by' => 1,
             'status' => true,
         ]);
 
