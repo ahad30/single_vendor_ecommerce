@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\Configuration\SliderController;
 use App\Http\Controllers\Api\Ecommerce\AttributeController;
 use App\Http\Controllers\Api\Ecommerce\BrandController;
 use App\Http\Controllers\Api\Ecommerce\CategoryController;
@@ -143,6 +144,26 @@ Route::middleware('auth:sanctum')->group(function () {
 
         Route::middleware('permission:delete product')->group(function () {
             Route::apiResource('products', ProductController::class)->only(['destroy'])
+                ->names(['destroy' => 'destroy']);
+        });
+    });
+
+    // slider management routes
+    Route::name('slider.')->group(function () {
+        Route::apiResource('sliders', SliderController::class)->only(['index'])->middleware('permission:view slider')->names(['index' => 'index', 'show' => 'show']);
+
+        Route::middleware('permission:create slider')->group(function () {
+            Route::apiResource('sliders', SliderController::class)->only(['store'])
+                ->names(['store' => 'store']);
+        });
+
+        Route::middleware('permission:edit slider')->group(function () {
+            Route::apiResource('sliders', SliderController::class)->only(['update'])
+                ->names(['update' => 'update']);
+        });
+
+        Route::middleware('permission:delete slider')->group(function () {
+            Route::apiResource('sliders', SliderController::class)->only(['destroy'])
                 ->names(['destroy' => 'destroy']);
         });
     });

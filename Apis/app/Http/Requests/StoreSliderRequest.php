@@ -5,9 +5,9 @@ namespace App\Http\Requests;
 use Illuminate\Contracts\Validation\Validator as Validation;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
-use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\File;
 
-class UpdateAttributeRequest extends FormRequest
+class StoreSliderRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,24 +24,10 @@ class UpdateAttributeRequest extends FormRequest
      */
     public function rules(): array
     {
-        $id = $this->route('attribute');
         return [
-            'name' => [
-                'required',
-                'string',
-                Rule::unique('attributes')->ignore($id),
-                'max:255'
-            ],
-            'values' => 'nullable|array',
-            'values.*' => [
-                'string',
-                Rule::unique('attribute_values', 'value')->where(function ($query) use ($id) {
-                    $query->where('attribute_id', '!=', $id);
-                }),
-                'max:255'
-            ],
-            'value_ids' => 'nullable|array',
-            'value_ids.*' => ['numeric'],
+            'name' => ['nullable', 'string', 'max:255', 'unique:sliders,name'],
+            'image' => ['required', 'mimes:jpg,jpeg,png', File::image()->max('10mb')],
+            'status' => ['nullable'],
         ];
     }
     public function failedValidation(Validation $validator)
