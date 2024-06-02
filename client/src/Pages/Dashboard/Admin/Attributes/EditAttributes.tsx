@@ -43,6 +43,12 @@ const EditAttributes = <T extends { id: string | number; [key: string]: any }>({
 
   useEffect(() => {
     if (!isEditModalOpen || cIsSuccess) {
+      setDeletedIds([]);
+    }
+  }, [isEditModalOpen, cIsSuccess]);
+
+  useEffect(() => {
+    if (!isEditModalOpen || cIsSuccess) {
       setAttributes([1]);
     }
   }, [isEditModalOpen, cIsSuccess]);
@@ -71,7 +77,6 @@ const EditAttributes = <T extends { id: string | number; [key: string]: any }>({
     const valuesData = data?.values?.filter(
       (item: any) => item !== undefined && item !== ""
     );
-    console.log(valuesData);
     const formData = new FormData();
     formData.append("name", data.name);
     if (Array.isArray(valuesData) && valuesData.length > 0) {
