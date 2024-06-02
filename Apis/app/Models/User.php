@@ -25,8 +25,9 @@ class User extends Authenticatable
         'phone',
         'address',
         'password',
-        'is_customer',
         'is_active',
+        'is_customer',
+        'is_staff',
         'is_administration',
     ];
 

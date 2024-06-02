@@ -18,6 +18,9 @@ class Product extends Model
         'weight',
         'description',
         'list_type',
+        'unit_price',
+        'unit_quantity',
+        'is_single_product',
         'is_published',
     ];
 
