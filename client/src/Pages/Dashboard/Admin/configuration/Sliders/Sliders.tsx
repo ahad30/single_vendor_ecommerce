@@ -100,7 +100,7 @@ const Sliders = () => {
         onDelete={handleDelete}
         isDeleteModalOpen={isDeleteModalOpen}
         isError={isError}
-        description={"Under the category corresponding data will be removed "}
+        description={"Slider will be deleted permanently"}
       ></DeleteModal>
     </div>
   );
