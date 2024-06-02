@@ -82,8 +82,10 @@ const ZForm = ({
 
   useEffect(() => {
     if (isSuccess && closeModal) {
-      methods.reset();
       closeModal();
+      if (formType === "create") {
+        methods.reset();
+      }
     }
   }, [isSuccess]);
 
