@@ -9,6 +9,8 @@ import Permissions from "../Pages/Dashboard/Admin/UserManagement/Permissions/Per
 import Category from "../Pages/Dashboard/Admin/Category/Category";
 import Brand from "../Pages/Dashboard/Admin/Brand/Brand";
 import Attributes from "../Pages/Dashboard/Admin/Attributes/Attributes";
+import Sliders from "../Pages/Dashboard/Admin/configuration/Sliders/Sliders";
+import { IoConstructOutline } from "react-icons/io5";
 
 export const adminRoutes = [
   {
@@ -20,7 +22,7 @@ export const adminRoutes = [
   },
 
   {
-    label: "Products",
+    label: "Products Management",
     icon: (
       <MdOutlineShoppingCartCheckout size={20}></MdOutlineShoppingCartCheckout>
     ),
@@ -67,6 +69,18 @@ export const adminRoutes = [
         label: "Users",
         element: <Users></Users>,
         permissionName: "view user",
+      },
+    ],
+  },
+  {
+    label: "Configuration",
+    icon: <IoConstructOutline size={20}></IoConstructOutline>,
+    children: [
+      {
+        path: "sliders",
+        label: "Sliders",
+        element: <Sliders></Sliders>,
+        permissionName: "view slider",
       },
     ],
   },

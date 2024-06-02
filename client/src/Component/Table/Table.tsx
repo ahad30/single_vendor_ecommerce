@@ -48,9 +48,9 @@ const Table = <T extends { id: string | number; [key: string]: any }>({
     return <h1>No data Found</h1>;
   }
   return (
-    <div className="pb-12">
+    <div className="pb-12 ">
       <Card
-        className="w-full "
+        className="w-full overflow-scroll "
         placeholder={undefined}
         onPointerEnterCapture={undefined}
         onPointerLeaveCapture={undefined}
