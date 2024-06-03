@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\Ecommerce\CustomerController;
 use App\Http\Controllers\Api\Products\AttributeController;
 use App\Http\Controllers\Api\Products\BrandController;
 use App\Http\Controllers\Api\Products\CategoryController;
+use App\Http\Controllers\Api\Products\GetAllCategorizedProductName;
 use App\Http\Controllers\Api\Products\GetAtrributeValueController;
 use App\Http\Controllers\Api\Products\PackageController;
 use App\Http\Controllers\Api\Products\ProductController;
@@ -157,6 +158,9 @@ Route::middleware('auth:sanctum')->group(function () {
     // package management routes
     Route::name('package.')->group(function () {
         Route::apiResource('packages', PackageController::class)->only(['index'])->middleware('permission:view package')->names(['index' => 'index', 'show' => 'show']);
+
+        // get all categorized products name with skus
+        Route::get('categorized/products', GetAllCategorizedProductName::class)->middleware('permission:create package')->name('categorized.products');
 
         Route::middleware('permission:create package')->group(function () {
             Route::apiResource('packages', PackageController::class)->only(['store'])
