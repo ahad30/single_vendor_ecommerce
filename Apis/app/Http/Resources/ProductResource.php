@@ -19,15 +19,18 @@ class ProductResource extends JsonResource
             'name' => $this->name,
             'slug' => $this->slug,
             'product_uid' => $this->product_uid,
-            'image' => $this->image,
-            'weight' => $this->weight,
-            'description' => $this->description,
-            'list_type' => $this->list_type,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
             'category' => $this->category->name,
             'brand' => $this->brand->name,
-            'skus' => $this->skus,
+            'image' => $this->image,
+            'weight' => $this->weight,
+            'list_type' => $this->list_type,
+            'price' => $this->unit_price != null ? $this->unit_price : $this->skus->first()->price,
+            'quantity' => (int) $this->unit_quantity + (int) $this->skus->sum('quantity'),
+            'is_published' => $this->is_published == true ? 'Published' : 'Unpublished',
+            'created_at' => $this->created_at->format('d-m-Y'),
+
+            'is_single_product' => $this->is_single_product == true ? 'Single' : 'Variant',
+            'variants' => $this->is_single_product == false ? ['total_variants' => $this->skus->count()] : 'null',
         ];
     }
 }

@@ -17,6 +17,7 @@ class Package extends Model
         'price',
         'quantity',
         'created_by',
+        'total_orders',
         'status',
     ];
 

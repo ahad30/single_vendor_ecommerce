@@ -1,11 +1,13 @@
 <?php
 
 use App\Http\Controllers\Api\Configuration\SliderController;
-use App\Http\Controllers\Api\Ecommerce\AttributeController;
-use App\Http\Controllers\Api\Ecommerce\BrandController;
-use App\Http\Controllers\Api\Ecommerce\CategoryController;
-use App\Http\Controllers\Api\Ecommerce\GetAtrributeValueController;
-use App\Http\Controllers\Api\Ecommerce\ProductController;
+use App\Http\Controllers\Api\Ecommerce\CustomerController;
+use App\Http\Controllers\Api\Products\AttributeController;
+use App\Http\Controllers\Api\Products\BrandController;
+use App\Http\Controllers\Api\Products\CategoryController;
+use App\Http\Controllers\Api\Products\GetAtrributeValueController;
+use App\Http\Controllers\Api\Products\PackageController;
+use App\Http\Controllers\Api\Products\ProductController;
 use App\Http\Controllers\Api\Users\GetAllRoleName;
 use App\Http\Controllers\Api\Users\PermissionController;
 use App\Http\Controllers\Api\Users\RoleController;
@@ -148,6 +150,26 @@ Route::middleware('auth:sanctum')->group(function () {
         });
     });
 
+    // package management routes
+    Route::name('package.')->group(function () {
+        Route::apiResource('packages', PackageController::class)->only(['index'])->middleware('permission:view package')->names(['index' => 'index', 'show' => 'show']);
+
+        Route::middleware('permission:create package')->group(function () {
+            Route::apiResource('packages', PackageController::class)->only(['store'])
+                ->names(['store' => 'store']);
+        });
+
+        Route::middleware('permission:edit package')->group(function () {
+            Route::apiResource('packages', PackageController::class)->only(['update'])
+                ->names(['update' => 'update']);
+        });
+
+        Route::middleware('permission:delete package')->group(function () {
+            Route::apiResource('packages', PackageController::class)->only(['destroy'])
+                ->names(['destroy' => 'destroy']);
+        });
+    });
+
     // slider management routes
     Route::name('slider.')->group(function () {
         Route::apiResource('sliders', SliderController::class)->only(['index'])->middleware('permission:view slider')->names(['index' => 'index', 'show' => 'show']);
@@ -164,6 +186,26 @@ Route::middleware('auth:sanctum')->group(function () {
 
         Route::middleware('permission:delete slider')->group(function () {
             Route::apiResource('sliders', SliderController::class)->only(['destroy'])
+                ->names(['destroy' => 'destroy']);
+        });
+    });
+
+    // customer management routes
+    Route::name('customer.')->group(function () {
+        Route::apiResource('customers', CustomerController::class)->only(['index'])->middleware('permission:view customer')->names(['index' => 'index', 'show' => 'show']);
+
+        // Route::middleware('permission:create customer')->group(function () {
+        //     Route::apiResource('customers', CustomerController::class)->only(['store'])
+        //         ->names(['store' => 'store']);
+        // });
+
+        // Route::middleware('permission:edit customer')->group(function () {
+        //     Route::apiResource('customers', CustomerController::class)->only(['update'])
+        //         ->names(['update' => 'update']);
+        // });
+
+        Route::middleware('permission:delete customer')->group(function () {
+            Route::apiResource('customers', CustomerController::class)->only(['destroy'])
                 ->names(['destroy' => 'destroy']);
         });
     });

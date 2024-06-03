@@ -18,15 +18,20 @@ class ProductSeeder extends Seeder
         $attributesMapping = Attribute::pluck('id', 'name')->toArray();
 
         $productsConfig = [
+            // varient product
             [
                 'name' => 'Product 1',
                 'slug' => 'product-1',
                 'category_id' => 1,
                 'brand_id' => 1,
                 'product_uid' => uniqid("PRD-"),
-                'weight' => '.5',
+                'weight' => '.5kg',
                 'description' => 'Product 1 Description',
                 'is_published' => true,
+                'unit_price' => '',
+                'unit_quantity' => '',
+                'is_single_product' => false,
+                'list_type' => 'new-arrival',
                 'skus' => [
                     [
                         'sku' => 'SKU1-RED-2GB-32GB',
@@ -48,15 +53,20 @@ class ProductSeeder extends Seeder
                     ],
                 ],
             ],
+            // varient product
             [
                 'name' => 'Product 2',
                 'slug' => 'product-2',
                 'category_id' => 1,
                 'brand_id' => 1,
                 'product_uid' => uniqid("PRD-"),
-                'weight' => '.3',
+                'weight' => '.3kg',
                 'description' => 'Product 2 Description',
+                'list_type' => 'top-sale',
                 'is_published' => true,
+                'unit_price' => '',
+                'unit_quantity' => '',
+                'is_single_product' => false,
                 'skus' => [
                     [
                         'sku' => 'SKU2-GREEN-8GB-128GB',
@@ -78,6 +88,21 @@ class ProductSeeder extends Seeder
                     ],
                 ],
             ],
+            // single product
+            [
+                'name' => 'Product 3',
+                'slug' => 'product-3',
+                'category_id' => 1,
+                'brand_id' => 1,
+                'product_uid' => uniqid("PRD-"),
+                'weight' => '1.5kg',
+                'description' => 'Product 3 Description',
+                'list_type' => 'feature-product',
+                'is_published' => true,
+                'unit_price' => 500,
+                'unit_quantity' => 10,
+                'is_single_product' => true,
+            ],
         ];
 
         foreach ($productsConfig as $productData) {
@@ -92,25 +117,31 @@ class ProductSeeder extends Seeder
                     'weight' => $productData['weight'],
                     'description' => $productData['description'],
                     'is_published' => $productData['is_published'],
+                    'list_type' => $productData['list_type'],
+                    'unit_price' => $productData['unit_price'],
+                    'unit_quantity' => $productData['unit_quantity'],
+                    'is_single_product' => $productData['is_single_product'],
                 ]);
 
                 // Create SKUs for the product
-                foreach ($productData['skus'] as $skuData) {
-                    // Create the SKU
-                    $sku = $product->skus()->create([
-                        'code' => $skuData['sku'],
-                        'price' => $skuData['price'],
-                        'quantity' => $skuData['quantity'],
-                    ]);
+                if (!empty($productData['skus'])) {
+                    foreach ($productData['skus'] as $skuData) {
+                        // Create the SKU
+                        $sku = $product->skus()->create([
+                            'code' => $skuData['sku'],
+                            'price' => $skuData['price'],
+                            'quantity' => $skuData['quantity'],
+                        ]);
 
-                    // Attach attributes to the SKU
-                    foreach ($skuData['attributes'] as $attributeName => $attributeValue) {
-                        $attributeId = $attributesMapping[$attributeName];
-                        $attributeValueId = AttributeValue::where('attribute_id', $attributeId)
-                            ->where('value', $attributeValue)
-                            ->value('id');
+                        // Attach attributes to the SKU
+                        foreach ($skuData['attributes'] as $attributeName => $attributeValue) {
+                            $attributeId = $attributesMapping[$attributeName];
+                            $attributeValueId = AttributeValue::where('attribute_id', $attributeId)
+                                ->where('value', $attributeValue)
+                                ->value('id');
 
-                        $sku->attributeValues()->attach($attributeValueId);
+                            $sku->attributeValues()->attach($attributeValueId);
+                        }
                     }
                 }
             });

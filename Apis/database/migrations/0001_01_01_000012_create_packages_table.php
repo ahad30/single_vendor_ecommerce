@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('image')->nullable();
             $table->integer('created_by')->nullable();
             $table->boolean('status')->default(false);
+            $table->integer('total_orders')->default(0);
             $table->text('description')->nullable();
             $table->timestamps();
         });

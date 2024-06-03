@@ -21,7 +21,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $data = User::latest()->paginate();
+        $data = User::latest()->where('is_staff', true)->paginate();
         $users = UserResource::collection($data);
 
         // Get response paginated data
@@ -39,8 +39,13 @@ class UserController extends Controller
             $user = [];
             DB::transaction(function () use ($request, &$user) {
                 // create user
+                $status  = [
+                    'is_staff' => true,
+                    'is_customer' => false,
+                ];
+
                 $path = $this->uploadImage($request, 'image', 'assets/images/users');
-                $user = User::create(array_merge($request->validated(), ['password' => Hash::make($request->password)], ['image' => $path]));
+                $user = User::create(array_merge($request->validated(), ['password' => Hash::make($request->password)], $status, ['image' => $path]));
 
                 // assign role
                 $user->assignRole($request->role);
@@ -95,15 +100,12 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
+        // check if the user is superadmin or user
         if ($user->is_administration == true) {
             return Response::error("Sorry, This user cannot be deleteable.");
         }
-
-        try {
-            $user->delete();
-            return Response::success(null, "User successfully deleted");
-        } catch (\Exception $e) {
-            return Response::error("Something went wrong");
-        }
+        // delete the user
+        $user->delete();
+        return Response::success(null, "User successfully deleted");
     }
 }
