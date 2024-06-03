@@ -11,6 +11,7 @@ import Brand from "../Pages/Dashboard/Admin/Brand/Brand";
 import Attributes from "../Pages/Dashboard/Admin/Attributes/Attributes";
 import Sliders from "../Pages/Dashboard/Admin/configuration/Sliders/Sliders";
 import { IoConstructOutline } from "react-icons/io5";
+import Products from "../Pages/Dashboard/Admin/Products/Products";
 
 export const adminRoutes = [
   {
@@ -44,6 +45,12 @@ export const adminRoutes = [
         label: "Attribute",
         element: <Attributes></Attributes>,
         permissionName: "view attribute",
+      },
+      {
+        path: "products",
+        label: "Products",
+        element: <Products></Products>,
+        permissionName: "view product",
       },
     ],
   },
