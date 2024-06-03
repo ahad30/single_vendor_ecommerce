@@ -30,11 +30,13 @@ const Login = () => {
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     const { data: loginData } = await Login(data);
     if (loginData.status) {
-      console.log(loginData);
-      // localStorage.removeItem("dropDown");
-      // console.log(loginData.data);
       dispatch(setUser(loginData.data));
-      // navigate("/admin");
+      if (loginData.data.user.is_customer == 1) {
+        navigate("/user");
+      } else if (loginData.data.user.is_staff == 1) {
+        localStorage.removeItem("dropDown");
+        navigate("/admin");
+      }
     }
   };
 
@@ -47,7 +49,7 @@ const Login = () => {
         toast.success(loginData?.message, { id: 1 });
       }
       if (isError) {
-        toast.error(error.data.message, { id: 1 });
+        toast.error(error?.data?.message, { id: 1 });
       }
     }
   }, [isSuccess, isLoading, isError, loginData, error]);
