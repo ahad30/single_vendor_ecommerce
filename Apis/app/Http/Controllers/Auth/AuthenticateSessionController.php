@@ -7,27 +7,24 @@ use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Resources\LoginResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Spatie\Permission\Models\Permission;
 
 class AuthenticateSessionController extends Controller
 {
-    // login
+    // User login
     public function login(LoginRequest $request)
     {
         $credentials = $request->only('email', 'password');
-
+        // authenticate the user
         if (auth()->attempt($credentials)) {
-            $user = $request->user();
-            $userData = [
-                'id' => $user->id,
-                'name' => $user->name,
-                'email' => $user->email,
-            ];
-            $data = [
-                'token' => $user->createToken('token')->plainTextToken,
-                'user' => new LoginResource($user),
-            ];
+            // Revoke all existing tokens
+            $request->user()->tokens()->delete();
 
+            // merge user information with the token information
+            $data = [
+                'token' => $request->user()->createToken('token')->plainTextToken,
+                'user' => new LoginResource($request->user()),
+            ];
+            // return the response
             return Response::success($data, 'Login successfully');
         }
 

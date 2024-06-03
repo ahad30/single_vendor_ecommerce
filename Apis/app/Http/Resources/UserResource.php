@@ -22,8 +22,10 @@ class UserResource extends JsonResource
             'address' => $this->address,
             'image' => $this->image,
             'is_active' => $this->is_active ? 'Active' : 'Inactive',
-            'is_staff' => $this->is_staff,
             'is_customer' => $this->is_customer,
+            $this->mergeWhen($request->user()->is_staff == true, [
+                'is_staff' => $this->is_staff,
+            ]),
             'is_administration' => $this->is_administration,
             'role' => $this->getRoleNames()
         ];
