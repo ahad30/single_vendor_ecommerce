@@ -1,15 +1,37 @@
 import { useForm, SubmitHandler, FieldValues } from "react-hook-form"
+import { useRegisterMutation } from "../../Redux/Feature/auth/authApi";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { toast } from "sonner";
 
 
 const Register = () => {
+    const navigate = useNavigate();
+    const [Register, {isLoading, isSuccess,data, isError,error }] = useRegisterMutation();
     const {
         register,
         handleSubmit,
         // formState: { errors },
+        reset
       } = useForm()
-
-      const onSubmit: SubmitHandler<FieldValues> = (data) => console.log(data)
-
+      const onSubmit: SubmitHandler<FieldValues> = (data) => {
+             Register(data);
+           console.log(data)
+            reset();
+            // navigate("/")
+      };
+      
+      useEffect(() => {
+        if (isLoading || isSuccess || isError) {
+          toast.loading("loading ....", { id: 1 });
+          if (isSuccess) {
+            toast.success(data?.message, { id: 1 });
+          }
+          if (isError) {
+            toast.error(error.data.message, { id: 1 });
+          }
+        }
+      }, [isSuccess, isLoading, isError]);
 
 
     return (
@@ -68,7 +90,7 @@ const Register = () => {
                                     <div className="flex">
                                         <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><i className="mdi mdi-lock-outline text-gray-900 text-lg"></i></div>
                                         <input
-                                        {...register("confirmPassword")}
+                                        {...register("password-confirmation")}
                                         
                                         type="password" className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="************" />
                                     </div>

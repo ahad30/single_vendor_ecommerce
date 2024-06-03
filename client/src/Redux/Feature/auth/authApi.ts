@@ -34,6 +34,20 @@ export const authApi = baseApi.injectEndpoints({
         return res;
       },
     }),
+
+    register: builder.mutation({
+      query: (data) => {
+        return {
+          url: "/registration",
+          method: "POST",
+          body: data,
+        };
+      },
+      transformErrorResponse: (res: TError & BaseQueryApi) => {
+        return res;
+      },
+    }),
+
     logout: builder.mutation({
       query: () => {
         return {
@@ -42,6 +56,7 @@ export const authApi = baseApi.injectEndpoints({
         };
       },
     }),
+    
     getLoggedInUser: builder.query({
       query: () => {
         return {
@@ -56,4 +71,4 @@ export const authApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useLoginMutation, useGetLoggedInUserQuery , useLogoutMutation } = authApi;
+export const { useLoginMutation, useRegisterMutation, useGetLoggedInUserQuery, useLogoutMutation } = authApi;
