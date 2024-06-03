@@ -7,7 +7,7 @@ import { toast } from "sonner";
 
 const Register = () => {
     const navigate = useNavigate();
-    const [Register, {isLoading, isSuccess,data, isError,error }] = useRegisterMutation();
+    const [Register, {isLoading, isSuccess,data, isError }] = useRegisterMutation();
     const {
         register,
         handleSubmit,
@@ -27,9 +27,9 @@ const Register = () => {
           if (isSuccess) {
             toast.success(data?.message, { id: 1 });
           }
-          if (isError) {
-            toast.error(error.data.message, { id: 1 });
-          }
+        //   if (isError) {
+        //     toast.error(errors.data.message, { id: 1 });
+        //   }
         }
       }, [isSuccess, isLoading, isError]);
 
