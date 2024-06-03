@@ -19,5 +19,11 @@ class SliderSeeder extends Seeder
             'image' => '',
             'status' => true,
         ]);
+
+        Slider::create([
+            'name' => 'Slider 2',
+            'image' => '',
+            'status' => false,
+        ]);
     }
 }

@@ -36,6 +36,7 @@ export const categoryApi = baseApi.injectEndpoints({
         return res;
       },
     }),
+    
     deleteCategory: builder.mutation({
       query: (id) => {
         return {
