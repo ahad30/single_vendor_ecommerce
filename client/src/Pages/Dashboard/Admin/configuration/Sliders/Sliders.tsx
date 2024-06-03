@@ -19,6 +19,8 @@ import { TError, TMeta } from "../../../../../types/globalTypes";
 import AddModal from "../../../../../Component/Modal/AddModal";
 import EditModal from "../../../../../Component/Modal/EditModal";
 import DeleteModal from "../../../../../Component/Modal/DeleteModal";
+import EditSlider from "./EditSlider";
+import AddSlider from "./AddSlider";
 
 const Sliders = () => {
   const dispatch = useAppDispatch();
@@ -81,14 +83,14 @@ const Sliders = () => {
       ></Table>
       {/* add category modal */}
       <AddModal isAddModalOpen={isAddModalOpen} title="Create Category">
-        <></>
+        <AddSlider></AddSlider>
       </AddModal>
       {/* edit category modal */}
       <EditModal isEditModalOpen={isEditModalOpen} title="Edit Category">
         {/* <EditCategory<TCategory>
           itemData={singleData as TCategory}
         ></EditCategory> */}
-        <></>
+        <EditSlider></EditSlider>
       </EditModal>
       {/* delete category */}
       <DeleteModal
