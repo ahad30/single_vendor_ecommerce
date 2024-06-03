@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Http\Resources\LoginResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Spatie\Permission\Models\Permission;
@@ -24,7 +25,7 @@ class AuthenticateSessionController extends Controller
             ];
             $data = [
                 'token' => $user->createToken('token')->plainTextToken,
-                'user' => $user,
+                'user' => new LoginResource($user),
             ];
 
             return Response::success($data, 'Login successfully');
@@ -47,5 +48,5 @@ class AuthenticateSessionController extends Controller
     }
 
     // auth me 
-    
+
 }
