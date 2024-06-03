@@ -42,7 +42,7 @@ const AddSlider = () => {
       ...data,
       status: Number(data.status),
     };
-
+// console.log(bodyData)
     const formData = new FormData();
     for (const key in bodyData) {
       formData.append(key, bodyData[key]);
@@ -69,7 +69,7 @@ const AddSlider = () => {
         <ZInput label={"Name"} name={"name"} type={"text"}></ZInput>
         <ZImageInput label="Picture" name="image"></ZImageInput>
         <ZRadio
-          value={[
+          options={[
             {
               name: "Active",
               value: "1",
