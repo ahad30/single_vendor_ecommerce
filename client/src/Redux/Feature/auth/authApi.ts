@@ -1,4 +1,5 @@
-import { TResponseWithRedux } from "../../../types/globalTypes";
+import { BaseQueryApi } from "@reduxjs/toolkit/query";
+import { TError, TResponseWithRedux } from "../../../types/globalTypes";
 import { baseApi } from "../../Api/baseApi";
 
 export interface TLoggedUser {
@@ -29,6 +30,9 @@ export const authApi = baseApi.injectEndpoints({
           body: data,
         };
       },
+      transformErrorResponse: (res: TError & BaseQueryApi) => {
+        return res;
+      },
     }),
     logout: builder.mutation({
       query: () => {
@@ -51,4 +55,5 @@ export const authApi = baseApi.injectEndpoints({
     }),
   }),
 });
+
 export const { useLoginMutation, useGetLoggedInUserQuery , useLogoutMutation } = authApi;
