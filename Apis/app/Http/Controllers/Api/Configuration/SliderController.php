@@ -57,8 +57,8 @@ class SliderController extends Controller
     public function update(UpdateSliderRequest $request, Slider $slider)
     {
         // check atlest two sliders are active
-        if ($request['status'] == false) {
-            if (!Slider::where('status', true)->count() <= 2) {
+        if ($request['status'] == false || $request['status'] == 0) {
+            if (count(Slider::where('status', true)->get('id')) <= 2) {
                 return Response::error("You cannot update last two slider status");
             }
         }
@@ -79,7 +79,7 @@ class SliderController extends Controller
      */
     public function destroy(Slider $slider)
     {
-        if (!Slider::count() <= 2) {
+        if (count(Slider::get('id')) <= 2) {
             return Response::error("You cannot delete last two slider");
         }
 
