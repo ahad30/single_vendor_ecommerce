@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { FieldValues, SubmitHandler } from "react-hook-form";
 import { useCreateSlideMutation } from "../../../../../Redux/Feature/Admin/configuration/slidersApi";
 import { useAppDispatch } from "../../../../../Redux/hook";
@@ -7,6 +8,22 @@ import { TError } from "../../../../../types/globalTypes";
 import ZInput from "../../../../../Component/Form/ZInput";
 import ZImageInput from "../../../../../Component/Form/ZImageInput";
 import ZRadio from "../../../../../Component/Form/ZRadio";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+const sliderSchema = z.object({
+  name: z.string().nonempty("Name is required"),
+  image: z.any().refine((file) => file instanceof File, {
+    message: "Image is required",
+  }),
+  status: z
+    .enum(["1", "0"], {
+      invalid_type_error: "Status must be '1' or '0'",
+    })
+    .refine((value) => value === "1" || value === "0", {
+      message: "You must select at least one status option",
+    }),
+});
 
 const AddSlider = () => {
   const dispatch = useAppDispatch();
@@ -21,11 +38,16 @@ const AddSlider = () => {
     },
   ] = useCreateSlideMutation();
   const handleSubmit: SubmitHandler<FieldValues> = (data) => {
-    console.log(data);
-    //   const formData = new FormData();
-    //   formData.append("name", data.name);
-    //   formData.append("image", data.image);
-    //   createSlider(formData);
+    const bodyData: any = {
+      ...data,
+      status: Number(data.status),
+    };
+
+    const formData = new FormData();
+    for (const key in bodyData) {
+      formData.append(key, bodyData[key]);
+    }
+    createSlider(formData);
   };
 
   const handleCloseAndOpen = () => {
@@ -40,14 +62,26 @@ const AddSlider = () => {
         error={cError as TError}
         data={data}
         submit={handleSubmit}
-        //   resolver={zodResolver(categorySchema)}
+        resolver={zodResolver(sliderSchema)}
         closeModal={handleCloseAndOpen}
         formType="create"
       >
-        <ZInput label={"Category name"} name={"name"} type={"text"}></ZInput>
+        <ZInput label={"Name"} name={"name"} type={"text"}></ZInput>
         <ZImageInput label="Picture" name="image"></ZImageInput>
-        <ZRadio name={"status"} label={"Active"}></ZRadio>
-        <ZRadio name={"status"} label={"Inactive"}></ZRadio>
+        <ZRadio
+          value={[
+            {
+              name: "Active",
+              value: "1",
+            },
+            {
+              name: "Inactive",
+              value: "0",
+            },
+          ]}
+          name={"status"}
+          label={"Status"}
+        ></ZRadio>
       </ZForm>
     </div>
   );
