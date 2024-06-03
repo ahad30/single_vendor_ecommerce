@@ -12,7 +12,6 @@ Route::post('/registration', [RegisterUserController::class, 'register']);
 
 // Authenticate Routes
 Route::middleware('auth:sanctum')->group(function () {
-    Route::get('/profile', [UserProfileController::class, 'profile']);
     // logged in user with role & permissions
     Route::get('/profile', [UserProfileController::class, 'profile']);
 
@@ -21,7 +20,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // update profile
     Route::put('/profile', [UserProfileController::class, 'updateProfile']);
-    
+
     // logout api
     Route::post('/logout', [AuthenticateSessionController::class, 'logout']);
 });
