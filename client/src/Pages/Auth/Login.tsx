@@ -7,13 +7,21 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { useEffect } from "react";
 
+type TLoginError = {
+  data: {
+    message: string;
+  };
+};
+
 const Login = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const user = useAppSelector((state: RootState) => state.auth);
   // console.log(user)
-  const [Login, { isError, isLoading, isSuccess, data: loginData, error }] =
-    useLoginMutation();
+  const [
+    Login,
+    { isError, isLoading, isSuccess, data: loginData, error: loginError },
+  ] = useLoginMutation();
   const {
     register,
     handleSubmit,
@@ -30,6 +38,8 @@ const Login = () => {
     }
   };
 
+  const error = loginError as TLoginError;
+
   useEffect(() => {
     if (isLoading || isSuccess || isError) {
       toast.loading("loading ....", { id: 1 });
@@ -40,14 +50,14 @@ const Login = () => {
         toast.error(error.data.message, { id: 1 });
       }
     }
-  }, [isSuccess, isLoading, isError]);
+  }, [isSuccess, isLoading, isError, loginData, error]);
 
   return (
     <div className="min-h-screen bg-gray-100 py-6 flex flex-col justify-center sm:py-12">
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="relative py-3 sm:max-w-xl sm:mx-auto">
           <div className="absolute inset-0 bg-gradient-to-r from-blue-300 to-blue-600 shadow-lg transform -skew-y-6 sm:skew-y-0 sm:-rotate-6 sm:rounded-3xl"></div>
-          <div className="relative px-4 py-10 bg-white shadow-lg sm:rounded-3xl sm:p-20">
+          <div className="relative px-4 py-10 bg-white md:m-0 md:rounded-none m-2 rounded-md shadow-lg sm:rounded-3xl sm:p-20">
             <div className="max-w-md mx-auto">
               <div>
                 <h1 className="text-2xl font-semibold">Login Here</h1>
