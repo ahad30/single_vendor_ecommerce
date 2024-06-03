@@ -24,7 +24,7 @@ class AuthenticateSessionController extends Controller
             ];
             $data = [
                 'token' => $user->createToken('token')->plainTextToken,
-                'user' => $userData,
+                'user' => $user,
             ];
 
             return Response::success($data, 'Login successfully');

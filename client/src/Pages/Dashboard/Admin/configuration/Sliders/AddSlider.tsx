@@ -42,7 +42,6 @@ const AddSlider = () => {
       ...data,
       status: Number(data.status),
     };
-// console.log(bodyData)
     const formData = new FormData();
     for (const key in bodyData) {
       formData.append(key, bodyData[key]);
@@ -53,6 +52,7 @@ const AddSlider = () => {
   const handleCloseAndOpen = () => {
     dispatch(setIsAddModalOpen());
   };
+  
   return (
     <div>
       <ZForm
