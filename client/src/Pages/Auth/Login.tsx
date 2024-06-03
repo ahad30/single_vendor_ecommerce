@@ -12,7 +12,8 @@ const Login = () => {
   const navigate = useNavigate();
   const user = useAppSelector((state: RootState) => state.auth);
   // console.log(user)
-  const [Login, { isError, isLoading, isSuccess, data: loginData, error }] = useLoginMutation();
+  const [Login, { isError, isLoading, isSuccess, data: loginData, error }] =
+    useLoginMutation();
   const {
     register,
     handleSubmit,
@@ -21,10 +22,11 @@ const Login = () => {
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     const { data: loginData } = await Login(data);
     if (loginData.status) {
-      localStorage.removeItem("dropDown");
-      console.log(loginData.data);
+      console.log(loginData);
+      // localStorage.removeItem("dropDown");
+      // console.log(loginData.data);
       dispatch(setUser(loginData.data));
-      navigate("/admin");
+      // navigate("/admin");
     }
   };
 
@@ -39,8 +41,6 @@ const Login = () => {
       }
     }
   }, [isSuccess, isLoading, isError]);
- 
-
 
   return (
     <div className="min-h-screen bg-gray-100 py-6 flex flex-col justify-center sm:py-12">
@@ -60,11 +60,9 @@ const Login = () => {
                       id="email"
                       name="email"
                       type="text"
-
                       className="peer  h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:border-b-blue-600 focus:borer-rose-600"
                       placeholder="Email address"
                     />
-
                   </div>
                   <div className="relative">
                     <input
@@ -76,7 +74,6 @@ const Login = () => {
                                     focus:outline-none focus:border-b-blue-600"
                       placeholder="Password"
                     />
-
                   </div>
                   <div className="relative">
                     <input

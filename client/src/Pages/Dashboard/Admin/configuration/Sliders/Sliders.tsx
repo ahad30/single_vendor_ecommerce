@@ -90,7 +90,7 @@ const Sliders = () => {
         {/* <EditCategory<TCategory>
           itemData={singleData as TCategory}
         ></EditCategory> */}
-        <EditSlider></EditSlider>
+        <EditSlider<TSlider> itemData={singleData as TSlider}></EditSlider>
       </EditModal>
       {/* delete category */}
       <DeleteModal

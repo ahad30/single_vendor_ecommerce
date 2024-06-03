@@ -28,8 +28,8 @@ class ProductSeeder extends Seeder
                 'weight' => '.5kg',
                 'description' => 'Product 1 Description',
                 'is_published' => true,
-                'unit_price' => '',
-                'unit_quantity' => '',
+                'unit_price' => 0,
+                'unit_quantity' => 0,
                 'is_single_product' => false,
                 'list_type' => 'new-arrival',
                 'skus' => [
@@ -64,8 +64,8 @@ class ProductSeeder extends Seeder
                 'description' => 'Product 2 Description',
                 'list_type' => 'top-sale',
                 'is_published' => true,
-                'unit_price' => '',
-                'unit_quantity' => '',
+                'unit_price' => 0,
+                'unit_quantity' => 0,
                 'is_single_product' => false,
                 'skus' => [
                     [
