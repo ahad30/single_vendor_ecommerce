@@ -29,10 +29,19 @@ class ProductResource extends JsonResource
             'is_published' => $this->is_published == true ? 'Published' : 'Unpublished',
             'created_at' => $this->created_at->format('d-m-Y'),
             'is_single_product' => $this->is_single_product == true ? 'Single' : 'Variant',
-
             $this->mergeWhen($this->is_single_product == false, [
                 'variants' => ['total_variants' => $this->skus->count()],
+                $this->mergeWhen($this->getSkus($request) != null, [
+                    'variant_items' => $this->getSkus($request),
+                ]),
             ]),
         ];
+    }
+
+    public function getSkus($request)
+    {
+        if ($request->routeIs('product.show')) {
+            return SkuResource::collection($this->whenLoaded('skus'));
+        }
     }
 }
