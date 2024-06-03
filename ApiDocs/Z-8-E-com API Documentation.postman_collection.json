@@ -622,7 +622,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "2|KQrFhFUWN1DTDERNgOXvplSUnxEqsccdaIKNX5hi0d6fdfe5",
+											"value": "1|KoNaL3ogdqhDiyhquyb4a9slCGfTv68uwVNWx0Uq79b803e2",
 											"type": "string"
 										}
 									]
@@ -857,6 +857,81 @@
 									"path": [
 										"role",
 										"list"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Ecommerce",
+			"item": [
+				{
+					"name": "Customer",
+					"item": [
+						{
+							"name": "get all customer",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "1|KoNaL3ogdqhDiyhquyb4a9slCGfTv68uwVNWx0Uq79b803e2",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/customers",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"customers"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete customer",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "1|KoNaL3ogdqhDiyhquyb4a9slCGfTv68uwVNWx0Uq79b803e2",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/customers/1",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"customers",
+										"1"
 									]
 								}
 							},
@@ -1388,7 +1463,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "1|xDMOn6EyGFFEvTdgx4Qj1q6mO5OgepTWG854mPSe4e56bf12",
+											"value": "3|XNmG7vo0Zkmhp1EuTluVI1oaRU0IxPXo6lAf6fAcfcf29f8f",
 											"type": "string"
 										}
 									]
@@ -1570,6 +1645,43 @@
 							"response": []
 						}
 					]
+				},
+				{
+					"name": "Package",
+					"item": [
+						{
+							"name": "get all packages",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "1|iqI50hmqZyYc7UtwBzei1uBd7fNGgMkEbDeE4nCVc2a00675",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/packages",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"packages"
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				}
 			]
 		},
@@ -1590,7 +1702,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "1|Svi0Zo2cCNqC80GpHq8dYZK0eNefsMMU8GkIlLDre3bc0f30",
+											"value": "3|XNmG7vo0Zkmhp1EuTluVI1oaRU0IxPXo6lAf6fAcfcf29f8f",
 											"type": "string"
 										}
 									]
@@ -1771,6 +1883,41 @@
 				{
 					"name": "Contact",
 					"item": []
+				}
+			]
+		},
+		{
+			"name": "Frontend",
+			"item": [
+				{
+					"name": "Home",
+					"item": [
+						{
+							"name": "homepage data",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/home",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"home"
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				}
 			]
 		}
