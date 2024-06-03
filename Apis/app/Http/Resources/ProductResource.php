@@ -28,9 +28,11 @@ class ProductResource extends JsonResource
             'quantity' => (int) $this->unit_quantity + (int) $this->skus->sum('quantity'),
             'is_published' => $this->is_published == true ? 'Published' : 'Unpublished',
             'created_at' => $this->created_at->format('d-m-Y'),
-
             'is_single_product' => $this->is_single_product == true ? 'Single' : 'Variant',
-            'variants' => $this->is_single_product == false ? ['total_variants' => $this->skus->count()] : 'null',
+
+            $this->mergeWhen($this->is_single_product == false, [
+                'variants' => ['total_variants' => $this->skus->count()],
+            ]),
         ];
     }
 }

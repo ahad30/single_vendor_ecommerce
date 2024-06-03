@@ -25,7 +25,7 @@ class ProductController extends Controller
         $data = Product::latest()->with('skus')->paginate();
         $products = ProductResource::collection($data);
 
-        // Get response paginated data
+        // Get response with paginated data
         $response = $this->getMetaPagination($data, $products);
 
         return Response::successWithPagination($response);
