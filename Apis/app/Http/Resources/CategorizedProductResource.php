@@ -18,7 +18,9 @@ class CategorizedProductResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'is_single_product' => $this->is_single_product == true ? 'Single' : 'Variant',
-            'variant_items' => SkuResource::collection($this->whenLoaded('skus')),
+            $this->mergeWhen($this->is_single_product == false, [
+                'variant_items' => SkuResource::collection($this->whenLoaded('skus')),
+            ]),
         ];
     }
 }
