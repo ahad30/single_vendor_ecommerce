@@ -42,7 +42,9 @@ export const authApi = baseApi.injectEndpoints({
           method: "POST",
           body: data,
         };
+        
       },
+      invalidatesTags: ["customers"],
       transformErrorResponse: (res: TError & BaseQueryApi) => {
         return res;
       },
