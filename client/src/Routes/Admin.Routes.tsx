@@ -17,7 +17,7 @@ import Orders from "../Pages/Dashboard/Admin/EcommerceManagemnet/Orders/Orders";
 import Customers from "../Pages/Dashboard/Admin/EcommerceManagemnet/Customers/Customers";
 import AddProduct from "../Pages/Dashboard/Admin/Products/AddProduct";
 import EditProduct from "../Pages/Dashboard/Admin/Products/EditProduct";
-
+import { FiBox } from "react-icons/fi";
 export const adminRoutes = [
   {
     path: "/admin",
@@ -29,9 +29,7 @@ export const adminRoutes = [
 
   {
     label: "Products Management",
-    icon: (
-      <MdOutlineShoppingCartCheckout size={20}></MdOutlineShoppingCartCheckout>
-    ),
+    icon: <FiBox size={20}></FiBox>,
     children: [
       {
         path: "categories",
@@ -65,17 +63,19 @@ export const adminRoutes = [
       },
     ],
   },
- {
-  path : "add-product",
-  element : <AddProduct></AddProduct>
- },
- {
-  path : "edit-product/:id",
-  element : <EditProduct></EditProduct>
- },
+  {
+    path: "add-product",
+    element: <AddProduct></AddProduct>,
+  },
+  {
+    path: "edit-product/:id",
+    element: <EditProduct></EditProduct>,
+  },
   {
     label: "E-commerce",
-    icon: <LuUserCog2 size={20}></LuUserCog2>,
+    icon: (
+      <MdOutlineShoppingCartCheckout size={20}></MdOutlineShoppingCartCheckout>
+    ),
     children: [
       {
         path: "orders",
