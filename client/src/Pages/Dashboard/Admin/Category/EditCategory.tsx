@@ -50,6 +50,7 @@ const EditCategory = <T extends { id: string | number; [key: string]: any }>({
         submit={handleSubmit}
         closeModal={handleCloseAndOpen}
         formType="edit"
+        buttonName="Update"
       >
         <ZInput
           value={itemData?.name}

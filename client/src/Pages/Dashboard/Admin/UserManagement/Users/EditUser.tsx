@@ -64,6 +64,7 @@ const EditUser = ({ itemData }: { itemData: TUser }) => {
     itemData && (
       <div>
         <ZForm
+          buttonName="Update"
           formType="edit"
           data={uData}
           closeModal={handleCloseAndOpen}

@@ -114,6 +114,7 @@ const EditRoles = <T extends { id: string | number; [key: string]: any }>({
   return (
     <div>
       <ZForm
+        buttonName="Update"
         defaultValues={cPermissions}
         formType="edit"
         data={rData}
@@ -132,7 +133,10 @@ const EditRoles = <T extends { id: string | number; [key: string]: any }>({
         />
 
         {/* previous permission */}
-        <p className="mt-4 mb-2"> Current Permissions: {previousPermissions.length}</p>
+        <p className="mt-4 mb-2">
+          {" "}
+          Current Permissions: {previousPermissions.length}
+        </p>
         <div className="grid mb-10 max-h-[400px] thin-scrollbar overflow-scroll grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 ">
           {previousPermissions?.map((item) => (
             <div className="bg-[#E6F4FF] rounded h-[50px] flex  items-center px-2 border border-[#CBDBF3]">
@@ -150,7 +154,10 @@ const EditRoles = <T extends { id: string | number; [key: string]: any }>({
           ))}
         </div>
         {/* available permission */}
-        <p className="mt-4 mb-2"> Available Permissions: {availablePermissions?.length}</p>
+        <p className="mt-4 mb-2">
+          {" "}
+          Available Permissions: {availablePermissions?.length}
+        </p>
         <div className="grid mb-10 max-h-[400px] thin-scrollbar overflow-scroll grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 ">
           {availablePermissions?.map((item) => (
             <div className="bg-[#E6F4FF] rounded h-[50px] flex  items-center px-2 border border-[#CBDBF3]">
