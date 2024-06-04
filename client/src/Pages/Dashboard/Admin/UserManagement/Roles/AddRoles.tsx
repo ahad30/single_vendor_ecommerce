@@ -54,7 +54,6 @@ const AddRoles = () => {
     <div>
       <ZForm
       buttonName="Create"
-
         formType="create"
         data={rData}
         closeModal={handleCloseAndOpen}

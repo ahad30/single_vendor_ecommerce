@@ -11,27 +11,27 @@ const TableTabs = () => {
     },
   ];
   return (
-<div className="w-full lg:w-[30%] my-1 mx-auto">
-<Tabs  value="html">
-      <TabsHeader
-        placeholder={undefined}
-        onPointerEnterCapture={undefined}
-        onPointerLeaveCapture={undefined}
-      >
-        {data.map(({ label, value }) => (
-          <Tab
-            key={value}
-            value={value}
-            placeholder={undefined}
-            onPointerEnterCapture={undefined}
-            onPointerLeaveCapture={undefined}
-          >
-            {label}
-          </Tab>
-        ))}
-      </TabsHeader>
-    </Tabs>
-</div>
+    <div className="w-full lg:w-[30%] my-1 mx-auto">
+      <Tabs value="html">
+        <TabsHeader
+          placeholder={undefined}
+          onPointerEnterCapture={undefined}
+          onPointerLeaveCapture={undefined}
+        >
+          {data.map(({ label, value }) => (
+            <Tab
+              key={value}
+              value={value}
+              placeholder={undefined}
+              onPointerEnterCapture={undefined}
+              onPointerLeaveCapture={undefined}
+            >
+              {label}
+            </Tab>
+          ))}
+        </TabsHeader>
+      </Tabs>
+    </div>
   );
 };
 

@@ -3,8 +3,10 @@ import { Input } from "antd";
 const { Search } = Input;
 
 const SearchBar = () => {
-  const onSearch: SearchProps["onSearch"] = (value, _e, info) =>
-    console.log(info?.source, value);
+  const onSearch: SearchProps["onSearch"] = (value, _e, info) =>{
+    console.log(info?.source);
+    console.log(value);
+  }
 
   return (
     <div className="mb-2 lg:mb-0 lg:w-[30%] w-full">
