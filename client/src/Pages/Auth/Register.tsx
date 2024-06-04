@@ -1,28 +1,28 @@
 import { useForm, SubmitHandler, FieldValues } from "react-hook-form";
 import { useRegisterMutation } from "../../Redux/Feature/auth/authApi";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { toast } from "sonner";
 
 const Register = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [Register, { isLoading, isSuccess, data, isError }] =
     useRegisterMutation();
   const {
     register,
     handleSubmit,
-    // formState: { errors },
-    reset,
+    // reset,
   } = useForm();
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    const fomrData = new FormData();
-    for (const key in data) {
-      fomrData.append(key, data[key]);
-    }
-    Register(fomrData);
 
+  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+    const formData = new FormData();
+    for (const key in data) {
+      formData.append(key, data[key]);
+    }
+    Register(formData);
     // navigate("/")
   };
+
 
   useEffect(() => {
     if (isLoading || isSuccess || isError) {
@@ -30,9 +30,9 @@ const Register = () => {
       if (isSuccess) {
         toast.success(data?.message, { id: 1 });
       }
-      //   if (isError) {
-      //     toast.error(errors.data.message, { id: 1 });
-      //   }
+        if (isError) {
+          // toast.error(errors.data.message, { id: 1 });
+        }
     }
   }, [isSuccess, isLoading, isError]);
 
@@ -294,6 +294,27 @@ const Register = () => {
                         type="email"
                         className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
                         placeholder="johnsmith@example.com"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div className="flex -mx-3">
+                  <div className="w-full px-3 mb-5">
+                    <label
+                      htmlFor=""
+                      className="text-base font-semibold px-1 text-gray-900"
+                    >
+                      Phone
+                    </label>
+                    <div className="flex">
+                      <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
+                        <i className="mdi mdi-phone-outline text-gray-900 text-lg"></i>
+                      </div>
+                      <input
+                        {...register("phone")}
+                        type="phone"
+                        className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
+                        placeholder="00987654321"
                       />
                     </div>
                   </div>
