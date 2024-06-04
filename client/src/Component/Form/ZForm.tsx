@@ -30,6 +30,7 @@ type TZForm = {
   error?: TError;
   data?: any;
   formType: "edit" | "create";
+  buttonName: "Create" | "Update";
 } & defaultAndResolver;
 
 const ZForm = ({
@@ -44,6 +45,7 @@ const ZForm = ({
   error,
   data,
   formType,
+  buttonName,
 }: TZForm) => {
   const { isAddModalOpen, isEditModalOpen } = useAppSelector(
     (state: RootState) => state.modal
@@ -109,7 +111,7 @@ const ZForm = ({
           closeModal={closeModal}
           isLoading={isLoading as boolean}
           isSuccess={isSuccess as boolean}
-          title="Save"
+          title={buttonName}
         ></SaveAndCloseButton>
         <div className="mt-5">
           {Array.isArray(errors) &&

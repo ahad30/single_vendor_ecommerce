@@ -167,7 +167,7 @@ const Table = <T extends { id: string | number; [key: string]: any }>({
                                     {`${item[column?.value]}`}
                                     <br />
                                     <span className="font-bold">
-                                      Total Variants
+                                      Total Variants: 
                                       {item["variants"].total_variants}
                                     </span>
                                   </p>
