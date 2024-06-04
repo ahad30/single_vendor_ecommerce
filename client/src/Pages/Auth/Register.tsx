@@ -7,31 +7,34 @@ import { toast } from "sonner";
 
 const Register = () => {
     const navigate = useNavigate();
-    const [Register, {isLoading, isSuccess,data, isError }] = useRegisterMutation();
+    const [Register, { isLoading, isSuccess, data, isError }] = useRegisterMutation();
     const {
         register,
         handleSubmit,
         // formState: { errors },
         reset
-      } = useForm()
-      const onSubmit: SubmitHandler<FieldValues> = (data) => {
-             Register(data);
-           console.log(data)
-            reset();
-            // navigate("/")
-      };
-      
-      useEffect(() => {
+    } = useForm()
+    const onSubmit: SubmitHandler<FieldValues> = (data) => {
+
+
+        fetch("http://127.0.0.1:8000/api/v1/registration", { method: "POST", body: JSON.stringify(data) , headers: {"content-type" : "application/json"}  }).then((res) => res.json()).then((data) => console.log(data))
+        //    Register(data);
+        //    console.log(data)
+        //    reset();
+        // navigate("/")
+    };
+
+    useEffect(() => {
         if (isLoading || isSuccess || isError) {
-          toast.loading("loading ....", { id: 1 });
-          if (isSuccess) {
-            toast.success(data?.message, { id: 1 });
-          }
-        //   if (isError) {
-        //     toast.error(errors.data.message, { id: 1 });
-        //   }
+            //   toast.loading("loading ....", { id: 1 });
+            if (isSuccess) {
+                toast.success(data?.message, { id: 1 });
+            }
+            //   if (isError) {
+            //     toast.error(errors.data.message, { id: 1 });
+            //   }
         }
-      }, [isSuccess, isLoading, isError]);
+    }, [isSuccess, isLoading, isError]);
 
 
     return (
@@ -48,62 +51,62 @@ const Register = () => {
                             <p>Enter your information to register</p>
                         </div>
                         <form onSubmit={handleSubmit(onSubmit)} action="">
-                        <div>
-                            <div className="flex flex-col lg:flex-row -mx-3">
-                                <div className=" w-full px-3 mb-5">
-                                    <label htmlFor="" className="text-base font-semibold px-1 text-gray-900"> name</label>
-                                <div className="flex">
-                                        <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><i className="mdi mdi-account-outline text-gray-900 text-lg"></i></div>
-                                        <input 
-                                        {...register("name")}
-                                        type="text" className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="John"/>
+                            <div>
+                                <div className="flex flex-col lg:flex-row -mx-3">
+                                    <div className=" w-full px-3 mb-5">
+                                        <label htmlFor="" className="text-base font-semibold px-1 text-gray-900"> name</label>
+                                        <div className="flex">
+                                            <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><i className="mdi mdi-account-outline text-gray-900 text-lg"></i></div>
+                                            <input
+                                                {...register("name")}
+                                                type="text" className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="John" />
+                                        </div>
                                     </div>
-                                </div>
-                               
-                            </div>
-                            <div className="flex -mx-3">
-                                <div className="w-full px-3 mb-5">
-                                    <label htmlFor="" className="text-base font-semibold px-1 text-gray-900">Email</label>
-                                    <div className="flex">
-                                        <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><i className="mdi mdi-email-outline text-gray-900 text-lg"></i></div>
-                                        <input
-                                        {...register("email")}
-                                        
-                                        type="email" className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="johnsmith@example.com"/>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="flex -mx-3">
-                                <div className="w-full px-3 mb-5">
-                                    <label htmlFor="" className="text-base font-semibold px-1 text-gray-900">Password</label>
-                                    <div className="flex">
-                                        <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><i className="mdi mdi-lock-outline text-gray-900 text-lg"></i></div>
-                                        <input
-                                        {...register("password")}
-                                        type="password" className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="************" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="flex -mx-3">
-                                <div className="w-full px-3 mb-12">
-                                    <label htmlFor="" className="text-base font-semibold px-1 text-gray-900">Confirm Password</label>
-                                    <div className="flex">
-                                        <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><i className="mdi mdi-lock-outline text-gray-900 text-lg"></i></div>
-                                        <input
-                                        {...register("password-confirmation")}
-                                        
-                                        type="password" className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="************" />
-                                    </div>
-                                </div>
-                            </div>
 
-                            
-                            <div className="flex -mx-3">
-                                <div className="w-full px-3 mb-5">
-                                    <button className="block w-full max-w-xs mx-auto bg-indigo-500 hover:bg-indigo-700 focus:bg-indigo-700 text-white rounded-lg px-3 py-3 font-semibold">REGISTER NOW</button>
+                                </div>
+                                <div className="flex -mx-3">
+                                    <div className="w-full px-3 mb-5">
+                                        <label htmlFor="" className="text-base font-semibold px-1 text-gray-900">Email</label>
+                                        <div className="flex">
+                                            <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><i className="mdi mdi-email-outline text-gray-900 text-lg"></i></div>
+                                            <input
+                                                {...register("email")}
+
+                                                type="email" className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="johnsmith@example.com" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="flex -mx-3">
+                                    <div className="w-full px-3 mb-5">
+                                        <label htmlFor="" className="text-base font-semibold px-1 text-gray-900">Password</label>
+                                        <div className="flex">
+                                            <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><i className="mdi mdi-lock-outline text-gray-900 text-lg"></i></div>
+                                            <input
+                                                {...register("password")}
+                                                type="password" className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="************" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="flex -mx-3">
+                                    <div className="w-full px-3 mb-12">
+                                        <label htmlFor="" className="text-base font-semibold px-1 text-gray-900">Confirm Password</label>
+                                        <div className="flex">
+                                            <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><i className="mdi mdi-lock-outline text-gray-900 text-lg"></i></div>
+                                            <input
+                                                {...register("password-confirmation")}
+
+                                                type="password" className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="************" />
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div className="flex -mx-3">
+                                    <div className="w-full px-3 mb-5">
+                                        <button className="block w-full max-w-xs mx-auto bg-indigo-500 hover:bg-indigo-700 focus:bg-indigo-700 text-white rounded-lg px-3 py-3 font-semibold">REGISTER NOW</button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
                         </form>
                     </div>
                 </div>
