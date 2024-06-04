@@ -19,7 +19,7 @@ const Register = () => {
     for (const key in data) {
       formData.append(key, data[key]);
     }
-    Register(formData);
+    Register(data);
     // navigate("/")
   };
 
