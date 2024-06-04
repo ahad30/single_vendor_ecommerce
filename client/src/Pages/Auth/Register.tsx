@@ -3,10 +3,11 @@ import { useRegisterMutation } from "../../Redux/Feature/auth/authApi";
 // import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { toast } from "sonner";
-
+import axios from "axios";
 const Register = () => {
   // const navigate = useNavigate();
-  const [Register, { isLoading, isSuccess, data, isError }] = useRegisterMutation();
+  const [Register, { isLoading, isSuccess, data, isError }] =
+    useRegisterMutation();
 
   const {
     register,
@@ -15,14 +16,16 @@ const Register = () => {
   } = useForm();
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    const formData = new FormData();
-    for (const key in data) {
-      formData.append(key, data[key]);
-    }
+    // const formData = new FormData();
+    // for (const key in data) {
+    //   formData.append(key, data[key]);
+    // }
     Register(data);
     // navigate("/")
-  };
+  
 
+  
+  };
 
   useEffect(() => {
     if (isLoading || isSuccess || isError) {
@@ -30,9 +33,9 @@ const Register = () => {
       if (isSuccess) {
         toast.success(data?.message, { id: 1 });
       }
-        if (isError) {
-          // toast.error(errors.data.message, { id: 1 });
-        }
+      if (isError) {
+        // toast.error(errors.data.message, { id: 1 });
+      }
     }
   }, [isSuccess, isLoading, isError]);
 
@@ -353,7 +356,7 @@ const Register = () => {
                         <i className="mdi mdi-lock-outline text-gray-900 text-lg"></i>
                       </div>
                       <input
-                        {...register("password-confirmation")}
+                        {...register("password_confirmation")}
                         type="password"
                         className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
                         placeholder="************"
