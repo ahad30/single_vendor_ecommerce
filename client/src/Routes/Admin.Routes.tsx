@@ -11,6 +11,12 @@ import Brand from "../Pages/Dashboard/Admin/Brand/Brand";
 import Attributes from "../Pages/Dashboard/Admin/Attributes/Attributes";
 import Sliders from "../Pages/Dashboard/Admin/configuration/Sliders/Sliders";
 import { IoConstructOutline } from "react-icons/io5";
+import Products from "../Pages/Dashboard/Admin/Products/Products";
+import Packages from "../Pages/Dashboard/Admin/Package/Packages";
+import Orders from "../Pages/Dashboard/Admin/EcommerceManagemnet/Orders/Orders";
+import Customers from "../Pages/Dashboard/Admin/EcommerceManagemnet/Customers/Customers";
+import AddProduct from "../Pages/Dashboard/Admin/Products/AddProduct";
+import EditProduct from "../Pages/Dashboard/Admin/Products/EditProduct";
 
 export const adminRoutes = [
   {
@@ -45,9 +51,46 @@ export const adminRoutes = [
         element: <Attributes></Attributes>,
         permissionName: "view attribute",
       },
+      {
+        path: "products",
+        label: "Products",
+        element: <Products></Products>,
+        permissionName: "view product",
+      },
+      {
+        path: "packages",
+        label: "Packages",
+        element: <Packages></Packages>,
+        permissionName: "view package",
+      },
     ],
   },
-
+ {
+  path : "add-product",
+  element : <AddProduct></AddProduct>
+ },
+ {
+  path : "edit-product/:id",
+  element : <EditProduct></EditProduct>
+ },
+  {
+    label: "E-commerce",
+    icon: <LuUserCog2 size={20}></LuUserCog2>,
+    children: [
+      {
+        path: "orders",
+        label: "Orders",
+        element: <Orders></Orders>,
+        permissionName: "view customer",
+      },
+      {
+        path: "customers",
+        label: "Customers",
+        element: <Customers></Customers>,
+        permissionName: "view customer",
+      },
+    ],
+  },
   {
     label: "User Management",
     icon: <LuUserCog2 size={20}></LuUserCog2>,

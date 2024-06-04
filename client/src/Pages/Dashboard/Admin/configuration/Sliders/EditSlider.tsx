@@ -41,8 +41,9 @@ const EditSlider = <T extends { id: string | number; [key: string]: any }>({
   const handleSubmit: SubmitHandler<FieldValues> = (data) => {
     const bodyData: any = {
       ...data,
-      status: Number(data.status) || Number(itemData.status),
+      status: data.status ? Number(data.status) : Number(itemData.status),
     };
+    // console.log(bodyData)
     const formData = new FormData();
     for (const key in bodyData) {
       if (key !== "image") {
@@ -64,6 +65,7 @@ const EditSlider = <T extends { id: string | number; [key: string]: any }>({
     itemData && (
       <div>
         <ZForm
+          buttonName="Update"
           isLoading={cIsloading}
           isSuccess={CIsSuccess}
           isError={cIsError}

@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\Ecommerce\CustomerController;
 use App\Http\Controllers\Api\Products\AttributeController;
 use App\Http\Controllers\Api\Products\BrandController;
 use App\Http\Controllers\Api\Products\CategoryController;
+use App\Http\Controllers\Api\Products\GetAllCategorizedProductName;
 use App\Http\Controllers\Api\Products\GetAtrributeValueController;
 use App\Http\Controllers\Api\Products\PackageController;
 use App\Http\Controllers\Api\Products\ProductController;
@@ -131,10 +132,12 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Product management routes
     Route::name('product.')->group(function () {
-        Route::apiResource('products', ProductController::class)->only(['index'])->middleware('permission:view product')->names(['index' => 'index', 'show' => 'show']);
+        Route::apiResource('products', ProductController::class)->only(['index'])->middleware('permission:view product')->names(['index' => 'index']);
 
-        // get all attributes with values
+        // get all attributes with corresponding values
         Route::get('products/attributes/values', GetAtrributeValueController::class)->middleware('permission:create product');
+
+        Route::apiResource('products', ProductController::class)->only(['show'])->middleware('permission:view product')->names(['show' => 'show']);
 
         Route::middleware('permission:create product')->group(function () {
             Route::apiResource('products', ProductController::class)->only(['store'])
@@ -155,6 +158,9 @@ Route::middleware('auth:sanctum')->group(function () {
     // package management routes
     Route::name('package.')->group(function () {
         Route::apiResource('packages', PackageController::class)->only(['index'])->middleware('permission:view package')->names(['index' => 'index', 'show' => 'show']);
+
+        // get all categorized products name with skus
+        Route::get('categorized/products', GetAllCategorizedProductName::class)->middleware('permission:create package')->name('categorized.products');
 
         Route::middleware('permission:create package')->group(function () {
             Route::apiResource('packages', PackageController::class)->only(['store'])

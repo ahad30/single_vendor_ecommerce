@@ -8,7 +8,7 @@ import { useCreateCategoryMutation } from "../../../../Redux/Feature/Admin/categ
 import { setIsAddModalOpen } from "../../../../Redux/Feature/Modal/modalSlice";
 import { useAppDispatch } from "../../../../Redux/hook";
 import { TError } from "../../../../types/globalTypes";
- 
+
 const categorySchema = z.object({
   name: z.string().nonempty("Please fill the name"),
   image: z.any().refine((file) => file instanceof File, {
@@ -51,6 +51,7 @@ const AddCategory = () => {
         resolver={zodResolver(categorySchema)}
         closeModal={handleCloseAndOpen}
         formType="create"
+        buttonName="Create"
       >
         <ZInput label={"Category name"} name={"name"} type={"text"}></ZInput>
         <ZImageInput label="Picture" name="image"></ZImageInput>

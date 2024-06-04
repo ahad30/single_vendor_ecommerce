@@ -143,22 +143,14 @@ const Table = <T extends { id: string | number; [key: string]: any }>({
                             onPointerLeaveCapture={undefined}
                           >
                             {column?.value === "image" ? (
-                              // <img
-                              //   className="size-10"
-                              //   src={`${import.meta.env.VITE_IMAGE_URL}${
-                              //     item[column?.value]
-                              //   }`}
-                              //   alt=""
-                              // />
                               <Image
-                              width={40}
-                              height={40}
-                              // src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-                                  src={`${import.meta.env.VITE_IMAGE_URL}${
+                                width={40}
+                                height={40}
+                                // src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+                                src={`${import.meta.env.VITE_IMAGE_URL}${
                                   item[column?.value]
                                 }`}
-                            />
-                          
+                              />
                             ) : column.value === "view" && handleViewModal ? (
                               <span
                                 onClick={() => {
@@ -169,7 +161,28 @@ const Table = <T extends { id: string | number; [key: string]: any }>({
                                 view all
                               </span>
                             ) : (
-                              <span>{item[column?.value]}</span>
+                              <p>
+                                {item[column?.value] === "Variant" ? (
+                                  <p>
+                                    {`${item[column?.value]}`}
+                                    <br />
+                                    <span className="font-bold">
+                                      Total Variants: 
+                                      {item["variants"].total_variants}
+                                    </span>
+                                  </p>
+                                ) : item[column?.value] == 1 ? (
+                                  <span className="bg-green-400 text-white px-5 rounded-md py-1">
+                                    Active
+                                  </span>
+                                ) : item[column?.value] == 0 ? (
+                                  <span className="bg-red-400 text-white px-5 rounded-md py-1">
+                                    Inactive
+                                  </span>
+                                ) : (
+                                  item[column?.value]
+                                )}
+                              </p>
                             )}
                           </Typography>
                         </td>

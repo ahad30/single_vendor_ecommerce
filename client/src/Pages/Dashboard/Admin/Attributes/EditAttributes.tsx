@@ -117,6 +117,7 @@ const EditAttributes = <T extends { id: string | number; [key: string]: any }>({
       </div>
       {/* previous values end*/}
       <ZForm
+        buttonName="Update"
         isLoading={cIsLoading}
         isSuccess={cIsSuccess}
         isError={cIsError}

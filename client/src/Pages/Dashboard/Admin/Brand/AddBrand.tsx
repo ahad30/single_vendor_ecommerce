@@ -41,6 +41,7 @@ const AddBrand = () => {
   return (
     <div>
       <ZForm
+      buttonName="Create"
         isLoading={cIsloading}
         isSuccess={CIsSuccess}
         isError={cIsError}

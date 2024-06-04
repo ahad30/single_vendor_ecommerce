@@ -42,6 +42,7 @@ const EditBrand = <T extends { id: string | number; [key: string]: any }>({
   return (
     <div>
       <ZForm
+      buttonName="Update"
         isLoading={cIsloading}
         isSuccess={CIsSuccess}
         isError={cIsError}
