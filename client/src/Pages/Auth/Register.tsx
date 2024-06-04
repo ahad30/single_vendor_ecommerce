@@ -1,43 +1,36 @@
 import { useForm, SubmitHandler, FieldValues } from "react-hook-form";
 import { useRegisterMutation } from "../../Redux/Feature/auth/authApi";
-// import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { toast } from "sonner";
-import axios from "axios";
+import { useNavigate } from "react-router-dom";
 const Register = () => {
   // const navigate = useNavigate();
-  const [Register, { isLoading, isSuccess, data, isError }] =
+  const [Register, { isLoading, isSuccess, data, isError, error }] =
     useRegisterMutation();
 
   const {
     register,
     handleSubmit,
-    // reset,
+    reset
   } = useForm();
-
+const navigate = useNavigate()
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    // const formData = new FormData();
-    // for (const key in data) {
-    //   formData.append(key, data[key]);
-    // }
     Register(data);
-    // navigate("/")
-  
-
-  
   };
 
   useEffect(() => {
     if (isLoading || isSuccess || isError) {
       toast.loading("loading ....", { id: 1 });
       if (isSuccess) {
+        reset();
         toast.success(data?.message, { id: 1 });
+        navigate('/')
       }
       if (isError) {
-        // toast.error(errors.data.message, { id: 1 });
+        toast.error(error.data.message, { id: 1 });
       }
     }
-  }, [isSuccess, isLoading, isError]);
+  }, [isSuccess, isLoading, isError, error]);
 
   return (
     <div className="min-w-screen min-h-screen flex items-center justify-center px-5 py-5">
