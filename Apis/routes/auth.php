@@ -7,10 +7,10 @@ use Illuminate\Support\Facades\Route;
 
 
 /*========= Authenticate Section ========*/
-
 // guest routes
 Route::post('/login', [AuthenticateSessionController::class, 'login']);
-Route::post('/registration', [RegisterUserController::class, 'register']);
+Route::post('/user/registration', [RegisterUserController::class, 'register']);
+
 // Authenticate Routes
 Route::middleware('auth:sanctum')->group(function () {
     // logged in user with role & permissions

@@ -6,8 +6,8 @@ import { toast } from "sonner";
 
 const Register = () => {
   // const navigate = useNavigate();
-  const [Register, { isLoading, isSuccess, data, isError }] =
-    useRegisterMutation();
+  const [Register, { isLoading, isSuccess, data, isError }] = useRegisterMutation();
+
   const {
     register,
     handleSubmit,
@@ -17,6 +17,7 @@ const Register = () => {
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     const formData = new FormData();
     for (const key in data) {
+      console.log(data[key])
       formData.append(key, data[key]);
     }
     Register(formData);
