@@ -28,6 +28,27 @@ export const adminRoutes = [
   },
 
   {
+    label: "E-commerce",
+    icon: (
+      <MdOutlineShoppingCartCheckout size={20}></MdOutlineShoppingCartCheckout>
+    ),
+    children: [
+      {
+        path: "orders",
+        label: "Orders",
+        element: <Orders></Orders>,
+        permissionName: "view customer",
+      },
+      {
+        path: "customers",
+        label: "Customers",
+        element: <Customers></Customers>,
+        permissionName: "view customer",
+      },
+    ],
+  },
+
+  {
     label: "Products Management",
     icon: <FiBox size={20}></FiBox>,
     children: [
@@ -71,26 +92,7 @@ export const adminRoutes = [
     path: "edit-product/:id",
     element: <EditProduct></EditProduct>,
   },
-  {
-    label: "E-commerce",
-    icon: (
-      <MdOutlineShoppingCartCheckout size={20}></MdOutlineShoppingCartCheckout>
-    ),
-    children: [
-      {
-        path: "orders",
-        label: "Orders",
-        element: <Orders></Orders>,
-        permissionName: "view customer",
-      },
-      {
-        path: "customers",
-        label: "Customers",
-        element: <Customers></Customers>,
-        permissionName: "view customer",
-      },
-    ],
-  },
+ 
   {
     label: "User Management",
     icon: <LuUserCog2 size={20}></LuUserCog2>,
