@@ -1,6 +1,5 @@
 import { useContext, useEffect, useState } from "react";
 
-import { ChevronDownIcon } from "@heroicons/react/24/outline";
 import { adminRoutes } from "../../Routes/Admin.Routes";
 import { sidebarGenerator } from "../../utils/sidebarGenerator";
 import { Link, useLocation } from "react-router-dom";
@@ -9,7 +8,8 @@ import { PermissionContextProvider } from "../../contex/PermissionProvider";
 import { TAllPermission } from "../../types/permission.types";
 import { useAppSelector } from "../../Redux/hook";
 import { RootState } from "../../Redux/store";
-import { ChevronUpIcon } from "@heroicons/react/24/outline";
+import { MdOutlineKeyboardArrowRight } from "react-icons/md";
+import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 
 const DashboardSidebarTwo = ({
   isSidebarOpen,
@@ -101,9 +101,14 @@ const DashboardSidebarTwo = ({
                 {/* icon */}
                 <p>
                   {open === item.key ? (
-                    <ChevronDownIcon className="h-4 w-4" />
+                    <MdOutlineKeyboardArrowDown
+                      size={20}
+                    ></MdOutlineKeyboardArrowDown>
                   ) : (
-                    <ChevronUpIcon className="h-4 w-4" />
+                    <MdOutlineKeyboardArrowRight
+                      size={20}
+                      className=""
+                    ></MdOutlineKeyboardArrowRight>
                   )}
                 </p>
               </div>
@@ -127,7 +132,7 @@ const DashboardSidebarTwo = ({
                           })
                         );
                       }}
-                      className={`pl-7 py-2 mr-4 mb-1  ${
+                      className={`pl-7 py-2 mr-4 mb-1 hover:pl-7 hover:py-2 hover:mr-4 hover:mb-1 hover:bg-[#323F5D] hover:rounded-r-full hover:ml-2 duration-500 ${
                         location.pathname === `/admin/${subItem.key}`
                           ? "bg-[#323F5D] rounded-r-full"
                           : ""
@@ -148,7 +153,7 @@ const DashboardSidebarTwo = ({
                   setOpen("");
                   localStorage.removeItem("dropDown");
                 }}
-                className={`px-4 py-3  mr-4 mb-1 ${
+                className={`px-4 py-3 hover:px-4 hover:py-3 hover:rounded-r-full hover:bg-[#323F5D] hover:mr-4 hover:mb-1  mr-4 mb-1 ${
                   location.pathname === item.key
                     ? "bg-[#323F5D] rounded-r-full"
                     : ""

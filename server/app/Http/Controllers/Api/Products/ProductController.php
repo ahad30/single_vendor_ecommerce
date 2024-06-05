@@ -67,7 +67,13 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        return new ProductResource($product->with('skus')->first());
+        // return new ProductResource($product->with([
+        //     'skus.attributeValues'
+        //     ])->first());
+            return $product->with([
+                'skus.attributeValues',
+                'skus.attributeValues.attribute'
+                ])->first();
     }
 
     /**

@@ -21,7 +21,7 @@ class PackageResource extends JsonResource
             'price' => $this->price,
             'quantity' => $this->quantity,
             'total_items' => $this->packageItems->count(),
-            'status' => $this->status == true ? 'Active' : 'Inactive',
+            'status' => $this->status ,
             'total_orders' => $this->total_orders,
         ];
     }
