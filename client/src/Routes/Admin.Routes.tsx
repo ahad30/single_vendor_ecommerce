@@ -65,14 +65,15 @@ export const adminRoutes = [
       },
     ],
   },
- {
-  path : "add-product",
-  element : <AddProduct></AddProduct>
- },
- {
-  path : "edit-product/:id",
-  element : <EditProduct></EditProduct>
- },
+  {
+    path: "add-product",
+    element: <AddProduct></AddProduct>
+  },
+  {
+    path: "edit-product/:id",
+    element: <EditProduct></EditProduct>
+  },
+
   {
     label: "E-commerce",
     icon: <LuUserCog2 size={20}></LuUserCog2>,
