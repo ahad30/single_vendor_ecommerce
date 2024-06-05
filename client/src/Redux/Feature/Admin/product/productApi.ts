@@ -1,4 +1,6 @@
+import { BaseQueryApi } from "@reduxjs/toolkit/query";
 import {
+  TError,
   TQueryParams,
   TResponseWithRedux,
 } from "../../../../types/globalTypes";
@@ -7,19 +9,19 @@ import { baseApi } from "../../../Api/baseApi";
 
 export const productApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    //   createCategory: builder.mutation({
-    //     query: (data) => {
-    //       return {
-    //         url: "/categories",
-    //         method: "POST",
-    //         body: data,
-    //       };
-    //     },
-    //     invalidatesTags: ["categories"],
-    //     transformErrorResponse: (res: TError & BaseQueryApi) => {
-    //       return res;
-    //     },
-    //   }),
+    createProduct: builder.mutation({
+      query: (data) => {
+        return {
+          url: "/products",
+          method: "POST",
+          body: data,
+        };
+      },
+      invalidatesTags: ["products" ],
+      transformErrorResponse: (res: TError & BaseQueryApi) => {
+        return res;
+      },
+    }),
 
     //   updateCategory: builder.mutation({
     //     query: ({ data, id }) => {
@@ -57,7 +59,6 @@ export const productApi = baseApi.injectEndpoints({
         return {
           url: `/products/${id}`,
           method: "GET",
-    
         };
       },
       providesTags: ["products"],
@@ -85,4 +86,4 @@ export const productApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useGetProductsQuery } = productApi;
+export const { useGetProductsQuery  , useCreateProductMutation} = productApi;
