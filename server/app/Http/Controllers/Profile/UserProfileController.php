@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Hash;
 class UserProfileController extends Controller
 {
     use UploadImageTrait;
+
     public function profile(Request $request)
     {
         $user = $request->user();
@@ -37,6 +38,7 @@ class UserProfileController extends Controller
         ];
         return Response::success($data);
     }
+
     public function updatePassword(UpdatePasswordRequest $request)
     {
         $old = $request->old_password;
@@ -44,18 +46,19 @@ class UserProfileController extends Controller
 
         if (Hash::check($old, auth()->user()->password)) {
             request()->user()->update(['password' => Hash::make($newPassword)]);
-            return Response::updated(null , "password updated successfully");
+            return Response::updated(null, "password updated successfully");
         } else {
             return Response::error('Your previous password doesn\'t match');
         }
     }
-    public function updateProfile(UpdateProfileRequest $request){
+    public function updateProfile(UpdateProfileRequest $request)
+    {
         $userId = auth()->user()->id;
         $user = User::find($userId);
         $validated = $request->validated();
-            $path = $this->uploadImage($request, 'image', 'assets/images/profiles', $user->image);
-            $data = array_merge($validated, ['image' => $path ?: $user->image]);
-         $user->update($data);
+        $path = $this->uploadImage($request, 'image', 'assets/images/profiles', $user->image);
+        $data = array_merge($validated, ['image' => $path ?: $user->image]);
+        $user->update($data);
         return Response::updated($user, 'Profile updated successfully');
     }
 }

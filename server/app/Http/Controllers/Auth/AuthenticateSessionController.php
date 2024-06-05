@@ -4,31 +4,16 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
-use App\Http\Resources\LoginResource;
+use App\Http\Resources\LoginUserResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class AuthenticateSessionController extends Controller
 {
-    // User login
+    // login
     public function login(LoginRequest $request)
     {
-        $credentials = $request->only('email', 'password');
-        // authenticate the user
-        if (auth()->attempt($credentials)) {
-            // Revoke all existing tokens
-            $request->user()->tokens()->delete();
-
-            // merge user information with the token information
-            $data = [
-                'token' => $request->user()->createToken('token')->plainTextToken,
-                'user' => new LoginResource($request->user()),
-            ];
-            // return the response
-            return Response::success($data, 'Login successfully');
-        }
-
-        return Response::error('Credential doesn\'t match our records');
+        return $this->authenticate($request);
     }
 
 
@@ -44,6 +29,33 @@ class AuthenticateSessionController extends Controller
         ]);
     }
 
-    // auth me 
+    // authenticate
+    protected function authenticate($request)
+    {
+        $credentials = $request->only('email', 'password');
+        if (!auth()->attempt($credentials)) {
+            return Response::error('Credential doesn\'t match our records');
+        }
 
+        return $this->createTokenResponse($request);
+    }
+
+    // create token response
+    protected function createTokenResponse($request)
+    {
+        $this->revokeExistingToken($request);
+        // merge user information with the token information
+        $data = [
+            'token' => $request->user()->createToken('token')->plainTextToken,
+            'user' => new LoginUserResource($request->user()),
+        ];
+        // return the response
+        return Response::success($data, 'Login successfully');
+    }
+
+    // Revoke all existing tokens
+    protected function revokeExistingToken($request)
+    {
+        $request->user()->tokens()->delete();
+    }
 }

@@ -23,11 +23,11 @@ class UserResource extends JsonResource
             'image' => $this->image,
             'is_active' => $this->is_active,
             'is_customer' => $this->is_customer,
-            $this->mergeWhen($request->user()->is_staff == true, [
+            $this->mergeWhen(auth()->user()->is_staff == true, [
                 'is_staff' => $this->is_staff,
+                'is_administration' => $this->is_administration,
+                'role' => $this->getRoleNames()
             ]),
-            'is_administration' => $this->is_administration,
-            'role' => $this->getRoleNames()
         ];
     }
 }
