@@ -8,7 +8,7 @@ type TSelect = {
   label: string;
   mode: "multiple" | "tags" | undefined;
   options: { label: string; value: string }[] | [];
-  isLoading: boolean;
+  isLoading?: boolean;
   value?: string | number | string[];
 };
 
@@ -58,8 +58,8 @@ const ZSelect = ({ name, label, mode, options, isLoading, value }: TSelect) => {
             filterOption={filterOption}
             options={options || []}
             mode={mode ? mode : undefined}
-            loading={isLoading}
-            disabled={isLoading}
+            loading={isLoading ? isLoading : false}
+            disabled={isLoading ? isLoading : false}
           />
         </Form.Item>
       )}

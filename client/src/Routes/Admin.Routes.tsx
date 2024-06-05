@@ -9,7 +9,16 @@ import Permissions from "../Pages/Dashboard/Admin/UserManagement/Permissions/Per
 import Category from "../Pages/Dashboard/Admin/Category/Category";
 import Brand from "../Pages/Dashboard/Admin/Brand/Brand";
 import Attributes from "../Pages/Dashboard/Admin/Attributes/Attributes";
-
+import Sliders from "../Pages/Dashboard/Admin/configuration/Sliders/Sliders";
+import { IoConstructOutline } from "react-icons/io5";
+import Products from "../Pages/Dashboard/Admin/Products/Products";
+import Packages from "../Pages/Dashboard/Admin/Package/Packages";
+import Orders from "../Pages/Dashboard/Admin/EcommerceManagemnet/Orders/Orders";
+import Customers from "../Pages/Dashboard/Admin/EcommerceManagemnet/Customers/Customers";
+import AddProduct from "../Pages/Dashboard/Admin/Products/AddProduct";
+import EditProduct from "../Pages/Dashboard/Admin/Products/EditProduct";
+import { FiBox } from "react-icons/fi";
+import ViewProduct from "../Pages/Dashboard/Admin/Products/ViewProduct";
 export const adminRoutes = [
   {
     path: "/admin",
@@ -20,10 +29,29 @@ export const adminRoutes = [
   },
 
   {
-    label: "Products",
+    label: "E-commerce",
     icon: (
       <MdOutlineShoppingCartCheckout size={20}></MdOutlineShoppingCartCheckout>
     ),
+    children: [
+      {
+        path: "orders",
+        label: "Orders",
+        element: <Orders></Orders>,
+        permissionName: "view customer",
+      },
+      {
+        path: "customers",
+        label: "Customers",
+        element: <Customers></Customers>,
+        permissionName: "view customer",
+      },
+    ],
+  },
+
+  {
+    label: "Products Management",
+    icon: <FiBox size={20}></FiBox>,
     children: [
       {
         path: "categories",
@@ -43,7 +71,31 @@ export const adminRoutes = [
         element: <Attributes></Attributes>,
         permissionName: "view attribute",
       },
+      {
+        path: "products",
+        label: "Products",
+        element: <Products></Products>,
+        permissionName: "view product",
+      },
+      {
+        path: "packages",
+        label: "Packages",
+        element: <Packages></Packages>,
+        permissionName: "view package",
+      },
     ],
+  },
+  {
+    path: "add-product",
+    element: <AddProduct></AddProduct>,
+  },
+  {
+    path: "edit-product/:id",
+    element: <EditProduct></EditProduct>,
+  },
+  {
+    path: "view-product-details/:slug/:id",
+    element: <ViewProduct></ViewProduct>,
   },
 
   {
@@ -67,6 +119,18 @@ export const adminRoutes = [
         label: "Users",
         element: <Users></Users>,
         permissionName: "view user",
+      },
+    ],
+  },
+  {
+    label: "Configuration",
+    icon: <IoConstructOutline size={20}></IoConstructOutline>,
+    children: [
+      {
+        path: "sliders",
+        label: "Sliders",
+        element: <Sliders></Sliders>,
+        permissionName: "view slider",
       },
     ],
   },

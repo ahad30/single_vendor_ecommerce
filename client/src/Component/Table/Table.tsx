@@ -11,6 +11,9 @@ import UpdatePagination from "../Dashborad/UpdatePagination";
 import { TMeta } from "../../types/globalTypes";
 import { Dispatch, SetStateAction } from "react";
 import Skeleton from "../Dashborad/Skeleton/Skeleton";
+import { Image } from "antd";
+import { IoEyeOutline } from "react-icons/io5";
+import { Link } from "react-router-dom";
 
 export type TColumn = {
   name: string;
@@ -27,6 +30,7 @@ type TableProps<T> = {
   isFetching: boolean;
   isLoading: boolean;
   handleViewModal?: (data: T) => void;
+  defaultKey?: string;
 };
 
 const Table = <T extends { id: string | number; [key: string]: any }>({
@@ -39,6 +43,7 @@ const Table = <T extends { id: string | number; [key: string]: any }>({
   isLoading,
   isFetching,
   handleViewModal,
+  defaultKey,
 }: TableProps<T>) => {
   if (isLoading || isFetching) {
     return <Skeleton></Skeleton>;
@@ -48,9 +53,9 @@ const Table = <T extends { id: string | number; [key: string]: any }>({
     return <h1>No data Found</h1>;
   }
   return (
-    <div className="pb-12">
+    <div className="pb-12 ">
       <Card
-        className="w-full "
+        className="w-full overflow-scroll "
         placeholder={undefined}
         onPointerEnterCapture={undefined}
         onPointerLeaveCapture={undefined}
@@ -102,6 +107,23 @@ const Table = <T extends { id: string | number; [key: string]: any }>({
                             onPointerLeaveCapture={undefined}
                           >
                             <div className="flex justify-end items-center gap-x-2 lg:px-12">
+                              {/* view */}
+                              {defaultKey == "products" && item?.slug && (
+                                <Tooltip content="View Product" placement="top">
+                                  <Link
+                                    to={`/admin/view-product-details/${item.slug}/${item.id}`}
+                                  >
+                                    <IconButton
+                                      color="green"
+                                      placeholder={undefined}
+                                      onPointerEnterCapture={undefined}
+                                      onPointerLeaveCapture={undefined}
+                                    >
+                                      <IoEyeOutline size={20} />
+                                    </IconButton>
+                                  </Link>
+                                </Tooltip>
+                              )}
                               <Tooltip content="Edit" placement="top">
                                 <IconButton
                                   onClick={() => onDeleteAndEdit(item, "edit")}
@@ -142,12 +164,13 @@ const Table = <T extends { id: string | number; [key: string]: any }>({
                             onPointerLeaveCapture={undefined}
                           >
                             {column?.value === "image" ? (
-                              <img
-                                className="size-10"
+                              <Image
+                                width={40}
+                                height={40}
+                                // src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
                                 src={`${import.meta.env.VITE_IMAGE_URL}${
                                   item[column?.value]
                                 }`}
-                                alt=""
                               />
                             ) : column.value === "view" && handleViewModal ? (
                               <span
@@ -159,7 +182,28 @@ const Table = <T extends { id: string | number; [key: string]: any }>({
                                 view all
                               </span>
                             ) : (
-                              <span>{item[column?.value]}</span>
+                              <p>
+                                {item[column?.value] === "Variant" ? (
+                                  <p>
+                                    {`${item[column?.value]}`}
+                                    <br />
+                                    <span className="font-bold">
+                                      Total Variants:
+                                      {item["variants"].total_variants}
+                                    </span>
+                                  </p>
+                                ) : item[column?.value] == 1 ? (
+                                  <span className="bg-green-400 text-white px-5 rounded-md py-1">
+                                    Active
+                                  </span>
+                                ) : item[column?.value] == 0 ? (
+                                  <span className="bg-red-400 text-white px-5 rounded-md py-1">
+                                    Inactive
+                                  </span>
+                                ) : (
+                                  item[column?.value]
+                                )}
+                              </p>
                             )}
                           </Typography>
                         </td>

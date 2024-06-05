@@ -21,8 +21,8 @@ const DashboardLayout = () => {
 
       <div className="relative thin-scrollbar h-screen overflow-y-scroll w-full">
         <div className="w-full text-gray-900">
-            <Navbar></Navbar>
-          </div>
+          <Navbar></Navbar>
+        </div>
         <div className="mt-12 bg-[#F3F5F7] px-5 w-full">
           <Outlet></Outlet>
         </div>

@@ -112,7 +112,7 @@ const Attributes = () => {
         isViewModalOpen={isViewModalOpen}
         title="View All Attribute"
       >
-        <ViewAllAttribute></ViewAllAttribute>
+        <ViewAllAttribute itemData= {singleData}></ViewAllAttribute>
       </ViewModal>
       {/* delete category */}
       <DeleteModal

@@ -1,0 +1,49 @@
+<?php
+
+namespace App\Http\Controllers\Auth;
+
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Auth\LoginRequest;
+use App\Http\Resources\LoginResource;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+
+class AuthenticateSessionController extends Controller
+{
+    // User login
+    public function login(LoginRequest $request)
+    {
+        $credentials = $request->only('email', 'password');
+        // authenticate the user
+        if (auth()->attempt($credentials)) {
+            // Revoke all existing tokens
+            $request->user()->tokens()->delete();
+
+            // merge user information with the token information
+            $data = [
+                'token' => $request->user()->createToken('token')->plainTextToken,
+                'user' => new LoginResource($request->user()),
+            ];
+            // return the response
+            return Response::success($data, 'Login successfully');
+        }
+
+        return Response::error('Credential doesn\'t match our records');
+    }
+
+
+    // logout
+    public function logout(Request $request)
+    {
+        // Revoke all existing tokens
+        $request->user()->tokens()->delete();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'You are successfully logged out.'
+        ]);
+    }
+
+    // auth me 
+
+}

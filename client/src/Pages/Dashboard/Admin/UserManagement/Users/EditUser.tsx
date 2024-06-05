@@ -61,55 +61,63 @@ const EditUser = ({ itemData }: { itemData: TUser }) => {
   };
 
   return (
-    <div>
-      <ZForm
-        formType="edit"
-        data={uData}
-        closeModal={handleCloseAndOpen}
-        isError={uIsError}
-        isLoading={uIsLoading}
-        isSuccess={uIsSuccess}
-        error={uError as TError}
-        submit={handleSubmit}
-        // resolver={zodResolver(userSchema)}
-      >
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-          <ZInput value={itemData?.name} label="Name" name="name" type="text" />
-          <ZSelect
-            options={OptionsGenerator(RolesListData!.data)}
-            isLoading={roleIsloading}
-            mode={undefined}
-            label={"Role"}
-            name={"role"}
-            value={itemData?.role[0]}
-          ></ZSelect>
-          <ZEmail
-            value={itemData?.email}
-            name={"email"}
-            label={"Email"}
-          ></ZEmail>
-          <ZPhone
-            value={itemData?.phone}
-            name={"phone"}
-            label={"Phone"}
-          ></ZPhone>
-          <ZInput
-            value={itemData?.address}
-            label="Address"
-            name="address"
-            type="text"
+    itemData && (
+      <div>
+        <ZForm
+          buttonName="Update"
+          formType="edit"
+          data={uData}
+          closeModal={handleCloseAndOpen}
+          isError={uIsError}
+          isLoading={uIsLoading}
+          isSuccess={uIsSuccess}
+          error={uError as TError}
+          submit={handleSubmit}
+          // resolver={zodResolver(userSchema)}
+        >
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+            <ZInput
+              value={itemData?.name}
+              label="Name"
+              name="name"
+              type="text"
+            />
+            <ZSelect
+              options={OptionsGenerator(RolesListData!.data)}
+              isLoading={roleIsloading}
+              mode={undefined}
+              label={"Role"}
+              name={"role"}
+              value={itemData?.role[0]}
+            ></ZSelect>
+            <ZEmail
+              value={itemData?.email}
+              name={"email"}
+              label={"Email"}
+            ></ZEmail>
+            <ZPhone
+              value={itemData?.phone}
+              name={"phone"}
+              label={"Phone"}
+            ></ZPhone>
+            <ZInput
+              value={itemData?.address}
+              label="Address"
+              name="address"
+              type="text"
+            />
+          </div>
+          <ZImageInput label="Image" name="image"></ZImageInput>
+        </ZForm>
+        <div>
+          <p className="text-lg mt-10 mb-3">Previous Picture</p>
+          <Image
+            width={100}
+            src={`${import.meta.env.VITE_IMAGE_URL}${itemData?.image}`}
           />
         </div>
-        <ZImageInput label="Image" name="image"></ZImageInput>
-      </ZForm>
-      <div>
-        <p className="text-lg mt-10 mb-3">Previous Picture</p>
-        <Image
-          width={100}
-          src={`${import.meta.env.VITE_IMAGE_URL}${itemData?.image}`}
-        />
       </div>
-    </div>
+    )
   );
 };
 

@@ -55,6 +55,7 @@ const AddAttributes = () => {
   };
   return (
     <ZForm
+     buttonName="Create"
       isLoading={cIsloading}
       isSuccess={CIsSuccess}
       isError={cIsError}

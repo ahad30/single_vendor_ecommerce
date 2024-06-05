@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 export type TError = {
   [key: string]: string[];
-};
+} | undefined;
 const ErrorHandling = (
   errors: TError,
   isAddModalOpen: boolean,
