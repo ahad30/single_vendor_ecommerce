@@ -56,10 +56,6 @@ const Products = () => {
     { name: "Action", value: "action" },
   ];
 
-  // const handleDelete = () => {
-  //   deleteCategory(singleData?.id);
-  // };
-
   return (
     <div className="">
       <DashboardTitle windowTitle="Products" text=" Total Products">
@@ -68,7 +64,10 @@ const Products = () => {
       <div className="flex flex-col lg:flex-row items-center gap-x-2 justify-between my-5">
         <SearchBar></SearchBar>
         <TableTabs></TableTabs>
-        <ButtonWithModal title="Add Category"></ButtonWithModal>
+        <ButtonWithModal
+          defaultKey="product"
+          title="Add Product"
+        ></ButtonWithModal>
       </div>
 
       {/* table */}
@@ -81,6 +80,7 @@ const Products = () => {
         onDeleteAndEdit={handleEditAndDelete}
         pageNumber={pageNumber}
         setPageNumber={setPageNumber}
+        defaultKey="products"
       ></Table>
       {/* add category modal */}
       {/* <AddModal isAddModalOpen={isAddModalOpen} title="Create Category">

@@ -12,6 +12,8 @@ import { TMeta } from "../../types/globalTypes";
 import { Dispatch, SetStateAction } from "react";
 import Skeleton from "../Dashborad/Skeleton/Skeleton";
 import { Image } from "antd";
+import { IoEyeOutline } from "react-icons/io5";
+import { Link } from "react-router-dom";
 
 export type TColumn = {
   name: string;
@@ -28,6 +30,7 @@ type TableProps<T> = {
   isFetching: boolean;
   isLoading: boolean;
   handleViewModal?: (data: T) => void;
+  defaultKey?: string;
 };
 
 const Table = <T extends { id: string | number; [key: string]: any }>({
@@ -40,6 +43,7 @@ const Table = <T extends { id: string | number; [key: string]: any }>({
   isLoading,
   isFetching,
   handleViewModal,
+  defaultKey,
 }: TableProps<T>) => {
   if (isLoading || isFetching) {
     return <Skeleton></Skeleton>;
@@ -103,6 +107,23 @@ const Table = <T extends { id: string | number; [key: string]: any }>({
                             onPointerLeaveCapture={undefined}
                           >
                             <div className="flex justify-end items-center gap-x-2 lg:px-12">
+                              {/* view */}
+                              {defaultKey == "products" && item?.slug && (
+                                <Tooltip content="View Product" placement="top">
+                                  <Link
+                                    to={`/admin/view-product-details/${item.slug}/${item.id}`}
+                                  >
+                                    <IconButton
+                                      color="green"
+                                      placeholder={undefined}
+                                      onPointerEnterCapture={undefined}
+                                      onPointerLeaveCapture={undefined}
+                                    >
+                                      <IoEyeOutline size={20} />
+                                    </IconButton>
+                                  </Link>
+                                </Tooltip>
+                              )}
                               <Tooltip content="Edit" placement="top">
                                 <IconButton
                                   onClick={() => onDeleteAndEdit(item, "edit")}
@@ -167,7 +188,7 @@ const Table = <T extends { id: string | number; [key: string]: any }>({
                                     {`${item[column?.value]}`}
                                     <br />
                                     <span className="font-bold">
-                                      Total Variants: 
+                                      Total Variants:
                                       {item["variants"].total_variants}
                                     </span>
                                   </p>

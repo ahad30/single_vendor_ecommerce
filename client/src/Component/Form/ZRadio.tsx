@@ -25,7 +25,7 @@ const ZRadio = ({ name, label, options, defaultValue }: TRadio) => {
       setValue(defaultValue);
     }
   }, [defaultValue, isEditModalOpen]);
-  // console.log(value);
+ 
   return (
     <Controller
       name={name}

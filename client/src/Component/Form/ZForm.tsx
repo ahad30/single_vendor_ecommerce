@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Button, Form } from "antd";
+import { Form } from "antd";
 import { ReactNode, useEffect } from "react";
 import {
   FieldValues,
@@ -25,7 +25,7 @@ type TZForm = {
   submit: SubmitHandler<FieldValues>;
   isSuccess?: boolean;
   isLoading?: boolean;
-  closeModal: () => void;
+  closeModal?: () => void;
   isError?: boolean;
   error?: TError;
   data?: any;
@@ -107,12 +107,14 @@ const ZForm = ({
     <FormProvider {...methods}>
       <Form layout="vertical" onFinish={methods.handleSubmit(onSubmit)}>
         <div>{children}</div>
-        <SaveAndCloseButton
-          closeModal={closeModal}
-          isLoading={isLoading as boolean}
-          isSuccess={isSuccess as boolean}
-          title={buttonName}
-        ></SaveAndCloseButton>
+        {closeModal && (
+          <SaveAndCloseButton
+            closeModal={closeModal}
+            isLoading={isLoading as boolean}
+            isSuccess={isSuccess as boolean}
+            title={buttonName}
+          ></SaveAndCloseButton>
+        )}
         <div className="mt-5">
           {Array.isArray(errors) &&
             errors.length > 0 &&

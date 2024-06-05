@@ -21,7 +21,7 @@ class UserResource extends JsonResource
             'phone' => $this->phone,
             'address' => $this->address,
             'image' => $this->image,
-            'is_active' => $this->is_active ? 'Active' : 'Inactive',
+            'is_active' => $this->is_active,
             'is_customer' => $this->is_customer,
             $this->mergeWhen($request->user()->is_staff == true, [
                 'is_staff' => $this->is_staff,

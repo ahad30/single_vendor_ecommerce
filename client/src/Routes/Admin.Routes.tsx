@@ -17,7 +17,8 @@ import Orders from "../Pages/Dashboard/Admin/EcommerceManagemnet/Orders/Orders";
 import Customers from "../Pages/Dashboard/Admin/EcommerceManagemnet/Customers/Customers";
 import AddProduct from "../Pages/Dashboard/Admin/Products/AddProduct";
 import EditProduct from "../Pages/Dashboard/Admin/Products/EditProduct";
-
+import { FiBox } from "react-icons/fi";
+import ViewProduct from "../Pages/Dashboard/Admin/Products/ViewProduct";
 export const adminRoutes = [
   {
     path: "/admin",
@@ -28,10 +29,29 @@ export const adminRoutes = [
   },
 
   {
-    label: "Products Management",
+    label: "E-commerce",
     icon: (
       <MdOutlineShoppingCartCheckout size={20}></MdOutlineShoppingCartCheckout>
     ),
+    children: [
+      {
+        path: "orders",
+        label: "Orders",
+        element: <Orders></Orders>,
+        permissionName: "view customer",
+      },
+      {
+        path: "customers",
+        label: "Customers",
+        element: <Customers></Customers>,
+        permissionName: "view customer",
+      },
+    ],
+  },
+
+  {
+    label: "Products Management",
+    icon: <FiBox size={20}></FiBox>,
     children: [
       {
         path: "categories",
@@ -67,31 +87,17 @@ export const adminRoutes = [
   },
   {
     path: "add-product",
-    element: <AddProduct></AddProduct>
+    element: <AddProduct></AddProduct>,
   },
   {
     path: "edit-product/:id",
-    element: <EditProduct></EditProduct>
+    element: <EditProduct></EditProduct>,
+  },
+  {
+    path: "view-product-details/:slug/:id",
+    element: <ViewProduct></ViewProduct>,
   },
 
-  {
-    label: "E-commerce",
-    icon: <LuUserCog2 size={20}></LuUserCog2>,
-    children: [
-      {
-        path: "orders",
-        label: "Orders",
-        element: <Orders></Orders>,
-        permissionName: "view customer",
-      },
-      {
-        path: "customers",
-        label: "Customers",
-        element: <Customers></Customers>,
-        permissionName: "view customer",
-      },
-    ],
-  },
   {
     label: "User Management",
     icon: <LuUserCog2 size={20}></LuUserCog2>,

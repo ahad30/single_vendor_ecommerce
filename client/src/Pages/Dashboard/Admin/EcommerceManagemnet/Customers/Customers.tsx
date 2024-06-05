@@ -48,6 +48,11 @@ const Customers = () => {
   const columns = [
     { name: "Image", value: "image" },
     { name: "Name", value: "name" },
+    { name: "Email", value: "email" },
+    { name: "Phone", value: "phone" },
+    { name: "Address", value: "Address" },
+    { name: "Completed Order", value: "total_orders" },
+    { name: "Status", value: "is_active" },
     { name: "Action", value: "action" },
   ];
 
