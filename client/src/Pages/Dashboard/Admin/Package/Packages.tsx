@@ -37,11 +37,6 @@ const Packages = () => {
     }
   };
 
-  // const [
-  //   deleteCategory,
-  //   { isLoading: dCIsloading, isError, isSuccess, data: dCData, error },
-  // ] = useDeleteCategoryMutation();
-
   const columns = [
     { name: "Image", value: "image" },
     { name: "Name", value: "name" },
@@ -52,10 +47,6 @@ const Packages = () => {
     { name: "Status", value: "status" },
     { name: "Action", value: "action" },
   ];
-
-  // const handleDelete = () => {
-  //   deleteCategory(singleData?.id);
-  // };
 
   return (
     <div className="">

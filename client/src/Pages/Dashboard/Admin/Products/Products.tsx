@@ -81,6 +81,7 @@ const Products = () => {
         onDeleteAndEdit={handleEditAndDelete}
         pageNumber={pageNumber}
         setPageNumber={setPageNumber}
+        defaultKey="products"
       ></Table>
       {/* add category modal */}
       {/* <AddModal isAddModalOpen={isAddModalOpen} title="Create Category">

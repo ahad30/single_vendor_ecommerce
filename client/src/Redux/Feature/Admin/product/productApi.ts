@@ -48,6 +48,23 @@ export const productApi = baseApi.injectEndpoints({
     //     },
     //   }),
 
+    getSingleProduct: builder.query({
+      query: (id) => {
+        // const params = new URLSearchParams();
+        // arg?.forEach((element: TQueryParams) => {
+        //   params.append(element.name, element.value as string);
+        // });
+        return {
+          url: `/products/${id}`,
+          method: "GET",
+    
+        };
+      },
+      providesTags: ["products"],
+      transformResponse: (res: TResponseWithRedux<TProduct[]>) => {
+        return { data: res.data, meta: res.meta };
+      },
+    }),
     getProducts: builder.query({
       query: (arg) => {
         const params = new URLSearchParams();

@@ -18,6 +18,7 @@ import Customers from "../Pages/Dashboard/Admin/EcommerceManagemnet/Customers/Cu
 import AddProduct from "../Pages/Dashboard/Admin/Products/AddProduct";
 import EditProduct from "../Pages/Dashboard/Admin/Products/EditProduct";
 import { FiBox } from "react-icons/fi";
+import ViewProduct from "../Pages/Dashboard/Admin/Products/ViewProduct";
 export const adminRoutes = [
   {
     path: "/admin",
@@ -92,7 +93,11 @@ export const adminRoutes = [
     path: "edit-product/:id",
     element: <EditProduct></EditProduct>,
   },
- 
+  {
+    path: "view-product-details/:slug/:id",
+    element: <ViewProduct></ViewProduct>,
+  },
+
   {
     label: "User Management",
     icon: <LuUserCog2 size={20}></LuUserCog2>,
