@@ -1,13 +1,14 @@
 
-import DashboardStatics from "../Pages/Dashboard/Admin/DashboardStatics/DashboardStatics";
+
 import { MdOutlineDashboardCustomize } from "react-icons/md";
+import CustomerDashboardStatics from "../Pages/Dashboard/User/Dashboard/CustomerDashboardStatics";
 
 
 export const CustomerRoutes = [
   {
     path: "/user",
     label: "Dashboard",
-    element: <DashboardStatics></DashboardStatics>,
+    element: <CustomerDashboardStatics></CustomerDashboardStatics>,
     icon: <MdOutlineDashboardCustomize></MdOutlineDashboardCustomize>,
   },
 
