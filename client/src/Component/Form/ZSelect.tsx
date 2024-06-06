@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Form, Select } from "antd";
 import { useEffect } from "react";
@@ -11,6 +12,8 @@ type TSelect = {
   isLoading?: boolean;
   value?: string | number | string[];
   setSelectedAttributes?: React.Dispatch<React.SetStateAction<string[]>>;
+  setPerSku?: React.Dispatch<React.SetStateAction<string | number[]>>;
+  defaultKey?: "product";
 };
 
 const ZSelect = ({
@@ -21,6 +24,8 @@ const ZSelect = ({
   isLoading,
   value,
   setSelectedAttributes,
+  setPerSku,
+  defaultKey,
 }: TSelect) => {
   const { control, setValue } = useFormContext();
 
@@ -31,8 +36,41 @@ const ZSelect = ({
   }, [value, setValue]);
 
   const onChange = (value: string | string[]) => {
-    if (setSelectedAttributes && mode === "multiple") {
+    if (
+      setSelectedAttributes &&
+      mode === "multiple" &&
+      defaultKey == "product"
+    ) {
       setSelectedAttributes([...value]);
+    }
+    if (mode === undefined && setPerSku && defaultKey == "product") {
+      setPerSku((prev) => {
+        const newPrev: any = [...prev];
+        if (Array.isArray(value)) {
+          value.forEach((val) => {
+            const [newCategory] = val.split("-");
+            const index = newPrev.findIndex((item: any) =>
+              item.startsWith(newCategory)
+            );
+            if (index !== -1) {
+              newPrev[index] = val;
+            } else {
+              newPrev.push(val);
+            }
+          });
+        } else {
+          const [newCategory] = value.split("-");
+          const index = newPrev.findIndex((item: any) =>
+            item.startsWith(newCategory)
+          );
+          if (index !== -1) {
+            newPrev[index] = value;
+          } else {
+            newPrev.push(value);
+          }
+        }
+        return newPrev;
+      });
     }
   };
 

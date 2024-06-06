@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { FieldValues, SubmitHandler } from "react-hook-form";
 import {
   useCreateProductMutation,
@@ -23,9 +24,12 @@ const AddProduct = () => {
   >([]);
   //  product type state - 4
   const [productType, setProductType] = useState("");
+
   // selectedAttribute UnderTheValue - 5
   const [selectedAttributeUnderTheValue, setSelectedAttributeUnderTheValue] =
     useState<TAttributes[]>([]);
+
+  // create product
   const [
     createProduct,
     {
@@ -36,9 +40,11 @@ const AddProduct = () => {
       data,
     },
   ] = useCreateProductMutation();
+
+  // attribute withe value from db
   const { data: attributeWithValue, isLoading: attributeIsLoading } =
     useGetProductAttributeWithValueQuery(undefined);
-
+  const [perSku, setPerSku] = useState<string | number[]>([]);
   // this useEffect set attribute options and attributeWithValue - 1
   useEffect(() => {
     if (
@@ -80,7 +86,7 @@ const AddProduct = () => {
       setSelectedAttributeUnderTheValue([...(arr || [])]);
     }
   }, [selectedAttribute.length, selectedAttribute, attributeValue]);
-
+  console.log(perSku);
   return (
     <div>
       <ZForm
@@ -160,35 +166,39 @@ const AddProduct = () => {
           <div className="">
             {/* per sku  */}
 
+            {/* multiple attribute */}
             <ZSelect
               setSelectedAttributes={setSelectedAttribute}
               options={attributeOptions}
               isLoading={attributeIsLoading}
               mode={"multiple"}
-              label={"Select Attribute"}
-              name={"attribute"}
+              label={"Select Attributes"}
+              name={"attribute-selected"}
+              defaultKey="product"
             ></ZSelect>
             {/* selected attribute underTheValue */}
-            <div className="mt-12 grid lg:grid-cols-5 gap-5">
-              {selectedAttributeUnderTheValue.map((item) => {
-                return (
-                  <div className="">
-                    <div className="ml-5">
-                      <ZSelect
-                        key={item.id}
-                        options={item.values.map((option) => ({
-                          value: `${item.name}${option.name}`,
-                          label: option.name,
-                        }))}
-                        isLoading={attributeIsLoading}
-                        mode={undefined}
-                        label={`Select ${item.name} value`}
-                        name={`attributeUnderTheValue-${item.name}`}
-                      ></ZSelect>
-                    </div>
-                  </div>
-                );
-              })}
+            <div className="border border-red-400">
+              <div className="mt-12 grid lg:grid-cols-5 gap-5">
+                {selectedAttributeUnderTheValue.map((item) => {
+                  return (
+                    <ZSelect
+                      key={item.id}
+                      options={item.values.map((option) => ({
+                        value: `${item.name}-${option.name}`,
+                        label: option.name,
+                      }))}
+                      isLoading={attributeIsLoading}
+                      mode={undefined}
+                      label={`Select ${item.name} value`}
+                      name={`${item.name}`}
+                      setPerSku={setPerSku}
+                      defaultKey="product"
+                    ></ZSelect>
+                  );
+                })}
+              </div>
+              {/* image filed */}
+              <ZImageInput label="Picture" name="image"></ZImageInput>
             </div>
             {/* per sku end */}
           </div>

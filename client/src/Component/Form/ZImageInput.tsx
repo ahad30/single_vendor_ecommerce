@@ -14,13 +14,12 @@ const ZImageInput = ({ name, label }: { name: string; label: string }) => {
     (state: RootState) => state.modal
   );
 
-  // Reset image list when the modal is closed
   useEffect(() => {
     if (!isAddModalOpen || !isEditModalOpen) {
       setImageList([]);
     }
   }, [isAddModalOpen, isEditModalOpen]);
-
+  console.log(imageList);
   return (
     <Controller
       name={name}
