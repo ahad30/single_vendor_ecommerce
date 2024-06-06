@@ -108,17 +108,23 @@ const AddProduct = () => {
   const handleAddPerSkuInSkus = () => {
     const attributes: { [index: string]: string } = {};
     const valuesName: string[] = [];
+
     if (perSku.length == 0) {
-      toast.error("Select minimum an attribute value", { id: 2 });
+      console.log("sayem");
+      toast.error("Select minimum an attribute value", {
+        id: 2,
+        duration: 1000,
+        position: "top-right",
+      });
     }
     if (priceQuantityImage.image == "") {
       toast.error("select image", { id: 1 });
     }
     if (priceQuantityImage.price == "") {
-      toast.error("select price", { id: 1 });
+      toast.error("select price", { id: 3 });
     }
     if (priceQuantityImage.quantity == "") {
-      toast.error("select quantity", { id: 1 });
+      toast.error("select quantity", { id: 4 });
     }
     if (
       perSku.length > 0 &&
@@ -149,7 +155,8 @@ const AddProduct = () => {
     }
   };
 
-  console.log(skus);
+  // console.log(selectedAttribute);
+  // console.log(selectedAttributeUnderTheValue);
   return (
     <div>
       <ZForm
@@ -246,10 +253,10 @@ const AddProduct = () => {
                 {selectedAttributeUnderTheValue.map((item) => {
                   return (
                     <ZSelect
-                      key={item.id}
-                      options={item.values.map((option) => ({
-                        value: `${item.name}-${option.name}`,
-                        label: option.name,
+                      key={item?.id}
+                      options={item?.values?.map((option) => ({
+                        value: `${item?.name}-${option?.name}`,
+                        label: option?.name,
                       }))}
                       isLoading={attributeIsLoading}
                       mode={undefined}
@@ -257,6 +264,7 @@ const AddProduct = () => {
                       name={`${item.name}`}
                       setPerSku={setPerSku}
                       defaultKey="product"
+                      selectedAttribute={selectedAttribute}
                     ></ZSelect>
                   );
                 })}

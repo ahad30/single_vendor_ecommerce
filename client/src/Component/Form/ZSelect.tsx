@@ -12,8 +12,9 @@ type TSelect = {
   isLoading?: boolean;
   value?: string | number | string[];
   setSelectedAttributes?: React.Dispatch<React.SetStateAction<string[]>>;
-  setPerSku?: React.Dispatch<React.SetStateAction<string | number[]>>;
+  setPerSku?: React.Dispatch<React.SetStateAction<string[] | number[]>>;
   defaultKey?: "product";
+  selectedAttribute?: string[];
 };
 
 const ZSelect = ({
@@ -26,14 +27,24 @@ const ZSelect = ({
   setSelectedAttributes,
   setPerSku,
   defaultKey,
+  selectedAttribute,
 }: TSelect) => {
-  const { control, setValue } = useFormContext();
+  const { control, setValue, resetField } = useFormContext();
 
   useEffect(() => {
     if (value) {
       setValue(name, value);
     }
   }, [value, setValue]);
+
+  useEffect(() => {
+    if (defaultKey == "product" && selectedAttribute) {
+      const s = selectedAttribute.includes(name);
+      if (s === false) {
+        resetField(name);
+      }
+    }
+  }, [selectedAttribute, selectedAttribute?.length]);
 
   const onChange = (value: string | string[]) => {
     if (
