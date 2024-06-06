@@ -14,6 +14,8 @@ import { useEffect, useState } from "react";
 import { TAttributes } from "../../../../types/attribute.types";
 import ZNumber from "../../../../Component/Form/ZNumber";
 import { Button } from "antd";
+import { string } from "zod";
+import { toast } from "sonner";
 
 const AddProduct = () => {
   // attribute State - 1 from db
@@ -32,7 +34,7 @@ const AddProduct = () => {
     useState<TAttributes[]>([]);
 
   // per sku - 6
-  const [perSku, setPerSku] = useState<string | number[]>([]);
+  const [perSku, setPerSku] = useState<string[] | number[]>([]);
 
   // image file , price , quantity - 7
   const [priceQuantityImage, setPriceQuantityImage] = useState({
@@ -40,6 +42,9 @@ const AddProduct = () => {
     image: "",
     quantity: "",
   });
+
+  // const final skus - 8
+  const [skus, setSkus] = useState<any[]>([]);
   // create product
   const [
     createProduct,
@@ -97,7 +102,54 @@ const AddProduct = () => {
       setSelectedAttributeUnderTheValue([...(arr || [])]);
     }
   }, [selectedAttribute.length, selectedAttribute, attributeValue]);
-  console.log(priceQuantityImage);
+
+  // console.log(priceQuantityImage);
+  // console.log(perSku);
+  const handleAddPerSkuInSkus = () => {
+    const attributes: { [index: string]: string } = {};
+    const valuesName: string[] = [];
+    if (perSku.length == 0) {
+      toast.error("Select minimum an attribute value", { id: 2 });
+    }
+    if (priceQuantityImage.image == "") {
+      toast.error("select image", { id: 1 });
+    }
+    if (priceQuantityImage.price == "") {
+      toast.error("select price", { id: 1 });
+    }
+    if (priceQuantityImage.quantity == "") {
+      toast.error("select quantity", { id: 1 });
+    }
+    if (
+      perSku.length > 0 &&
+      priceQuantityImage.quantity &&
+      priceQuantityImage.price &&
+      priceQuantityImage
+    ) {
+      perSku.forEach((element) => {
+        const proPertyKey = (element as string).split("-")[0];
+        const proPertyValue = (element as string).split("-")[1];
+        valuesName.push(proPertyValue);
+        attributes[proPertyKey] = proPertyValue;
+      });
+      const sku = {
+        sku: `${valuesName.join("-")}`,
+        price: priceQuantityImage.price,
+        quantity: priceQuantityImage.quantity,
+        image: priceQuantityImage.image,
+        attributes,
+      };
+
+      const finTheExistSku = skus.find((item) => item.sku == sku.sku);
+      if (finTheExistSku) {
+        toast.error("Sku already exists");
+      } else {
+        setSkus([...skus, { ...sku }]);
+      }
+    }
+  };
+
+  console.log(skus);
   return (
     <div>
       <ZForm
@@ -233,7 +285,14 @@ const AddProduct = () => {
 
               {/* button */}
               <div className="flex justify-end">
-                <Button type="primary" color="primary">Add Variant</Button>
+                <Button
+                  htmlType="button"
+                  onClick={() => handleAddPerSkuInSkus()}
+                  type="primary"
+                  color="primary"
+                >
+                  Add Variant
+                </Button>
               </div>
             </div>
             {/* per sku end */}
