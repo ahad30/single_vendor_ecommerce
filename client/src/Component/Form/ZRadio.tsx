@@ -10,22 +10,32 @@ type TRadio = {
   label: string;
   options: { name: string; value: number | string }[];
   defaultValue?: number | string;
+  setProductType?: React.Dispatch<React.SetStateAction<string>>;
 };
 
-const ZRadio = ({ name, label, options, defaultValue }: TRadio) => {
+const ZRadio = ({
+  name,
+  label,
+  options,
+  defaultValue,
+  setProductType,
+}: TRadio) => {
   const { control } = useFormContext();
   const [value, setValue] = useState<string | number | undefined>("");
   const { isEditModalOpen } = useAppSelector((state: RootState) => state.modal);
 
   const onChange = (value: string) => {
     setValue(value);
+    if (setProductType) {
+      setProductType(value);
+    }
   };
   useEffect(() => {
     if (defaultValue || isEditModalOpen) {
       setValue(defaultValue);
     }
   }, [defaultValue, isEditModalOpen]);
- 
+
   return (
     <Controller
       name={name}

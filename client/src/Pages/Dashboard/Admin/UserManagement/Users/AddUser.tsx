@@ -48,14 +48,13 @@ const AddUser = () => {
     for (const key in formData) {
       form.append(key, formData[key]);
     }
-    createUser(form)
+    // createUser(form);
   };
-
 
   return (
     <div>
       <ZForm
-      buttonName="Create"
+        buttonName="Create"
         formType="create"
         data={rData}
         closeModal={handleCloseAndOpen}

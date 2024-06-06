@@ -6,6 +6,7 @@ import {
 } from "../../../../types/globalTypes";
 import { TProduct } from "../../../../types/product.types";
 import { baseApi } from "../../../Api/baseApi";
+import { TAttributes } from "../../../../types/attribute.types";
 
 export const productApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -17,7 +18,7 @@ export const productApi = baseApi.injectEndpoints({
           body: data,
         };
       },
-      invalidatesTags: ["products" ],
+      invalidatesTags: ["products"],
       transformErrorResponse: (res: TError & BaseQueryApi) => {
         return res;
       },
@@ -66,6 +67,23 @@ export const productApi = baseApi.injectEndpoints({
         return { data: res.data, meta: res.meta };
       },
     }),
+    getProductAttributeWithValue: builder.query({
+      query: (arg) => {
+        const params = new URLSearchParams();
+        arg?.forEach((element: TQueryParams) => {
+          params.append(element.name, element.value as string);
+        });
+        return {
+          url: "/products/attributes/values",
+          method: "GET",
+          params: params,
+        };
+      },
+      providesTags: ["attributes"],
+      transformResponse: (res: TResponseWithRedux<TAttributes[]>) => {
+        return { data: res.data, meta: res.meta };
+      },
+    }),
     getProducts: builder.query({
       query: (arg) => {
         const params = new URLSearchParams();
@@ -86,4 +104,8 @@ export const productApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useGetProductsQuery  , useCreateProductMutation} = productApi;
+export const {
+  useGetProductsQuery,
+  useCreateProductMutation,
+  useGetProductAttributeWithValueQuery,
+} = productApi;
