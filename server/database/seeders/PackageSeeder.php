@@ -26,6 +26,7 @@ class PackageSeeder extends Seeder
             'created_by' => 1,
             'status' => true,
             'total_orders' => 10,
+            'is_existing_product_package' => true,
         ]);
 
         // creare package Items

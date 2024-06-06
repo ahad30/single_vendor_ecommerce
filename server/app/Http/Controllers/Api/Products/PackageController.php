@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Products;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StorePackageRequest;
 use App\Http\Resources\PackageResource;
 use App\Models\Package;
 use App\Trait\PaginationTrait;
@@ -29,7 +30,7 @@ class PackageController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StorePackageRequest $request)
     {
         //
     }
