@@ -23,6 +23,7 @@ class LoginUserResource extends JsonResource
             ]),
             $this->mergeWhen($this->is_customer == true, [
                 'is_customer' => $this->is_customer,
+                'role' => "customer",
             ]),
         ];
     }

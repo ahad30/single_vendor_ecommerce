@@ -15,6 +15,7 @@ class UserProfileController extends Controller
 {
     use UploadImageTrait;
 
+    // profile
     public function profile(Request $request)
     {
         $user = $request->user();
@@ -39,6 +40,7 @@ class UserProfileController extends Controller
         return Response::success($data);
     }
 
+    // update password
     public function updatePassword(UpdatePasswordRequest $request)
     {
         $old = $request->old_password;
