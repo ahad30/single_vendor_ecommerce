@@ -32,26 +32,10 @@ class PackageController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-
-    // generate slug for package
-    protected function generateSlug($name)
-    {
-        $slug = Str::slug($name);
-
-        if (Package::where('slug', $slug)->exists()) {
-            return Response::error('Package already exists', 409);
-        }
-
-        return $slug;
-    }
-    // check if package exists
-    public function checkPackageExists($package)
-    {
-    }
-
     public function store(StorePackageRequest $request)
     {
         $slug = $this->generateSlug($request->name);
+        // check if package exists
         if ($slug instanceof \Illuminate\Http\JsonResponse) {
             return $slug; // return the error response
         }
@@ -92,14 +76,20 @@ class PackageController extends Controller
      */
     public function destroy(Package $package)
     {
-        // check if the user is staff or customer
-        // if ($customer->is_staff == true) {
-        //     return Response::error("Sorry, you are trying to delete a staff");
-        // }
+        $package->delete();
+        return Response::success(null, "Package successfully deleted");
+    }
 
-        // delete the customer
-        // $customer->delete();
-        // return Response::success(null, "Customer successfully deleted");
+    // generate slug for package
+    protected function generateSlug($name)
+    {
+        $slug = Str::slug($name);
+
+        if (Package::where('slug', $slug)->exists()) {
+            return Response::error('Package already exists', 409);
+        }
+
+        return $slug;
     }
 
     // Iterate over the items in the request to create related package items

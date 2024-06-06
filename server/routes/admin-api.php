@@ -172,10 +172,10 @@ Route::middleware('auth:sanctum')->group(function () {
                 ->names(['store' => 'store']);
         });
 
-        Route::middleware('permission:edit package')->group(function () {
-            Route::apiResource('packages', PackageController::class)->only(['update'])
-                ->names(['update' => 'update']);
-        });
+        // Route::middleware('permission:edit package')->group(function () {
+        //     Route::apiResource('packages', PackageController::class)->only(['update'])
+        //         ->names(['update' => 'update']);
+        // });
 
         Route::middleware('permission:delete package')->group(function () {
             Route::apiResource('packages', PackageController::class)->only(['destroy'])

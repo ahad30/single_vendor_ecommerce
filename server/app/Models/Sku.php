@@ -9,7 +9,13 @@ class Sku extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['product_id', 'code', 'price', 'quantity'];
+    protected $fillable = [
+        'product_id',
+        'sku_code',
+        'price',
+        'quantity',
+        'image'
+    ];
 
     protected function price()
     {
