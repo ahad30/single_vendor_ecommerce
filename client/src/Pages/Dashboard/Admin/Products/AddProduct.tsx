@@ -9,10 +9,23 @@ import ZInput from "../../../../Component/Form/ZInput";
 import ZImageInput from "../../../../Component/Form/ZImageInput";
 import ZSelect from "../../../../Component/Form/ZSelect";
 import ZRadio from "../../../../Component/Form/ZRadio";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { TAttributes } from "../../../../types/attribute.types";
 
 const AddProduct = () => {
-  const [variantField, setVariantField] = useState([1]);
+  // attribute State - 1 from db
+  const [attributeValue, setAttributeValue] = useState<TAttributes[]>([]);
+  // selected attribute State - 2
+  const [selectedAttribute, setSelectedAttribute] = useState<string[]>([]);
+  // attribute options for selected options state-3
+  const [attributeOptions, setAttributeOptions] = useState<
+    { label: string; value: string }[]
+  >([]);
+  //  product type state - 4
+  const [productType, setProductType] = useState("");
+  // selectedAttribute UnderTheValue - 5
+  const [selectedAttributeUnderTheValue, setSelectedAttributeUnderTheValue] =
+    useState<TAttributes[]>([]);
   const [
     createProduct,
     {
@@ -23,9 +36,24 @@ const AddProduct = () => {
       data,
     },
   ] = useCreateProductMutation();
-  const { data: attributeWithValue } =
+  const { data: attributeWithValue, isLoading: attributeIsLoading } =
     useGetProductAttributeWithValueQuery(undefined);
-  const [productType, setProductType] = useState("");
+
+  // this useEffect set attribute options and attributeWithValue - 1
+  useEffect(() => {
+    if (
+      Array.isArray(attributeWithValue?.data) &&
+      attributeWithValue?.data?.length > 0
+    ) {
+      const attributeOptions = attributeWithValue?.data?.map((item) => ({
+        label: item.name,
+        value: item.name,
+      }));
+      setAttributeOptions([...attributeOptions]);
+      setAttributeValue([...attributeWithValue.data]);
+    }
+  }, [attributeWithValue, attributeWithValue?.data]);
+
   const handleSubmit: SubmitHandler<FieldValues> = (data) => {
     console.log(data);
   };
@@ -36,10 +64,23 @@ const AddProduct = () => {
     { label: "Feature-product", value: "feature-product" },
   ];
 
-  // handle Add Variant field
-  const handleAddVariantField = () => {
-    setVariantField([...variantField, variantField?.length + 1]);
-  };
+  useEffect(() => {
+    if (selectedAttribute) {
+      const arr: TAttributes[] = [];
+      for (let index = 0; index < selectedAttribute.length; index++) {
+        const element = selectedAttribute[index];
+        const findTheAttributeWithValue = attributeValue?.find(
+          (item) => item.name == element
+        );
+
+        if (findTheAttributeWithValue) {
+          arr.push({ ...findTheAttributeWithValue });
+        }
+      }
+      setSelectedAttributeUnderTheValue([...(arr || [])]);
+    }
+  }, [selectedAttribute.length, selectedAttribute, attributeValue]);
+
   return (
     <div>
       <ZForm
@@ -70,7 +111,7 @@ const AddProduct = () => {
           {/* list type */}
           <ZSelect
             options={list_type}
-            //   isLoading={roleIsloading}
+            isLoading={cIsloading}
             mode={undefined}
             label={"List type"}
             name={"list_type"}
@@ -116,17 +157,34 @@ const AddProduct = () => {
         {/* single Product type end */}
         {/* variant Product type start */}
         {productType === "variant" && (
-          <div>
+          <div className="">
             {/* per sku  */}
-            <div className="grid grid-cols-1 lg:grid-cols-5 border-red-500 border">
-              {attributeWithValue?.data?.map((item) => {
+
+            <ZSelect
+              setSelectedAttributes={setSelectedAttribute}
+              options={attributeOptions}
+              isLoading={attributeIsLoading}
+              mode={"multiple"}
+              label={"Select Attribute"}
+              name={"attribute"}
+            ></ZSelect>
+            {/* selected attribute underTheValue */}
+            <div className="mt-12 grid lg:grid-cols-5 gap-5">
+              {selectedAttributeUnderTheValue.map((item) => {
                 return (
                   <div className="">
-                    <h1>{item.name}</h1>
-                    <div className="ml-2 bg-red-400 text-white">
-                      {item.values.map((value) => (
-                        <p>{value.name}</p>
-                      ))}
+                    <div className="ml-5">
+                      <ZSelect
+                        key={item.id}
+                        options={item.values.map((option) => ({
+                          value: `${item.name}${option.name}`,
+                          label: option.name,
+                        }))}
+                        isLoading={attributeIsLoading}
+                        mode={undefined}
+                        label={`Select ${item.name} value`}
+                        name={`attributeUnderTheValue-${item.name}`}
+                      ></ZSelect>
                     </div>
                   </div>
                 );

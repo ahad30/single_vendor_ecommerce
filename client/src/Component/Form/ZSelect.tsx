@@ -10,25 +10,34 @@ type TSelect = {
   options: { label: string; value: string }[] | [];
   isLoading?: boolean;
   value?: string | number | string[];
+  setSelectedAttributes?: React.Dispatch<React.SetStateAction<string[]>>;
 };
 
-const ZSelect = ({ name, label, mode, options, isLoading, value }: TSelect) => {
-  const { control , setValue } = useFormContext();
+const ZSelect = ({
+  name,
+  label,
+  mode,
+  options,
+  isLoading,
+  value,
+  setSelectedAttributes,
+}: TSelect) => {
+  const { control, setValue } = useFormContext();
 
   useEffect(() => {
     if (value) {
       setValue(name, value);
     }
-  }, [value , setValue]);
+  }, [value, setValue]);
 
-
-
-  const onChange = (value: string) => {
-    console.log(`selected ${value}`);
+  const onChange = (value: string | string[]) => {
+    if (setSelectedAttributes && mode === "multiple") {
+      setSelectedAttributes([...value]);
+    }
   };
 
   const onSearch = (value: string) => {
-    console.log("search:", value);
+    // console.log("search:", value);
   };
 
   // Filter `option.label` match the user type `input`
@@ -53,7 +62,10 @@ const ZSelect = ({ name, label, mode, options, isLoading, value }: TSelect) => {
             showSearch
             placeholder={label}
             optionFilterProp="children"
-            onChange={field.onChange}
+            onChange={(value: string | number) => {
+              field.onChange(value);
+              onChange(value as string);
+            }}
             onSearch={onSearch}
             filterOption={filterOption}
             options={options || []}
