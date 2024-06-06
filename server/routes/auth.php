@@ -12,7 +12,6 @@ Route::post('/user/registration', [RegisterUserController::class, 'register']);
 
 /*========= Authenticate Routes Section ========*/
 Route::middleware('auth:sanctum')->group(function () {
-
     // user profile routes
     Route::controller(UserProfileController::class)->group(function () {
         Route::get('/profile', 'profile');

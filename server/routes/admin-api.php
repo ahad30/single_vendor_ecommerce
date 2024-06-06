@@ -139,13 +139,10 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::middleware('permission:create product')->group(function () {
             // get all attributes with corresponding values
             Route::get('products/attributes/values', GetAtrributeValueController::class);
-
             // get all categories name
             Route::get('category/list', GetOnlyCategoryName::class)->name('category');
-
             // get all brands name
             Route::get('brand/list', GetOnlyBrandName::class)->name('brand');
-
             // store product
             Route::apiResource('products', ProductController::class)->only(['store'])->names(['store' => 'store']);
         });
