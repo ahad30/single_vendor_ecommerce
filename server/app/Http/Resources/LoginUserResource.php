@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class LoginResource extends JsonResource
+class LoginUserResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,9 +17,13 @@ class LoginResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'is_customer' => $this->is_customer,
-            'is_staff' => $this->is_staff,
             'status' => $this->status,
+            $this->mergeWhen($this->is_staff == true, [
+                'is_staff' => $this->is_staff,
+            ]),
+            $this->mergeWhen($this->is_customer == true, [
+                'is_customer' => $this->is_customer,
+            ]),
         ];
     }
 }
