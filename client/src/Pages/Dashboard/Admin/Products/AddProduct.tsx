@@ -12,6 +12,8 @@ import ZSelect from "../../../../Component/Form/ZSelect";
 import ZRadio from "../../../../Component/Form/ZRadio";
 import { useEffect, useState } from "react";
 import { TAttributes } from "../../../../types/attribute.types";
+import ZNumber from "../../../../Component/Form/ZNumber";
+import { Button } from "antd";
 
 const AddProduct = () => {
   // attribute State - 1 from db
@@ -29,6 +31,15 @@ const AddProduct = () => {
   const [selectedAttributeUnderTheValue, setSelectedAttributeUnderTheValue] =
     useState<TAttributes[]>([]);
 
+  // per sku - 6
+  const [perSku, setPerSku] = useState<string | number[]>([]);
+
+  // image file , price , quantity - 7
+  const [priceQuantityImage, setPriceQuantityImage] = useState({
+    price: "",
+    image: "",
+    quantity: "",
+  });
   // create product
   const [
     createProduct,
@@ -44,7 +55,7 @@ const AddProduct = () => {
   // attribute withe value from db
   const { data: attributeWithValue, isLoading: attributeIsLoading } =
     useGetProductAttributeWithValueQuery(undefined);
-  const [perSku, setPerSku] = useState<string | number[]>([]);
+
   // this useEffect set attribute options and attributeWithValue - 1
   useEffect(() => {
     if (
@@ -86,7 +97,7 @@ const AddProduct = () => {
       setSelectedAttributeUnderTheValue([...(arr || [])]);
     }
   }, [selectedAttribute.length, selectedAttribute, attributeValue]);
-  console.log(perSku);
+  console.log(priceQuantityImage);
   return (
     <div>
       <ZForm
@@ -177,7 +188,8 @@ const AddProduct = () => {
               defaultKey="product"
             ></ZSelect>
             {/* selected attribute underTheValue */}
-            <div className="border border-red-400">
+            <div className="border-2 border-gray-400 p-3">
+              {/* attribute value */}
               <div className="mt-12 grid lg:grid-cols-5 gap-5">
                 {selectedAttributeUnderTheValue.map((item) => {
                   return (
@@ -198,7 +210,31 @@ const AddProduct = () => {
                 })}
               </div>
               {/* image filed */}
-              <ZImageInput label="Picture" name="image"></ZImageInput>
+              <div className="grid grid-cols-1 items-center gap-x-2 lg:grid-cols-3">
+                <ZImageInput
+                  defaultKey="product"
+                  setPriceQuantityImage={setPriceQuantityImage}
+                  label="Picture"
+                  name="image"
+                ></ZImageInput>
+                <ZNumber
+                  defaultKey="product"
+                  setPriceQuantityImage={setPriceQuantityImage}
+                  label="Price($)"
+                  name="price"
+                ></ZNumber>
+                <ZNumber
+                  setPriceQuantityImage={setPriceQuantityImage}
+                  defaultKey="product"
+                  label="Quantity"
+                  name="quantity"
+                ></ZNumber>
+              </div>
+
+              {/* button */}
+              <div className="flex justify-end">
+                <Button type="primary" color="primary">Add Variant</Button>
+              </div>
             </div>
             {/* per sku end */}
           </div>

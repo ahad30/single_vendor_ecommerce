@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Button, Form, Upload } from "antd";
 import { useState, useEffect } from "react";
@@ -7,7 +8,20 @@ import { UploadFile } from "antd/es/upload/interface";
 import { useAppSelector } from "../../Redux/hook";
 import { RootState } from "../../Redux/store";
 
-const ZImageInput = ({ name, label }: { name: string; label: string }) => {
+// defaultKey="product"
+// setPriceQuantityImage={setPriceQuantityImage}
+
+const ZImageInput = ({
+  name,
+  label,
+  defaultKey,
+  setPriceQuantityImage,
+}: {
+  name: string;
+  label: string;
+  defaultKey?: "product";
+  setPriceQuantityImage?: React.Dispatch<React.SetStateAction<any>>;
+}) => {
   const [imageList, setImageList] = useState<UploadFile[]>([]);
   const { control } = useFormContext();
   const { isAddModalOpen, isEditModalOpen } = useAppSelector(
@@ -19,7 +33,29 @@ const ZImageInput = ({ name, label }: { name: string; label: string }) => {
       setImageList([]);
     }
   }, [isAddModalOpen, isEditModalOpen]);
-  console.log(imageList);
+
+  const handleChange = (info: any) => {
+    const file = info.file;
+    // console.log("Uploaded file:", file);
+
+    if (setPriceQuantityImage && defaultKey === "product") {
+      setPriceQuantityImage((prev: any) => ({
+        ...prev,
+        image: file,
+      }));
+    }
+    // const newFileList: UploadFile[] = [
+    //   {
+    //     uid: file.uid,
+    //     name: file.name,
+    //     status: "done",
+    //     url: URL.createObjectURL(file.originFileObj),
+    //   },
+    // ];
+    // console.log("Uploaded file list:", newFileList);
+    // setImageList(newFileList);
+  };
+  // console.log(imageList);
   return (
     <Controller
       name={name}
@@ -56,6 +92,7 @@ const ZImageInput = ({ name, label }: { name: string; label: string }) => {
               onChange(null);
             }}
             maxCount={1}
+            onChange={handleChange}
           >
             <Button icon={<UploadOutlined />}>Upload</Button>
           </Upload>
