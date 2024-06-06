@@ -16,7 +16,7 @@ Route::middleware('auth:sanctum')->group(function () {
     // user profile routes
     Route::controller(UserProfileController::class)->group(function () {
         Route::get('/profile', 'profile');
-        Route::put('/profile', 'updateProfile');
+        Route::put('/profile', 'updateProfile')->name('user.profile');
         Route::put('/profile/password', 'updatePassword');
     });
 

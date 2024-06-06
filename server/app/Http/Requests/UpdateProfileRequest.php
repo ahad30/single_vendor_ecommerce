@@ -26,8 +26,10 @@ class UpdateProfileRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:100',
+            'email' => ['required', 'string', 'email', 'max:100', 'unique:users,email,' . $this->user()->id],
+            'phone' => ['required', 'unique:users,phone,' . $this->user()->id],
+            'address' => ['required', 'string', 'max:255'],
             'image' => ['nullable', 'mimes:jpg,jpeg,png', File::image()->max('10mb')],
-            'email' => ['required', 'string', 'email','max:100', 'unique:users,email,'. $this->user()->id],
         ];
     }
     public function failedValidation(Validation $validator)

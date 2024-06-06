@@ -25,8 +25,7 @@ class UpdatePasswordRequest extends FormRequest
     {
         return [
             'old_password' => ['required', 'string'],
-            'new_password' => ['required', 'string', 'min:8', 'different:old_password'],
-            'confirm_password' => ['required', 'string', 'same:new_password'],
+            'password' => ['required', 'string', 'min:8', 'different:old_password', 'confirmed'],
         ];
     }
     public function failedValidation(Validation $validator)
