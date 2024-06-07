@@ -44,6 +44,9 @@ const AddProduct = () => {
 
   // const final skus - 8
   const [skus, setSkus] = useState<any[]>([]);
+
+  //  refresh state for variant
+  const [refresh, setRefresh] = useState(false);
   // create product
   const [
     createProduct,
@@ -107,7 +110,7 @@ const AddProduct = () => {
     const valuesName: string[] = [];
 
     if (perSku.length == 0) {
-      console.log("sayem");
+      // console.log("sayem");
       toast.error("Select minimum an attribute value", {
         id: 2,
         duration: 1000,
@@ -148,11 +151,24 @@ const AddProduct = () => {
       //   toast.error("Sku already exists");
       // } else {
       setSkus([...skus, { ...sku }]);
+      handleRefreshVariantState();
       // }
     }
   };
-  console.log(perSku);
-  console.log(skus);
+
+  // handle refresh the state for variant
+  const handleRefreshVariantState = () => {
+    setPerSku([]);
+    setPriceQuantityImage({
+      price: "",
+      image: "",
+      quantity: "",
+    });
+    setRefresh(!refresh);
+  };
+  console.log(perSku)
+  console.log(skus)
+  console.log(priceQuantityImage)
   return (
     <div>
       <ZForm
@@ -244,7 +260,7 @@ const AddProduct = () => {
               defaultKey="product"
             ></ZSelect>
             {/* selected attribute underTheValue */}
-            <div className="border-2 border-gray-400 p-3">
+            <div className="border border-gray-400 p-3">
               {/* attribute value */}
               <div className="mt-12 grid lg:grid-cols-5 gap-5">
                 {selectedAttributeUnderTheValue.map((item) => {
@@ -262,6 +278,7 @@ const AddProduct = () => {
                       setPerSku={setPerSku}
                       defaultKey="product"
                       selectedAttribute={selectedAttribute}
+                      refresh={refresh}
                     ></ZSelect>
                   );
                 })}
@@ -273,18 +290,21 @@ const AddProduct = () => {
                   setPriceQuantityImage={setPriceQuantityImage}
                   label="Picture"
                   name="image"
+                  refresh={refresh}
                 ></ZImageInput>
                 <ZNumber
                   defaultKey="product"
                   setPriceQuantityImage={setPriceQuantityImage}
                   label="Price($)"
                   name="price"
+                  refresh={refresh}
                 ></ZNumber>
                 <ZNumber
                   setPriceQuantityImage={setPriceQuantityImage}
                   defaultKey="product"
                   label="Quantity"
                   name="quantity"
+                  refresh={refresh}
                 ></ZNumber>
               </div>
 
