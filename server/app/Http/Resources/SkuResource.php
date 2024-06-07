@@ -20,6 +20,7 @@ class SkuResource extends JsonResource
             'sku_code' => $this->sku_code,
             'price' => $this->price,
             'quantity' => $this->quantity,
+            'image' => $this->image,
         ];
     }
 }
