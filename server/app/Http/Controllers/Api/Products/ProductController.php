@@ -28,7 +28,6 @@ class ProductController extends Controller
 
         // Get response with paginated data
         $response = $this->getMetaPagination($data, $products);
-
         return Response::successWithPagination($response);
     }
 
@@ -95,8 +94,8 @@ class ProductController extends Controller
         return Response::success(null, 'Product deleted successfully');
     }
 
-
-    protected function CreateSkuAttribute($product, $request)
+    // create variants for a product
+    protected function CreateSkuAttribute($product, $request): void
     {
         // Create skus
         foreach ($request['skus'] as $skuData) {
@@ -131,6 +130,7 @@ class ProductController extends Controller
         $sku->attributeValues()->attach($attributesToAttach);
     }
 
+    // create sku code
     protected function SkuMaker(array $data, int $id): string
     {
         $skuAttributes = [];
@@ -145,7 +145,7 @@ class ProductController extends Controller
     }
 
     // upload multiple image files for single products
-    protected function uploadSingleProductImages($request, $product)
+    protected function uploadSingleProductImages($request, $product): void
     {
         foreach ($request->images as $image) {
             $path = $this->uploadImage($image, 'image', 'assets/images/products/images');
