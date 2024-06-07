@@ -14,7 +14,6 @@ import { useEffect, useState } from "react";
 import { TAttributes } from "../../../../types/attribute.types";
 import ZNumber from "../../../../Component/Form/ZNumber";
 import { Button } from "antd";
-import { string } from "zod";
 import { toast } from "sonner";
 
 const AddProduct = () => {
@@ -36,7 +35,7 @@ const AddProduct = () => {
   // per sku - 6
   const [perSku, setPerSku] = useState<string[] | number[]>([]);
 
-  // image file , price , quantity - 7
+  // image file , price , quantity - 7 for vairant product
   const [priceQuantityImage, setPriceQuantityImage] = useState({
     price: "",
     image: "",
@@ -103,8 +102,6 @@ const AddProduct = () => {
     }
   }, [selectedAttribute.length, selectedAttribute, attributeValue]);
 
-  // console.log(priceQuantityImage);
-  // console.log(perSku);
   const handleAddPerSkuInSkus = () => {
     const attributes: { [index: string]: string } = {};
     const valuesName: string[] = [];
@@ -146,17 +143,16 @@ const AddProduct = () => {
         attributes,
       };
 
-      const finTheExistSku = skus.find((item) => item.sku == sku.sku);
-      if (finTheExistSku) {
-        toast.error("Sku already exists");
-      } else {
-        setSkus([...skus, { ...sku }]);
-      }
+      // const finTheExistSku = skus.find((item) => item.sku == sku.sku);
+      // if (finTheExistSku) {
+      //   toast.error("Sku already exists");
+      // } else {
+      setSkus([...skus, { ...sku }]);
+      // }
     }
   };
-
-  // console.log(selectedAttribute);
-  // console.log(selectedAttributeUnderTheValue);
+  console.log(perSku);
+  console.log(skus);
   return (
     <div>
       <ZForm
@@ -228,9 +224,10 @@ const AddProduct = () => {
             setProductType={setProductType}
           ></ZRadio>
         </div>
+
         {/* single Product type start */}
         {productType === "single" && <div>single Product type</div>}
-        {/* single Product type end */}
+
         {/* variant Product type start */}
         {productType === "variant" && (
           <div className="">
@@ -269,7 +266,7 @@ const AddProduct = () => {
                   );
                 })}
               </div>
-              {/* image filed */}
+              {/* image, quantity, price*/}
               <div className="grid grid-cols-1 items-center gap-x-2 lg:grid-cols-3">
                 <ZImageInput
                   defaultKey="product"
@@ -306,9 +303,12 @@ const AddProduct = () => {
             {/* per sku end */}
           </div>
         )}
-        {/* variant Product type end */}
 
         {/* <ZImageInput label="Picture" name="image"></ZImageInput> */}
+        {/* submit*/}
+        <Button type="primary" htmlType="submit" className="">
+          Submit
+        </Button>
       </ZForm>
     </div>
   );

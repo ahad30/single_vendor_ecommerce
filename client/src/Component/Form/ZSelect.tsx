@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Form, Select } from "antd";
@@ -29,7 +30,7 @@ const ZSelect = ({
   defaultKey,
   selectedAttribute,
 }: TSelect) => {
-  const { control, setValue, resetField } = useFormContext();
+  const { control, setValue, resetField, getValues } = useFormContext();
 
   useEffect(() => {
     if (value) {
@@ -38,9 +39,17 @@ const ZSelect = ({
   }, [value, setValue]);
 
   useEffect(() => {
-    if (defaultKey == "product" && selectedAttribute) {
+    if (defaultKey == "product" && selectedAttribute && setPerSku) {
       const s = selectedAttribute.includes(name);
+      const nameVa = getValues(name)
       if (s === false) {
+        setPerSku((prev) => {
+          const newPrev = [...prev];
+          const filtered = newPrev.filter(
+            (item) => item !== nameVa
+          );
+          return filtered;
+        });
         resetField(name);
       }
     }
