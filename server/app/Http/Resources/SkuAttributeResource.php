@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class SkuResource extends JsonResource
+class SkuAttributeResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,12 +16,8 @@ class SkuResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'product' => $this->product->name,
-            'sku_code' => $this->sku_code,
-            'price' => $this->price,
-            'quantity' => $this->quantity,
-            'image' => $this->image,
-            'attributes' => SkuAttributeResource::collection($this->attributeValues),
+            'attribute' => $this->attribute->name,
+            'value' => $this->value,
         ];
     }
 }

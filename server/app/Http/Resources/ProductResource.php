@@ -21,7 +21,7 @@ class ProductResource extends JsonResource
             'product_uid' => $this->product_uid,
             'category' => $this->category->name,
             'brand' => $this->brand->name,
-            'image' => $this->image,
+            'thumbnail' => $this->thumbnail,
             'weight' => $this->weight,
             'list_type' => $this->list_type,
             'price' => $this->unit_price != null ? $this->unit_price : $this->skus->first()->price,
@@ -29,8 +29,13 @@ class ProductResource extends JsonResource
             'is_published' => $this->is_published == true ? 'Published' : 'Unpublished',
             'created_at' => $this->created_at->format('d-m-Y'),
             'is_single_product' => $this->is_single_product == true ? 'Single' : 'Variant',
+            $this->mergeWhen($this->is_single_product == true, [
+                'images' => $this->productImages,
+            ]),
             $this->mergeWhen($this->is_single_product == false, [
-                'variants' => ['total_variants' => $this->skus->count()],
+                'variants' => [
+                    'total_variants' => $this->skus->count()
+                ],
                 $this->mergeWhen($this->getSkus($request) != null, [
                     'variant_items' => $this->getSkus($request),
                 ]),
@@ -41,10 +46,7 @@ class ProductResource extends JsonResource
     public function getSkus($request)
     {
         if ($request->routeIs('product.show')) {
-            return [
-                SkuResource::collection($this->whenLoaded(['skus.attributeValues'])),
-                SkuResource::collection($this->whenLoaded(['skus.attributeValues.attribute'])),
-            ];
+            return SkuResource::collection($this->whenLoaded('skus'));
         }
     }
 }
