@@ -41,7 +41,10 @@ class ProductResource extends JsonResource
     public function getSkus($request)
     {
         if ($request->routeIs('product.show')) {
-            return SkuResource::collection($this->whenLoaded(['skus.attributeValues']));
+            return [
+                SkuResource::collection($this->whenLoaded(['skus.attributeValues'])),
+                SkuResource::collection($this->whenLoaded(['skus.attributeValues.attribute'])),
+            ];
         }
     }
 }

@@ -10,13 +10,14 @@ use App\Models\Attribute;
 use App\Models\Product;
 use App\Models\AttributeValue;
 use App\Trait\PaginationTrait;
+use App\Trait\UploadImageTrait;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
-    use PaginationTrait;
+    use PaginationTrait, UploadImageTrait;
     /**
      * Display a listing of the resource.
      */
@@ -67,13 +68,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        // return new ProductResource($product->with([
-        //     'skus.attributeValues'
-        //     ])->first());
-        return $product->with([
-            'skus.attributeValues',
-            'skus.attributeValues.attribute'
-        ])->first();
+        return new ProductResource($product->with('skus')->first());
     }
 
     /**
@@ -101,10 +96,12 @@ class ProductController extends Controller
             $attributeIds = Attribute::whereIn('name', array_keys($skuData['attributes']))
                 ->pluck('id', 'name');
             // Create the SKU
+            $path = $this->uploadImage($skuData['image'], 'image', 'assets/images/product-sku');
             $sku = $product->skus()->create([
                 'sku_code' => $this->SkuMaker($skuData['attributes'], $product->id),
                 'price' => $skuData['price'],
                 'quantity' => $skuData['quantity'],
+                "image"  => $path,
             ]);
 
             // Prepare data for bulk attachment
