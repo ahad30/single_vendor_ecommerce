@@ -44,6 +44,9 @@ const AddProduct = () => {
 
   // const final skus - 8
   const [skus, setSkus] = useState<any[]>([]);
+
+  //  refresh state for variant
+  const [refresh, setRefresh] = useState(false);
   // create product
   const [
     createProduct,
@@ -151,8 +154,17 @@ const AddProduct = () => {
       // }
     }
   };
-  console.log(perSku);
-  console.log(skus);
+
+  // handle refresh the state for variant
+  const handleRefreshVariantState = () => {
+    setPerSku([]);
+    setPriceQuantityImage({
+      price: "",
+      image: "",
+      quantity: "",
+    });
+    setRefresh(!refresh);
+  };
   return (
     <div>
       <ZForm
@@ -244,7 +256,7 @@ const AddProduct = () => {
               defaultKey="product"
             ></ZSelect>
             {/* selected attribute underTheValue */}
-            <div className="border-2 border-gray-400 p-3">
+            <div className="border border-gray-400 p-3">
               {/* attribute value */}
               <div className="mt-12 grid lg:grid-cols-5 gap-5">
                 {selectedAttributeUnderTheValue.map((item) => {
