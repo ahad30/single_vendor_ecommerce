@@ -38,6 +38,7 @@ class ProductController extends Controller
     public function store(StoreProductRequest $request)
     {
         DB::transaction(function () use ($request, &$product) {
+            $thumbnailPath = $this->uploadImage($request->thumbnail, 'thumbnail', 'assets/images/products/thumbnails');
             // Create the product
             $product = Product::create([
                 'name' => $request['name'],
@@ -49,7 +50,13 @@ class ProductController extends Controller
                 'weight' => $request->weight,
                 'slug' => Str::slug($request->name, '-'),
                 'product_uid' => uniqid('PRD-'),
+                'thumbnail' => $thumbnailPath,
             ]);
+
+            // create single products multiple images
+            if ($request->has('images')) {
+                $this->uploadSingleProductImages($request, $product);
+            }
 
             // Create SKU with attributes from the request
             if (isset($request['skus'])) {
@@ -96,7 +103,7 @@ class ProductController extends Controller
             $attributeIds = Attribute::whereIn('name', array_keys($skuData['attributes']))
                 ->pluck('id', 'name');
             // Create the SKU
-            $path = $this->uploadImage($skuData['image'], 'image', 'assets/images/product-sku');
+            $path = $this->uploadImage($skuData['image'], 'image', 'assets/images/products/sku-images');
             $sku = $product->skus()->create([
                 'sku_code' => $this->SkuMaker($skuData['attributes'], $product->id),
                 'price' => $skuData['price'],
@@ -135,5 +142,16 @@ class ProductController extends Controller
         $sku = "SKU" . $id . "-" . implode('-', $skuAttributes);
 
         return $sku;
+    }
+
+    // upload multiple image files for single products
+    protected function uploadSingleProductImages($request, $product)
+    {
+        foreach ($request->images as $image) {
+            $path = $this->uploadImage($image, 'image', 'assets/images/products/images');
+            $product->images()->create([
+                'image' => $path,
+            ]);
+        }
     }
 }
