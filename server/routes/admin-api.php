@@ -7,6 +7,8 @@ use App\Http\Controllers\Api\Products\BrandController;
 use App\Http\Controllers\Api\Products\CategoryController;
 use App\Http\Controllers\Api\Products\GetAllCategorizedProductName;
 use App\Http\Controllers\Api\Products\GetAtrributeValueController;
+use App\Http\Controllers\Api\Products\GetOnlyBrandName;
+use App\Http\Controllers\Api\Products\GetOnlyCategoryName;
 use App\Http\Controllers\Api\Products\PackageController;
 use App\Http\Controllers\Api\Products\ProductController;
 use App\Http\Controllers\Api\Users\GetAllRoleName;
@@ -134,15 +136,18 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::name('product.')->group(function () {
         Route::apiResource('products', ProductController::class)->only(['index'])->middleware('permission:view product')->names(['index' => 'index']);
 
-        // get all attributes with corresponding values
-        Route::get('products/attributes/values', GetAtrributeValueController::class)->middleware('permission:create product');
+        Route::middleware('permission:create product')->group(function () {
+            // get all attributes with corresponding values
+            Route::get('products/attributes/values', GetAtrributeValueController::class);
+            // get all categories name
+            Route::get('category/list', GetOnlyCategoryName::class)->name('category');
+            // get all brands name
+            Route::get('brand/list', GetOnlyBrandName::class)->name('brand');
+            // store product
+            Route::apiResource('products', ProductController::class)->only(['store'])->names(['store' => 'store']);
+        });
 
         Route::apiResource('products', ProductController::class)->only(['show'])->middleware('permission:view product')->names(['show' => 'show']);
-
-        Route::middleware('permission:create product')->group(function () {
-            Route::apiResource('products', ProductController::class)->only(['store'])
-                ->names(['store' => 'store']);
-        });
 
         Route::middleware('permission:edit product')->group(function () {
             Route::apiResource('products', ProductController::class)->only(['update'])
@@ -167,10 +172,10 @@ Route::middleware('auth:sanctum')->group(function () {
                 ->names(['store' => 'store']);
         });
 
-        Route::middleware('permission:edit package')->group(function () {
-            Route::apiResource('packages', PackageController::class)->only(['update'])
-                ->names(['update' => 'update']);
-        });
+        // Route::middleware('permission:edit package')->group(function () {
+        //     Route::apiResource('packages', PackageController::class)->only(['update'])
+        //         ->names(['update' => 'update']);
+        // });
 
         Route::middleware('permission:delete package')->group(function () {
             Route::apiResource('packages', PackageController::class)->only(['destroy'])

@@ -17,7 +17,7 @@ class SkuResource extends JsonResource
         return [
             'id' => $this->id,
             'product' => $this->product->name,
-            'code' => $this->code,
+            'sku_code' => $this->sku_code,
             'price' => $this->price,
             'quantity' => $this->quantity,
         ];

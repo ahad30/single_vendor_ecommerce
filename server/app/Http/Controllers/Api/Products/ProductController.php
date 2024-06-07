@@ -70,10 +70,10 @@ class ProductController extends Controller
         // return new ProductResource($product->with([
         //     'skus.attributeValues'
         //     ])->first());
-            return $product->with([
-                'skus.attributeValues',
-                'skus.attributeValues.attribute'
-                ])->first();
+        return $product->with([
+            'skus.attributeValues',
+            'skus.attributeValues.attribute'
+        ])->first();
     }
 
     /**
@@ -102,7 +102,7 @@ class ProductController extends Controller
                 ->pluck('id', 'name');
             // Create the SKU
             $sku = $product->skus()->create([
-                'code' => $this->SkuMaker($skuData['attributes'], $product->id),
+                'sku_code' => $this->SkuMaker($skuData['attributes'], $product->id),
                 'price' => $skuData['price'],
                 'quantity' => $skuData['quantity'],
             ]);

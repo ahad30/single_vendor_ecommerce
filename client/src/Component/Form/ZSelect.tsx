@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Form, Select } from "antd";
 import { useEffect } from "react";
@@ -10,25 +12,90 @@ type TSelect = {
   options: { label: string; value: string }[] | [];
   isLoading?: boolean;
   value?: string | number | string[];
+  setSelectedAttributes?: React.Dispatch<React.SetStateAction<string[]>>;
+  setPerSku?: React.Dispatch<React.SetStateAction<string[] | number[]>>;
+  defaultKey?: "product";
+  selectedAttribute?: string[];
 };
 
-const ZSelect = ({ name, label, mode, options, isLoading, value }: TSelect) => {
-  const { control , setValue } = useFormContext();
+const ZSelect = ({
+  name,
+  label,
+  mode,
+  options,
+  isLoading,
+  value,
+  setSelectedAttributes,
+  setPerSku,
+  defaultKey,
+  selectedAttribute,
+}: TSelect) => {
+  const { control, setValue, resetField, getValues } = useFormContext();
 
   useEffect(() => {
     if (value) {
       setValue(name, value);
     }
-  }, [value , setValue]);
+  }, [value, setValue]);
 
+  useEffect(() => {
+    if (defaultKey == "product" && selectedAttribute && setPerSku) {
+      const s = selectedAttribute.includes(name);
+      const nameVa = getValues(name)
+      if (s === false) {
+        setPerSku((prev) => {
+          const newPrev = [...prev];
+          const filtered = newPrev.filter(
+            (item) => item !== nameVa
+          );
+          return filtered;
+        });
+        resetField(name);
+      }
+    }
+  }, [selectedAttribute, selectedAttribute?.length]);
 
-
-  const onChange = (value: string) => {
-    console.log(`selected ${value}`);
+  const onChange = (value: string | string[]) => {
+    if (
+      setSelectedAttributes &&
+      mode === "multiple" &&
+      defaultKey == "product"
+    ) {
+      setSelectedAttributes([...value]);
+    }
+    if (mode === undefined && setPerSku && defaultKey == "product") {
+      setPerSku((prev) => {
+        const newPrev: any = [...prev];
+        if (Array.isArray(value)) {
+          value.forEach((val) => {
+            const [newCategory] = val.split("-");
+            const index = newPrev.findIndex((item: any) =>
+              item.startsWith(newCategory)
+            );
+            if (index !== -1) {
+              newPrev[index] = val;
+            } else {
+              newPrev.push(val);
+            }
+          });
+        } else {
+          const [newCategory] = value.split("-");
+          const index = newPrev.findIndex((item: any) =>
+            item.startsWith(newCategory)
+          );
+          if (index !== -1) {
+            newPrev[index] = value;
+          } else {
+            newPrev.push(value);
+          }
+        }
+        return newPrev;
+      });
+    }
   };
 
   const onSearch = (value: string) => {
-    console.log("search:", value);
+    // console.log("search:", value);
   };
 
   // Filter `option.label` match the user type `input`
@@ -53,7 +120,10 @@ const ZSelect = ({ name, label, mode, options, isLoading, value }: TSelect) => {
             showSearch
             placeholder={label}
             optionFilterProp="children"
-            onChange={field.onChange}
+            onChange={(value: string | number) => {
+              field.onChange(value);
+              onChange(value as string);
+            }}
             onSearch={onSearch}
             filterOption={filterOption}
             options={options || []}

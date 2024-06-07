@@ -128,7 +128,7 @@ class ProductSeeder extends Seeder
                     foreach ($productData['skus'] as $skuData) {
                         // Create the SKU
                         $sku = $product->skus()->create([
-                            'code' => $skuData['sku'],
+                            'sku_code' => $skuData['sku'],
                             'price' => $skuData['price'],
                             'quantity' => $skuData['quantity'],
                         ]);
