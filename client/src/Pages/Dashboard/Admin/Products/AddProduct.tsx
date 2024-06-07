@@ -110,7 +110,7 @@ const AddProduct = () => {
     const valuesName: string[] = [];
 
     if (perSku.length == 0) {
-      console.log("sayem");
+      // console.log("sayem");
       toast.error("Select minimum an attribute value", {
         id: 2,
         duration: 1000,
@@ -151,6 +151,7 @@ const AddProduct = () => {
       //   toast.error("Sku already exists");
       // } else {
       setSkus([...skus, { ...sku }]);
+      handleRefreshVariantState();
       // }
     }
   };
@@ -165,6 +166,9 @@ const AddProduct = () => {
     });
     setRefresh(!refresh);
   };
+  console.log(perSku)
+  console.log(skus)
+  console.log(priceQuantityImage)
   return (
     <div>
       <ZForm
@@ -274,6 +278,7 @@ const AddProduct = () => {
                       setPerSku={setPerSku}
                       defaultKey="product"
                       selectedAttribute={selectedAttribute}
+                      refresh={refresh}
                     ></ZSelect>
                   );
                 })}
@@ -285,18 +290,21 @@ const AddProduct = () => {
                   setPriceQuantityImage={setPriceQuantityImage}
                   label="Picture"
                   name="image"
+                  refresh={refresh}
                 ></ZImageInput>
                 <ZNumber
                   defaultKey="product"
                   setPriceQuantityImage={setPriceQuantityImage}
                   label="Price($)"
                   name="price"
+                  refresh={refresh}
                 ></ZNumber>
                 <ZNumber
                   setPriceQuantityImage={setPriceQuantityImage}
                   defaultKey="product"
                   label="Quantity"
                   name="quantity"
+                  refresh={refresh}
                 ></ZNumber>
               </div>
 
