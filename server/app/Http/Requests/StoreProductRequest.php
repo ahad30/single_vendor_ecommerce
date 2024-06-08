@@ -26,17 +26,18 @@ class StoreProductRequest extends FormRequest
         return [
             'name' => 'required|string|max:255',
             'category_id' => 'required|integer|exists:categories,id',
-            'brand_id' => 'required|integer|exists:brands,id',
-            'weight' => 'required|string|min:0',
+            'brand_id' => 'nullable|integer|exists:brands,id',
+            'weight' => 'nullable|string',
             'description' => 'nullable|string',
             'is_published' => 'required|boolean',
+            'is_single_product' => 'required|boolean',
+            'unit_price' => 'nullable|numeric',
+            'unit_quantity' => 'nullable|numeric',
             'skus' => 'nullable|array|min:1',
             'skus.*.sku' => 'nullable|string|max:255|unique:skus,sku',
             'skus.*.attributes' => 'nullable|array',
-            'skus.*.attributes.Color' => 'nullable|string|max:50',
-            'skus.*.attributes.Size' => 'nullable|string|max:50',
-            'skus.*.quantity' => 'nullable|integer|min:0',
-            'skus.*.price' => 'nullable|numeric|min:0',
+            'skus.*.quantity' => 'nullable|integer',
+            'skus.*.price' => 'nullable|numeric',
             'skus.*.image' => 'nullable|image|mimes:jpeg,png,gif,jpg',
         ];
     }
@@ -46,13 +47,11 @@ class StoreProductRequest extends FormRequest
         return [
             'name.required' => 'The product name is required.',
             'category_id.required' => 'The category is required.',
-            'category_id.exists' => 'The selected category is invalid.',
-            'brand_id.required' => 'The brand is required.',
             'brand_id.exists' => 'The selected brand is invalid.',
-            'weight.required' => 'The product weight is required.',
-            'weight.numeric' => 'The product weight must be a number.',
             'is_published.required' => 'The publication status is required.',
             'is_published.boolean' => 'The publication status must be true or false.',
+            'is_single_product.required' => 'The product type status is required.',
+            'is_single_product.boolean' => 'The product type status must be true or false.',
         ];
     }
 

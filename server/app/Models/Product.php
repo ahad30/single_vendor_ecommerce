@@ -22,6 +22,7 @@ class Product extends Model
         'unit_quantity',
         'is_single_product',
         'is_published',
+        'thumbnail',
     ];
 
     // get category information
