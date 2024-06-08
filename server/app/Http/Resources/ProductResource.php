@@ -24,15 +24,17 @@ class ProductResource extends JsonResource
             'thumbnail' => $this->thumbnail,
             'weight' => $this->weight,
             'list_type' => $this->list_type,
-            'price' => $this->unit_price != null ? $this->unit_price : $this->skus->first()->price,
-            'quantity' => (int) $this->unit_quantity + (int) $this->skus->sum('quantity'),
             'is_published' => $this->is_published == true ? 'Published' : 'Unpublished',
             'created_at' => $this->created_at->format('d-m-Y'),
             'is_single_product' => $this->is_single_product == true ? 'Single' : 'Variant',
             $this->mergeWhen($this->is_single_product == true, [
-                'images' => $this->productImages,
+                'price' => $this->unit_price,
+                'quantity' => $this->unit_quantity,
+                'images' => $this->load('images:id,image'),
             ]),
             $this->mergeWhen($this->is_single_product == false, [
+                'price' => $this->skus->first()->price ?? null,
+                'quantity' => $this->skus->sum('quantity'),
                 'variants' => [
                     'total_variants' => $this->skus->count()
                 ],
