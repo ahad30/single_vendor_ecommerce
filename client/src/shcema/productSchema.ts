@@ -19,6 +19,6 @@ export const productSchema: any = z.object({
     ),
   description: z.string().nonempty("Please fill the product description"),
   is_published: z.string().nonempty("Please fill the list type"),
-  product_type: z.string().nonempty("Please fill the list type"),
+  is_single_product: z.string().nonempty("Please fill the list type"),
   list_type: z.string().nonempty("Please fill the list type"),
 });

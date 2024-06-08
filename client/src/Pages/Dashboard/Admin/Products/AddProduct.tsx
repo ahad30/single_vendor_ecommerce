@@ -174,9 +174,7 @@ const AddProduct = () => {
     });
     setRefresh(!refresh);
   };
-  // console.log(perSku)
-  // console.log(skus)
-  // console.log(priceQuantityImage)
+
   if (brandDataIsLoading || categoryDataIsLoading || attributeIsLoading) {
     return (
       <div className="min-h-screen flex justify-center items-center">
@@ -254,8 +252,15 @@ const AddProduct = () => {
             name={"is_published"}
             label={"Publish status"}
           ></ZRadio>
+
           {/* thumbnail iamge */}
           <ZImageInput label="Thumbnail Image" name="thumbnail"></ZImageInput>
+          {/* description */}
+          <ZInput
+            label={"Description"}
+            name={"description"}
+            type={"text"}
+          ></ZInput>
         </div>
         <div className="mt-7">
           <h5 className="text-xl  pb-2 mb-2  ">Type of products</h5>
@@ -263,24 +268,24 @@ const AddProduct = () => {
             options={[
               {
                 name: "Single",
-                value: "single",
+                value: "1",
               },
               {
                 name: "Variant",
-                value: "variant",
+                value: "0",
               },
             ]}
-            name={"product_type"}
+            name={"is_single_product"}
             label={"Product type"}
             setProductType={setProductType}
           ></ZRadio>
         </div>
 
         {/* single Product type start */}
-        {productType === "single" && <div>single Product type</div>}
+        {productType === "1" && <div>single Product type</div>}
 
         {/* variant Product type start */}
-        {productType === "variant" && (
+        {productType === "0" && (
           <div className="">
             {/* per sku  */}
 
