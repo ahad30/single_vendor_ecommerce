@@ -2,19 +2,23 @@
 import { FieldValues, SubmitHandler } from "react-hook-form";
 import {
   useCreateProductMutation,
+  useGetBrandForProductQuery,
+  useGetCategoryForProductQuery,
   useGetProductAttributeWithValueQuery,
 } from "../../../../Redux/Feature/Admin/product/productApi";
 import ZForm from "../../../../Component/Form/ZForm";
 import { TError } from "../../../../types/globalTypes";
 import ZInput from "../../../../Component/Form/ZInput";
 import ZImageInput from "../../../../Component/Form/ZImageInput";
-import ZSelect from "../../../../Component/Form/ZSelect";
+import ZSelect, { TOptions } from "../../../../Component/Form/ZSelect";
 import ZRadio from "../../../../Component/Form/ZRadio";
 import { useEffect, useState } from "react";
 import { TAttributes } from "../../../../types/attribute.types";
 import ZNumber from "../../../../Component/Form/ZNumber";
 import { Button } from "antd";
 import { toast } from "sonner";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { productSchema } from "../../../../shcema/productSchema";
 
 const AddProduct = () => {
   // attribute State - 1 from db
@@ -62,6 +66,10 @@ const AddProduct = () => {
   // attribute withe value from db
   const { data: attributeWithValue, isLoading: attributeIsLoading } =
     useGetProductAttributeWithValueQuery(undefined);
+  const { data: categoryData, isLoading: categoryDataIsLoading } =
+    useGetCategoryForProductQuery(undefined);
+  const { data: brandData, isLoading: brandDataIsLoading } =
+    useGetBrandForProductQuery(undefined);
 
   // this useEffect set attribute options and attributeWithValue - 1
   useEffect(() => {
@@ -166,9 +174,16 @@ const AddProduct = () => {
     });
     setRefresh(!refresh);
   };
-  console.log(perSku)
-  console.log(skus)
-  console.log(priceQuantityImage)
+  // console.log(perSku)
+  // console.log(skus)
+  // console.log(priceQuantityImage)
+  if (brandDataIsLoading || categoryDataIsLoading || attributeIsLoading) {
+    return (
+      <div className="min-h-screen flex justify-center items-center">
+        <p>Loading ...</p>
+      </div>
+    );
+  }
   return (
     <div>
       <ZForm
@@ -178,7 +193,7 @@ const AddProduct = () => {
         error={cError as TError}
         data={data}
         submit={handleSubmit}
-        // resolver={zodResolver(categorySchema)}
+        resolver={zodResolver(productSchema)}
         // closeModal={handleCloseAndOpen}
         formType="create"
         buttonName="Create"
@@ -188,12 +203,6 @@ const AddProduct = () => {
           <ZInput label={"Product name"} name={"name"} type={"text"}></ZInput>
           {/* slug  */}
           <ZInput label={"Slug name"} name={"slug"} type={"text"}></ZInput>
-          {/* product code */}
-          <ZInput
-            label={"Product code"}
-            name={"product_uid"}
-            type={"text"}
-          ></ZInput>
           {/* wight */}
           <ZInput label={"Wight (kg)"} name={"weight"} type={"text"}></ZInput>
           {/* list type */}
@@ -203,6 +212,32 @@ const AddProduct = () => {
             mode={undefined}
             label={"List type"}
             name={"list_type"}
+          ></ZSelect>
+          {/* category options */}
+          <ZSelect
+            options={
+              categoryData?.data?.map((item) => ({
+                label: item?.name,
+                value: item?.id,
+              })) as TOptions
+            }
+            isLoading={categoryDataIsLoading}
+            mode={undefined}
+            label={"Select category"}
+            name={"category_id"}
+          ></ZSelect>
+          {/* brand options */}
+          <ZSelect
+            options={
+              brandData?.data?.map((item) => ({
+                label: item?.name,
+                value: item?.id,
+              })) as TOptions
+            }
+            isLoading={categoryDataIsLoading}
+            mode={undefined}
+            label={"Select brand"}
+            name={"brand_id"}
           ></ZSelect>
           {/* publish  */}
           <ZRadio
@@ -219,11 +254,11 @@ const AddProduct = () => {
             name={"is_published"}
             label={"Publish status"}
           ></ZRadio>
+          {/* thumbnail iamge */}
+          <ZImageInput label="Thumbnail Image" name="thumbnail"></ZImageInput>
         </div>
-        <div>
-          <h5 className="text-xl  pb-2 mb-2 border-b-2 border-gray-400">
-            Type of products
-          </h5>
+        <div className="mt-7">
+          <h5 className="text-xl  pb-2 mb-2  ">Type of products</h5>
           <ZRadio
             options={[
               {
@@ -336,8 +371,6 @@ const AddProduct = () => {
 
 export default AddProduct;
 
-
-
 // Create a new FormData object
 // const formData = new FormData();
 
@@ -388,4 +421,3 @@ export default AddProduct;
 // });
 
 // Use the formData in a request (e.g., fetch API)
-

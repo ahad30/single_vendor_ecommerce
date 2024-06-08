@@ -84,6 +84,44 @@ export const productApi = baseApi.injectEndpoints({
         return { data: res.data, meta: res.meta };
       },
     }),
+    getCategoryForProduct: builder.query({
+      query: (arg) => {
+        const params = new URLSearchParams();
+        arg?.forEach((element: TQueryParams) => {
+          params.append(element.name, element.value as string);
+        });
+        return {
+          url: "/category/list",
+          method: "GET",
+          params: params,
+        };
+      },
+      providesTags: ["categories"],
+      transformResponse: (
+        res: TResponseWithRedux<{ id: number; name: string }[]>
+      ) => {
+        return { data: res.data, meta: res.meta };
+      },
+    }),
+    getBrandForProduct: builder.query({
+      query: (arg) => {
+        const params = new URLSearchParams();
+        arg?.forEach((element: TQueryParams) => {
+          params.append(element.name, element.value as string);
+        });
+        return {
+          url: "/brand/list",
+          method: "GET",
+          params: params,
+        };
+      },
+      providesTags: ["brands"],
+      transformResponse: (
+        res: TResponseWithRedux<{ id: number; name: string }[]>
+      ) => {
+        return { data: res.data, meta: res.meta };
+      },
+    }),
     getProducts: builder.query({
       query: (arg) => {
         const params = new URLSearchParams();
@@ -108,4 +146,6 @@ export const {
   useGetProductsQuery,
   useCreateProductMutation,
   useGetProductAttributeWithValueQuery,
+  useGetCategoryForProductQuery,
+  useGetBrandForProductQuery,
 } = productApi;

@@ -5,11 +5,13 @@ import { Form, Select } from "antd";
 import { useEffect } from "react";
 import { Controller, useFormContext } from "react-hook-form";
 
+export type TOptions = { label: string; value: string }[] | [] | undefined;
+
 type TSelect = {
   name: string;
   label: string;
   mode: "multiple" | "tags" | undefined;
-  options: { label: string; value: string }[] | [];
+  options: TOptions;
   isLoading?: boolean;
   value?: string | number | string[];
   setSelectedAttributes?: React.Dispatch<React.SetStateAction<string[]>>;
