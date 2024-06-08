@@ -68,7 +68,6 @@ class ProductController extends Controller
         return Response::created(new ProductResource($product), "Product successfully created");
     }
 
-
     /**
      * Display the specified resource.
      */
