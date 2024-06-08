@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Profile;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdatePasswordRequest;
 use App\Http\Requests\UpdateProfileRequest;
-use App\Models\User;
 use App\Trait\UploadImageTrait;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -15,6 +14,7 @@ class UserProfileController extends Controller
 {
     use UploadImageTrait;
 
+    // profile
     public function profile(Request $request)
     {
         $user = $request->user();
@@ -39,26 +39,42 @@ class UserProfileController extends Controller
         return Response::success($data);
     }
 
-    public function updatePassword(UpdatePasswordRequest $request)
-    {
-        $old = $request->old_password;
-        $newPassword = $request->new_password;
-
-        if (Hash::check($old, auth()->user()->password)) {
-            request()->user()->update(['password' => Hash::make($newPassword)]);
-            return Response::updated(null, "password updated successfully");
-        } else {
-            return Response::error('Your previous password doesn\'t match');
-        }
-    }
+    // update profile
     public function updateProfile(UpdateProfileRequest $request)
     {
-        $userId = auth()->user()->id;
-        $user = User::find($userId);
-        $validated = $request->validated();
-        $path = $this->uploadImage($request, 'image', 'assets/images/profiles', $user->image);
-        $data = array_merge($validated, ['image' => $path ?: $user->image]);
-        $user->update($data);
-        return Response::updated($user, 'Profile updated successfully');
+        $inputs = $request->validated();
+        // Only merge image path if it was successfully uploaded
+        if ($path = $this->uploadImage($request, 'image', 'assets/images/profiles', $request->user()->image)) {
+            $inputs['image'] = $path;
+        }
+        $request->user()->update($inputs);
+
+        return Response::updated($request->user, 'Profile updated successfully');
+    }
+
+
+    // update password
+    public function updatePassword(UpdatePasswordRequest $request)
+    {
+        return $this->createNewPassword($request);
+    }
+
+    // create New Password
+    protected function createNewPassword($request)
+    {
+        if (!Hash::check($request->old_password, $request->user()->password)) {
+            return Response::error('Your previous password doesn\'t match');
+        }
+
+        return $this->updateNewPassword($request);
+    }
+
+    // update new password
+    protected function updateNewPassword($request)
+    {
+        $request->user()->update([
+            'password' => Hash::make($request->password)
+        ]);
+        return Response::updated(null, "password updated successfully");
     }
 }

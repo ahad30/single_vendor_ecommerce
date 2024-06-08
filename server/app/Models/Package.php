@@ -19,6 +19,7 @@ class Package extends Model
         'created_by',
         'total_orders',
         'status',
+        'is_existing_product_package'
     ];
 
     // get related package items

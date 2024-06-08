@@ -27,7 +27,7 @@ class StoreProductRequest extends FormRequest
             'name' => 'required|string|max:255',
             'category_id' => 'required|integer|exists:categories,id',
             'brand_id' => 'required|integer|exists:brands,id',
-            'weight' => 'required|numeric|min:0',
+            'weight' => 'required|string|min:0',
             'description' => 'nullable|string',
             'is_published' => 'required|boolean',
             'skus' => 'nullable|array|min:1',
@@ -37,6 +37,7 @@ class StoreProductRequest extends FormRequest
             'skus.*.attributes.Size' => 'nullable|string|max:50',
             'skus.*.quantity' => 'nullable|integer|min:0',
             'skus.*.price' => 'nullable|numeric|min:0',
+            'skus.*.image' => 'nullable|image|mimes:jpeg,png,gif,jpg',
         ];
     }
 

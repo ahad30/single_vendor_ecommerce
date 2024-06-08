@@ -14,14 +14,14 @@ return new class extends Migration
         Schema::create('package_items', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('package_id');
-            $table->unsignedBigInteger('product_id');
+            $table->unsignedBigInteger('product_id')->nullable();
             $table->unsignedBigInteger('sku_id')->nullable();
             $table->string('product_name');
             $table->string('code')->nullable();
             $table->float('price')->nullable();
             $table->integer('quantity')->nullable();
             $table->foreign('package_id')->references('id')->on('packages')->onDelete('cascade');
-            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('set null');
             $table->foreign('sku_id')->references('id')->on('skus')->onDelete('set null');
             $table->timestamps();
         });

@@ -36,9 +36,15 @@ class Product extends Model
         return $this->belongsTo(Brand::class, 'brand_id');
     }
 
+    // get single product images
+    public function images()
+    {
+        return $this->hasMany(ProductImage::class, 'product_id', 'id');
+    }
+
     // get all sku informations
     public function skus()
     {
-        return $this->hasMany(Sku::class, 'product_id');
+        return $this->hasMany(Sku::class, 'product_id', 'id');
     }
 }

@@ -5,9 +5,8 @@ namespace App\Http\Requests;
 use Illuminate\Contracts\Validation\Validator as Validation;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
-use Illuminate\Validation\Rules\File;
 
-class UpdateProfileRequest extends FormRequest
+class StorePackageRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,11 +24,20 @@ class UpdateProfileRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|max:100',
-            'email' => ['required', 'string', 'email', 'max:100', 'unique:users,email,' . $this->user()->id],
-            'phone' => ['required', 'unique:users,phone,' . $this->user()->id],
-            'address' => ['required', 'string', 'max:255'],
-            'image' => ['nullable', 'mimes:jpg,jpeg,png', File::image()->max('10mb')],
+            'name' => 'required|string',
+            'image' => 'nullable|string',
+            'price' => 'required|numeric|min:0',
+            'quantity' => 'required|integer|min:1',
+            'description' => 'required|string',
+            'status' => 'required|integer|in:0,1',
+            'is_existing_product_package' => 'required|integer|in:0,1',
+            'items' => 'required|array|min:1',
+            'items.*.product_id' => 'nullable|integer',
+            'items.*.product_name' => 'required|string',
+            'items.*.sku_id' => 'nullable|string',
+            'items.*.code' => 'nullable|string',
+            'items.*.price' => 'required|numeric|min:0',
+            'items.*.quantity' => 'required|integer|min:1',
         ];
     }
     public function failedValidation(Validation $validator)
