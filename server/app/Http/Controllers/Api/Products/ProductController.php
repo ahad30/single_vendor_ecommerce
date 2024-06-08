@@ -50,6 +50,7 @@ class ProductController extends Controller
                 'slug' => Str::slug($request->name, '-'),
                 'product_uid' => uniqid('PRD-'),
                 'thumbnail' => $thumbnailPath,
+                'is_single_product' => $request->is_single_product,
             ]);
 
             // create single products multiple images
@@ -67,7 +68,6 @@ class ProductController extends Controller
 
         return Response::created(new ProductResource($product), "Product successfully created");
     }
-
 
     /**
      * Display the specified resource.
