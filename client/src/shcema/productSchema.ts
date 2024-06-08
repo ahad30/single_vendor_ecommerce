@@ -8,7 +8,7 @@ export const productSchema: any = z.object({
     message: "Please upload a file",
   }),
   name: z.string().nonempty("Please fill the product name"),
-  slug: z.string().nonempty("Please fill the product slug"),
+
   category_id: z.number().int().positive("Please enter a valid category ID"),
   brand_id: z.number().int().positive("Please enter a valid brand ID"),
   weight: z

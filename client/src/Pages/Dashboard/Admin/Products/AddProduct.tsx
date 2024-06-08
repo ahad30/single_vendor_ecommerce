@@ -86,10 +86,6 @@ const AddProduct = () => {
     }
   }, [attributeWithValue, attributeWithValue?.data]);
 
-  const handleSubmit: SubmitHandler<FieldValues> = (data) => {
-    console.log(data);
-  };
-
   const list_type = [
     { label: "New-arrival", value: "new-arrival" },
     { label: "Top-sales", value: "top-sales" },
@@ -175,6 +171,33 @@ const AddProduct = () => {
     setRefresh(!refresh);
   };
 
+  const handleSubmit: SubmitHandler<FieldValues> = (data) => {
+    const formData = new FormData();
+    const modifiedData: any = {
+      ...data,
+      is_published: Number(data.is_published),
+      is_single_product: Number(data.is_single_product),
+      weight: `${data.weight}kg`,
+    };
+    for (const key in modifiedData) {
+      formData.append(key, modifiedData[key]);
+    }
+    skus.forEach((sku, index) => {
+      // formData.append(`skus[${index}][sku]`, sku.sku);
+      formData.append(`skus[${index}][quantity]`, sku.quantity);
+      formData.append(`skus[${index}][price]`, sku.price);
+      formData.append(`skus[${index}][image]`, sku.image);
+
+      for (const attr in sku.attributes) {
+        formData.append(
+          `skus[${index}][attributes][${attr}]`,
+          sku.attributes[attr]
+        );
+      }
+    });
+    createProduct(formData);
+  };
+
   if (brandDataIsLoading || categoryDataIsLoading || attributeIsLoading) {
     return (
       <div className="min-h-screen flex justify-center items-center">
@@ -182,6 +205,7 @@ const AddProduct = () => {
       </div>
     );
   }
+  console.log(skus);
   return (
     <div>
       <ZForm
@@ -199,8 +223,7 @@ const AddProduct = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4  ">
           {/* name */}
           <ZInput label={"Product name"} name={"name"} type={"text"}></ZInput>
-          {/* slug  */}
-          <ZInput label={"Slug name"} name={"slug"} type={"text"}></ZInput>
+
           {/* wight */}
           <ZInput label={"Wight (kg)"} name={"weight"} type={"text"}></ZInput>
           {/* list type */}
