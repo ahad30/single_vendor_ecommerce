@@ -86,10 +86,6 @@ const AddProduct = () => {
     }
   }, [attributeWithValue, attributeWithValue?.data]);
 
-  const handleSubmit: SubmitHandler<FieldValues> = (data) => {
-    console.log(data);
-  };
-
   const list_type = [
     { label: "New-arrival", value: "new-arrival" },
     { label: "Top-sales", value: "top-sales" },
@@ -159,7 +155,7 @@ const AddProduct = () => {
       //   toast.error("Sku already exists");
       // } else {
       setSkus([...skus, { ...sku }]);
-      handleRefreshVariantState();
+      // handleRefreshVariantState();
       // }
     }
   };
@@ -174,9 +170,34 @@ const AddProduct = () => {
     });
     setRefresh(!refresh);
   };
-  // console.log(perSku)
-  // console.log(skus)
-  // console.log(priceQuantityImage)
+
+  const handleSubmit: SubmitHandler<FieldValues> = (data) => {
+    const formData = new FormData();
+    const modifiedData: any = {
+      ...data,
+      is_published: Number(data.is_published),
+      is_single_product: Number(data.is_single_product),
+      weight: `${data.weight}kg`,
+    };
+    for (const key in modifiedData) {
+      formData.append(key, modifiedData[key]);
+    }
+    skus.forEach((sku, index) => {
+      // formData.append(`skus[${index}][sku]`, sku.sku);
+      formData.append(`skus[${index}][quantity]`, sku.quantity);
+      formData.append(`skus[${index}][price]`, sku.price);
+      formData.append(`skus[${index}][image]`, sku.image);
+
+      for (const attr in sku.attributes) {
+        formData.append(
+          `skus[${index}][attributes][${attr}]`,
+          sku.attributes[attr]
+        );
+      }
+    });
+    createProduct(formData);
+  };
+// console.log(skus)
   if (brandDataIsLoading || categoryDataIsLoading || attributeIsLoading) {
     return (
       <div className="min-h-screen flex justify-center items-center">
@@ -184,6 +205,7 @@ const AddProduct = () => {
       </div>
     );
   }
+  console.log(skus);
   return (
     <div>
       <ZForm
@@ -201,8 +223,7 @@ const AddProduct = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4  ">
           {/* name */}
           <ZInput label={"Product name"} name={"name"} type={"text"}></ZInput>
-          {/* slug  */}
-          <ZInput label={"Slug name"} name={"slug"} type={"text"}></ZInput>
+
           {/* wight */}
           <ZInput label={"Wight (kg)"} name={"weight"} type={"text"}></ZInput>
           {/* list type */}
@@ -254,8 +275,15 @@ const AddProduct = () => {
             name={"is_published"}
             label={"Publish status"}
           ></ZRadio>
+
           {/* thumbnail iamge */}
           <ZImageInput label="Thumbnail Image" name="thumbnail"></ZImageInput>
+          {/* description */}
+          <ZInput
+            label={"Description"}
+            name={"description"}
+            type={"text"}
+          ></ZInput>
         </div>
         <div className="mt-7">
           <h5 className="text-xl  pb-2 mb-2  ">Type of products</h5>
@@ -263,24 +291,24 @@ const AddProduct = () => {
             options={[
               {
                 name: "Single",
-                value: "single",
+                value: "1",
               },
               {
                 name: "Variant",
-                value: "variant",
+                value: "0",
               },
             ]}
-            name={"product_type"}
+            name={"is_single_product"}
             label={"Product type"}
             setProductType={setProductType}
           ></ZRadio>
         </div>
 
         {/* single Product type start */}
-        {productType === "single" && <div>single Product type</div>}
+        {productType === "1" && <div>single Product type</div>}
 
         {/* variant Product type start */}
-        {productType === "variant" && (
+        {productType === "0" && (
           <div className="">
             {/* per sku  */}
 
