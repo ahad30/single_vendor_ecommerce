@@ -9,7 +9,7 @@ use App\Http\Controllers\Api\Products\GetAllCategorizedProductName;
 use App\Http\Controllers\Api\Products\GetAtrributeValueController;
 use App\Http\Controllers\Api\Products\GetOnlyBrandName;
 use App\Http\Controllers\Api\Products\GetOnlyCategoryName;
-use App\Http\Controllers\Api\Products\PackageController;
+use App\Http\Controllers\Api\Packages\PackageController;
 use App\Http\Controllers\Api\Products\ProductController;
 use App\Http\Controllers\Api\Users\GetAllRoleName;
 use App\Http\Controllers\Api\Users\PermissionController;
