@@ -1,13 +1,12 @@
 import { Outlet } from "react-router-dom";
-import { CustomerRoutes } from "../../Routes/Customer.Routes";
-import { sidebarGenerator } from "../../utils/sidebarGenerator";
+
+import CustomerDashboardSidebar from "./CustomerDashboardSidebar";
 
 const CustomerDashboardLayout = () => {
-  const sidebarData = sidebarGenerator(CustomerRoutes)
-  console.log(sidebarData)
+
   return (
-    <div>
-      <div>sidevar</div>
+    <div className="bg-[#f0f5fc] p-7 min-h-screen flex justify-between">
+      <div><CustomerDashboardSidebar /></div>
       <Outlet></Outlet>
     </div>
   );
