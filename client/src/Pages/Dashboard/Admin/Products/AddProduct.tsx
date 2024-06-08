@@ -155,7 +155,7 @@ const AddProduct = () => {
       //   toast.error("Sku already exists");
       // } else {
       setSkus([...skus, { ...sku }]);
-      handleRefreshVariantState();
+      // handleRefreshVariantState();
       // }
     }
   };
@@ -197,7 +197,7 @@ const AddProduct = () => {
     });
     createProduct(formData);
   };
-
+// console.log(skus)
   if (brandDataIsLoading || categoryDataIsLoading || attributeIsLoading) {
     return (
       <div className="min-h-screen flex justify-center items-center">
