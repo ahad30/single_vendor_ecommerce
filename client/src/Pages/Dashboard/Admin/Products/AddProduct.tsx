@@ -335,3 +335,57 @@ const AddProduct = () => {
 };
 
 export default AddProduct;
+
+
+
+// Create a new FormData object
+// const formData = new FormData();
+
+// Append product information
+// formData.append("name", "Product 4");
+// formData.append("slug", "product-4");
+// formData.append("category_id", 1);
+// formData.append("brand_id", 1);
+// formData.append("product_uid", "PRD-123456789");
+// formData.append("weight", "0.3kg");
+// formData.append("description", "Product 2 Description");
+// formData.append("is_published", true);
+// formData.append("list_type", "new-arrival");
+
+// // Append thumbnail image file
+// const thumbnailFile = document.querySelector('input[name="thumbnail"]').files[0];
+// formData.append("thumbnail", thumbnailFile);
+
+// // Append SKUs
+// const skus = [
+//     {
+//         "attributes": {
+//             "Color": "Black",
+//             "Size": "L"
+//         },
+//         "quantity": 20,
+//         "price": 200,
+//         "image": document.querySelector('input[name="sku_image_1"]').files[0]
+//     },
+//     {
+//         "attributes": {
+//             "Color": "Red",
+//             "Size": "XXL"
+//         },
+//         "quantity": 15,
+//         "price": 150,
+//         "image": document.querySelector('input[name="sku_image_2"]').files[0]
+//     }
+// ];
+
+// // Append SKUs to FormData
+// skus.forEach((sku, index) => {
+//     formData.append(`skus[${index}][attributes][Color]`, sku.attributes.Color);
+//     formData.append(`skus[${index}][attributes][Size]`, sku.attributes.Size);
+//     formData.append(`skus[${index}][quantity]`, sku.quantity);
+//     formData.append(`skus[${index}][price]`, sku.price);
+//     formData.append(`skus[${index}][image]`, sku.image);
+// });
+
+// Use the formData in a request (e.g., fetch API)
+
