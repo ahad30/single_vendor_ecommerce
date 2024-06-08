@@ -37,6 +37,7 @@ class ProductController extends Controller
     public function store(StoreProductRequest $request)
     {
         DB::transaction(function () use ($request, &$product) {
+            // upload thumbnail
             $thumbnailPath = $this->uploadImage($request, 'thumbnail', 'assets/images/products/thumbnails');
             // Create the product
             $product = Product::create([
@@ -63,7 +64,7 @@ class ProductController extends Controller
             }
 
             // Create SKU with attributes from the request
-            if ($request->is_single_product == false && isset($request['skus'])) {
+            if (isset($request['skus'])) {
                 $this->CreateSkuAttribute($product, $request);
             }
 
@@ -99,16 +100,17 @@ class ProductController extends Controller
     }
 
     // create variants for a product
-    protected function CreateSkuAttribute($product, $request): void
+    protected function CreateSkuAttribute($product, $request)
     {
         // Create skus
         foreach ($request['skus'] as $skuData) {
             $attributeIds = Attribute::whereIn('name', array_keys($skuData['attributes']))
                 ->pluck('id', 'name');
             // Create the SKU
-            $path = $this->uploadImage($skuData['image'], 'image', 'assets/images/products/sku-images');
+            $sku = $this->SkuMaker($skuData['attributes'], $product->id);
+            $path = $this->uploadSkuImage($skuData['image']);
             $sku = $product->skus()->create([
-                'sku_code' => $this->SkuMaker($skuData['attributes'], $product->id),
+                'sku_code' => $sku,
                 'price' => $skuData['price'],
                 'quantity' => $skuData['quantity'],
                 "image"  => $path,
@@ -128,14 +130,14 @@ class ProductController extends Controller
                     }
                 }
             }
-        }
 
-        // Attach all attribute values in bulk
-        $sku->attributeValues()->attach($attributesToAttach);
+            // Attach all attribute values in bulk
+            $sku->attributeValues()->attach($attributesToAttach);
+        }
     }
 
     // create sku code
-    protected function SkuMaker(array $data, int $id): string
+    protected function SkuMaker(array $data, $id): string
     {
         $skuAttributes = [];
         // Create the SKU by concatenating attribute values
@@ -160,5 +162,15 @@ class ProductController extends Controller
         $product->images()->create([
             'image' => $path,
         ]);
+    }
+
+    // upload sku image
+    protected function uploadSkuImage($image)
+    {
+        $directory = "assets/images/products/sku-images";
+        $extension = $image->getClientOriginalExtension();
+        $fileName = Str::uuid() . '.' . $extension;
+        $image->move(public_path($directory), $fileName);
+        return $directory . '/' . $fileName;
     }
 }
