@@ -16,10 +16,12 @@ const ZImageInput = ({
   label,
   defaultKey,
   setPriceQuantityImage,
+  refresh,
 }: {
   name: string;
   label: string;
   defaultKey?: "product";
+  refresh?: boolean;
   setPriceQuantityImage?: React.Dispatch<React.SetStateAction<any>>;
 }) => {
   const [imageList, setImageList] = useState<UploadFile[]>([]);
@@ -34,14 +36,28 @@ const ZImageInput = ({
     }
   }, [isAddModalOpen, isEditModalOpen]);
 
+  useEffect(() => {
+    if (defaultKey == "product") {
+      setImageList([]);
+    }
+  }, [refresh]);
+
   const handleChange = (info: any) => {
     const file = info.file;
-    // console.log("Uploaded file:", file);
 
-    if (setPriceQuantityImage && defaultKey === "product") {
+    if (
+      setPriceQuantityImage &&
+      defaultKey === "product" &&
+      info?.fileList?.length > 0
+    ) {
       setPriceQuantityImage((prev: any) => ({
         ...prev,
         image: file,
+      }));
+    } else if (setPriceQuantityImage) {
+      setPriceQuantityImage((prev: any) => ({
+        ...prev,
+        image: "",
       }));
     }
     // const newFileList: UploadFile[] = [

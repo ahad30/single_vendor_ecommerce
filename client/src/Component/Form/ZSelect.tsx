@@ -5,17 +5,20 @@ import { Form, Select } from "antd";
 import { useEffect } from "react";
 import { Controller, useFormContext } from "react-hook-form";
 
+export type TOptions = { label: string; value: string }[] | [] | undefined;
+
 type TSelect = {
   name: string;
   label: string;
   mode: "multiple" | "tags" | undefined;
-  options: { label: string; value: string }[] | [];
+  options: TOptions;
   isLoading?: boolean;
   value?: string | number | string[];
   setSelectedAttributes?: React.Dispatch<React.SetStateAction<string[]>>;
   setPerSku?: React.Dispatch<React.SetStateAction<string[] | number[]>>;
   defaultKey?: "product";
   selectedAttribute?: string[];
+  refresh?: boolean;
 };
 
 const ZSelect = ({
@@ -29,6 +32,7 @@ const ZSelect = ({
   setPerSku,
   defaultKey,
   selectedAttribute,
+  refresh,
 }: TSelect) => {
   const { control, setValue, resetField, getValues } = useFormContext();
 
@@ -38,22 +42,28 @@ const ZSelect = ({
     }
   }, [value, setValue]);
 
+  // this useEffect when a attribute is  deleted then corresponding value will be reset
   useEffect(() => {
     if (defaultKey == "product" && selectedAttribute && setPerSku) {
       const s = selectedAttribute.includes(name);
-      const nameVa = getValues(name)
+      const nameVa = getValues(name);
       if (s === false) {
         setPerSku((prev) => {
           const newPrev = [...prev];
-          const filtered = newPrev.filter(
-            (item) => item !== nameVa
-          );
+          const filtered = newPrev.filter((item) => item !== nameVa);
           return filtered;
         });
         resetField(name);
       }
     }
   }, [selectedAttribute, selectedAttribute?.length]);
+
+  // this useEffect delete all value of  all attributes
+  useEffect(() => {
+    if (defaultKey == "product" && selectedAttribute) {
+      selectedAttribute.forEach((item) => resetField(item));
+    }
+  }, [refresh]);
 
   const onChange = (value: string | string[]) => {
     if (

@@ -44,6 +44,7 @@ const DashboardSidebarTwo = ({
     setOpen(open === value ? "" : value);
   };
   const sidebarData = sidebarGenerator(adminRoutes as TRoutesData[]);
+
   const actualSideBar = sidebarData
     ?.map((item) => {
       if (item?.permissionName) {

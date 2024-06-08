@@ -10,13 +10,14 @@ use App\Models\Attribute;
 use App\Models\Product;
 use App\Models\AttributeValue;
 use App\Trait\PaginationTrait;
+use App\Trait\UploadImageTrait;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
-    use PaginationTrait;
+    use PaginationTrait, UploadImageTrait;
     /**
      * Display a listing of the resource.
      */
@@ -27,7 +28,6 @@ class ProductController extends Controller
 
         // Get response with paginated data
         $response = $this->getMetaPagination($data, $products);
-
         return Response::successWithPagination($response);
     }
 
@@ -37,6 +37,7 @@ class ProductController extends Controller
     public function store(StoreProductRequest $request)
     {
         DB::transaction(function () use ($request, &$product) {
+            $thumbnailPath = $this->uploadImage($request->thumbnail, 'thumbnail', 'assets/images/products/thumbnails');
             // Create the product
             $product = Product::create([
                 'name' => $request['name'],
@@ -48,7 +49,13 @@ class ProductController extends Controller
                 'weight' => $request->weight,
                 'slug' => Str::slug($request->name, '-'),
                 'product_uid' => uniqid('PRD-'),
+                'thumbnail' => $thumbnailPath,
             ]);
+
+            // create single products multiple images
+            if ($request->has('images')) {
+                $this->uploadSingleProductImages($request, $product);
+            }
 
             // Create SKU with attributes from the request
             if (isset($request['skus'])) {
@@ -61,19 +68,12 @@ class ProductController extends Controller
         return Response::created(new ProductResource($product), "Product successfully created");
     }
 
-
     /**
      * Display the specified resource.
      */
     public function show(Product $product)
     {
-        // return new ProductResource($product->with([
-        //     'skus.attributeValues'
-        //     ])->first());
-        return $product->with([
-            'skus.attributeValues',
-            'skus.attributeValues.attribute'
-        ])->first();
+        return new ProductResource($product->with('skus')->first());
     }
 
     /**
@@ -93,18 +93,20 @@ class ProductController extends Controller
         return Response::success(null, 'Product deleted successfully');
     }
 
-
-    protected function CreateSkuAttribute($product, $request)
+    // create variants for a product
+    protected function CreateSkuAttribute($product, $request): void
     {
         // Create skus
         foreach ($request['skus'] as $skuData) {
             $attributeIds = Attribute::whereIn('name', array_keys($skuData['attributes']))
                 ->pluck('id', 'name');
             // Create the SKU
+            $path = $this->uploadImage($skuData['image'], 'image', 'assets/images/products/sku-images');
             $sku = $product->skus()->create([
                 'sku_code' => $this->SkuMaker($skuData['attributes'], $product->id),
                 'price' => $skuData['price'],
                 'quantity' => $skuData['quantity'],
+                "image"  => $path,
             ]);
 
             // Prepare data for bulk attachment
@@ -127,6 +129,7 @@ class ProductController extends Controller
         $sku->attributeValues()->attach($attributesToAttach);
     }
 
+    // create sku code
     protected function SkuMaker(array $data, int $id): string
     {
         $skuAttributes = [];
@@ -138,5 +141,16 @@ class ProductController extends Controller
         $sku = "SKU" . $id . "-" . implode('-', $skuAttributes);
 
         return $sku;
+    }
+
+    // upload multiple image files for single products
+    protected function uploadSingleProductImages($request, $product): void
+    {
+        foreach ($request->images as $image) {
+            $path = $this->uploadImage($image, 'image', 'assets/images/products/images');
+            $product->images()->create([
+                'image' => $path,
+            ]);
+        }
     }
 }

@@ -22,6 +22,7 @@ return new class extends Migration
             $table->integer('unit_quantity')->nullable();
             $table->float('unit_price')->nullable();
             $table->text('description')->nullable();
+            $table->string('thumbnail')->nullable();
             $table->string('list_type')->default('new-arrival')->comment('top-sales | feature-product');
             $table->boolean('is_single_product')->default(true)->comment('true:single | false:varient');
             $table->boolean('is_published')->default(false);

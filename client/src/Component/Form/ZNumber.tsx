@@ -11,6 +11,7 @@ type TNumber = {
   label: string;
   value?: string;
   defaultKey?: "product";
+  refresh?: boolean;
   setPriceQuantityImage?: React.Dispatch<React.SetStateAction<any>>;
 };
 
@@ -20,14 +21,21 @@ const ZNumber = ({
   value,
   setPriceQuantityImage,
   defaultKey,
+  refresh,
 }: TNumber) => {
-  const { control, setValue } = useFormContext();
-
+  const { control, setValue, resetField } = useFormContext();
   useEffect(() => {
     if (value) {
       setValue(name, value);
     }
   }, [value, setValue]);
+
+  useEffect(() => {
+    if (defaultKey === "product") {
+      resetField("price");
+      resetField("quantity");
+    }
+  }, [refresh]);
 
   const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (!numberRegex.test(event.key)) {
