@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('product_id');
             $table->string('sku_code')->unique();
-            $table->float('price');
-            $table->integer('quantity');
+            $table->float('price')->nullable();
+            $table->integer('quantity')->nullable();
             $table->string('image')->nullable();
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->timestamps();
