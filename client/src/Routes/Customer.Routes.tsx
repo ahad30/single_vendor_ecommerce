@@ -2,6 +2,7 @@
 
 import { MdOutlineDashboardCustomize } from "react-icons/md";
 import CustomerDashboardStatics from "../Pages/Dashboard/User/Dashboard/CustomerDashboardStatics";
+import UserProfile from "../Pages/Dashboard/User/Profile/UserProfile";
 
 
 export const CustomerRoutes = [
@@ -9,6 +10,12 @@ export const CustomerRoutes = [
     path: "/user",
     label: "Dashboard",
     element: <CustomerDashboardStatics></CustomerDashboardStatics>,
+    icon: <MdOutlineDashboardCustomize></MdOutlineDashboardCustomize>,
+  },
+  {
+    path: "/user-profile",
+    label: "Profile",
+    element: <UserProfile></UserProfile>,
     icon: <MdOutlineDashboardCustomize></MdOutlineDashboardCustomize>,
   },
 

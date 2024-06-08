@@ -1,5 +1,9 @@
 const CustomerDashboardStatics = () => {
-  return <div>customerDashboardStatics</div>;
+  return (
+    <div>
+   
+    </div>
+  );
 };
 
 export default CustomerDashboardStatics;
