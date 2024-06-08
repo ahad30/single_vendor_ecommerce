@@ -30,6 +30,7 @@ class StoreProductRequest extends FormRequest
             'weight' => 'required|string|min:0',
             'description' => 'nullable|string',
             'is_published' => 'required|boolean',
+            'is_single_product' => 'required|boolean',
             'skus' => 'nullable|array|min:1',
             'skus.*.sku' => 'nullable|string|max:255|unique:skus,sku',
             'skus.*.attributes' => 'nullable|array',
