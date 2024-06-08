@@ -54,7 +54,7 @@ class ProductController extends Controller
             ]);
 
             // create single products multiple images
-            if ($request->has('images')) {
+            if ($request->images) {
                 $this->uploadSingleProductImages($request, $product);
             }
 
