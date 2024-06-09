@@ -36,13 +36,20 @@ class ProductController extends Controller
      */
     public function store(StoreProductRequest $request)
     {
-        DB::transaction(function () use ($request, &$product) {
+        // generate slug
+        $slug = $this->generateSlug($request->name);
+        // check if Product exists
+        if ($slug instanceof \Illuminate\Http\JsonResponse) {
+            return $slug;
+        }
+
+        DB::transaction(function () use ($request, $slug, &$product) {
             // upload thumbnail
             $thumbnailPath = $this->uploadImage($request, 'thumbnail', 'assets/images/products/thumbnails');
             // Create the product
             $product = Product::create([
                 'name' => $request['name'],
-                'slug' => Str::slug($request->name, '-'),
+                'slug' => $slug,
                 'product_uid' => uniqid('PRD-'),
                 'category_id' => $request->category_id,
                 'brand_id' => $request->brand_id,
@@ -97,6 +104,18 @@ class ProductController extends Controller
     {
         $product->delete();
         return Response::success(null, 'Product deleted successfully');
+    }
+
+    // generate slug for package
+    protected function generateSlug($name)
+    {
+        $slug = Str::slug($name);
+
+        if (Product::where('slug', $slug)->exists()) {
+            return Response::error('Product already exists', 409);
+        }
+
+        return $slug;
     }
 
     // create variants for a product
