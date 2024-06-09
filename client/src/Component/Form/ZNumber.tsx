@@ -105,6 +105,10 @@ const ZNumber = ({
               ? "Please enter a valid number, including fractions"
               : "Only digits 1 to 9 are allowed",
         },
+        maxLength: {
+          value: name === "price" || name === "singlePrice" ? 10 : 5,
+          message: `Maximum length is ${name === "price" ? 10 : 5} digits`,
+        },
       }}
       render={({ field, fieldState: { error } }) => (
         <Form.Item
@@ -120,6 +124,7 @@ const ZNumber = ({
             }}
             placeholder={label}
             onKeyPress={handleKeyPress}
+            maxLength={name === "price" || name === "singlePrice" ? 10 : 5}
           />
         </Form.Item>
       )}
