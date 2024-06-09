@@ -34,9 +34,7 @@ const ZSelect = ({
   const { control, setValue, resetField, getValues } = useFormContext();
   const [refreshKey, setRefreshKey] = useState(0);
 
-  const handleChange = () => {
-   
-  };
+
 
   useEffect(() => {
     if (name === "attribute-selected") {

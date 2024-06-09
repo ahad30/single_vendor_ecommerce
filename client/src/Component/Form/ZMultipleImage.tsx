@@ -3,6 +3,7 @@
 import { Form, Upload, Button } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import { Controller, useFormContext } from "react-hook-form";
+import { useEffect, useState } from "react";
 
 const ZMultipleImage = ({
   name,
@@ -15,7 +16,7 @@ const ZMultipleImage = ({
   reset?: boolean;
   singleSetPriceQuantityImage?: React.Dispatch<React.SetStateAction<any>>;
 }) => {
-  const { control } = useFormContext();
+  const { control, resetField } = useFormContext();
 
   const normFile = (e: any) => {
     if (Array.isArray(e)) {
@@ -25,8 +26,7 @@ const ZMultipleImage = ({
   };
   const onChange = (fileList: any) => {
     const images = fileList.map((item: any) => item.originFileObj);
-    if(singleSetPriceQuantityImage){
-
+    if (singleSetPriceQuantityImage) {
       singleSetPriceQuantityImage((prev: any) => ({
         ...prev,
         images: images,
