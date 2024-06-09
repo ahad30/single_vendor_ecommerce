@@ -12,12 +12,13 @@ const DashboardLayout = () => {
         <DashboardSidebarTwo></DashboardSidebarTwo>
       </div>
 
-      <div className="lg:hidden">
+      {/* for mobile */}
+      {/* <div className="lg:hidden">
         <DashboardSidebarTwo
           className={"absolute"}
           isSidebarOpen={isSidebarOpen}
         ></DashboardSidebarTwo>
-      </div>
+      </div> */}
 
       <div className="relative thin-scrollbar h-screen overflow-y-scroll w-full">
         <div className="w-full text-gray-900">

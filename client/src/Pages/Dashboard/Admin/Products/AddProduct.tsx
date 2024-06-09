@@ -23,6 +23,16 @@ import { productSchema } from "../../../../shcema/productSchema";
 import ZMultipleImage from "../../../../Component/Form/ZMultipleImage";
 import { useNavigate } from "react-router-dom";
 
+type TPerSkus = {
+  id: number;
+  sku: string;
+  price: number;
+  quantity: number;
+  attributes: {
+    [index: string]: string;
+  };
+};
+
 const AddProduct = () => {
   const navigate = useNavigate();
   // attribute State - 1 from db
@@ -102,8 +112,6 @@ const AddProduct = () => {
     }
   }, [CIsSuccess]);
 
- 
-
   const list_type = [
     { label: "New-arrival", value: "new-arrival" },
     { label: "Top-sales", value: "top-sales" },
@@ -161,6 +169,7 @@ const AddProduct = () => {
         attributes[proPertyKey] = proPertyValue;
       });
       const sku = {
+        id: skus.length + 1,
         sku: `${valuesName.join("-")}`,
         price: priceQuantityImage.price,
         quantity: priceQuantityImage.quantity,
@@ -277,9 +286,11 @@ const AddProduct = () => {
   }
   // console.log(skus);
 
-  console.log(singlePriceQuantityImage);
-  console.log(priceQuantityImage);
-  console.log(perSku);
+  // console.log(singlePriceQuantityImage);
+  // console.log(priceQuantityImage);
+  // console.log(perSku);
+
+  console.log(skus);
 
   return (
     <div>
@@ -473,10 +484,11 @@ const AddProduct = () => {
                 <Button
                   htmlType="button"
                   onClick={() => handleAddPerSkuInSkus()}
-                  type="primary"
-                  color="primary"
+                  // type="primary"
+                  style={{ backgroundColor: "#162447", color: "white" }}
+                  // color="primary"
                 >
-                  Add Variant
+                  + Add Variant
                 </Button>
               </div>
             </div>
@@ -486,63 +498,100 @@ const AddProduct = () => {
 
         {/* <ZImageInput label="Picture" name="image"></ZImageInput> */}
         {/* submit*/}
-        <Button type="primary" htmlType="submit" className="">
-          Submit
-        </Button>
+        <div className="mt-5">
+          <Button type="primary" htmlType="submit" className="">
+            Submit
+          </Button>
+        </div>
       </ZForm>
+
+      <VariantProductTable skus={skus} setSkus={setSkus}></VariantProductTable>
     </div>
   );
 };
 
 export default AddProduct;
 
-// Create a new FormData object
-// const formData = new FormData();
-
-// Append product information
-// formData.append("name", "Product 4");
-// formData.append("slug", "product-4");
-// formData.append("category_id", 1);
-// formData.append("brand_id", 1);
-// formData.append("product_uid", "PRD-123456789");
-// formData.append("weight", "0.3kg");
-// formData.append("description", "Product 2 Description");
-// formData.append("is_published", true);
-// formData.append("list_type", "new-arrival");
-
-// // Append thumbnail image file
-// const thumbnailFile = document.querySelector('input[name="thumbnail"]').files[0];
-// formData.append("thumbnail", thumbnailFile);
-
-// // Append SKUs
-// const skus = [
-//     {
-//         "attributes": {
-//             "Color": "Black",
-//             "Size": "L"
-//         },
-//         "quantity": 20,
-//         "price": 200,
-//         "image": document.querySelector('input[name="sku_image_1"]').files[0]
-//     },
-//     {
-//         "attributes": {
-//             "Color": "Red",
-//             "Size": "XXL"
-//         },
-//         "quantity": 15,
-//         "price": 150,
-//         "image": document.querySelector('input[name="sku_image_2"]').files[0]
-//     }
-// ];
-
-// // Append SKUs to FormData
-// skus.forEach((sku, index) => {
-//     formData.append(`skus[${index}][attributes][Color]`, sku.attributes.Color);
-//     formData.append(`skus[${index}][attributes][Size]`, sku.attributes.Size);
-//     formData.append(`skus[${index}][quantity]`, sku.quantity);
-//     formData.append(`skus[${index}][price]`, sku.price);
-//     formData.append(`skus[${index}][image]`, sku.image);
-// });
-
-// Use the formData in a request (e.g., fetch API)
+const VariantProductTable = ({
+  skus,
+  setSkus,
+}: {
+  skus: TPerSkus[];
+  setSkus: React.Dispatch<React.SetStateAction<TPerSkus[]>>;
+}) => {
+  return (
+    skus.length > 0 && (
+      <div>
+        <h1 className="text-center mb-5">
+          Check your added Variant of The Product{" "}
+        </h1>
+        <div className="relative flex flex-col w-full h-full overflow-scroll text-gray-700 bg-white shadow-md rounded-xl bg-clip-border">
+          <table className="w-full text-left table-auto min-w-max">
+            <thead>
+              <tr>
+                <th className="p-4 border-b border-blue-gray-100 bg-blue-gray-50">
+                  <p className="block font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
+                    Serial
+                  </p>
+                </th>
+                <th className="p-4 border-b border-blue-gray-100 bg-blue-gray-50">
+                  <p className="block font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
+                    Attributes Value
+                  </p>
+                </th>
+                <th className="p-4 border-b border-blue-gray-100 bg-blue-gray-50">
+                  <p className="block font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
+                    price
+                  </p>
+                </th>
+                <th className="p-4 border-b border-blue-gray-100 bg-blue-gray-50">
+                  <p className="block font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
+                    Quantity
+                  </p>
+                </th>
+                <th className="p-4 border-b border-blue-gray-100 bg-blue-gray-50">
+                  <p className="block font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
+                    Action
+                  </p>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {skus.map((item) => {
+                return (
+                  <tr>
+                    <td className="p-4 border-b border-blue-gray-50">
+                      <p className="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
+                        {item.id}
+                      </p>
+                    </td>
+                    <td className="p-4 border-b border-blue-gray-50">
+                      <p className="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
+                        {item.sku}
+                      </p>
+                    </td>
+                    <td className="p-4 border-b border-blue-gray-50">
+                      <p className="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
+                        {item.price}
+                      </p>
+                    </td>
+                    <td className="p-4 border-b border-blue-gray-50">
+                      <p className="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
+                        {item.quantity}
+                      </p>
+                    </td>
+                    <td className="p-4 border-b border-blue-gray-50">
+                      <p className="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
+                        Delete
+                      </p>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    )
+  );
+};
