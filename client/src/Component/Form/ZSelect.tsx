@@ -1,8 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable react-hooks/exhaustive-deps */
 import { Form, Select } from "antd";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Controller, useFormContext } from "react-hook-form";
 
 export type TOptions = { label: string; value: string }[] | [] | undefined;
@@ -35,6 +32,16 @@ const ZSelect = ({
   refresh,
 }: TSelect) => {
   const { control, setValue, resetField, getValues } = useFormContext();
+  const [refreshKey, setRefreshKey] = useState(0);
+
+
+
+  useEffect(() => {
+    if (name === "attribute-selected") {
+      resetField("attribute-selected");
+    }
+    setRefreshKey((prevKey) => prevKey + 1);
+  }, []);
 
   useEffect(() => {
     if (value) {
@@ -42,9 +49,8 @@ const ZSelect = ({
     }
   }, [value, setValue]);
 
-  // this useEffect when a attribute is  deleted then corresponding value will be reset
   useEffect(() => {
-    if (defaultKey == "product" && selectedAttribute && setPerSku) {
+    if (defaultKey === "product" && selectedAttribute && setPerSku) {
       const s = selectedAttribute.includes(name);
       const nameVa = getValues(name);
       if (s === false) {
@@ -58,9 +64,19 @@ const ZSelect = ({
     }
   }, [selectedAttribute, selectedAttribute?.length]);
 
-  // this useEffect delete all value of  all attributes
   useEffect(() => {
-    if (defaultKey == "product" && selectedAttribute) {
+    if (defaultKey === "product") {
+      if (setPerSku) {
+        setPerSku([]);
+      }
+      if (setSelectedAttributes) {
+        setSelectedAttributes([]);
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    if (defaultKey === "product" && selectedAttribute) {
       selectedAttribute.forEach((item) => resetField(item));
     }
   }, [refresh]);
@@ -69,11 +85,11 @@ const ZSelect = ({
     if (
       setSelectedAttributes &&
       mode === "multiple" &&
-      defaultKey == "product"
+      defaultKey === "product"
     ) {
       setSelectedAttributes([...value]);
     }
-    if (mode === undefined && setPerSku && defaultKey == "product") {
+    if (mode === undefined && setPerSku && defaultKey === "product") {
       setPerSku((prev) => {
         const newPrev: any = [...prev];
         if (Array.isArray(value)) {
@@ -108,7 +124,6 @@ const ZSelect = ({
     // console.log("search:", value);
   };
 
-  // Filter `option.label` match the user type `input`
   const filterOption = (
     input: string,
     option?: { label: string; value: string }
@@ -116,6 +131,7 @@ const ZSelect = ({
 
   return (
     <Controller
+      key={refreshKey} // Add key to force re-render on refreshKey change
       name={name}
       control={control}
       render={({ field, fieldState: { error } }) => (
