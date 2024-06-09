@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FieldValues, SubmitHandler } from "react-hook-form";
 import {
@@ -20,8 +21,10 @@ import { toast } from "sonner";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { productSchema } from "../../../../shcema/productSchema";
 import ZMultipleImage from "../../../../Component/Form/ZMultipleImage";
+import { useNavigate } from "react-router-dom";
 
 const AddProduct = () => {
+  const navigate = useNavigate();
   // attribute State - 1 from db
   const [attributeValue, setAttributeValue] = useState<TAttributes[]>([]);
   // selected attribute State - 2
@@ -92,6 +95,14 @@ const AddProduct = () => {
       setAttributeValue([...attributeWithValue.data]);
     }
   }, [attributeWithValue, attributeWithValue?.data]);
+
+  useEffect(() => {
+    if (CIsSuccess) {
+      navigate("/admin/products");
+    }
+  }, [CIsSuccess]);
+
+ 
 
   const list_type = [
     { label: "New-arrival", value: "new-arrival" },
@@ -255,7 +266,8 @@ const AddProduct = () => {
       }
     }
   };
-  console.log(skus);
+
+  // console.log(perSku);
   if (brandDataIsLoading || categoryDataIsLoading || attributeIsLoading) {
     return (
       <div className="min-h-screen flex justify-center items-center">
@@ -264,7 +276,11 @@ const AddProduct = () => {
     );
   }
   // console.log(skus);
+
   console.log(singlePriceQuantityImage);
+  console.log(priceQuantityImage);
+  console.log(perSku);
+
   return (
     <div>
       <ZForm
@@ -401,6 +417,7 @@ const AddProduct = () => {
               label={"Select Attributes"}
               name={"attribute-selected"}
               defaultKey="product"
+              refresh={refresh}
             ></ZSelect>
             {/* selected attribute underTheValue */}
             <div className="border border-gray-400 p-3">
