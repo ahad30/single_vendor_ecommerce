@@ -3,7 +3,7 @@
 import { Form, Upload, Button } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import { Controller, useFormContext } from "react-hook-form";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 const ZMultipleImage = ({
   name,
@@ -16,7 +16,7 @@ const ZMultipleImage = ({
   reset?: boolean;
   singleSetPriceQuantityImage?: React.Dispatch<React.SetStateAction<any>>;
 }) => {
-  const { control, resetField } = useFormContext();
+  const { control, resetField, watch } = useFormContext();
 
   const normFile = (e: any) => {
     if (Array.isArray(e)) {
@@ -24,6 +24,7 @@ const ZMultipleImage = ({
     }
     return e?.fileList;
   };
+
   const onChange = (fileList: any) => {
     const images = fileList.map((item: any) => item.originFileObj);
     if (singleSetPriceQuantityImage) {
@@ -33,10 +34,20 @@ const ZMultipleImage = ({
       }));
     }
   };
+
+  const fileList = watch(name) || [];
+
+  useEffect(() => {
+    if (resetField) {
+      resetField(name, { defaultValue: [] });
+    }
+  }, [resetField, name]);
+
   return (
     <Controller
       name={name}
       control={control}
+      defaultValue={[]} // Ensuring the default value is an empty array
       render={({ field, fieldState: { error } }) => (
         <Form.Item
           label={label}
@@ -52,7 +63,7 @@ const ZMultipleImage = ({
               field.onChange(fileList);
               onChange(fileList);
             }}
-            fileList={field.value}
+            fileList={field.value || []} // Ensure the fileList is an empty array by default
             maxCount={4}
           >
             <Button icon={<UploadOutlined />}>Upload (Max: 4)</Button>
