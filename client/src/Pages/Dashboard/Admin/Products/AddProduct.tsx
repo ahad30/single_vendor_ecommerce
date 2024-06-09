@@ -186,9 +186,49 @@ const AddProduct = () => {
       weight: `${data.weight}kg`,
     };
 
+    // check if the product is single product
     if (modifiedData.is_single_product == 1) {
-      console.log("singleProduct");
-    } else if (modifiedData.is_single_product == 0) {
+      if (singlePriceQuantityImage.singlePrice == "") {
+        toast.error("single product price required", {
+          id: 10,
+          duration: 1000,
+          position: "top-right",
+        });
+      }
+      if (singlePriceQuantityImage.singleQuantity == "") {
+        toast.error("single product quantity required", {
+          id: 2,
+          duration: 1000,
+          position: "top-right",
+        });
+      }
+
+      if (
+        singlePriceQuantityImage.singlePrice &&
+        singlePriceQuantityImage.singleQuantity
+      ) {
+        const formData = new FormData();
+        for (const key in modifiedData) {
+          formData.append(key, modifiedData[key]);
+        }
+        formData.append("unit_price", singlePriceQuantityImage.singlePrice);
+        formData.append(
+          "unit_quantity",
+          singlePriceQuantityImage.singleQuantity
+        );
+        if (
+          Array.isArray(singlePriceQuantityImage.images) &&
+          singlePriceQuantityImage.images.length > 0
+        ) {
+          singlePriceQuantityImage.images.forEach((element) => {
+            formData.append("images[]", element);
+          });
+        }
+        createProduct(formData);
+      }
+    }
+    // check if product is variant product
+    else if (modifiedData.is_single_product == 0) {
       if (skus.length > 0) {
         const formData = new FormData();
         for (const key in modifiedData) {
