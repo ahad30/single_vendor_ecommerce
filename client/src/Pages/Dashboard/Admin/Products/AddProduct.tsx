@@ -22,8 +22,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { productSchema } from "../../../../shcema/productSchema";
 import ZMultipleImage from "../../../../Component/Form/ZMultipleImage";
 import { useNavigate } from "react-router-dom";
+import { VariantProductTable } from "../../../../Component/Dashborad/VariantProductTable";
 
-type TPerSkus = {
+export type TPerSkus = {
   id: number;
   sku: string;
   price: number;
@@ -512,86 +513,4 @@ const AddProduct = () => {
 
 export default AddProduct;
 
-const VariantProductTable = ({
-  skus,
-  setSkus,
-}: {
-  skus: TPerSkus[];
-  setSkus: React.Dispatch<React.SetStateAction<TPerSkus[]>>;
-}) => {
-  return (
-    skus.length > 0 && (
-      <div>
-        <h1 className="text-center mb-5">
-          Check your added Variant of The Product{" "}
-        </h1>
-        <div className="relative flex flex-col w-full h-full overflow-scroll text-gray-700 bg-white shadow-md rounded-xl bg-clip-border">
-          <table className="w-full text-left table-auto min-w-max">
-            <thead>
-              <tr>
-                <th className="p-4 border-b border-blue-gray-100 bg-blue-gray-50">
-                  <p className="block font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
-                    Serial
-                  </p>
-                </th>
-                <th className="p-4 border-b border-blue-gray-100 bg-blue-gray-50">
-                  <p className="block font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
-                    Attributes Value
-                  </p>
-                </th>
-                <th className="p-4 border-b border-blue-gray-100 bg-blue-gray-50">
-                  <p className="block font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
-                    price
-                  </p>
-                </th>
-                <th className="p-4 border-b border-blue-gray-100 bg-blue-gray-50">
-                  <p className="block font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
-                    Quantity
-                  </p>
-                </th>
-                <th className="p-4 border-b border-blue-gray-100 bg-blue-gray-50">
-                  <p className="block font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
-                    Action
-                  </p>
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {skus.map((item) => {
-                return (
-                  <tr>
-                    <td className="p-4 border-b border-blue-gray-50">
-                      <p className="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
-                        {item.id}
-                      </p>
-                    </td>
-                    <td className="p-4 border-b border-blue-gray-50">
-                      <p className="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
-                        {item.sku}
-                      </p>
-                    </td>
-                    <td className="p-4 border-b border-blue-gray-50">
-                      <p className="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
-                        {item.price}
-                      </p>
-                    </td>
-                    <td className="p-4 border-b border-blue-gray-50">
-                      <p className="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
-                        {item.quantity}
-                      </p>
-                    </td>
-                    <td className="p-4 border-b border-blue-gray-50">
-                      <p className="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
-                        Delete
-                      </p>
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
-      </div>
-    )
-  );
-};
+
