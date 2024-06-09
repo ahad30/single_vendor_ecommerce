@@ -1,38 +1,21 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useEffect } from "react";
+
 import { Form, Upload, Button } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import { Controller, useFormContext } from "react-hook-form";
-import { RootState } from "../../Redux/store";
-import { useAppSelector } from "../../Redux/hook";
 
 const ZMultipleImage = ({
   name,
   label,
-  value,
-  reset,
+  singleSetPriceQuantityImage,
 }: {
   name: string;
   label: string;
   value?: any[];
   reset?: boolean;
+  singleSetPriceQuantityImage?: React.Dispatch<React.SetStateAction<any>>;
 }) => {
-  const { control, setValue, resetField } = useFormContext();
-  const { isEditModalOpen } = useAppSelector((state: RootState) => state.modal);
-
-  useEffect(() => {
-    if (value) {
-      setValue(name, value);
-    }
-  }, [value, setValue]);
-
-  useEffect(() => {
-    if (reset === true) {
-      if (!isEditModalOpen) {
-        resetField(name);
-      }
-    }
-  }, [reset, isEditModalOpen]);
+  const { control } = useFormContext();
 
   const normFile = (e: any) => {
     if (Array.isArray(e)) {
@@ -42,7 +25,13 @@ const ZMultipleImage = ({
   };
   const onChange = (fileList: any) => {
     const images = fileList.map((item: any) => item.originFileObj);
-    console.log(images);
+    if(singleSetPriceQuantityImage){
+
+      singleSetPriceQuantityImage((prev: any) => ({
+        ...prev,
+        images: images,
+      }));
+    }
   };
   return (
     <Controller
@@ -66,7 +55,7 @@ const ZMultipleImage = ({
             fileList={field.value}
             maxCount={4}
           >
-            <Button icon={<UploadOutlined />}>Upload Images</Button>
+            <Button icon={<UploadOutlined />}>Upload (Max: 4)</Button>
           </Upload>
         </Form.Item>
       )}

@@ -46,6 +46,12 @@ const AddProduct = () => {
     image: "",
     quantity: "",
   });
+  // single -----> image file , price , quantity - 9
+  const [singlePriceQuantityImage, singleSetPriceQuantityImage] = useState({
+    singlePrice: "",
+    images: "",
+    singleQuantity: "",
+  });
 
   // const final skus - 8
   const [skus, setSkus] = useState<any[]>([]);
@@ -218,6 +224,7 @@ const AddProduct = () => {
     );
   }
   // console.log(skus);
+  console.log(singlePriceQuantityImage);
   return (
     <div>
       <ZForm
@@ -319,7 +326,24 @@ const AddProduct = () => {
         {/* single Product type start */}
         {productType === "1" && (
           <div>
-            <ZMultipleImage name="s" label="multiple image"></ZMultipleImage>
+            <ZMultipleImage
+              singleSetPriceQuantityImage={singleSetPriceQuantityImage}
+              name="s"
+              label="multiple image"
+            ></ZMultipleImage>
+
+            <ZNumber
+              defaultKey="singleProduct"
+              setPriceQuantityImage={singleSetPriceQuantityImage}
+              label="Price($)"
+              name="singlePrice"
+            ></ZNumber>
+            <ZNumber
+              setPriceQuantityImage={singleSetPriceQuantityImage}
+              defaultKey="singleProduct"
+              label="Quantity"
+              name="singleQuantity"
+            ></ZNumber>
           </div>
         )}
 
