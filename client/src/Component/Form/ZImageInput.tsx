@@ -17,11 +17,13 @@ const ZImageInput = ({
   defaultKey,
   setPriceQuantityImage,
   refresh,
+  maxCount,
 }: {
   name: string;
   label: string;
   defaultKey?: "product";
   refresh?: boolean;
+  maxCount?: number;
   setPriceQuantityImage?: React.Dispatch<React.SetStateAction<any>>;
 }) => {
   const [imageList, setImageList] = useState<UploadFile[]>([]);
@@ -44,7 +46,7 @@ const ZImageInput = ({
 
   const handleChange = (info: any) => {
     const file = info.file;
-
+    console.log(info);
     if (
       setPriceQuantityImage &&
       defaultKey === "product" &&

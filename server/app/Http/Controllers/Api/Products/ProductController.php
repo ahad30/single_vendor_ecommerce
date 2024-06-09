@@ -86,7 +86,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        return new ProductResource($product->with('skus')->first());
+        return new ProductResource($product->load('skus'));
     }
 
     /**
