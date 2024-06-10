@@ -1,21 +1,19 @@
 import { Link, useLocation } from "react-router-dom";
 import { CustomerRoutes } from "../../Routes/Customer.Routes";
 import { sidebarGenerator } from "../../utils/sidebarGenerator";
-import { useState } from "react";
 
 
 const CustomerDashboardSidebar = () => {
     const sidebarData = sidebarGenerator(CustomerRoutes)
     // console.log(sidebarData)
-    const [open, setOpen] = useState("");
     const { pathname } = useLocation();
     console.log(pathname);
     return (
-        <div className="bg-white w-[320px] rounded-md py-3">
+        <div className="bg-white w-72 rounded-md py-3 shadow-2xl">
             {/* thi div contains image and user name */}
             <div>
                 <div className="mb-5  flex flex-col justify-center items-center">
-                    <img className="w-40 h-40" src="https://i.ibb.co/J3ChPyM/istockphoto-1451587807-612x612.jpg" alt="" />
+                    <img className="w-40 h-40 rounded-full" src="https://i.ibb.co/NLpp7vt/depositphotos-176214104-stock-illustration-default-avatar-profile-icon.webp" alt="" />
                     <h1 className="text-[#265edd] font-medium text-[20px]">Sabiha Wasema</h1>
                 </div>
                 {/* sidebar data */}
