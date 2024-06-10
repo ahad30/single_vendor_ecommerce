@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Form, Input } from "antd";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Controller, useFormContext } from "react-hook-form";
 
 const numberRegex = /^[1-9]+$/;
@@ -25,13 +25,14 @@ const ZNumber = ({
   refresh,
 }: TNumber) => {
   const { control, setValue, resetField } = useFormContext();
-
+  const [refreshKey, setRefreshKey] = useState(0);
   useEffect(() => {
     if (value) {
       setValue(name, value);
     }
   }, [value, setValue]);
 
+  // when refresh the value will be reset
   useEffect(() => {
     if (defaultKey === "product") {
       resetField("price");
@@ -57,6 +58,7 @@ const ZNumber = ({
     }
   };
 
+  // by default value will empty
   useEffect(() => {
     if (defaultKey === "singleProduct" && setPriceQuantityImage) {
       setPriceQuantityImage((prev: any) => ({

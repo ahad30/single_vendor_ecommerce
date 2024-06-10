@@ -137,6 +137,10 @@ const AddProduct = () => {
     }
   }, [selectedAttribute.length, selectedAttribute, attributeValue]);
 
+  useEffect(() => {
+    setSkus([]);
+  }, [productType]);
+
   const handleAddPerSkuInSkus = () => {
     const attributes: { [index: string]: string } = {};
     const valuesName: string[] = [];
@@ -295,14 +299,10 @@ const AddProduct = () => {
       </div>
     );
   }
-  // console.log(skus);
-
-  // console.log(singlePriceQuantityImage);
-  // console.log(priceQuantityImage);
-  // console.log(perSku);
-
-  // console.log(skus);
-  // Function to normalize the variant object for comparison
+  console.log({ perSku, name: "persku" });
+  console.log({ skus, name: "skus" });
+  console.log({ priceQuantityImage, name: "priceQuantityImage" });
+  console.log({ singlePriceQuantityImage, name: "SinglepriceQuantityImage" });
 
   return (
     <div>
@@ -516,7 +516,6 @@ const AddProduct = () => {
           </Button>
         </div>
       </ZForm>
-
       <VariantProductTable skus={skus} setSkus={setSkus}></VariantProductTable>
     </div>
   );
