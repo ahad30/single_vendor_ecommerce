@@ -13,7 +13,8 @@ import OrderLog from "../Pages/Dashboard/User/Order/OrderLog";
 import ReviewProducts from "../Pages/Dashboard/User/ReviewProducts/ReviewProducts";
 import SupportTickets from "../Pages/Dashboard/User/SupportTickets/SupportTickets";
 import ChangePassword from "../Pages/Dashboard/User/ChangePassword/ChangePassword";
-
+import Settings from "../Pages/Dashboard/User/Settings/Settings";
+import { IoMdSettings } from "react-icons/io";
 
 export const CustomerRoutes = [
   {
@@ -57,6 +58,12 @@ export const CustomerRoutes = [
     label: "Change Password",
     element: <ChangePassword />,
     icon: <IoKeyOutline />,
+  },
+  {
+    path: "/user/settings",
+    label: "Account Settings",
+    element: <Settings />,
+    icon: <IoMdSettings />,
   },
   {
     path: "/user/sign-out",

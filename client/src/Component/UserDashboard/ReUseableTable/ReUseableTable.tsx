@@ -26,7 +26,9 @@ const ReUseableTable = ({ columns, data, defaultKey, subTitle }) => {
                 >
                     <tr className="  font-serif">
                         {columns.map(column => (
-                            <th key={column.dataIndex} className="px-4 py-2 font-light border-[#e5e9ee] border-[1px]">{column.title}</th>
+                            <th key={column.dataIndex} 
+                            className="px-4 py-2 font-normal border-[#e5e9ee] border-[1px]"
+                            >{column.title}</th>
                         ))}
                     </tr>
                 </thead>
