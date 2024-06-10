@@ -25,6 +25,16 @@ import { useNavigate } from "react-router-dom";
 import { VariantProductTable } from "../../../../Component/Dashborad/VariantProductTable";
 import { variantExists } from "../../../../helper/SameVariantExist";
 
+function generateUniqueId(length = 8) {
+  const chars =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  let result = "";
+  for (let i = 0; i < length; i++) {
+    result += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+  return result;
+}
+
 export type TPerSkus = {
   id: number;
   sku: string;
@@ -176,7 +186,7 @@ const AddProduct = () => {
         attributes[proPertyKey] = proPertyValue;
       });
       const sku = {
-        id: skus.length + 1,
+        id: generateUniqueId(),
         sku: `${valuesName.join("-")}`,
         price: priceQuantityImage.price,
         quantity: priceQuantityImage.quantity,
@@ -185,13 +195,14 @@ const AddProduct = () => {
       };
 
       if (skus.length == 0) {
-        setVariants([...vairants, sku.attributes]);
+        // setVariants([...vairants, sku.attributes]);
         setSkus([...skus, { ...sku }]);
         handleRefreshVariantState();
       } else if (skus.length > 0) {
-        const exist = variantExists(vairants, sku.attributes);
+        const skusAttributes = skus.map((sku) => sku.attributes);
+        const exist = variantExists(skusAttributes, sku.attributes);
         if (!exist) {
-          setVariants([...vairants, sku.attributes]);
+          // setVariants([...vairants, sku.attributes]);
           setSkus([...skus, { ...sku }]);
           handleRefreshVariantState();
         } else {

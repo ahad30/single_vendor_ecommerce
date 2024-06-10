@@ -49,12 +49,12 @@ export const VariantProductTable = ({
               </tr>
             </thead>
             <tbody>
-              {skus.map((item) => {
+              {skus.map((item, index) => {
                 return (
                   <tr key={item.id}>
                     <td className="p-4 border-b border-blue-gray-50">
                       <p className="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
-                        {item.id}
+                        {index + 1}
                       </p>
                     </td>
                     <td className="p-4 border-b border-blue-gray-50">
