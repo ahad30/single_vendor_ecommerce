@@ -24,6 +24,17 @@ import ZMultipleImage from "../../../../Component/Form/ZMultipleImage";
 import { useNavigate } from "react-router-dom";
 import { VariantProductTable } from "../../../../Component/Dashborad/VariantProductTable";
 import { variantExists } from "../../../../helper/SameVariantExist";
+import ZCkEditor from "../../../../Component/Form/ZCkEditor";
+
+function generateUniqueId(length = 8) {
+  const chars =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  let result = "";
+  for (let i = 0; i < length; i++) {
+    result += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+  return result;
+}
 
 export type TPerSkus = {
   id: number;
@@ -114,6 +125,11 @@ const AddProduct = () => {
     }
   }, [CIsSuccess]);
 
+  // sku deleted when switch another variant
+  useEffect(() => {
+    setSkus([]);
+  }, [productType]);
+
   const list_type = [
     { label: "New-arrival", value: "new-arrival" },
     { label: "Top-sales", value: "top-sales" },
@@ -171,7 +187,7 @@ const AddProduct = () => {
         attributes[proPertyKey] = proPertyValue;
       });
       const sku = {
-        id: skus.length + 1,
+        id: generateUniqueId(),
         sku: `${valuesName.join("-")}`,
         price: priceQuantityImage.price,
         quantity: priceQuantityImage.quantity,
@@ -180,13 +196,14 @@ const AddProduct = () => {
       };
 
       if (skus.length == 0) {
-        setVariants([...vairants, sku.attributes]);
+        // setVariants([...vairants, sku.attributes]);
         setSkus([...skus, { ...sku }]);
         handleRefreshVariantState();
       } else if (skus.length > 0) {
-        const exist = variantExists(vairants, sku.attributes);
+        const skusAttributes = skus.map((sku) => sku.attributes);
+        const exist = variantExists(skusAttributes, sku.attributes);
         if (!exist) {
-          setVariants([...vairants, sku.attributes]);
+          // setVariants([...vairants, sku.attributes]);
           setSkus([...skus, { ...sku }]);
           handleRefreshVariantState();
         } else {
@@ -295,14 +312,10 @@ const AddProduct = () => {
       </div>
     );
   }
-  // console.log(skus);
-
-  // console.log(singlePriceQuantityImage);
-  // console.log(priceQuantityImage);
-  // console.log(perSku);
-
-  // console.log(skus);
-  // Function to normalize the variant object for comparison
+  // console.log({ perSku, name: "persku" });
+  // console.log({ skus, name: "skus" });
+  // console.log({ priceQuantityImage, name: "priceQuantityImage" });
+  // console.log({ singlePriceQuantityImage, name: "SinglepriceQuantityImage" });
 
   return (
     <div>
@@ -516,7 +529,7 @@ const AddProduct = () => {
           </Button>
         </div>
       </ZForm>
-
+      <ZCkEditor></ZCkEditor>
       <VariantProductTable skus={skus} setSkus={setSkus}></VariantProductTable>
     </div>
   );

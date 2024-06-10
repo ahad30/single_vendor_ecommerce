@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Form, Input } from "antd";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Controller, useFormContext } from "react-hook-form";
 
 const numberRegex = /^[1-9]+$/;
@@ -27,11 +28,26 @@ const ZNumber = ({
   const { control, setValue, resetField } = useFormContext();
 
   useEffect(() => {
+    if (name === "price") {
+      resetField(name, { defaultValue: "" });
+    }
+    if (name === "quantity") 
+      resetField(name, { defaultValue: "" });
+
+    if (name === "singlePrice") {
+      resetField(name, { defaultValue: "" });
+    }
+    if (name === "singleQuantity") {
+      resetField(name, { defaultValue: "" });
+    }
+  }, [resetField]);
+  useEffect(() => {
     if (value) {
       setValue(name, value);
     }
   }, [value, setValue]);
 
+  // when refresh the value will be reset
   useEffect(() => {
     if (defaultKey === "product") {
       resetField("price");
@@ -57,6 +73,7 @@ const ZNumber = ({
     }
   };
 
+  // by default value will empty
   useEffect(() => {
     if (defaultKey === "singleProduct" && setPriceQuantityImage) {
       setPriceQuantityImage((prev: any) => ({
@@ -118,6 +135,7 @@ const ZNumber = ({
         >
           <Input
             {...field}
+            value={field.value}
             onChange={(e) => {
               field.onChange(e.target.value);
               handleChange(e.target.value);
