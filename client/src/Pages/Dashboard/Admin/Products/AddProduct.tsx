@@ -299,10 +299,10 @@ const AddProduct = () => {
       </div>
     );
   }
-  console.log({ perSku, name: "persku" });
-  console.log({ skus, name: "skus" });
-  console.log({ priceQuantityImage, name: "priceQuantityImage" });
-  console.log({ singlePriceQuantityImage, name: "SinglepriceQuantityImage" });
+  // console.log({ perSku, name: "persku" });
+  // console.log({ skus, name: "skus" });
+  // console.log({ priceQuantityImage, name: "priceQuantityImage" });
+  // console.log({ singlePriceQuantityImage, name: "SinglepriceQuantityImage" });
 
   return (
     <div>
