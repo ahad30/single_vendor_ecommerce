@@ -55,7 +55,8 @@ const PaymentLog = () => {
 
     return (
         <>
-            <ReUseableTable defaultKey={"PaymentLog"} data={data} columns={columns} subTitle={"No History Found"} />
+            <ReUseableTable defaultKey={"PaymentLog"} 
+            data={data} columns={columns} subTitle={"No history found."} />
 
         </>
     );
