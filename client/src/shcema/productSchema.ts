@@ -16,7 +16,7 @@ export const productSchema: any = z.object({
     .regex(
       weightRegex,
       "Weight must be a positive number with optional fractions"
-    ),
+    ).optional(),
 
   is_published: z.string().nonempty("Please fill the list type"),
   is_single_product: z.string().nonempty("Please fill the list type"),
