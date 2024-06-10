@@ -131,4 +131,14 @@
 }
 
 
+/* ant table style */
+/* .ant-table .ant-table-thead{
+   background-color: #265eda !important; 
+} */
+.ant-table-thead > tr > th {
+  background-color: #265eda !important;
+  color: white !important;
+  /* border: none !important; */
+}
+
 

@@ -1,8 +1,8 @@
 import ZForm from "../../../../Component/Form/ZForm";
 import ZInput from "../../../../Component/Form/ZInput";
 import ZInputTextArea from "../../../../Component/Form/ZInputTextArea";
-import ReUseableButton from "../../../../Component/UserDashboard/ReUseableButton";
 import { FaEdit } from "react-icons/fa";
+import ReUseableButton from "../../../../Component/UserDashboard/ReUseableButton/ReUseableButton";
 
 const UserProfile = () => {
     const handleImage = () => {
