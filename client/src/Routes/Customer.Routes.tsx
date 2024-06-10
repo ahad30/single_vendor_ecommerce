@@ -8,54 +8,60 @@ import { IoStarSharp } from "react-icons/io5";
 import { BsTicket } from "react-icons/bs";
 import { IoKeyOutline } from "react-icons/io5";
 import { AiOutlineLogout } from "react-icons/ai";
+import PaymentLog from "../Pages/Dashboard/User/Payment/PaymentLog";
+import OrderLog from "../Pages/Dashboard/User/Order/OrderLog";
+import ReviewProducts from "../Pages/Dashboard/User/ReviewProducts/ReviewProducts";
+import SupportTickets from "../Pages/Dashboard/User/SupportTickets/SupportTickets";
+import ChangePassword from "../Pages/Dashboard/User/ChangePassword/ChangePassword";
+import SignOut from "../Pages/Dashboard/User/SignOut/SignOut";
 
 export const CustomerRoutes = [
   {
     path: "/user",
     label: "Dashboard",
-    element: <CustomerDashboardStatics></CustomerDashboardStatics>,
+    element: <CustomerDashboardStatics />,
     icon: <IoHomeOutline />,
   },
   {
     path: "/user/user-profile",
     label: "Profile",
-    element: <UserProfile></UserProfile>,
+    element: <UserProfile/>,
     icon: <AiOutlineUser />,
   },
   {
     path: "/user/payment-log",
     label: "Payment Log",
-    element: <UserProfile></UserProfile>,
+    element: <PaymentLog/>,
     icon: <TbMapDollar />,
   },
   {
     path: "/user/order-log",
     label: "Order Log",
-    element: <UserProfile></UserProfile>,
+    element: <OrderLog/>,
     icon: <CiBoxList />,
   },
   {
     path: "/user/review-products",
     label: "Review Products",
-    element: <UserProfile></UserProfile>,
+    element: <ReviewProducts/>,
     icon: <IoStarSharp />,
   },
   {
     path: "/user/support-tickets",
     label: "Support Tickets",
-    element: <UserProfile></UserProfile>,
+    element: <SupportTickets/>,
     icon: <BsTicket />,
   },
   {
     path: "/user/change-password",
     label: "Change Password",
-    element: <UserProfile></UserProfile>,
+    element: <ChangePassword/>,
     icon: <IoKeyOutline />,
   },
   {
     path: "/user/sign-out",
     label: "Sign Out",
-    element: <UserProfile></UserProfile>,
+    element: <SignOut/>,
     icon: <AiOutlineLogout />,
   },
 
