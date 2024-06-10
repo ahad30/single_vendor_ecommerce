@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Form, Select } from "antd";
 import { useEffect, useState } from "react";
 import { Controller, useFormContext } from "react-hook-form";
@@ -34,8 +36,6 @@ const ZSelect = ({
   const { control, setValue, resetField, getValues } = useFormContext();
   const [refreshKey, setRefreshKey] = useState(0);
 
-
-
   useEffect(() => {
     if (name === "attribute-selected") {
       resetField("attribute-selected");
@@ -57,7 +57,7 @@ const ZSelect = ({
         setPerSku((prev) => {
           const newPrev = [...prev];
           const filtered = newPrev.filter((item) => item !== nameVa);
-          return filtered;
+          return filtered as string[];
         });
         resetField(name);
       }

@@ -24,6 +24,7 @@ import ZMultipleImage from "../../../../Component/Form/ZMultipleImage";
 import { useNavigate } from "react-router-dom";
 import { VariantProductTable } from "../../../../Component/Dashborad/VariantProductTable";
 import { variantExists } from "../../../../helper/SameVariantExist";
+import ZCkEditor from "../../../../Component/Form/ZCkEditor";
 
 function generateUniqueId(length = 8) {
   const chars =
@@ -528,6 +529,7 @@ const AddProduct = () => {
           </Button>
         </div>
       </ZForm>
+      <ZCkEditor></ZCkEditor>
       <VariantProductTable skus={skus} setSkus={setSkus}></VariantProductTable>
     </div>
   );
