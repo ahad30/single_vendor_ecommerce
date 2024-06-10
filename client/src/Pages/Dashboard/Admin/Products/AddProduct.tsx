@@ -65,7 +65,7 @@ const AddProduct = () => {
 
   // per sku - 6
   const [perSku, setPerSku] = useState<string[] | number[]>([]);
-  const [vairants, setVariants] = useState<{ [index: string]: string }[]>([]);
+
   // image file , price , quantity - 7 for vairant product
   const [priceQuantityImage, setPriceQuantityImage] = useState({
     price: "",
@@ -95,6 +95,8 @@ const AddProduct = () => {
       data,
     },
   ] = useCreateProductMutation();
+
+  const [description, setDescription] = useState("");
 
   // attribute withe value from db
   const { data: attributeWithValue, isLoading: attributeIsLoading } =
@@ -234,6 +236,9 @@ const AddProduct = () => {
       weight: `${data.weight}kg`,
     };
 
+    if (description === "") {
+      return toast.error("Please enter a description", { id: 12 });
+    }
     // check if the product is single product
     if (modifiedData.is_single_product == 1) {
       if (singlePriceQuantityImage.singlePrice == "") {
@@ -316,7 +321,7 @@ const AddProduct = () => {
   // console.log({ skus, name: "skus" });
   // console.log({ priceQuantityImage, name: "priceQuantityImage" });
   // console.log({ singlePriceQuantityImage, name: "SinglepriceQuantityImage" });
-
+  // console.log(description);
   return (
     <div>
       <ZForm
@@ -336,7 +341,11 @@ const AddProduct = () => {
           <ZInput label={"Product name"} name={"name"} type={"text"}></ZInput>
 
           {/* wight */}
-          <ZInput label={"Wight (kg)"} name={"weight"} type={"text"}></ZInput>
+          <ZInput
+            label={"Weight(kg) (optional)"}
+            name={"weight"}
+            type={"text"}
+          ></ZInput>
           {/* list type */}
           <ZSelect
             options={list_type}
@@ -345,56 +354,61 @@ const AddProduct = () => {
             label={"List type"}
             name={"list_type"}
           ></ZSelect>
-          {/* category options */}
-          <ZSelect
-            options={
-              categoryData?.data?.map((item) => ({
-                label: item?.name,
-                value: item?.id,
-              })) as TOptions
-            }
-            isLoading={categoryDataIsLoading}
-            mode={undefined}
-            label={"Select category"}
-            name={"category_id"}
-          ></ZSelect>
-          {/* brand options */}
-          <ZSelect
-            options={
-              brandData?.data?.map((item) => ({
-                label: item?.name,
-                value: item?.id,
-              })) as TOptions
-            }
-            isLoading={categoryDataIsLoading}
-            mode={undefined}
-            label={"Select brand"}
-            name={"brand_id"}
-          ></ZSelect>
-          {/* publish  */}
-          <ZRadio
-            options={[
-              {
-                name: "Published",
-                value: "1",
-              },
-              {
-                name: "Unpublished",
-                value: "0",
-              },
-            ]}
-            name={"is_published"}
-            label={"Publish status"}
-          ></ZRadio>
+          {/* category and brand */}
+          <div className="md:col-span-3 grid gap-x-4 lg:grid-cols-2">
+            {/* category options */}
+            <ZSelect
+              options={
+                categoryData?.data?.map((item) => ({
+                  label: item?.name,
+                  value: item?.id,
+                })) as TOptions
+              }
+              isLoading={categoryDataIsLoading}
+              mode={undefined}
+              label={"Select category"}
+              name={"category_id"}
+            ></ZSelect>
+            {/* brand options */}
+            <ZSelect
+              options={
+                brandData?.data?.map((item) => ({
+                  label: item?.name,
+                  value: item?.id,
+                })) as TOptions
+              }
+              isLoading={categoryDataIsLoading}
+              mode={undefined}
+              label={"Select brand"}
+              name={"brand_id"}
+            ></ZSelect>
+          </div>
+          {/* published and thumbnail image */}
+          <div>
+            {/* publish  */}
+            <ZRadio
+              options={[
+                {
+                  name: "Published",
+                  value: "1",
+                },
+                {
+                  name: "Unpublished",
+                  value: "0",
+                },
+              ]}
+              name={"is_published"}
+              label={"Publish status"}
+            ></ZRadio>
 
-          {/* thumbnail iamge */}
-          <ZImageInput label="Thumbnail Image" name="thumbnail"></ZImageInput>
+            {/* thumbnail iamge */}
+            <ZImageInput label="Thumbnail Image" name="thumbnail"></ZImageInput>
+          </div>
           {/* description */}
-          <ZInput
-            label={"Description"}
-            name={"description"}
-            type={"text"}
-          ></ZInput>
+          <div className="md:col-span-3">
+            <p className="mb-2">Description</p>
+            <ZCkEditor setDescription={setDescription}></ZCkEditor>
+          </div>
         </div>
         <div className="mt-7">
           <h5 className="text-xl  pb-2 mb-2  ">Type of products</h5>
@@ -529,7 +543,7 @@ const AddProduct = () => {
           </Button>
         </div>
       </ZForm>
-      <ZCkEditor></ZCkEditor>
+
       <VariantProductTable skus={skus} setSkus={setSkus}></VariantProductTable>
     </div>
   );
