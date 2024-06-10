@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Form, Input } from "antd";
@@ -30,9 +31,9 @@ const ZNumber = ({
     if (name === "price") {
       resetField(name, { defaultValue: "" });
     }
-    if (name === "quantity") {
+    if (name === "quantity") 
       resetField(name, { defaultValue: "" });
-    }
+
     if (name === "singlePrice") {
       resetField(name, { defaultValue: "" });
     }

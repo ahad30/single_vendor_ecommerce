@@ -114,6 +114,11 @@ const AddProduct = () => {
     }
   }, [CIsSuccess]);
 
+  // sku deleted when switch another variant
+  useEffect(() => {
+    setSkus([]);
+  }, [productType]);
+
   const list_type = [
     { label: "New-arrival", value: "new-arrival" },
     { label: "Top-sales", value: "top-sales" },
@@ -136,10 +141,6 @@ const AddProduct = () => {
       setSelectedAttributeUnderTheValue([...(arr || [])]);
     }
   }, [selectedAttribute.length, selectedAttribute, attributeValue]);
-
-  useEffect(() => {
-    setSkus([]);
-  }, [productType]);
 
   const handleAddPerSkuInSkus = () => {
     const attributes: { [index: string]: string } = {};
