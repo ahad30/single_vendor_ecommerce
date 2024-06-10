@@ -236,6 +236,9 @@ const AddProduct = () => {
       weight: `${data.weight}kg`,
     };
 
+    if (description === "") {
+      return toast.error("Please enter a description", { id: 12 });
+    }
     // check if the product is single product
     if (modifiedData.is_single_product == 1) {
       if (singlePriceQuantityImage.singlePrice == "") {
@@ -318,7 +321,7 @@ const AddProduct = () => {
   // console.log({ skus, name: "skus" });
   // console.log({ priceQuantityImage, name: "priceQuantityImage" });
   // console.log({ singlePriceQuantityImage, name: "SinglepriceQuantityImage" });
-  console.log(description);
+  // console.log(description);
   return (
     <div>
       <ZForm
