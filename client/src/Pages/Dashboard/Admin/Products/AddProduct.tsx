@@ -65,7 +65,7 @@ const AddProduct = () => {
 
   // per sku - 6
   const [perSku, setPerSku] = useState<string[] | number[]>([]);
-  const [vairants, setVariants] = useState<{ [index: string]: string }[]>([]);
+
   // image file , price , quantity - 7 for vairant product
   const [priceQuantityImage, setPriceQuantityImage] = useState({
     price: "",
@@ -95,6 +95,8 @@ const AddProduct = () => {
       data,
     },
   ] = useCreateProductMutation();
+
+  const [description, setDescription] = useState("");
 
   // attribute withe value from db
   const { data: attributeWithValue, isLoading: attributeIsLoading } =
@@ -316,7 +318,7 @@ const AddProduct = () => {
   // console.log({ skus, name: "skus" });
   // console.log({ priceQuantityImage, name: "priceQuantityImage" });
   // console.log({ singlePriceQuantityImage, name: "SinglepriceQuantityImage" });
-
+  console.log(description);
   return (
     <div>
       <ZForm
@@ -389,12 +391,10 @@ const AddProduct = () => {
 
           {/* thumbnail iamge */}
           <ZImageInput label="Thumbnail Image" name="thumbnail"></ZImageInput>
-          {/* description */}
-          <ZInput
-            label={"Description"}
-            name={"description"}
-            type={"text"}
-          ></ZInput>
+          <div className="col-span-3">
+            <p className="mb-2">Description</p>
+            <ZCkEditor setDescription={setDescription}></ZCkEditor>
+          </div>
         </div>
         <div className="mt-7">
           <h5 className="text-xl  pb-2 mb-2  ">Type of products</h5>
@@ -529,7 +529,7 @@ const AddProduct = () => {
           </Button>
         </div>
       </ZForm>
-      <ZCkEditor></ZCkEditor>
+
       <VariantProductTable skus={skus} setSkus={setSkus}></VariantProductTable>
     </div>
   );
