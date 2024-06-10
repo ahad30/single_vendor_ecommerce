@@ -13,7 +13,7 @@ import OrderLog from "../Pages/Dashboard/User/Order/OrderLog";
 import ReviewProducts from "../Pages/Dashboard/User/ReviewProducts/ReviewProducts";
 import SupportTickets from "../Pages/Dashboard/User/SupportTickets/SupportTickets";
 import ChangePassword from "../Pages/Dashboard/User/ChangePassword/ChangePassword";
-import SignOut from "../Pages/Dashboard/User/SignOut/SignOut";
+
 
 export const CustomerRoutes = [
   {
@@ -25,65 +25,45 @@ export const CustomerRoutes = [
   {
     path: "/user/user-profile",
     label: "Profile",
-    element: <UserProfile/>,
+    element: <UserProfile />,
     icon: <AiOutlineUser />,
   },
   {
     path: "/user/payment-log",
     label: "Payment Log",
-    element: <PaymentLog/>,
+    element: <PaymentLog />,
     icon: <TbMapDollar />,
   },
   {
     path: "/user/order-log",
     label: "Order Log",
-    element: <OrderLog/>,
+    element: <OrderLog />,
     icon: <CiBoxList />,
   },
   {
     path: "/user/review-products",
     label: "Review Products",
-    element: <ReviewProducts/>,
+    element: <ReviewProducts />,
     icon: <IoStarSharp />,
   },
   {
     path: "/user/support-tickets",
     label: "Support Tickets",
-    element: <SupportTickets/>,
+    element: <SupportTickets />,
     icon: <BsTicket />,
   },
   {
     path: "/user/change-password",
     label: "Change Password",
-    element: <ChangePassword/>,
+    element: <ChangePassword />,
     icon: <IoKeyOutline />,
   },
   {
     path: "/user/sign-out",
     label: "Sign Out",
-    element: <SignOut/>,
+    element: "",
     icon: <AiOutlineLogout />,
   },
 
 
-  //   {
-  //     label: "E-commerce",
-  //     icon: (
-  //       <MdOutlineShoppingCartCheckout size={20}></MdOutlineShoppingCartCheckout>
-  //     ),
-  //     children: [
-  //       {
-  //         path: "categories",
-  //         label: "Category",
-  //         element: <Category></Category>,
-  //         permissionName: "view category",
-  //       },
-  //       {
-  //         path: "brands",
-  //         label: "Brands",
-  //         element: <Brand></Brand>,
-  //         permissionName: "view brand",
-  //       },
-  //     ],
-  //   },
 ];

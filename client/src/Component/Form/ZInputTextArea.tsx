@@ -44,7 +44,7 @@ const ZInputTextArea = ({
                     validateStatus={error ? "error" : ""}
                     help={error?.message}
                 >
-                    <Input.TextArea {...field} placeholder={label} />
+                    <Input.TextArea {...field} placeholder={label}  />
                 </Form.Item>
             )}
         />
