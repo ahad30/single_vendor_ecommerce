@@ -90,3 +90,10 @@ export const VariantProductTable = ({
     )
   );
 };
+
+// const = [
+//   {color: "black", size: "xl" , storage : "128"},
+//   {color: "Black", size: "5xl" , storage : "128"},
+//   { storage : "128" , color: "Black", size: "5xl" ,},
+
+// ]
