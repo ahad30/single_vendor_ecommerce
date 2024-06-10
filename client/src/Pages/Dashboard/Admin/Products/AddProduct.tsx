@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FieldValues, SubmitHandler } from "react-hook-form";
 import {
@@ -19,8 +20,22 @@ import { Button } from "antd";
 import { toast } from "sonner";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { productSchema } from "../../../../shcema/productSchema";
+import ZMultipleImage from "../../../../Component/Form/ZMultipleImage";
+import { useNavigate } from "react-router-dom";
+import { VariantProductTable } from "../../../../Component/Dashborad/VariantProductTable";
+
+export type TPerSkus = {
+  id: number;
+  sku: string;
+  price: number;
+  quantity: number;
+  attributes: {
+    [index: string]: string;
+  };
+};
 
 const AddProduct = () => {
+  const navigate = useNavigate();
   // attribute State - 1 from db
   const [attributeValue, setAttributeValue] = useState<TAttributes[]>([]);
   // selected attribute State - 2
@@ -44,6 +59,12 @@ const AddProduct = () => {
     price: "",
     image: "",
     quantity: "",
+  });
+  // single -----> image file , price , quantity - 9
+  const [singlePriceQuantityImage, singleSetPriceQuantityImage] = useState({
+    singlePrice: "",
+    images: "",
+    singleQuantity: "",
   });
 
   // const final skus - 8
@@ -85,6 +106,12 @@ const AddProduct = () => {
       setAttributeValue([...attributeWithValue.data]);
     }
   }, [attributeWithValue, attributeWithValue?.data]);
+
+  useEffect(() => {
+    if (CIsSuccess) {
+      navigate("/admin/products");
+    }
+  }, [CIsSuccess]);
 
   const list_type = [
     { label: "New-arrival", value: "new-arrival" },
@@ -134,7 +161,7 @@ const AddProduct = () => {
       perSku.length > 0 &&
       priceQuantityImage.quantity &&
       priceQuantityImage.price &&
-      priceQuantityImage
+      priceQuantityImage.image
     ) {
       perSku.forEach((element) => {
         const proPertyKey = (element as string).split("-")[0];
@@ -143,6 +170,7 @@ const AddProduct = () => {
         attributes[proPertyKey] = proPertyValue;
       });
       const sku = {
+        id: skus.length + 1,
         sku: `${valuesName.join("-")}`,
         price: priceQuantityImage.price,
         quantity: priceQuantityImage.quantity,
@@ -155,7 +183,7 @@ const AddProduct = () => {
       //   toast.error("Sku already exists");
       // } else {
       setSkus([...skus, { ...sku }]);
-      // handleRefreshVariantState();
+      handleRefreshVariantState();
       // }
     }
   };
@@ -172,32 +200,84 @@ const AddProduct = () => {
   };
 
   const handleSubmit: SubmitHandler<FieldValues> = (data) => {
-    const formData = new FormData();
     const modifiedData: any = {
       ...data,
       is_published: Number(data.is_published),
       is_single_product: Number(data.is_single_product),
       weight: `${data.weight}kg`,
     };
-    for (const key in modifiedData) {
-      formData.append(key, modifiedData[key]);
-    }
-    skus.forEach((sku, index) => {
-      // formData.append(`skus[${index}][sku]`, sku.sku);
-      formData.append(`skus[${index}][quantity]`, sku.quantity);
-      formData.append(`skus[${index}][price]`, sku.price);
-      formData.append(`skus[${index}][image]`, sku.image);
 
-      for (const attr in sku.attributes) {
-        formData.append(
-          `skus[${index}][attributes][${attr}]`,
-          sku.attributes[attr]
-        );
+    // check if the product is single product
+    if (modifiedData.is_single_product == 1) {
+      if (singlePriceQuantityImage.singlePrice == "") {
+        toast.error("single product price required", {
+          id: 10,
+          duration: 1000,
+          position: "top-right",
+        });
       }
-    });
-    createProduct(formData);
+      if (singlePriceQuantityImage.singleQuantity == "") {
+        toast.error("single product quantity required", {
+          id: 2,
+          duration: 1000,
+          position: "top-right",
+        });
+      }
+
+      if (
+        singlePriceQuantityImage.singlePrice &&
+        singlePriceQuantityImage.singleQuantity
+      ) {
+        const formData = new FormData();
+        for (const key in modifiedData) {
+          formData.append(key, modifiedData[key]);
+        }
+        formData.append("unit_price", singlePriceQuantityImage.singlePrice);
+        formData.append(
+          "unit_quantity",
+          singlePriceQuantityImage.singleQuantity
+        );
+        if (
+          Array.isArray(singlePriceQuantityImage.images) &&
+          singlePriceQuantityImage.images.length > 0
+        ) {
+          singlePriceQuantityImage.images.forEach((element) => {
+            formData.append("images[]", element);
+          });
+        }
+        createProduct(formData);
+      }
+    }
+    // check if product is variant product
+    else if (modifiedData.is_single_product == 0) {
+      if (skus.length > 0) {
+        const formData = new FormData();
+        for (const key in modifiedData) {
+          formData.append(key, modifiedData[key]);
+        }
+        skus.forEach((sku, index) => {
+          formData.append(`skus[${index}][quantity]`, sku.quantity);
+          formData.append(`skus[${index}][price]`, sku.price);
+          formData.append(`skus[${index}][image]`, sku.image);
+          for (const attr in sku.attributes) {
+            formData.append(
+              `skus[${index}][attributes][${attr}]`,
+              sku.attributes[attr]
+            );
+          }
+        });
+        createProduct(formData);
+      } else {
+        toast.error("Missing variant attribute", {
+          id: 1,
+          duration: 1000,
+          position: "top-right",
+        });
+      }
+    }
   };
-// console.log(skus)
+
+  // console.log(perSku);
   if (brandDataIsLoading || categoryDataIsLoading || attributeIsLoading) {
     return (
       <div className="min-h-screen flex justify-center items-center">
@@ -205,7 +285,14 @@ const AddProduct = () => {
       </div>
     );
   }
+  // console.log(skus);
+
+  // console.log(singlePriceQuantityImage);
+  // console.log(priceQuantityImage);
+  // console.log(perSku);
+
   console.log(skus);
+
   return (
     <div>
       <ZForm
@@ -305,7 +392,28 @@ const AddProduct = () => {
         </div>
 
         {/* single Product type start */}
-        {productType === "1" && <div>single Product type</div>}
+        {productType === "1" && (
+          <div>
+            <ZMultipleImage
+              singleSetPriceQuantityImage={singleSetPriceQuantityImage}
+              name="s"
+              label="multiple image"
+            ></ZMultipleImage>
+
+            <ZNumber
+              defaultKey="singleProduct"
+              setPriceQuantityImage={singleSetPriceQuantityImage}
+              label="Price($)"
+              name="singlePrice"
+            ></ZNumber>
+            <ZNumber
+              setPriceQuantityImage={singleSetPriceQuantityImage}
+              defaultKey="singleProduct"
+              label="Quantity"
+              name="singleQuantity"
+            ></ZNumber>
+          </div>
+        )}
 
         {/* variant Product type start */}
         {productType === "0" && (
@@ -321,6 +429,7 @@ const AddProduct = () => {
               label={"Select Attributes"}
               name={"attribute-selected"}
               defaultKey="product"
+              refresh={refresh}
             ></ZSelect>
             {/* selected attribute underTheValue */}
             <div className="border border-gray-400 p-3">
@@ -376,10 +485,11 @@ const AddProduct = () => {
                 <Button
                   htmlType="button"
                   onClick={() => handleAddPerSkuInSkus()}
-                  type="primary"
-                  color="primary"
+                  // type="primary"
+                  style={{ backgroundColor: "#162447", color: "white" }}
+                  // color="primary"
                 >
-                  Add Variant
+                  + Add Variant
                 </Button>
               </div>
             </div>
@@ -389,63 +499,18 @@ const AddProduct = () => {
 
         {/* <ZImageInput label="Picture" name="image"></ZImageInput> */}
         {/* submit*/}
-        <Button type="primary" htmlType="submit" className="">
-          Submit
-        </Button>
+        <div className="mt-5">
+          <Button type="primary" htmlType="submit" className="">
+            Submit
+          </Button>
+        </div>
       </ZForm>
+
+      <VariantProductTable skus={skus} setSkus={setSkus}></VariantProductTable>
     </div>
   );
 };
 
 export default AddProduct;
 
-// Create a new FormData object
-// const formData = new FormData();
 
-// Append product information
-// formData.append("name", "Product 4");
-// formData.append("slug", "product-4");
-// formData.append("category_id", 1);
-// formData.append("brand_id", 1);
-// formData.append("product_uid", "PRD-123456789");
-// formData.append("weight", "0.3kg");
-// formData.append("description", "Product 2 Description");
-// formData.append("is_published", true);
-// formData.append("list_type", "new-arrival");
-
-// // Append thumbnail image file
-// const thumbnailFile = document.querySelector('input[name="thumbnail"]').files[0];
-// formData.append("thumbnail", thumbnailFile);
-
-// // Append SKUs
-// const skus = [
-//     {
-//         "attributes": {
-//             "Color": "Black",
-//             "Size": "L"
-//         },
-//         "quantity": 20,
-//         "price": 200,
-//         "image": document.querySelector('input[name="sku_image_1"]').files[0]
-//     },
-//     {
-//         "attributes": {
-//             "Color": "Red",
-//             "Size": "XXL"
-//         },
-//         "quantity": 15,
-//         "price": 150,
-//         "image": document.querySelector('input[name="sku_image_2"]').files[0]
-//     }
-// ];
-
-// // Append SKUs to FormData
-// skus.forEach((sku, index) => {
-//     formData.append(`skus[${index}][attributes][Color]`, sku.attributes.Color);
-//     formData.append(`skus[${index}][attributes][Size]`, sku.attributes.Size);
-//     formData.append(`skus[${index}][quantity]`, sku.quantity);
-//     formData.append(`skus[${index}][price]`, sku.price);
-//     formData.append(`skus[${index}][image]`, sku.image);
-// });
-
-// Use the formData in a request (e.g., fetch API)

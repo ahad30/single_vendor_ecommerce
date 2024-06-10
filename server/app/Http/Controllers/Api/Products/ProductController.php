@@ -36,26 +36,38 @@ class ProductController extends Controller
      */
     public function store(StoreProductRequest $request)
     {
-        DB::transaction(function () use ($request, &$product) {
-            $thumbnailPath = $this->uploadImage($request->thumbnail, 'thumbnail', 'assets/images/products/thumbnails');
+        // generate slug
+        $slug = $this->generateSlug($request->name);
+        // check if Product exists
+        if ($slug instanceof \Illuminate\Http\JsonResponse) {
+            return $slug;
+        }
+
+        DB::transaction(function () use ($request, $slug, &$product) {
+            // upload thumbnail
+            $thumbnailPath = $this->uploadImage($request, 'thumbnail', 'assets/images/products/thumbnails');
             // Create the product
             $product = Product::create([
                 'name' => $request['name'],
+                'slug' => $slug,
+                'product_uid' => uniqid('PRD-'),
                 'category_id' => $request->category_id,
                 'brand_id' => $request->brand_id,
                 'description' => $request->description,
                 'is_published' => $request->is_published,
                 'list_type' => $request->list_type,
                 'weight' => $request->weight,
-                'slug' => Str::slug($request->name, '-'),
-                'product_uid' => uniqid('PRD-'),
-                'thumbnail' => $thumbnailPath,
                 'is_single_product' => $request->is_single_product,
+                'thumbnail' => $thumbnailPath,
+                'unit_price' => $request->unit_price,
+                'unit_quantity' => $request->unit_quantity,
             ]);
 
             // create single products multiple images
-            if ($request->images) {
-                $this->uploadSingleProductImages($request, $product);
+            if ($request->hasFile('images')) {
+                foreach ($request->images as $image) {
+                    $this->uploadSingleProductImages($image, $product);
+                }
             }
 
             // Create SKU with attributes from the request
@@ -74,7 +86,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        return new ProductResource($product->with('skus')->first());
+        return new ProductResource($product->load('skus'));
     }
 
     /**
@@ -94,17 +106,30 @@ class ProductController extends Controller
         return Response::success(null, 'Product deleted successfully');
     }
 
+    // generate slug for package
+    protected function generateSlug($name)
+    {
+        $slug = Str::slug($name);
+
+        if (Product::where('slug', $slug)->exists()) {
+            return Response::error('Product already exists', 409);
+        }
+
+        return $slug;
+    }
+
     // create variants for a product
-    protected function CreateSkuAttribute($product, $request): void
+    protected function CreateSkuAttribute($product, $request)
     {
         // Create skus
         foreach ($request['skus'] as $skuData) {
             $attributeIds = Attribute::whereIn('name', array_keys($skuData['attributes']))
                 ->pluck('id', 'name');
             // Create the SKU
-            $path = $this->uploadImage($skuData['image'], 'image', 'assets/images/products/sku-images');
+            $sku = $this->SkuMaker($skuData['attributes'], $product->id);
+            $path = $this->uploadSkuImage($skuData['image']);
             $sku = $product->skus()->create([
-                'sku_code' => $this->SkuMaker($skuData['attributes'], $product->id),
+                'sku_code' => $sku,
                 'price' => $skuData['price'],
                 'quantity' => $skuData['quantity'],
                 "image"  => $path,
@@ -124,14 +149,14 @@ class ProductController extends Controller
                     }
                 }
             }
-        }
 
-        // Attach all attribute values in bulk
-        $sku->attributeValues()->attach($attributesToAttach);
+            // Attach all attribute values in bulk
+            $sku->attributeValues()->attach($attributesToAttach);
+        }
     }
 
     // create sku code
-    protected function SkuMaker(array $data, int $id): string
+    protected function SkuMaker(array $data, $id): string
     {
         $skuAttributes = [];
         // Create the SKU by concatenating attribute values
@@ -145,13 +170,26 @@ class ProductController extends Controller
     }
 
     // upload multiple image files for single products
-    protected function uploadSingleProductImages($request, $product): void
+    protected function uploadSingleProductImages($image, $product)
     {
-        foreach ($request->images as $image) {
-            $path = $this->uploadImage($image, 'image', 'assets/images/products/images');
-            $product->images()->create([
-                'image' => $path,
-            ]);
-        }
+        $directory = "assets/images/products/images";
+        $extension = $image->getClientOriginalExtension();
+        $fileName = Str::uuid() . '.' . $extension;
+        $image->move(public_path($directory), $fileName);
+        $path = $directory . '/' . $fileName;
+
+        $product->images()->create([
+            'image' => $path,
+        ]);
+    }
+
+    // upload sku image
+    protected function uploadSkuImage($image)
+    {
+        $directory = "assets/images/products/sku-images";
+        $extension = $image->getClientOriginalExtension();
+        $fileName = Str::uuid() . '.' . $extension;
+        $image->move(public_path($directory), $fileName);
+        return $directory . '/' . $fileName;
     }
 }

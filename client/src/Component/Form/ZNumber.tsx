@@ -5,12 +5,13 @@ import { useEffect } from "react";
 import { Controller, useFormContext } from "react-hook-form";
 
 const numberRegex = /^[1-9]+$/;
+const fractionRegex = /^[0-9]*\.?[0-9]*$/;
 
 type TNumber = {
   name: string;
   label: string;
   value?: string;
-  defaultKey?: "product";
+  defaultKey?: "product" | "singleProduct";
   refresh?: boolean;
   setPriceQuantityImage?: React.Dispatch<React.SetStateAction<any>>;
 };
@@ -24,6 +25,7 @@ const ZNumber = ({
   refresh,
 }: TNumber) => {
   const { control, setValue, resetField } = useFormContext();
+
   useEffect(() => {
     if (value) {
       setValue(name, value);
@@ -38,13 +40,48 @@ const ZNumber = ({
   }, [refresh]);
 
   const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (!numberRegex.test(event.key)) {
+    const regex =
+      name === "price" || name === "singlePrice" ? fractionRegex : numberRegex;
+
+    // Prevent multiple decimal points
+    if (
+      (event.key === "." || event.key === ",") &&
+      event.currentTarget.value.includes(".")
+    ) {
+      event.preventDefault();
+      return;
+    }
+
+    if (!regex.test(event.key)) {
       event.preventDefault();
     }
   };
 
+  useEffect(() => {
+    if (defaultKey === "singleProduct" && setPriceQuantityImage) {
+      setPriceQuantityImage((prev: any) => ({
+        images: "",
+        singleQuantity: "",
+        singlePrice: "",
+      }));
+    }
+    if (defaultKey === "product" && setPriceQuantityImage) {
+      setPriceQuantityImage((prev: any) => ({
+        image: "",
+        price: "",
+        quantity: "",
+      }));
+    }
+  }, []);
+
   const handleChange = (val: any) => {
     if (defaultKey === "product" && setPriceQuantityImage) {
+      setPriceQuantityImage((prev: any) => ({
+        ...prev,
+        [name]: Number(val),
+      }));
+    }
+    if (defaultKey === "singleProduct" && setPriceQuantityImage) {
       setPriceQuantityImage((prev: any) => ({
         ...prev,
         [name]: Number(val),
@@ -57,10 +94,20 @@ const ZNumber = ({
       name={name}
       control={control}
       rules={{
-        required: "Number is required",
+        required: `${label} is required`,
         pattern: {
-          value: numberRegex,
-          message: "Only digits 1 to 9 are allowed",
+          value:
+            name === "price" || name === "singlePrice"
+              ? fractionRegex
+              : numberRegex,
+          message:
+            name === "price" || name === "singlePrice"
+              ? "Please enter a valid number, including fractions"
+              : "Only digits 1 to 9 are allowed",
+        },
+        maxLength: {
+          value: name === "price" || name === "singlePrice" ? 10 : 5,
+          message: `Maximum length is ${name === "price" ? 10 : 5} digits`,
         },
       }}
       render={({ field, fieldState: { error } }) => (
@@ -77,6 +124,7 @@ const ZNumber = ({
             }}
             placeholder={label}
             onKeyPress={handleKeyPress}
+            maxLength={name === "price" || name === "singlePrice" ? 10 : 5}
           />
         </Form.Item>
       )}
