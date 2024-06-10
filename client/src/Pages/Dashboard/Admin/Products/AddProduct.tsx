@@ -23,6 +23,7 @@ import { productSchema } from "../../../../shcema/productSchema";
 import ZMultipleImage from "../../../../Component/Form/ZMultipleImage";
 import { useNavigate } from "react-router-dom";
 import { VariantProductTable } from "../../../../Component/Dashborad/VariantProductTable";
+import { variantExists } from "../../../../helper/SameVariantExist";
 
 export type TPerSkus = {
   id: number;
@@ -53,7 +54,7 @@ const AddProduct = () => {
 
   // per sku - 6
   const [perSku, setPerSku] = useState<string[] | number[]>([]);
-
+  const [vairants, setVariants] = useState<{ [index: string]: string }[]>([]);
   // image file , price , quantity - 7 for vairant product
   const [priceQuantityImage, setPriceQuantityImage] = useState({
     price: "",
@@ -178,13 +179,22 @@ const AddProduct = () => {
         attributes,
       };
 
-      // const finTheExistSku = skus.find((item) => item.sku == sku.sku);
-      // if (finTheExistSku) {
-      //   toast.error("Sku already exists");
-      // } else {
-      setSkus([...skus, { ...sku }]);
-      handleRefreshVariantState();
-      // }
+      if (skus.length == 0) {
+        setVariants([...vairants, sku.attributes]);
+        setSkus([...skus, { ...sku }]);
+        handleRefreshVariantState();
+      } else if (skus.length > 0) {
+        const exist = variantExists(vairants, sku.attributes);
+        if (!exist) {
+          setVariants([...vairants, sku.attributes]);
+          setSkus([...skus, { ...sku }]);
+          handleRefreshVariantState();
+        } else {
+          toast.error("Already exists the variant of the product", {
+            duration: 2000,
+          });
+        }
+      }
     }
   };
 
@@ -291,7 +301,8 @@ const AddProduct = () => {
   // console.log(priceQuantityImage);
   // console.log(perSku);
 
-  console.log(skus);
+  // console.log(skus);
+  // Function to normalize the variant object for comparison
 
   return (
     <div>
@@ -512,5 +523,3 @@ const AddProduct = () => {
 };
 
 export default AddProduct;
-
-
