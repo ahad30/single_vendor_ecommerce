@@ -5,7 +5,7 @@ import { Form, Input } from "antd";
 import { useEffect, useState } from "react";
 import { Controller, useFormContext } from "react-hook-form";
 
-const numberRegex = /^[1-9]+$/;
+const numberRegex = /^[0-9]+$/;
 const fractionRegex = /^[0-9]*\.?[0-9]*$/;
 
 type TNumber = {
