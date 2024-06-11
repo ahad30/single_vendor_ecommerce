@@ -58,8 +58,11 @@ class CategoryController extends Controller
      */
     public function update(UpdateCategoryRequest $request, Category $category)
     {
-        $path = $this->uploadImage($request, 'image', 'assets/images/categories', $category->image);
-        $data = array_merge($request->validated(), ['image' => $path ?: $category->image]);
+        $data = $request->validated();
+        if ($path = $this->uploadImage($request, 'image', 'assets/images/categories', $category->image)) {
+            $inputs['image'] = $path;
+        }
+
         $category->update($data);
 
         return Response::updated(new CategoryResource($category));
