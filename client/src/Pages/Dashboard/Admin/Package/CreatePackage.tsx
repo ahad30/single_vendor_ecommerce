@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FieldValues, SubmitHandler } from "react-hook-form";
 import { useCreatePackageMutation } from "../../../../Redux/Feature/Admin/package/packageApi";
-import { useAppDispatch } from "../../../../Redux/hook";
+import { useAppDispatch, useAppSelector } from "../../../../Redux/hook";
 import { setIsAddModalOpen } from "../../../../Redux/Feature/Modal/modalSlice";
 import ZForm from "../../../../Component/Form/ZForm";
 import { TError } from "../../../../types/globalTypes";
@@ -10,13 +10,14 @@ import ZImageInput from "../../../../Component/Form/ZImageInput";
 import ZNumber from "../../../../Component/Form/ZNumber";
 import ZRadio from "../../../../Component/Form/ZRadio";
 import ZCkEditor from "../../../../Component/Form/ZCkEditor";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IconButton, Tooltip } from "@material-tailwind/react";
 import { GoPlus } from "react-icons/go";
 import { AiOutlineDelete } from "react-icons/ai";
 import { packageSchema } from "../../../../shcema/packageSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
+import { RootState } from "../../../../Redux/store";
 const CreatePackage = () => {
   const dispatch = useAppDispatch();
   const [description, setDescription] = useState("");
@@ -52,7 +53,6 @@ const CreatePackage = () => {
       quantity: Number(data.quantity),
     };
     delete remainData?.items;
-    // delete remainData?.image;
     for (const key in remainData) {
       formData.append(key, remainData[key]);
     }
@@ -80,7 +80,13 @@ const CreatePackage = () => {
     );
     createPackage(formData);
   };
+  const { isAddModalOpen } = useAppSelector((state: RootState) => state.modal);
 
+  useEffect(() => {
+    if (!isAddModalOpen) {
+      setItemField([1]);
+    }
+  }, [isAddModalOpen]);
   const handleCloseAndOpen = () => {
     dispatch(setIsAddModalOpen());
   };
@@ -130,7 +136,7 @@ const CreatePackage = () => {
                 return (
                   <div
                     key={item}
-                    className="flex gap-x-2 justify-between items-center"
+                    className="flex gap-x-2 justify-between lg:items-center"
                   >
                     <div className="w-[85%] grid gap-x-2 lg:grid-cols-3">
                       <ZInput
@@ -147,7 +153,7 @@ const CreatePackage = () => {
                         label="Quantity"
                       ></ZNumber>
                     </div>
-                    <div className="w-[15%] text-end">
+                    <div className="w-[15%] mt-6 lg:mt-0 text-end">
                       {index === 0 && (
                         <Tooltip content="Add Value" placement="top">
                           <IconButton

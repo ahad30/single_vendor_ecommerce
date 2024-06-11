@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useForm, SubmitHandler, FieldValues } from "react-hook-form";
 import { useLoginMutation } from "../../Redux/Feature/auth/authApi";
 import { useAppDispatch, useAppSelector } from "../../Redux/hook";
