@@ -7,6 +7,7 @@ use App\Http\Requests\StorePackageRequest;
 use App\Http\Resources\PackageResource;
 use App\Models\Package;
 use App\Trait\PaginationTrait;
+use App\Trait\UploadImageTrait;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
@@ -14,13 +15,16 @@ use Illuminate\Support\Str;
 
 class PackageController extends Controller
 {
-    use PaginationTrait;
+    use PaginationTrait, UploadImageTrait;
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $data = Package::latest()->with('packageItems')->paginate();
+        $query = Package::query()->latest()->with('packageItems');
+
+        $data = $request->get('package_type') === "existing" ? $query->where('is_existing_product_package', true)->paginate() : $query->where('is_existing_product_package', false)->paginate();
+
         $packages = PackageResource::collection($data);
 
         // Get response paginated data
@@ -42,10 +46,20 @@ class PackageController extends Controller
 
         // Start a database transaction
         $data = DB::transaction(function () use ($request, $slug) {
+            $path = $this->uploadImage($request, 'image', 'assets/images/Packages');
             // Create the package with the validated data and generate a slug
-            $package = Package::create(array_merge($request->validated(), ['slug' => $slug]));
+            $package = Package::create(array_merge(
+                $request->validated(),
+                ['slug' => $slug],
+                ['image' => $path]
+            ));
             // store items
-            $this->storeItems($request, $package);
+            if ($request->is_existing_product_package == false) {
+                $this->storeNewItems($request, $package);
+            } else {
+                $this->storeExistingItems($request, $package);
+            }
+
 
             // Return the created package
             return $package;
@@ -93,10 +107,21 @@ class PackageController extends Controller
     }
 
     // Iterate over the items in the request to create related package items
-    protected function storeItems($request, $package)
+    protected function storeNewItems($request, $package)
     {
         foreach ($request['items'] as $item) {
             $package->packageItems()->create([
+                "product_name" => $item['product_name'],
+                "price" => $item['price'],
+                "quantity" => $item['quantity'],
+            ]);
+        }
+    }
+
+    protected function storeExistingItems($request, $package)
+    {
+        foreach ($request['items'] as $item) {
+            $package->PackageItems()->create([
                 "product_id" => $item['product_id'],
                 "product_name" => $item['product_name'],
                 "sku_id" => $item['sku_id'],

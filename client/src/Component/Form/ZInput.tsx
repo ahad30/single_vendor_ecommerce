@@ -7,10 +7,12 @@ import { useAppSelector } from "../../Redux/hook";
 
 const ZInput = ({
   name,
+  defaultKey,
   type,
   label,
   value,
   reset,
+  
 }: {
   name: string;
   type: string;
@@ -42,7 +44,9 @@ const ZInput = ({
           validateStatus={error ? "error" : ""}
           help={error?.message}
         >
-          <Input {...field} type={type} placeholder={label} />
+          <Input 
+           className={defaultKey  ? "h-10" : ""}
+           {...field} type={type} placeholder={label} />
         </Form.Item>
       )}
     />

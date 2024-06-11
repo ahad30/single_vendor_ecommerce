@@ -30,7 +30,7 @@ class ProductResource extends JsonResource
             $this->mergeWhen($this->is_single_product == true, [
                 'price' => $this->unit_price,
                 'quantity' => $this->unit_quantity,
-                'images' => $this->load('images:id,image'),
+                'images' => $this->load('images:id,product_id,image'),
             ]),
             $this->mergeWhen($this->is_single_product == false, [
                 'price' => $this->skus->first()->price ?? null,

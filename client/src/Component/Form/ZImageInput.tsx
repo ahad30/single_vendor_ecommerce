@@ -17,15 +17,17 @@ const ZImageInput = ({
   defaultKey,
   setPriceQuantityImage,
   refresh,
+  maxCount,
 }: {
   name: string;
   label: string;
   defaultKey?: "product";
   refresh?: boolean;
+  maxCount?: number;
   setPriceQuantityImage?: React.Dispatch<React.SetStateAction<any>>;
 }) => {
   const [imageList, setImageList] = useState<UploadFile[]>([]);
-  const { control } = useFormContext();
+  const { control , resetField } = useFormContext();
   const { isAddModalOpen, isEditModalOpen } = useAppSelector(
     (state: RootState) => state.modal
   );
@@ -33,6 +35,8 @@ const ZImageInput = ({
   useEffect(() => {
     if (!isAddModalOpen || !isEditModalOpen) {
       setImageList([]);
+      resetField(name)
+
     }
   }, [isAddModalOpen, isEditModalOpen]);
 
@@ -44,7 +48,7 @@ const ZImageInput = ({
 
   const handleChange = (info: any) => {
     const file = info.file;
-
+    console.log(info);
     if (
       setPriceQuantityImage &&
       defaultKey === "product" &&

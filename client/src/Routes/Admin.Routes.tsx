@@ -19,6 +19,9 @@ import AddProduct from "../Pages/Dashboard/Admin/Products/AddProduct";
 import EditProduct from "../Pages/Dashboard/Admin/Products/EditProduct";
 import { FiBox } from "react-icons/fi";
 import ViewProduct from "../Pages/Dashboard/Admin/Products/ViewProduct";
+import { TfiPackage } from "react-icons/tfi";
+import ExistProductPackages from "../Pages/Dashboard/Admin/ExistProductPacakge/ExistProductPackages";
+
 export const adminRoutes = [
   {
     path: "/admin",
@@ -77,12 +80,7 @@ export const adminRoutes = [
         element: <Products></Products>,
         permissionName: "view product",
       },
-      {
-        path: "packages",
-        label: "Packages",
-        element: <Packages></Packages>,
-        permissionName: "view package",
-      },
+    
     ],
   },
   {
@@ -96,6 +94,25 @@ export const adminRoutes = [
   {
     path: "view-product-details/:slug/:id",
     element: <ViewProduct></ViewProduct>,
+  },
+
+  {
+    label: "Package Management",
+    icon: <TfiPackage size={20}></TfiPackage>,
+    children: [
+      {
+        path: "packages",
+        label: "New product packages",
+        element: <Packages></Packages>,
+        permissionName: "view package",
+      },
+      {
+        path: "exist-product-packages",
+        label: "Exist product packages",
+        element: <ExistProductPackages></ExistProductPackages>,
+        permissionName: "view package",
+      },
+    ],
   },
 
   {
