@@ -163,7 +163,7 @@ const Table = <T extends { id: string | number; [key: string]: any }>({
                             onPointerEnterCapture={undefined}
                             onPointerLeaveCapture={undefined}
                           >
-                            {column?.value === "image" ? (
+                            {column?.name === "Image" ? (
                               <Image
                                 width={40}
                                 height={40}

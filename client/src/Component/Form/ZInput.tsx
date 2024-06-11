@@ -42,7 +42,7 @@ const ZInput = ({
           validateStatus={error ? "error" : ""}
           help={error?.message}
         >
-          <Input className="h-12" {...field} type={type} placeholder={label} />
+          <Input className="" {...field} type={type} placeholder={label} />
         </Form.Item>
       )}
     />
