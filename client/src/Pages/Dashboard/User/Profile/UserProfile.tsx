@@ -14,10 +14,10 @@ const UserProfile = () => {
 
                 <div className="flex flex-col justify-center items-center">
                     <div className=" relative w-56 h-48 left-4 lg:mt-[-70px]"
-                        onClick={handleImage}>
+                       >
                         <img className="h-56 w-48  absolute object-cover" src="https://i.ibb.co/NLpp7vt/depositphotos-176214104-stock-illustration-default-avatar-profile-icon.webp" alt="" />
                         <div className="top-[185px] left-[152px] absolute bg-[#265eda] text-white w-8 h-8 flex justify-center items-center rounded-full">
-                            <FaEdit />
+                            <FaEdit  onClick={handleImage} />
                         </div>
 
                     </div>
