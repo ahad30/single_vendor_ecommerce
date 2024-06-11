@@ -15,6 +15,7 @@ import TableTabs from "../../../../Component/Dashborad/TableTabs";
 import SearchBar from "../../../../Component/SearchBar/SearchBar";
 import DashboardTitle from "../../../../Component/Dashborad/DashboardTitle";
 import { TMeta } from "../../../../types/globalTypes";
+import CreatePackage from "./CreatePackage";
 
 const Packages = () => {
   const dispatch = useAppDispatch();
@@ -71,9 +72,12 @@ const Packages = () => {
         setPageNumber={setPageNumber}
       ></Table>
       {/* add category modal */}
-      <AddModal isAddModalOpen={isAddModalOpen} title="Create Category">
-        {/* <AddCategory></AddCategory> */}
-        <></>
+      <AddModal
+        width={1000}
+        isAddModalOpen={isAddModalOpen}
+        title="Create new Package"
+      >
+        <CreatePackage></CreatePackage>
       </AddModal>
       {/* edit category modal */}
       <EditModal isEditModalOpen={isEditModalOpen} title="Edit Category">
