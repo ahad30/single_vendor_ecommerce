@@ -21,7 +21,7 @@ class PackageController extends Controller
     public function index(Request $request)
     {
         $query = Package::query()->latest()->with('packageItems');
-        $data = $request->get('existing') ? $query->where('is_existing_product_package', true)->paginate() : $query->where('is_existing_product_package', false)->paginate();
+        $data = $request->get('package_type') === "existing" ? $query->where('is_existing_product_package', true)->paginate() : $query->where('is_existing_product_package', false)->paginate();
 
         $packages = PackageResource::collection($data);
 

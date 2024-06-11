@@ -15,6 +15,7 @@ import TableTabs from "../../../../Component/Dashborad/TableTabs";
 import SearchBar from "../../../../Component/SearchBar/SearchBar";
 import DashboardTitle from "../../../../Component/Dashborad/DashboardTitle";
 import { TMeta } from "../../../../types/globalTypes";
+import CreatePackage from "./CreatePackage";
 
 const Packages = () => {
   const dispatch = useAppDispatch();
@@ -24,19 +25,20 @@ const Packages = () => {
   const [pageNumber, setPageNumber] = useState(1);
   const [singleData, setSingleData] = useState<TPackage | null>(null);
   const { data, isLoading, isFetching } = useGetPackageQuery([
+    { name: "package_type", value: "new" },
     { name: "page", value: pageNumber },
   ]);
   const handleEditAndDelete = (data: TPackage, name: "delete" | "edit") => {
     setSingleData(data);
     if (name === "delete") {
-      console.log("delete", data);
+      // console.log("delete", data);
       dispatch(setIsDeleteModalOpen());
     } else if (name === "edit") {
-      console.log("edit", data);
+      // console.log("edit", data);
       dispatch(setIsEditModalOpen());
     }
   };
-
+  // console.log(data);
   const columns = [
     { name: "Image", value: "image" },
     { name: "Name", value: "name" },
@@ -71,9 +73,12 @@ const Packages = () => {
         setPageNumber={setPageNumber}
       ></Table>
       {/* add category modal */}
-      <AddModal isAddModalOpen={isAddModalOpen} title="Create Category">
-        {/* <AddCategory></AddCategory> */}
-        <></>
+      <AddModal
+        width={1000}
+        isAddModalOpen={isAddModalOpen}
+        title="Create new Package"
+      >
+        <CreatePackage></CreatePackage>
       </AddModal>
       {/* edit category modal */}
       <EditModal isEditModalOpen={isEditModalOpen} title="Edit Category">
