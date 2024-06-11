@@ -7,7 +7,7 @@ const CustomerDashboardSidebar = () => {
     const sidebarData = sidebarGenerator(CustomerRoutes)
     // console.log(sidebarData)
     const { pathname } = useLocation();
-    console.log(pathname);
+    // console.log(pathname);
     return (
         <div className="bg-white w-72 rounded-md py-3 shadow-2xl">
             {/* thi div contains image and user name */}

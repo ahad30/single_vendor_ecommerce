@@ -50,7 +50,7 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        // 
+        //
     }
 
     /**
@@ -58,12 +58,12 @@ class CategoryController extends Controller
      */
     public function update(UpdateCategoryRequest $request, Category $category)
     {
-        $data = $request->validated();
+        $inputs = $request->validated();
         if ($path = $this->uploadImage($request, 'image', 'assets/images/categories', $category->image)) {
             $inputs['image'] = $path;
         }
 
-        $category->update($data);
+        $category->update($inputs);
 
         return Response::updated(new CategoryResource($category));
     }

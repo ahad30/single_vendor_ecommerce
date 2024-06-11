@@ -27,7 +27,7 @@ const ZImageInput = ({
   setPriceQuantityImage?: React.Dispatch<React.SetStateAction<any>>;
 }) => {
   const [imageList, setImageList] = useState<UploadFile[]>([]);
-  const { control } = useFormContext();
+  const { control , resetField } = useFormContext();
   const { isAddModalOpen, isEditModalOpen } = useAppSelector(
     (state: RootState) => state.modal
   );
@@ -35,6 +35,8 @@ const ZImageInput = ({
   useEffect(() => {
     if (!isAddModalOpen || !isEditModalOpen) {
       setImageList([]);
+      resetField(name)
+
     }
   }, [isAddModalOpen, isEditModalOpen]);
 

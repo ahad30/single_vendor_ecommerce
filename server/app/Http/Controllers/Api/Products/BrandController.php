@@ -56,14 +56,14 @@ class BrandController extends Controller
      */
     public function update(UpdateBrandRequest $request, Brand $brand)
     {
-        $data = $request->validated();
+        $inputs = $request->validated();
         // update image path
         if ($path = $this->uploadImage($request, 'image', 'assets/images/brands', $brand->image)) {
             $inputs['image'] = $path;
         }
 
         // update brand data
-        $brand->update($data);
+        $brand->update($inputs);
 
         // return brand resource with updated data
         return Response::updated(new BrandResource($brand), "Brand successfully updated");
