@@ -52,7 +52,6 @@ const CreatePackage = () => {
       quantity: Number(data.quantity),
     };
     delete remainData?.items;
-    // delete remainData?.image;
     for (const key in remainData) {
       formData.append(key, remainData[key]);
     }
@@ -130,7 +129,7 @@ const CreatePackage = () => {
                 return (
                   <div
                     key={item}
-                    className="flex gap-x-2 justify-between items-center"
+                    className="flex gap-x-2 justify-between lg:items-center"
                   >
                     <div className="w-[85%] grid gap-x-2 lg:grid-cols-3">
                       <ZInput
@@ -147,7 +146,7 @@ const CreatePackage = () => {
                         label="Quantity"
                       ></ZNumber>
                     </div>
-                    <div className="w-[15%] text-end">
+                    <div className="w-[15%] mt-6 lg:mt-0 text-end">
                       {index === 0 && (
                         <Tooltip content="Add Value" placement="top">
                           <IconButton

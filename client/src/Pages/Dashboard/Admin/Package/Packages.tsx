@@ -31,10 +31,8 @@ const Packages = () => {
   const handleEditAndDelete = (data: TPackage, name: "delete" | "edit") => {
     setSingleData(data);
     if (name === "delete") {
-      // console.log("delete", data);
       dispatch(setIsDeleteModalOpen());
     } else if (name === "edit") {
-      // console.log("edit", data);
       dispatch(setIsEditModalOpen());
     }
   };
@@ -49,7 +47,7 @@ const Packages = () => {
     { name: "Status", value: "status" },
     { name: "Action", value: "action" },
   ];
-
+console.log(data)
   return (
     <div className="">
       <DashboardTitle windowTitle="Packages" text=" Total Packages">
