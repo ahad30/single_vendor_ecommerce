@@ -16,7 +16,7 @@ const CustomerDashboardLayout = () => {
   }, [location]);
 
   return (
-    <div className="bg-[#f0f5fc] p-7 min-h-screen grid xl:grid-cols-[1fr_3fr] gap-2">
+    <div className="bg-[#f0f5fc] p-7 min-h-screen overflow-y-auto grid xl:grid-cols-[1fr_3fr] gap-2">
       <button
         className="xl:hidden mb-4 lg:mb-0"
         onClick={toggleSidebar}
