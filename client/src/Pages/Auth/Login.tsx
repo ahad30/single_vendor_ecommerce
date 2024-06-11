@@ -69,6 +69,7 @@ const Login = () => {
                   <div className="relative mb-8">
                     <input
                       {...register("email")}
+                      defaultValue={'admin@gmail.com'}
                       id="email"
                       name="email"
                       type="text"
@@ -79,6 +80,8 @@ const Login = () => {
                   <div className="relative">
                     <input
                       {...register("password")}
+                      defaultValue={'password'}
+
                       id="password"
                       name="password"
                       type="password"

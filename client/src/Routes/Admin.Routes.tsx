@@ -21,6 +21,8 @@ import { FiBox } from "react-icons/fi";
 import ViewProduct from "../Pages/Dashboard/Admin/Products/ViewProduct";
 import { TfiPackage } from "react-icons/tfi";
 import ExistProductPackages from "../Pages/Dashboard/Admin/ExistProductPacakge/ExistProductPackages";
+import AdminProfile from "../Pages/Dashboard/Admin/AdminProfile/AdminProfile";
+import AdminProfileSettings from "../Pages/Dashboard/Admin/AdminProfile/AdminProfileSettings";
 
 export const adminRoutes = [
   {
@@ -29,6 +31,14 @@ export const adminRoutes = [
     element: <DashboardStatics></DashboardStatics>,
     icon: <MdOutlineDashboardCustomize size={20}></MdOutlineDashboardCustomize>,
     permissionName: "view dashboard",
+  },
+  {
+    path: "/admin/profile",
+    element: <AdminProfile></AdminProfile>,
+  },
+  {
+    path: "/admin/setting",
+    element: <AdminProfileSettings></AdminProfileSettings>,
   },
 
   {

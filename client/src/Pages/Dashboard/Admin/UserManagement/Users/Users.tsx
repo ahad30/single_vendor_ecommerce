@@ -78,7 +78,7 @@ const Users = () => {
         setPageNumber={setPageNumber}
       ></Table>
       {/* add role modal */}
-      <AddModal width={500} isAddModalOpen={isAddModalOpen} title="Create role">
+      <AddModal width={500} isAddModalOpen={isAddModalOpen} title="Create User">
         {/* <AddRoles></AddRoles> */}
         <AddUser></AddUser>
       </AddModal>
