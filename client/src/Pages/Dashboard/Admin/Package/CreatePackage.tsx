@@ -16,6 +16,7 @@ import { GoPlus } from "react-icons/go";
 import { AiOutlineDelete } from "react-icons/ai";
 import { packageSchema } from "../../../../shcema/packageSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { toast } from "sonner";
 const CreatePackage = () => {
   const dispatch = useAppDispatch();
   const [description, setDescription] = useState("");
@@ -40,14 +41,43 @@ const CreatePackage = () => {
     },
   ] = useCreatePackageMutation();
   const handleSubmit: SubmitHandler<FieldValues> = (data) => {
+    if (description === "" || !description) {
+      return toast.error("Please provide a description");
+    }
+    const formData = new FormData();
     const remainData: any = {
       ...data,
       status: Number(data.status),
       price: Number(data.price),
       quantity: Number(data.quantity),
     };
-    delete remainData.items;
+    delete remainData?.items;
+    for (const key in remainData) {
+      formData.append(key, remainData[key]);
+    }
     console.log(remainData);
+    formData.append("is_existing_product_package", "0");
+    formData.append("description", description);
+    const modifiedData = data?.items?.map(
+      (item: { product_name: string; price: number; quantity: number }) => ({
+        ...item,
+        price: Number(item.price),
+        quantity: Number(item.quantity),
+      })
+    );
+
+    // modifiedData.for
+    modifiedData.forEach(
+      (
+        el: { product_name: string; price: number; quantity: number },
+        index: number
+      ) => {
+        formData.append(`items[${index}][quantity]`, `${el.quantity}`);
+        formData.append(`items[${index}][price]`, `${el.price}`);
+        formData.append(`items[${index}][product_name]`, el.product_name);
+      }
+    );
+    createPackage(formData);
   };
 
   const handleCloseAndOpen = () => {
