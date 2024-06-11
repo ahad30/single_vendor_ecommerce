@@ -52,6 +52,7 @@ const CreatePackage = () => {
       quantity: Number(data.quantity),
     };
     delete remainData?.items;
+    // delete remainData?.image;
     for (const key in remainData) {
       formData.append(key, remainData[key]);
     }
