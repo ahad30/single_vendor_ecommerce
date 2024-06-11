@@ -29,8 +29,8 @@ const ReUseAbleFormModal = ({ defaultKey, title, open, handleOpen }) => {
                         defaultKey === "addessAdd" && (
                             <div>
                                 <ZForm>
-                                    <ZInput label={"Title"} name={"title"} type={"text"}></ZInput>
-                                    <ZInput label={"Address"} name={"address"} type={"text"}></ZInput>
+                                    <ZInput defaultKey="addessAdd"  label={"Title"} name={"title"} type={"text"}></ZInput>
+                                    <ZInput defaultKey="addessAdd" label={"Address"} name={"address"} type={"text"}></ZInput>
                                 </ZForm>
                             </div>
                         )
@@ -39,9 +39,9 @@ const ReUseAbleFormModal = ({ defaultKey, title, open, handleOpen }) => {
                         defaultKey === "deleteAccount" && (
                             <div>
                                 <ZForm>
-                                    <ZInput label={"Your email :"} name={"username"} type={"text"}></ZInput>
-                                    <ZInput label={"To verify, type confirm below :"} name={"delete"} type={"text"}></ZInput>
-                                    <ZInput label={"Confirm your password :"} name={"address"} type={"password"}></ZInput>
+                                    <ZInput defaultKey="deleteAccount" label={"Your email :"} name={"username"} type={"text"}></ZInput>
+                                    <ZInput defaultKey="deleteAccount"  label={"To verify, type confirm below :"} name={"delete"} type={"text"}></ZInput>
+                                    <ZInput  defaultKey="deleteAccount"  label={"Confirm your password :"} name={"address"} type={"password"}></ZInput>
                                 </ZForm>
                             </div>
                         )

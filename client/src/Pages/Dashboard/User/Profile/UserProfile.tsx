@@ -30,20 +30,20 @@ const UserProfile = () => {
                 </div>
                 <div className="">
                     <ZForm>
-                        <div className="grid grid-cols-1 md:grid-cols-2 md:gap-x-6">
-                            <ZInput label={"First Name :"} name={"name"} type={"text"}></ZInput>
-                            <ZInput label={"Last Name :"} name={"name"} type={"text"}></ZInput>
+                        <div className="grid grid-cols-1 md:grid-cols-2 md:gap-x-4">
+                            <ZInput defaultKey="profile" label={"First Name :"} name={"name"} type={"text"}></ZInput>
+                            <ZInput defaultKey="profile" label={"Last Name :"} name={"name"} type={"text"}></ZInput>
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-2 md:gap-4">
-                            <ZInput label={"Country :"} name={"name"} type={"text"}></ZInput>
-                            <ZInput label={"State :"} name={"name"} type={"text"}></ZInput>
+                            <ZInput defaultKey="profile" label={"Country :"} name={"country"} type={"text"}></ZInput>
+                            <ZInput defaultKey="profile" label={"State :"} name={"state"} type={"text"}></ZInput>
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-2 md:gap-4">
-                            <ZInput label={"City :"} name={"name"} type={"text"}></ZInput>
-                            <ZInput label={"Zip Code :"} name={"name"} type={"text"}></ZInput>
+                            <ZInput defaultKey="profile" label={"City :"} name={"city"} type={"text"}></ZInput>
+                            <ZInput  defaultKey="profile" label={"Zip Code :"} name={"zipCode"} type={"text"}></ZInput>
                         </div>
                         <div className=" w-full md:col-span-2">
-                            <ZInputTextArea name="Address" label="Address" />
+                            <ZInputTextArea name="address" label="Address" />
 
                         </div>
                         <div className="mt-10">
