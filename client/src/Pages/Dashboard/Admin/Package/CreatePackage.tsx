@@ -96,15 +96,15 @@ const CreatePackage = () => {
                   <div className="w-[85%] grid gap-x-2 lg:grid-cols-3">
                     <ZInput
                       label={`Product ${index + 1}`}
-                      name={`items.product_name.${index}`}
+                      name={`items.${index}.product_name`}
                       type={"text"}
                     ></ZInput>
                     <ZNumber
-                      name={`items.price.${index}`}
+                      name={`items.${index}.price`}
                       label="Price"
                     ></ZNumber>
                     <ZNumber
-                      name={`items.quantity.${index}`}
+                      name={`items.${index}.quantity`}
                       label="Quantity"
                     ></ZNumber>
                   </div>
