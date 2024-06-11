@@ -6,8 +6,8 @@ import ReUseableButton from "../../../../Component/UserDashboard/ReUseableButton
 const ChangePassword = () => {
     return (
         <div>
-            <div className="bg-white p-6 md:p-10 h-screen">
-                <ZForm>
+            <div className="bg-white p-6 md:p-10 h-fit">
+                <ZForm >
 
                     <ZInput label={"Current Password"} name={"current password"} type={"password"}></ZInput>
                     <ZInput label={"Password"} name={"password"} type={"password"}></ZInput>
