@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FieldValues, SubmitHandler } from "react-hook-form";
 import { useCreatePackageMutation } from "../../../../Redux/Feature/Admin/package/packageApi";
-import { useAppDispatch } from "../../../../Redux/hook";
+import { useAppDispatch, useAppSelector } from "../../../../Redux/hook";
 import { setIsAddModalOpen } from "../../../../Redux/Feature/Modal/modalSlice";
 import ZForm from "../../../../Component/Form/ZForm";
 import { TError } from "../../../../types/globalTypes";
@@ -10,13 +10,14 @@ import ZImageInput from "../../../../Component/Form/ZImageInput";
 import ZNumber from "../../../../Component/Form/ZNumber";
 import ZRadio from "../../../../Component/Form/ZRadio";
 import ZCkEditor from "../../../../Component/Form/ZCkEditor";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IconButton, Tooltip } from "@material-tailwind/react";
 import { GoPlus } from "react-icons/go";
 import { AiOutlineDelete } from "react-icons/ai";
 import { packageSchema } from "../../../../shcema/packageSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
+import { RootState } from "../../../../Redux/store";
 const CreatePackage = () => {
   const dispatch = useAppDispatch();
   const [description, setDescription] = useState("");
@@ -79,7 +80,13 @@ const CreatePackage = () => {
     );
     createPackage(formData);
   };
+  const { isAddModalOpen } = useAppSelector((state: RootState) => state.modal);
 
+  useEffect(() => {
+    if (!isAddModalOpen) {
+      setItemField([1]);
+    }
+  }, [isAddModalOpen]);
   const handleCloseAndOpen = () => {
     dispatch(setIsAddModalOpen());
   };
