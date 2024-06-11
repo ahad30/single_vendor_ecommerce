@@ -25,15 +25,16 @@ const Packages = () => {
   const [pageNumber, setPageNumber] = useState(1);
   const [singleData, setSingleData] = useState<TPackage | null>(null);
   const { data, isLoading, isFetching } = useGetPackageQuery([
+    { name: "package_type", value: "new" },
     { name: "page", value: pageNumber },
   ]);
   const handleEditAndDelete = (data: TPackage, name: "delete" | "edit") => {
     setSingleData(data);
     if (name === "delete") {
-      console.log("delete", data);
+      // console.log("delete", data);
       dispatch(setIsDeleteModalOpen());
     } else if (name === "edit") {
-      console.log("edit", data);
+      // console.log("edit", data);
       dispatch(setIsEditModalOpen());
     }
   };

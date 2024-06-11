@@ -1,4 +1,3 @@
-
 import {
     Button,
     Dialog,
@@ -10,7 +9,7 @@ import ZForm from "../../Form/ZForm";
 import ZInput from "../../Form/ZInput";
 import ReUseableFormModalButton from "./ReUseableFormModalButton";
 
-const ReUseAbleFormModal = ({ open, handleOpen }) => {
+const ReUseAbleFormModal = ({ defaultKey, title, open, handleOpen }) => {
 
     return (
         <div className="">
@@ -23,18 +22,45 @@ const ReUseAbleFormModal = ({ open, handleOpen }) => {
                 }}
             >
 
-                <h1 className="p-4 font-semibold">Add New Address</h1>
+                <h1 className="p-4 font-semibold">{title}</h1>
 
-                <div className="px-6 py-4">
-                    <div>
-                        <ZForm>
-                            <ZInput label={"Title"} name={"title"} type={"text"}></ZInput>
-                            <ZInput label={"Address"} name={"address"} type={"text"}></ZInput>
-                        </ZForm>
-                    </div>
-                    <div>
-                        <ReUseableFormModalButton handleOpen={handleOpen} />
-                    </div>
+                <div className="px-6 py-2">
+                    {
+                        defaultKey === "addessAdd" && (
+                            <div>
+                                <ZForm>
+                                    <ZInput label={"Title"} name={"title"} type={"text"}></ZInput>
+                                    <ZInput label={"Address"} name={"address"} type={"text"}></ZInput>
+                                </ZForm>
+                            </div>
+                        )
+                    }
+                    {
+                        defaultKey === "deleteAccount" && (
+                            <div>
+                                <ZForm>
+                                    <ZInput label={"Your email :"} name={"username"} type={"text"}></ZInput>
+                                    <ZInput label={"To verify, type confirm below :"} name={"delete"} type={"text"}></ZInput>
+                                    <ZInput label={"Confirm your password :"} name={"address"} type={"password"}></ZInput>
+                                </ZForm>
+                            </div>
+                        )
+                    }
+                    {
+                        defaultKey === "addessAdd" && (
+                            <div>
+                                <ReUseableFormModalButton defaultKey={"addAddress"} handleOpen={handleOpen} />
+                            </div>
+                        )
+                    }
+                     {
+                        defaultKey === "deleteAccount" && (
+                            <div>
+                                <ReUseableFormModalButton defaultKey={"deleteAccount"} handleOpen={handleOpen} />
+                            </div>
+                        )
+                    }
+
                 </div>
             </Dialog>
         </div>

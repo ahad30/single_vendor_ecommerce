@@ -1,8 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import { useAppSelector } from "../../Redux/hook";
+import { RootState } from "../../Redux/store";
 
 const ZCkEditor = ({
   setDescription,
@@ -14,12 +16,23 @@ const ZCkEditor = ({
   const handleEditorChange = (event: any, editor: { getData: () => any }) => {
     const data = editor.getData();
     setEditorData(data);
-    setDescription(data);
+    setDescription(editorData);
     // console.log({ event, editor, data });
   };
 
+  const { isAddModalOpen, isEditModalOpen } = useAppSelector(
+    (state: RootState) => state.modal
+  );
+
+  useEffect(() => {
+    if (!isAddModalOpen || !isEditModalOpen) {
+      setEditorData("");
+      setDescription("");
+    }
+  }, [isAddModalOpen, isEditModalOpen]);
+
   return (
-    <div className="App">
+    <div className="App my-5">
       <CKEditor
         editor={ClassicEditor}
         data={editorData}
