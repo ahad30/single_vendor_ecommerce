@@ -6,15 +6,17 @@ import UserProfile from "../Pages/Dashboard/User/Profile/UserProfile";
 import { IoHomeOutline } from "react-icons/io5";
 import { IoStarSharp } from "react-icons/io5";
 import { BsTicket } from "react-icons/bs";
-import { IoKeyOutline } from "react-icons/io5";
+// import { IoKeyOutline } from "react-icons/io5";
 import { AiOutlineLogout } from "react-icons/ai";
 import PaymentLog from "../Pages/Dashboard/User/Payment/PaymentLog";
 import OrderLog from "../Pages/Dashboard/User/Order/OrderLog";
 import ReviewProducts from "../Pages/Dashboard/User/ReviewProducts/ReviewProducts";
 import SupportTickets from "../Pages/Dashboard/User/SupportTickets/SupportTickets";
-import ChangePassword from "../Pages/Dashboard/User/ChangePassword/ChangePassword";
+// import ChangePassword from "../Pages/Dashboard/User/ChangePassword/ChangePassword";
 import Settings from "../Pages/Dashboard/User/Settings/Settings";
+import { FaLocationDot } from "react-icons/fa6";
 import { IoMdSettings } from "react-icons/io";
+import AddressBooking from "../Pages/Dashboard/User/AddressBooking/AddressBooking";
 
 export const CustomerRoutes = [
   {
@@ -53,11 +55,17 @@ export const CustomerRoutes = [
     element: <SupportTickets />,
     icon: <BsTicket />,
   },
-  {
-    path: "/user/change-password",
-    label: "Change Password",
-    element: <ChangePassword />,
-    icon: <IoKeyOutline />,
+  // {
+  //   path: "/user/change-password",
+  //   label: "Change Password",
+  //   element: <ChangePassword />,
+  //   icon: <IoKeyOutline />,
+  // },
+   {
+    path: "/user/address-booking",
+    label: "Address Booking",
+    element: <AddressBooking />,
+    icon: <FaLocationDot />,
   },
   {
     path: "/user/settings",
