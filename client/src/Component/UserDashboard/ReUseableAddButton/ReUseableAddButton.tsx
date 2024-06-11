@@ -18,7 +18,7 @@ const ReUseableAddButton = ({ title }) => {
                 <span>{title}</span>
             </div>
            <div>
-            <ReUseAbleFormModal open={open} handleOpen={handleOpen}/>
+            <ReUseAbleFormModal defaultKey={"addessAdd"} title={"Add New Address"} open={open} handleOpen={handleOpen}/>
            </div>
         </div>
     );

@@ -63,8 +63,8 @@ const AddressBooking = () => {
                                 <span className="bg-[#265edd] p-1 md:p-2 rounded-md text-white hover:bg-[#1e4cb7] transition-colors duration-200">
                                     <FaEdit className="text-base  md:w-4 md:h-4" />
                                 </span>
-                                <span className="bg-[#e32c3e] p-1 md:p-2 rounded-md text-white hover:bg-[#c72433] transition-colors duration-200">
-                                    <MdDelete className="text-base md:w-4 md:h-4" />
+                                <span className="bg-[#f1e2e1] p-1 md:p-2 rounded-md text-white hover:bg-[#cc8088] transition-colors duration-200">
+                                    <MdDelete className="text-[#f44336] text-base md:w-4 md:h-4" />
                                 </span>
                             </div>
                         </div>
