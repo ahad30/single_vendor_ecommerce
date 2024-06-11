@@ -192,11 +192,13 @@ const Table = <T extends { id: string | number; [key: string]: any }>({
                                       {item["variants"].total_variants}
                                     </span>
                                   </p>
-                                ) : item[column?.value] == 1 ? (
+                                ) : item[column?.value] == 1 &&
+                                  column?.name == "Status" ? (
                                   <span className="bg-green-400 text-white px-5 rounded-md py-1">
                                     Active
                                   </span>
-                                ) : item[column?.value] == 0 ? (
+                                ) : item[column?.value] == 0 &&
+                                  column?.name === "Status" ? (
                                   <span className="bg-red-400 text-white px-5 rounded-md py-1">
                                     Inactive
                                   </span>
