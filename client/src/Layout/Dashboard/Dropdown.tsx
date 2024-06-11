@@ -50,11 +50,18 @@ const Dropdown = () => {
 
             <MenuItem>
               {({ active }) => (
-              <NavLink to={`/admin/profile`}>
+              <NavLink 
+              style={({ isActive, isTransitioning }) => {
+                return {
+                  fontWeight: isActive ? "bold" : "",
+                  color: isActive ? "red" : "black",
+                  viewTransitionName: isTransitioning ? "slide" : "",
+                };
+              }}
+              
+              to={`/admin/profile`}>
               <button
-                  className={`${
-                    active ? " text-primary font-bold transition-all duration-500" : "text-gray-900"
-                  } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                  className={ `group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                 >
                   {active ? (
                     <IoPersonSharp className="mx-2  text-green" />
@@ -69,11 +76,18 @@ const Dropdown = () => {
 
             <Menu.Item>
               {({ active }) => (
-                   <NavLink to={`/admin/setting`}>
+                   <NavLink
+                   style={({ isActive, isTransitioning }) => {
+                    return {
+                      fontWeight: isActive ? "bold" : "",
+                      color: isActive ? "red" : "black",
+                      viewTransitionName: isTransitioning ? "slide" : "",
+                    };
+                  }}
+                   
+                   to={`/admin/setting`}>
                    <button
-                       className={`${
-                         active ? "bg-violet-500 text-primary font-bold transition-all duration-500" : "text-gray-900"
-                       } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                       className={` group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                      >
                        {active ? (
                          <IoPersonSharp className="mx-2  text-green" />
