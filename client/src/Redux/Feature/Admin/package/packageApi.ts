@@ -1,4 +1,6 @@
+import { BaseQueryApi } from "@reduxjs/toolkit/query";
 import {
+  TError,
   TQueryParams,
   TResponseWithRedux,
 } from "../../../../types/globalTypes";
@@ -7,19 +9,19 @@ import { baseApi } from "../../../Api/baseApi";
 
 export const packageApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    // createCategory: builder.mutation({
-    //   query: (data) => {
-    //     return {
-    //       url: "/categories",
-    //       method: "POST",
-    //       body: data,
-    //     };
-    //   },
-    //   invalidatesTags: ["categories"],
-    //   transformErrorResponse: (res: TError & BaseQueryApi) => {
-    //     return res;
-    //   },
-    // }),
+    createPackage: builder.mutation({
+      query: (data) => {
+        return {
+          url: "/packages",
+          method: "POST",
+          body: data,
+        };
+      },
+      invalidatesTags: ["packages"],
+      transformErrorResponse: (res: TError & BaseQueryApi) => {
+        return res;
+      },
+    }),
 
     // updateCategory: builder.mutation({
     //   query: ({ data, id }) => {
@@ -68,4 +70,4 @@ export const packageApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useGetPackageQuery } = packageApi;
+export const { useGetPackageQuery, useCreatePackageMutation } = packageApi;

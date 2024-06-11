@@ -269,6 +269,7 @@ const AddProduct = () => {
           "unit_quantity",
           singlePriceQuantityImage.singleQuantity
         );
+        formData.append("description", description);
         if (
           Array.isArray(singlePriceQuantityImage.images) &&
           singlePriceQuantityImage.images.length > 0
@@ -287,6 +288,7 @@ const AddProduct = () => {
         for (const key in modifiedData) {
           formData.append(key, modifiedData[key]);
         }
+        formData.append("description", description);
         skus.forEach((sku, index) => {
           formData.append(`skus[${index}][quantity]`, sku.quantity);
           formData.append(`skus[${index}][price]`, sku.price);

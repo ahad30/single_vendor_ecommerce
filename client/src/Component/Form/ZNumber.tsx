@@ -27,17 +27,19 @@ const ZNumber = ({
 }: TNumber) => {
   const { control, setValue, resetField } = useFormContext();
 
+
+  // by default reset
   useEffect(() => {
-    if (name === "price") {
+    if (name === "price" && defaultKey === "product") {
       resetField(name, { defaultValue: "" });
     }
-    if (name === "quantity") 
+    if (name === "quantity" && defaultKey === "product")
       resetField(name, { defaultValue: "" });
 
-    if (name === "singlePrice") {
+    if (name === "singlePrice" && defaultKey === "singleProduct") {
       resetField(name, { defaultValue: "" });
     }
-    if (name === "singleQuantity") {
+    if (name === "singleQuantity" && defaultKey === "singleProduct") {
       resetField(name, { defaultValue: "" });
     }
   }, [resetField]);

@@ -41,7 +41,7 @@ const Products = () => {
   // ] = useDeleteCategoryMutation();
 
   const columns = [
-    { name: "Image", value: "image" },
+    { name: "Image", value: "thumbnail" },
     { name: "Name", value: "name" },
     { name: "UID", value: "product_uid" },
     { name: "Category", value: "category" },
@@ -55,7 +55,7 @@ const Products = () => {
     // { name: "Variants", value: "variants.total_variants" },
     { name: "Action", value: "action" },
   ];
-
+console.log(data)
   return (
     <div className="">
       <DashboardTitle windowTitle="Products" text=" Total Products">

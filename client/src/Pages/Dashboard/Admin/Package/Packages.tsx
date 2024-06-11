@@ -37,7 +37,7 @@ const Packages = () => {
       dispatch(setIsEditModalOpen());
     }
   };
-
+  // console.log(data);
   const columns = [
     { name: "Image", value: "image" },
     { name: "Name", value: "name" },

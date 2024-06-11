@@ -80,12 +80,7 @@ export const adminRoutes = [
         element: <Products></Products>,
         permissionName: "view product",
       },
-      {
-        path: "packages",
-        label: "Packages",
-        element: <Packages></Packages>,
-        permissionName: "view package",
-      },
+    
     ],
   },
   {
