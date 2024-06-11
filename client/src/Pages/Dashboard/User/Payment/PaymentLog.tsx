@@ -1,27 +1,30 @@
 import ReUseableTable from "../../../../Component/UserDashboard/ReUseableTable/ReUseableTable";
 const PaymentLog = () => {
+    const handleMore = () => {
+        console.log(`View details for transaction ID:`);
+    };
     const data = [
-        {
-            key: '1',
-            transactionId: 'TX123',
-            gateway: 'PayPal',
-            amount: '$100',
-            status: 'Completed',
-            time: '2024-06-10 09:30:00',
-            
-        },
-        {
-            key: '2',
-            transactionId: 'TX456',
-            gateway: 'Stripe',
-            amount: '$50',
-            status: 'Pending',
-            time: '2024-06-11 14:45:00',
-           
-        },
+        // {
+        //     key: '1',
+        //     transactionId: 'TX123',
+        //     gateway: 'PayPal',
+        //     amount: '$100',
+        //     status: 'Completed',
+        //     time: '2024-06-10 09:30:00',
+        //     more: <button onClick={() => handleMore()}>View Details</button>,
+        // },
+        // {
+        //     key: '2',
+        //     transactionId: 'TX456',
+        //     gateway: 'Stripe',
+        //     amount: '$50',
+        //     status: 'Pending',
+        //     time: '2024-06-11 14:45:00',
+        //     more: <button onClick={() => handleMore()}>View Details</button>,
+        // },
 
     ];
-   
+
     const columns = [
         {
             title: 'Transaction ID',
@@ -49,19 +52,11 @@ const PaymentLog = () => {
         },
 
     ];
-    
+
     return (
         <>
-
-            {/* {!data.length > 0 ? (
-                <Table
-                    columns={columns}
-                    dataSource={data}
-                />
-            ) : (
-                <div className='bg-white flex justify-center items-center p-5'>No History Found</div>
-            )} */}
-          <ReUseableTable data={data} columns={columns}/>
+            <ReUseableTable defaultKey={"PaymentLog"} 
+            data={data} columns={columns} subTitle={"No history found."} />
 
         </>
     );
