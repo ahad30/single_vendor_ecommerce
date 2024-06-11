@@ -25,7 +25,7 @@ class StorePackageRequest extends FormRequest
     {
         return [
             'name' => 'required|string',
-            'image' => 'nullable|string',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:5120',
             'price' => 'required|numeric|min:0',
             'quantity' => 'required|integer|min:1',
             'description' => 'required|string',
