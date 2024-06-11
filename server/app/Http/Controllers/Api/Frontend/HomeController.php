@@ -5,10 +5,12 @@ namespace App\Http\Controllers\Api\Frontend;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\BrandResource;
 use App\Http\Resources\CategoryResource;
+use App\Http\Resources\PackageResource;
 use App\Http\Resources\ProductResource;
 use App\Http\Resources\SliderResource;
 use App\Models\Brand;
 use App\Models\Category;
+use App\Models\Package;
 use App\Models\Product;
 use App\Models\Slider;
 use Illuminate\Http\Request;
@@ -31,6 +33,7 @@ class HomeController extends Controller
                 'categories' => CategoryResource::collection(Category::orderBy('name', 'ASC')->get()),
                 'brands' => BrandResource::collection(Brand::orderBy('name', 'ASC')->get()),
                 'products' => ProductResource::collection(Product::inRandomOrder()->get()),
+                'packages' => PackageResource::collection(Package::inRandomOrder()->get()),
             ];
         });
 
