@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import {  useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../../Redux/hook";
 import { TBrand } from "../../../../types";
 import {
@@ -21,9 +21,9 @@ import {
   setIsEditModalOpen,
 } from "../../../../Redux/Feature/Modal/modalSlice";
 import { TError, TMeta } from "../../../../types/globalTypes";
-import { PermissionContextProvider } from "../../../../contex/PermissionProvider";
+// import { PermissionContextProvider } from "../../../../contex/PermissionProvider";
 const Brand = () => {
-  const { handleCheckPermissions } = useContext(PermissionContextProvider);
+  // const { handleCheckPermissions } = useContext(PermissionContextProvider);
 
   const dispatch = useAppDispatch();
   const { isAddModalOpen, isEditModalOpen, isDeleteModalOpen } = useAppSelector(

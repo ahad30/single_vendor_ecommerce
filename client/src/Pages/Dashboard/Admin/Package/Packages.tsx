@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState } from "react";
 import { useGetPackageQuery } from "../../../../Redux/Feature/Admin/package/packageApi";
 import {

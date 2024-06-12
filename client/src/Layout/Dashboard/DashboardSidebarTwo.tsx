@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useContext, useEffect, useState } from "react";
 
 import { adminRoutes } from "../../Routes/Admin.Routes";

@@ -1,6 +1,11 @@
+
 import Dropdown from "./Dropdown";
 
-const Navbar = () => {
+const Navbar = ({
+  setIsSidebarOpen,
+}: {
+  setIsSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
   return (
     <>
       <div className="border-gray-200 px-4 lg:px-6 py-1 bg-[#162447]">

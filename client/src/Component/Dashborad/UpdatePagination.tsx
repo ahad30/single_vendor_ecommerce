@@ -1,6 +1,8 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Pagination } from "antd";
 import type { PaginationProps } from "antd";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { TMeta } from "../../types/globalTypes";
 
@@ -28,7 +30,7 @@ const UpdatePagination = ({
 
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
-    searchParams.set("page", pageNumber);
+    searchParams.set("page", pageNumber.toString());
     const newUrl = `${location.pathname}?${searchParams.toString()}`;
     window.history.replaceState(null, "", newUrl);
   }, [location, pageNumber]);
