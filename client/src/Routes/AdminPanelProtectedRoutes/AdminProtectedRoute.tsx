@@ -1,7 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { ReactNode, useContext, useEffect, useState } from "react";
-import { useAppSelector } from "../../Redux/hook";
+import { useAppDispatch, useAppSelector } from "../../Redux/hook";
 import {
+  logout,
   useCurrentToken,
   useCurrentUser,
 } from "../../Redux/Feature/auth/authSlice";
@@ -11,6 +12,7 @@ import LoadingPage from "../../Layout/Dashboard/LoadingPage";
 import { PermissionContextProvider } from "../../contex/PermissionProvider";
 
 const AdminProtectedRoute = ({ children }: { children: ReactNode }) => {
+  const dispatch = useAppDispatch();
   const [loading, setLoading] = useState(true);
   const user = useAppSelector(useCurrentUser);
   const token = useAppSelector(useCurrentToken);
@@ -43,6 +45,7 @@ const AdminProtectedRoute = ({ children }: { children: ReactNode }) => {
   }
   // console.log(data?.data?.role)
   if (!Array.isArray(data?.data?.role) || data?.data?.role.length == 0) {
+    dispatch(logout());
     return <Navigate to={"/login"}></Navigate>;
   }
 
