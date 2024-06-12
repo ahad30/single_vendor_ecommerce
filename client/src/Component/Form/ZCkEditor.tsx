@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from "react";
@@ -13,7 +14,7 @@ const ZCkEditor = ({
 }) => {
   const [editorData, setEditorData] = useState("");
 
-  const handleEditorChange = (event: any, editor: { getData: () => any }) => {
+  const handleEditorChange = (_event: any, editor: { getData: () => any }) => {
     const data = editor.getData();
     setEditorData(data);
     setDescription(editorData);
@@ -36,14 +37,14 @@ const ZCkEditor = ({
       <CKEditor
         editor={ClassicEditor}
         data={editorData}
-        onReady={(editor) => {
+        onReady={(_editor) => {
           //   console.log("Editor is ready to use!", editor);
         }}
         onChange={handleEditorChange}
-        onBlur={(event, editor) => {
+        onBlur={(_event, _editor) => {
           //   console.log("Blur.", editor);
         }}
-        onFocus={(event, editor) => {
+        onFocus={(_event, _editor) => {
           //   console.log("Focus.", editor);
         }}
       />

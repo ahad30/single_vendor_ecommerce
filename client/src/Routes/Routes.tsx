@@ -54,7 +54,7 @@ export const router = createBrowserRouter([
     path: "/user",
     children: routesGenerator(CustomerRoutes as TRoutesData[]),
     element: (
-      <ProtectedRoutes role="user">
+      <ProtectedRoutes role="customer">
         <CustomerDashboardLayout></CustomerDashboardLayout>
       </ProtectedRoutes>
     ),

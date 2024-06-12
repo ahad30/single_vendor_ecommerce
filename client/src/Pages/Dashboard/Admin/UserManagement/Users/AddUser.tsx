@@ -48,7 +48,7 @@ const AddUser = () => {
     for (const key in formData) {
       form.append(key, formData[key]);
     }
-    // createUser(form);
+    createUser(form);
   };
 
   return (

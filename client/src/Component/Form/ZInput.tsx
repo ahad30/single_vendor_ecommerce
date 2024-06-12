@@ -19,6 +19,8 @@ const ZInput = ({
   label: string;
   value?: string;
   reset?: boolean;
+  defaultKey?: string;
+  
 }) => {
   const { control, setValue, resetField } = useFormContext();
   const { isEditModalOpen } = useAppSelector((state: RootState) => state.modal);

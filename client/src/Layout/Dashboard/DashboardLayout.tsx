@@ -1,5 +1,4 @@
 import { Outlet } from "react-router-dom";
-// import DashboardSidebar from "./DashboardSidebar";
 import DashboardSidebarTwo from "./DashboardSidebarTwo";
 import { useState } from "react";
 import Navbar from "./Navbar";
@@ -13,16 +12,22 @@ const DashboardLayout = () => {
       </div>
 
       {/* for mobile */}
-      {/* <div className="lg:hidden">
+      <div className="lg:hidden">
         <DashboardSidebarTwo
-          className={"absolute"}
+          className={`absolute border border-red-300 duration-700 ${
+            isSidebarOpen ? "" : "-ml-[500px]"
+          }`}
           isSidebarOpen={isSidebarOpen}
+          setIsSidebarOpen={setIsSidebarOpen}
         ></DashboardSidebarTwo>
-      </div> */}
+      </div>
 
       <div className="relative thin-scrollbar h-screen overflow-y-scroll w-full">
         <div className="w-full text-gray-900">
-          <Navbar></Navbar>
+          <Navbar
+            isSidebarOpen={isSidebarOpen}
+            setIsSidebarOpen={setIsSidebarOpen}
+          ></Navbar>
         </div>
         <div className="mt-12 bg-[#F3F5F7] px-5 w-full">
           <Outlet></Outlet>

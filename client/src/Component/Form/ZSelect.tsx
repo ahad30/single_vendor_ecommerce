@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Form, Select } from "antd";
@@ -120,7 +121,7 @@ const ZSelect = ({
     }
   };
 
-  const onSearch = (value: string) => {
+  const onSearch = (_value: string) => {
     // console.log("search:", value);
   };
 
