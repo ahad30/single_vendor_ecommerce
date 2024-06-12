@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { ReactNode, useContext, useEffect } from "react";
+import { ReactNode, useContext, useEffect, useState } from "react";
 import { useAppSelector } from "../../Redux/hook";
 import {
   useCurrentToken,
@@ -11,22 +11,21 @@ import LoadingPage from "../../Layout/Dashboard/LoadingPage";
 import { PermissionContextProvider } from "../../contex/PermissionProvider";
 
 const AdminProtectedRoute = ({ children }: { children: ReactNode }) => {
+  const [loading, setLoading] = useState(true);
   const user = useAppSelector(useCurrentUser);
   const token = useAppSelector(useCurrentToken);
-  const { data, isLoading, isFetching, isError } = useGetLoggedInUserQuery(
-    undefined,
-    {
-      skip: user == null ? true : false,
-    }
-  );
+  const { data, isLoading, isFetching, refetch } =
+    useGetLoggedInUserQuery(undefined);
   const { setLoggedInUserPermissions } = useContext(PermissionContextProvider);
-
   useEffect(() => {
-    if (
-      Array.isArray(data?.data?.role_name) &&
-      data?.data?.role_name?.length > 0
-    ) {
-      const arr = data?.data?.role_name;
+    if (user && token) {
+      refetch();
+      setLoading(false);
+    }
+  }, [user, token, refetch]);
+  useEffect(() => {
+    if (Array.isArray(data?.data?.role) && data?.data?.role?.length > 0) {
+      const arr = data?.data?.role;
       const array: string[] = [];
       for (let index = 0; index < arr.length; index++) {
         const element = arr[index];
@@ -34,18 +33,16 @@ const AdminProtectedRoute = ({ children }: { children: ReactNode }) => {
       }
       setLoggedInUserPermissions([...array]);
     }
-  }, [data?.data?.role_name, data?.data]);
+  }, [data?.data?.role, data?.data]);
 
   if (!token || token == null || user == null) {
     return <Navigate to={"/login"}></Navigate>;
   }
-  if (isLoading || isFetching) {
+  if (isLoading || isFetching || loading) {
     return <LoadingPage></LoadingPage>;
   }
-  if (
-    !Array.isArray(data?.data?.role_name) ||
-    data?.data?.role_name.length == 0
-  ) {
+  // console.log(data?.data?.role)
+  if (!Array.isArray(data?.data?.role) || data?.data?.role.length == 0) {
     return <Navigate to={"/login"}></Navigate>;
   }
 

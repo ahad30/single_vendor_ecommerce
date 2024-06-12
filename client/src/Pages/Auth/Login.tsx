@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { useEffect } from "react";
 
- type TLoginError = {
+type TLoginError = {
   data: {
     message: string;
   };
@@ -21,14 +21,11 @@ const Login = () => {
     Login,
     { isError, isLoading, isSuccess, data: loginData, error: loginError },
   ] = useLoginMutation();
-  const {
-    register,
-    handleSubmit,
-    // formState: { errors },
-  } = useForm();
+  const { register, handleSubmit } = useForm();
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     const { data: loginData } = await Login(data);
     if (loginData.status) {
+      console.log(loginData.status)
       dispatch(setUser(loginData.data));
       if (loginData.data.user.is_customer == 1) {
         navigate("/user");
@@ -68,7 +65,7 @@ const Login = () => {
                   <div className="relative mb-8">
                     <input
                       {...register("email")}
-                      defaultValue={'admin@gmail.com'}
+                      defaultValue={"admin@gmail.com"}
                       id="email"
                       name="email"
                       type="text"
@@ -79,8 +76,7 @@ const Login = () => {
                   <div className="relative">
                     <input
                       {...register("password")}
-                      defaultValue={'password'}
-
+                      defaultValue={"password"}
                       id="password"
                       name="password"
                       type="password"

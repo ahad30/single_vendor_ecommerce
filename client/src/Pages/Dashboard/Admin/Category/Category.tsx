@@ -21,7 +21,13 @@ import {
 import EditModal from "../../../../Component/Modal/EditModal";
 import EditCategory from "./EditCategory";
 import DeleteModal from "../../../../Component/Modal/DeleteModal";
+// import { PermissionContextProvider } from "../../../../contex/PermissionProvider";
 const Category = () => {
+  // const { loggedInUserPermissions, handleCheckPermissions } = useContext(
+  //   PermissionContextProvider
+  // );
+  // // console.log(loggedInUserPermissions);
+  // // console.log(handleCheckPermissions("view category"));
   const dispatch = useAppDispatch();
   const { isAddModalOpen, isEditModalOpen, isDeleteModalOpen } = useAppSelector(
     (state: RootState) => state.modal

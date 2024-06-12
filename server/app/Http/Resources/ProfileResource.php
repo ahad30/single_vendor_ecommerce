@@ -26,6 +26,9 @@ class ProfileResource extends JsonResource
             $this->mergeWhen($this->is_staff == true, [
                 'role' => RoleResource::collection($this->roles->load('permissions')),
             ]),
+            $this->mergeWhen($this->is_customer == true, [
+                'role' => 'customer',
+            ]),
         ];
     }
 }
