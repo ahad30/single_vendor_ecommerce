@@ -9,10 +9,10 @@ const ChangePassword = () => {
             <div className="bg-white p-6 md:p-10 h-fit">
                 <ZForm >
 
-                    <ZInput label={"Current Password"} name={"current password"} type={"password"}></ZInput>
-                    <ZInput label={"Password"} name={"password"} type={"password"}></ZInput>
+                    <ZInput defaultKey={"changePassword"} label={"Current Password"} name={"current password"} type={"password"}></ZInput>
+                    <ZInput defaultKey={"changePassword"} label={"Password"} name={"password"} type={"password"}></ZInput>
 
-                    <ZInput label={"Confirm Password"} name={"confirm password"} type={"password"}></ZInput>
+                    <ZInput defaultKey={"changePassword"} label={"Confirm Password"} name={"confirm password"} type={"password"}></ZInput>
                     <div className="mt-10">
                         <ReUseableButton title={"Change Password"} />
                     </div>

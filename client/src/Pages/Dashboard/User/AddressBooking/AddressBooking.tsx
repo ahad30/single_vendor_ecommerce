@@ -38,7 +38,7 @@ const AddressBooking = () => {
         },
         {
             "title": "Statue of Liberty",
-            "address": "New York, NY 10004, United States New York, NY 10004, United States New York, NY 10004, United States New York, NY 10004, United States"
+            "address": "New York, NY 10004, United States ,New York, NY 10004, United States"
         },
         {
             "title": "Big Ben",

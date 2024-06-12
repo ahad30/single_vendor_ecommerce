@@ -28,6 +28,7 @@ const AddBrand = () => {
       data,
     },
   ] = useCreateBrandMutation();
+  
   const handleSubmit: SubmitHandler<FieldValues> = (data) => {
     const formData = new FormData();
     formData.append("name", data.name);

@@ -45,6 +45,7 @@ const Brand = () => {
       dispatch(setIsEditModalOpen());
     }
   };
+  
   const [
     deleteCategory,
     { isLoading: dCIsloading, isError, isSuccess, data: dCData, error },
