@@ -35,7 +35,7 @@ const PermissionProvider = ({ children }: { children: ReactNode }) => {
       const checkInLoggedInUserPermissions = loggedInUserPermissions.find(
         (per) => per == item
       );
-      // console.log(checkInLoggedInUserPermissions);
+
       if (checkInLoggedInUserPermissions) {
         return true;
       } else {

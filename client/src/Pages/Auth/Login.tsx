@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { useEffect } from "react";
 
-type TLoginError = {
+ type TLoginError = {
   data: {
     message: string;
   };
@@ -17,8 +17,6 @@ type TLoginError = {
 const Login = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const user = useAppSelector((state: RootState) => state.auth);
-  // console.log(user)
   const [
     Login,
     { isError, isLoading, isSuccess, data: loginData, error: loginError },

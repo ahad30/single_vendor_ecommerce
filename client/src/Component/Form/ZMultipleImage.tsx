@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { Form, Upload, Button } from "antd";
@@ -16,15 +17,7 @@ const ZMultipleImage = ({
   reset?: boolean;
   singleSetPriceQuantityImage?: React.Dispatch<React.SetStateAction<any>>;
 }) => {
-  const { control, resetField, watch } = useFormContext();
-
-  const normFile = (e: any) => {
-    if (Array.isArray(e)) {
-      return e;
-    }
-    return e?.fileList;
-  };
-
+  const { control, resetField } = useFormContext();
   const onChange = (fileList: any) => {
     const images = fileList.map((item: any) => item.originFileObj);
     if (singleSetPriceQuantityImage) {
@@ -34,8 +27,6 @@ const ZMultipleImage = ({
       }));
     }
   };
-
-  const fileList = watch(name) || [];
 
   useEffect(() => {
     if (resetField) {

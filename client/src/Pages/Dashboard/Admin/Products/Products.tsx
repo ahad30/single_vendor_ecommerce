@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState } from "react";
 import {
   setIsDeleteModalOpen,
@@ -16,7 +17,7 @@ import DashboardTitle from "../../../../Component/Dashborad/DashboardTitle";
 
 const Products = () => {
   const dispatch = useAppDispatch();
-  const { isAddModalOpen, isEditModalOpen, isDeleteModalOpen } = useAppSelector(
+  useAppSelector(
     (state: RootState) => state.modal
   );
   const [pageNumber, setPageNumber] = useState(1);

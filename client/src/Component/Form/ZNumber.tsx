@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Form, Input } from "antd";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Controller, useFormContext } from "react-hook-form";
 
 const numberRegex = /^[0-9]+$/;
@@ -78,14 +78,14 @@ const ZNumber = ({
   // by default value will empty
   useEffect(() => {
     if (defaultKey === "singleProduct" && setPriceQuantityImage) {
-      setPriceQuantityImage((prev: any) => ({
+      setPriceQuantityImage((_prev: any) => ({
         images: "",
         singleQuantity: "",
         singlePrice: "",
       }));
     }
     if (defaultKey === "product" && setPriceQuantityImage) {
-      setPriceQuantityImage((prev: any) => ({
+      setPriceQuantityImage((_prev: any) => ({
         image: "",
         price: "",
         quantity: "",

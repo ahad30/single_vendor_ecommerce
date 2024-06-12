@@ -11,7 +11,6 @@ import LoadingPage from "../../Layout/Dashboard/LoadingPage";
 import { PermissionContextProvider } from "../../contex/PermissionProvider";
 
 const AdminProtectedRoute = ({ children }: { children: ReactNode }) => {
-  
   const user = useAppSelector(useCurrentUser);
   const token = useAppSelector(useCurrentToken);
   const { data, isLoading, isFetching, isError } = useGetLoggedInUserQuery(
@@ -21,6 +20,7 @@ const AdminProtectedRoute = ({ children }: { children: ReactNode }) => {
     }
   );
   const { setLoggedInUserPermissions } = useContext(PermissionContextProvider);
+
   useEffect(() => {
     if (
       Array.isArray(data?.data?.role_name) &&
@@ -35,6 +35,7 @@ const AdminProtectedRoute = ({ children }: { children: ReactNode }) => {
       setLoggedInUserPermissions([...array]);
     }
   }, [data?.data?.role_name, data?.data]);
+
   if (!token || token == null || user == null) {
     return <Navigate to={"/login"}></Navigate>;
   }
