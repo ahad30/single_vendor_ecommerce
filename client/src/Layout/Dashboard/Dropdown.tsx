@@ -1,5 +1,7 @@
-import { Menu, Transition } from "@headlessui/react";
+import { Menu, Transition , MenuButton , MenuItems, MenuItem  } from "@headlessui/react";
 import { Fragment } from "react";
+import clsx from 'clsx'
+import { NavLink } from "react-router-dom";
 
 import {
   IoLogIn,
@@ -21,7 +23,7 @@ const Dropdown = () => {
   return (
     <Menu as="div" className="relative inline-block text-left">
       <div>
-        <Menu.Button className="inline-flex w-full justify-center rounded-md  px-4 py-2 text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75">
+        <MenuButton className="inline-flex w-full justify-center rounded-md  px-4 py-2 text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75">
           <div className="flex justify-center  items-center gap-x-3">
             <img
               className="w-8 h-8 rounded-full"
@@ -29,7 +31,7 @@ const Dropdown = () => {
               alt="user photo"
             />
           </div>
-        </Menu.Button>
+        </MenuButton>
       </div>
       <Transition
         as={Fragment}
@@ -40,17 +42,26 @@ const Dropdown = () => {
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items
+        <MenuItems
           className="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-none
                 z-10"
         >
           <div className="px-1 py-1 ">
-            <Menu.Item>
+
+            <MenuItem>
               {({ active }) => (
-                <button
-                  className={`${
-                    active ? "bg-violet-500 text-green" : "text-gray-900"
-                  } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+              <NavLink 
+              style={({ isActive, isTransitioning }) => {
+                return {
+                  fontWeight: isActive ? "bold" : "",
+                  color: isActive ? "red" : "black",
+                  viewTransitionName: isTransitioning ? "slide" : "",
+                };
+              }}
+              
+              to={`/admin/profile`}>
+              <button
+                  className={ `group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                 >
                   {active ? (
                     <IoPersonSharp className="mx-2  text-green" />
@@ -59,8 +70,39 @@ const Dropdown = () => {
                   )}
                   Profile
                 </button>
+              </NavLink>
+              )}
+            </MenuItem>
+
+            <Menu.Item>
+              {({ active }) => (
+                   <NavLink
+                   style={({ isActive, isTransitioning }) => {
+                    return {
+                      fontWeight: isActive ? "bold" : "",
+                      color: isActive ? "red" : "black",
+                      viewTransitionName: isTransitioning ? "slide" : "",
+                    };
+                  }}
+                   
+                   to={`/admin/setting`}>
+                   <button
+                       className={` group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                     >
+                       {active ? (
+                         <IoPersonSharp className="mx-2  text-green" />
+                       ) : (
+                         <IoPersonOutline className="mx-2 text-green" />
+                       )}
+                      Settings
+                     </button>
+                   </NavLink>
               )}
             </Menu.Item>
+
+
+
+
             <Menu.Item>
               {({ active }) => (
                 <button
@@ -79,7 +121,7 @@ const Dropdown = () => {
               )}
             </Menu.Item>
           </div>
-        </Menu.Items>
+        </MenuItems>
       </Transition>
     </Menu>
   );

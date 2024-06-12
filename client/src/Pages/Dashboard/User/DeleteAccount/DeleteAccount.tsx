@@ -5,7 +5,7 @@ const DeleteAccount = () => {
 
     const handleOpen = () => setOpen(!open);
     return (
-        <div className="p-6 md:p-10 bg-white h-screen">
+        <div className="p-6 md:p-10 bg-white h-fit">
             <h1 className="text-[#d1242f] text-[20px] font-medium">Delete Your Account</h1>
             <hr className="border-gray-200 my-4" />
             <p className="mb-4 text-sm">Are you sure you want to delete your account? This action cannot be undone.</p>

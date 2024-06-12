@@ -82,7 +82,7 @@ const Sliders = () => {
         setPageNumber={setPageNumber}
       ></Table>
       {/* add category modal */}
-      <AddModal isAddModalOpen={isAddModalOpen} title="Create Category">
+      <AddModal isAddModalOpen={isAddModalOpen} title="Create Slider">
         <AddSlider></AddSlider>
       </AddModal>
       {/* edit category modal */}

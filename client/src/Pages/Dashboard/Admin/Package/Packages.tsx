@@ -39,15 +39,15 @@ const Packages = () => {
   // console.log(data);
   const columns = [
     { name: "Image", value: "image" },
-    { name: "Name", value: "name" },
-    { name: "Price", value: "price" },
-    { name: "Quantity", value: "quantity" },
-    { name: "Total items", value: "total_items" },
+    { name: "Package Name", value: "name" },
+    { name: "Package Price", value: "price" },
+    { name: "Package Quantity", value: "quantity" },
+    { name: "Include product item", value: "total_items" },
     { name: "Total orders", value: "total_orders" },
     { name: "Status", value: "status" },
     { name: "Action", value: "action" },
   ];
-console.log(data)
+  // console.log(data);
   return (
     <div className="">
       <DashboardTitle windowTitle="Packages" text=" Total Packages">
