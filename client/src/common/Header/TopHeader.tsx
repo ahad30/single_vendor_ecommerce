@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 
 // import { CiSearch } from "react-icons/ci";
 
@@ -8,16 +9,11 @@ import {
   MenuList,
   MenuItem,
   Button,
-  Typography,
+
 } from "@material-tailwind/react";
  
 import { IoSearch } from "react-icons/io5";
 import { Link, NavLink } from "react-router-dom";
-const links = [
-  { href: '/settings', label: 'Settings' },
-  { href: '/support', label: 'Support' },
-  { href: '/license', label: 'License' },
-]
 
 const TopHeader = () => {
   return (

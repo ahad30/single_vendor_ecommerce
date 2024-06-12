@@ -30,7 +30,7 @@ const UpdatePagination = ({
     const searchParams = new URLSearchParams(location.search);
     searchParams.set("page", pageNumber);
     const newUrl = `${location.pathname}?${searchParams.toString()}`;
-    window.history.replaceState(null, null, newUrl);
+    window.history.replaceState(null, "", newUrl);
   }, [location, pageNumber]);
 
   return (
