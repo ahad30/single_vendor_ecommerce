@@ -3,6 +3,7 @@ import BannerSlider from "./BannerSlider/BannerSlider";
 // import BusinessSummary from "./BusinessSummary";
 // import Category from "./Category/Category";
 import HomeLeftSidebar from "./HomeLeftSidebar/HomeLeftSidebar";
+import InfoCardDetails from "./InfoCardDetails/InfoCardDetails";
 import ProductBanner from "./ProductBanner/ProductBanner";
 // import Product from "./Product/Product";
 // import TopBrands from "./TopBrands/TopBrands";
@@ -20,6 +21,9 @@ const Home = () => {
             <ProductBanner />
           </div>
         </div>
+      </div>
+      <div className="mt-4">
+        <InfoCardDetails/>
       </div>
       {/* <Banner></Banner> */}
       {/* <Category></Category> */}
