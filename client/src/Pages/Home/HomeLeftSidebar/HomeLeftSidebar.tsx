@@ -2,6 +2,7 @@ import { FaTshirt, FaHeartbeat, FaBook, FaFootballBall, FaPuzzlePiece, FaGem, Fa
 import { PiDevicesFill } from "react-icons/pi";
 import { Link } from 'react-router-dom';
 import { MdArrowForwardIos } from "react-icons/md";
+import { IoIosArrowForward } from "react-icons/io";
 
 const HomeLeftSidebar = () => {
     const categories = [
@@ -21,23 +22,25 @@ const HomeLeftSidebar = () => {
     ];
 
     return (
-        <div className="px-4 bg-white ">
-            {categories.slice(0,12).map((category, idx) => (
-                <div key={idx}>
-                    <div className='flex gap-3 items-center py-[2px]'>
-                        <span className="text-2xl font-semibold text-[#092635]">{category.icon}</span>
-                        <h1 className='text-base'>{category.name}</h1>
+        <div className="px-4 bg-white">
+            {categories.slice(0, 11).map((category, idx) => (
+                <Link to="/all-categories" className='' key={idx}>
+                    <div className='flex gap-3 transition-all duration-200 ease-in-out hover:px-2 items-center h-8  hover:bg-[#edeeef] hover:border-x-2 border-blue-500 '>
+                        <span className="text-xl font-medium text-[#092635]">{category.icon}</span>
+                        <h1 className='text-sm'>{category.name}</h1>
+                        <span className='hidden group-hover:block'>
+                            <IoIosArrowForward />
+                        </span>
                     </div>
                     <div className='border-t-[1px] border-gray-300 mb-1'></div>
-
-                </div>
+                </Link>
 
             ))}
-            {categories.length > 12 && (
+            {categories.length > 11 && (
                 <div className=''>
-                    <Link to="/" className='text-blue-500 flex items-center gap-2 py-1'>
+                    <Link to="/" className='text-blue-500 flex justify-between items-center gap-2 py-1'>
                         <span>View All</span>
-                        <div className='border-[#092635] p-1 border-[1px] rounded-full bg-[#0926351f]'> <MdArrowForwardIos /></div>
+                        <div className='border-[#092635] p-1 rounded-full bg-[#edeeef]'> <MdArrowForwardIos /></div>
                     </Link>
                 </div>
             )}
