@@ -5,6 +5,7 @@ type TModalState = {
   isAddModalOpen: boolean;
   isDeleteModalOpen: boolean;
   isViewModalOpen: boolean;
+  isHomeCategorySidebarOpen: boolean;
 };
 
 const initialState: TModalState = {
@@ -12,6 +13,7 @@ const initialState: TModalState = {
   isAddModalOpen: false,
   isDeleteModalOpen: false,
   isViewModalOpen: false,
+  isHomeCategorySidebarOpen: false,
 };
 
 const modalSlice = createSlice({
@@ -30,8 +32,16 @@ const modalSlice = createSlice({
     setIsViewModalOpen: (state) => {
       state.isViewModalOpen = !state.isViewModalOpen;
     },
+    setIsHomeCategorySidebarOpen: (state) => {
+      state.isHomeCategorySidebarOpen = !state.isHomeCategorySidebarOpen;
+    },
   },
 });
-export const { setIsAddModalOpen, setIsDeleteModalOpen, setIsEditModalOpen , setIsViewModalOpen } =
-  modalSlice.actions;
+export const {
+  setIsAddModalOpen,
+  setIsDeleteModalOpen,
+  setIsEditModalOpen,
+  setIsViewModalOpen,
+  setIsHomeCategorySidebarOpen,
+} = modalSlice.actions;
 export default modalSlice.reducer;
