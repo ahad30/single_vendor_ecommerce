@@ -18,6 +18,8 @@ import { IoIosArrowForward, IoMdClose } from "react-icons/io";
 import { useState } from "react";
 import { IoMdMenu } from "react-icons/io";
 import { MdClose } from "react-icons/md";
+import { RootState } from "../../../Redux/store";
+import { useAppSelector } from "../../../Redux/hook";
 
 const HomeLeftSidebar = () => {
   const categories = [
@@ -41,6 +43,10 @@ const HomeLeftSidebar = () => {
     setIsOpen(!isOpen);
   };
 
+  const { isHomeCategorySidebarOpen } = useAppSelector(
+    (state: RootState) => state.modal
+  );
+
   return (
     <div className="md:px-4 bg-white">
       <div className="lg:hidden">
@@ -50,7 +56,7 @@ const HomeLeftSidebar = () => {
         >
           <span className="cursor-pointer">
             {" "}
-            {isOpen ? (
+            {isHomeCategorySidebarOpen ? (
               <MdClose className="inline-block w-6 h-6" />
             ) : (
               <IoMdMenu className="inline-block w-6 h-6" />
@@ -58,7 +64,9 @@ const HomeLeftSidebar = () => {
           </span>
         </button>
       </div>
-      <div className={`${isOpen ? "block" : "hidden"} lg:block`}>
+      <div
+        className={`${isHomeCategorySidebarOpen ? "block" : "hidden"} lg:block`}
+      >
         {categories.slice(0, 11).map((category, idx) => (
           <Link to="/all-categories" className="" key={idx}>
             <div className="flex justify-between items-center transition-all duration-200 ease-in-out hover:px-2 h-8  hover:bg-[#edeeef]  ">
