@@ -21,6 +21,7 @@ import {
 import EditModal from "../../../../Component/Modal/EditModal";
 import EditCategory from "./EditCategory";
 import DeleteModal from "../../../../Component/Modal/DeleteModal";
+import { useLocation } from "react-router-dom";
 // import { PermissionContextProvider } from "../../../../contex/PermissionProvider";
 const Category = () => {
   // const { loggedInUserPermissions, handleCheckPermissions } = useContext(
@@ -33,6 +34,9 @@ const Category = () => {
     (state: RootState) => state.modal
   );
   const [pageNumber, setPageNumber] = useState(1);
+  const location = useLocation()
+  // console.log(location.search)
+  // console.log({ from: "category componanet", pageNumber });
   const [singleData, setSingleData] = useState<TCategory | null>(null);
   const { data, isLoading, isFetching } = useGetCategoriesQuery([
     { name: "page", value: pageNumber },
