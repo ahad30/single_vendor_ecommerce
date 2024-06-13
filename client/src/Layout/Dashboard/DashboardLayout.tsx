@@ -14,7 +14,7 @@ const DashboardLayout = () => {
       {/* for mobile */}
       <div className="lg:hidden">
         <DashboardSidebarTwo
-          className={`absolute border border-red-300 duration-700 ${
+          className={`absolute duration-700 ${
             isSidebarOpen ? "" : "-ml-[500px]"
           }`}
           isSidebarOpen={isSidebarOpen}
