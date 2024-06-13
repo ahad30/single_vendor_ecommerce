@@ -29,7 +29,14 @@ const DashboardLayout = () => {
             setIsSidebarOpen={setIsSidebarOpen}
           ></Navbar>
         </div>
-        <div className="mt-12 bg-[#F3F5F7] px-5 w-full">
+        <div
+          onClick={() => {
+            if (isSidebarOpen) {
+              setIsSidebarOpen(false);
+            }
+          }}
+          className=" py-12 bg-[#F3F5F7] px-5 w-full"
+        >
           <Outlet></Outlet>
         </div>
       </div>
