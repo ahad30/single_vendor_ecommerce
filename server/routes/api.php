@@ -10,6 +10,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/home', HomeController::class);
 
 // Authenticate Routes
-Route::middleware('auth:sanctum')->group(function () {
-    Route::apiResource('packages', OrderAddressController::class);
+Route::middleware('auth:sanctum')->prefix('user')->group(function () {
+    Route::apiResource('addresses', OrderAddressController::class);
 });

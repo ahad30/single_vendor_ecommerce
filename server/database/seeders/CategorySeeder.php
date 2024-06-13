@@ -13,12 +13,15 @@ class CategorySeeder extends Seeder
      */
     public function run(): void
     {
-        $categories = [
-            ['id' => '1', 'name' => 'Uncategorized', 'image' => ''],
-            ['id' => '2', 'name' => 'Category 1', 'image' => ''],
-            ['id' => '3', 'name' => 'Category 2', 'image' => ''],
-            ['id' => '4', 'name' => 'Category 3', 'image' => ''],
-        ];
+        $categories = [];
+
+        for ($i = 1; $i <= 100; $i++) {
+            $categories[] = [
+                'id' => $i,
+                'name' => 'Category ' . $i,
+                'image' => 'image' . $i . '.png', // You can modify this if you have specific image naming
+            ];
+        }
 
         foreach ($categories as $category) {
             Category::create($category);
