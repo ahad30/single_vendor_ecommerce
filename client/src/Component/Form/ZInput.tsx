@@ -17,8 +17,10 @@ const ZInput = ({
   name: string;
   type: string;
   label: string;
-  value?: string;
+  value?: string | number;
   reset?: boolean;
+  defaultKey?: string;
+  
 }) => {
   const { control, setValue, resetField } = useFormContext();
   const { isEditModalOpen } = useAppSelector((state: RootState) => state.modal);
@@ -35,6 +37,7 @@ const ZInput = ({
     }
   }, [reset, isEditModalOpen]);
   return (
+    
     <Controller
       name={name}
       control={control}

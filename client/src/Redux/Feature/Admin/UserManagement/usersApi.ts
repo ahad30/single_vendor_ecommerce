@@ -22,6 +22,7 @@ const userApi = baseApi.injectEndpoints({
         return res;
       },
     }),
+    
     editUser: builder.mutation({
       query: ({ data, id }) => {
         return {

@@ -24,7 +24,9 @@ type TableProps<T> = {
   data: T[];
   columns: TColumn[];
   meta: TMeta;
-  onDeleteAndEdit: (data: T, name: "edit" | "delete") => void;
+  onDeleteAndEdit?: (data: T, name: "edit" | "delete") => void;
+  onEdit?: (data: T, name: "edit") => void;
+  onDelete?: (data: T, name: "delete") => void;
   pageNumber: number;
   setPageNumber: Dispatch<SetStateAction<number>>;
   isFetching: boolean;
@@ -44,6 +46,8 @@ const Table = <T extends { id: string | number; [key: string]: any }>({
   isFetching,
   handleViewModal,
   defaultKey,
+  onDelete,
+  onEdit,
 }: TableProps<T>) => {
   if (isLoading || isFetching) {
     return <Skeleton></Skeleton>;
@@ -95,7 +99,7 @@ const Table = <T extends { id: string | number; [key: string]: any }>({
                 <tr key={item?.id}>
                   {columns?.map((column) => {
                     // action td start
-                    if (column.value === "action" && onDeleteAndEdit) {
+                    if (column.value === "action" && (onDelete || onDelete)) {
                       return (
                         <td key={column.value} className={classes}>
                           <Typography
@@ -124,30 +128,36 @@ const Table = <T extends { id: string | number; [key: string]: any }>({
                                   </Link>
                                 </Tooltip>
                               )}
-                              <Tooltip content="Edit" placement="top">
-                                <IconButton
-                                  onClick={() => onDeleteAndEdit(item, "edit")}
-                                  color="blue"
-                                  placeholder={undefined}
-                                  onPointerEnterCapture={undefined}
-                                  onPointerLeaveCapture={undefined}
-                                >
-                                  <CiEdit size={20}></CiEdit>
-                                </IconButton>
-                              </Tooltip>
-                              <Tooltip content="Delete" placement="top">
-                                <IconButton
-                                  onClick={() =>
-                                    onDeleteAndEdit(item, "delete")
-                                  }
-                                  color="red"
-                                  placeholder={undefined}
-                                  onPointerEnterCapture={undefined}
-                                  onPointerLeaveCapture={undefined}
-                                >
-                                  <AiOutlineDelete size={20}></AiOutlineDelete>
-                                </IconButton>
-                              </Tooltip>
+                              {/* edit */}
+                              {onEdit && (
+                                <Tooltip content="Edit" placement="top">
+                                  <IconButton
+                                    onClick={() => onEdit(item, "edit")}
+                                    color="blue"
+                                    placeholder={undefined}
+                                    onPointerEnterCapture={undefined}
+                                    onPointerLeaveCapture={undefined}
+                                  >
+                                    <CiEdit size={20}></CiEdit>
+                                  </IconButton>
+                                </Tooltip>
+                              )}
+                              {/* delete */}
+                              {onDelete && (
+                                <Tooltip content="Delete" placement="top">
+                                  <IconButton
+                                    onClick={() => onDelete(item, "delete")}
+                                    color="red"
+                                    placeholder={undefined}
+                                    onPointerEnterCapture={undefined}
+                                    onPointerLeaveCapture={undefined}
+                                  >
+                                    <AiOutlineDelete
+                                      size={20}
+                                    ></AiOutlineDelete>
+                                  </IconButton>
+                                </Tooltip>
+                              )}
                             </div>
                           </Typography>
                         </td>
@@ -192,11 +202,13 @@ const Table = <T extends { id: string | number; [key: string]: any }>({
                                       {item["variants"].total_variants}
                                     </span>
                                   </p>
-                                ) : item[column?.value] == 1 ? (
+                                ) : item[column?.value] == 1 &&
+                                  column?.name == "Status" ? (
                                   <span className="bg-green-400 text-white px-5 rounded-md py-1">
                                     Active
                                   </span>
-                                ) : item[column?.value] == 0 ? (
+                                ) : item[column?.value] == 0 &&
+                                  column?.name === "Status" ? (
                                   <span className="bg-red-400 text-white px-5 rounded-md py-1">
                                     Inactive
                                   </span>

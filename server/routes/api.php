@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\Frontend\HomeController;
+use App\Http\Controllers\Api\Users\OrderAddressController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -9,6 +10,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/home', HomeController::class);
 
 // Authenticate Routes
-Route::middleware('auth:sanctum')->group(function () {
-    //
+Route::middleware('auth:sanctum')->prefix('user')->group(function () {
+    Route::apiResource('addresses', OrderAddressController::class);
 });

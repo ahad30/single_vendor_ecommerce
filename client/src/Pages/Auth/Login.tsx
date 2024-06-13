@@ -17,17 +17,11 @@ type TLoginError = {
 const Login = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const user = useAppSelector((state: RootState) => state.auth);
-  // console.log(user)
   const [
     Login,
     { isError, isLoading, isSuccess, data: loginData, error: loginError },
   ] = useLoginMutation();
-  const {
-    register,
-    handleSubmit,
-    // formState: { errors },
-  } = useForm();
+  const { register, handleSubmit } = useForm();
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     const { data: loginData } = await Login(data);
     if (loginData.status) {
@@ -70,6 +64,7 @@ const Login = () => {
                   <div className="relative mb-8">
                     <input
                       {...register("email")}
+                      defaultValue={"admin@gmail.com"}
                       id="email"
                       name="email"
                       type="text"
@@ -80,6 +75,7 @@ const Login = () => {
                   <div className="relative">
                     <input
                       {...register("password")}
+                      defaultValue={"password123"}
                       id="password"
                       name="password"
                       type="password"
@@ -91,8 +87,9 @@ const Login = () => {
                   <div className="relative">
                     <input
                       type="submit"
-                      value="Login"
-                      className="bg-blue-500 text-white rounded-md px-3 py-1 cursor-pointer"
+                      disabled={isLoading}
+                      value={isLoading ? "Loading..." : "Login"}
+                      className="bg-blue-500 disabled:cursor-not-allowed disabled:bg-blue-200 text-white rounded-md px-3 py-1 cursor-pointer"
                     />
                   </div>
                 </div>

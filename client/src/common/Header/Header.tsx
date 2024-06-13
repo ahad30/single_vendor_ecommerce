@@ -7,26 +7,27 @@ import { NavLink } from "react-router-dom";
 const Header = () => {
   return (
     <>
-      <div className="bg-secondary py-2 ">
+      <div className="bg-secondary py-2 px-4 lg:px-10">
         <div className="text-white max-w-[1100px] mx-auto flex justify-between items-center">
-          <div className="flex items-center gap-2">
-            <CiLocationOn className="font-bold text-xl" />
-            <span className="text-base">Track Order</span>
+          <div className="flex items-center gap-1">
+            <CiLocationOn className="font-bold text-base md:text-xl" />
+            <span className="text-[12px] md:text-base">Track Order</span>
           </div>
           <div className="text-white flex justify-start items-center gap-2">
-            <CiUser className="font-bold text-xl" />
+            <CiUser className="font-bold text-base md:text-xl" />
             <div>
               <NavLink
-                to="/login" className=" text-sm ">
+                to="/login" className="text-[12px] md:text-sm ">
                 Login
               </NavLink> /
               <NavLink
-                to="/register" className=" text-sm ">
+                to="/register" className="text-[12px] md:text-sm ">
                 Register
               </NavLink>
             </div>
           </div>
         </div>
+        
       </div>
 
       <div className="w-[90%] lg:px-7 lg:max-w-7xl mx-auto">

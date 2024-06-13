@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Profile;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdatePasswordRequest;
 use App\Http\Requests\UpdateProfileRequest;
+use App\Http\Resources\ProfileResource;
 use App\Trait\UploadImageTrait;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -17,25 +18,8 @@ class UserProfileController extends Controller
     // profile
     public function profile(Request $request)
     {
-        $user = $request->user();
-        $user->getPermissionsViaRoles();
-        $data = [
-            'id' => $user->id,
-            'name' => $user->name,
-            'email' => $user->email,
-            'role_name' => $user->roles->map(function ($role) {
-                return [
-                    'id' => $role->id,
-                    'name' => $role->name,
-                    'permissions' => $role->permissions->map(function ($permission) {
-                        return [
-                            'id' => $permission->id,
-                            'name' => $permission->name,
-                        ];
-                    }),
-                ];
-            }),
-        ];
+        $data = new ProfileResource($request->user());
+
         return Response::success($data);
     }
 

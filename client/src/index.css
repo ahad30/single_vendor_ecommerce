@@ -154,3 +154,62 @@
     display: block;
   }
 }
+.carousel .thumb{
+height: 0;
+width: 0;
+margin: 0;
+padding: 0;
+border: 0;
+transition: none;
+transform: none;
+}
+
+.carousel .thumb.selected{
+border: 0;
+
+}
+
+/* product banner key framing */
+
+@keyframes zoomInOut {
+  0% {
+      transform: scale(0.5);
+  }
+  50% {
+      transform: scale(1);
+  }
+  100% {
+      transform: scale(0.5);
+  }
+}
+
+.animate-zoom.animate-zoom-2s {
+  animation: zoomInOut 4s ease-in-out infinite;
+}
+
+.animate-zoom.animate-zoom-3s {
+  animation: zoomInOut 5s ease-in-out infinite;
+}
+
+.animate-zoom.animate-zoom-4s {
+  animation: zoomInOut 4s ease-in-out infinite;
+}
+
+.animate-zoom.animate-zoom-5s {
+  animation: zoomInOut 5s ease-in-out infinite;
+}
+
+/* banner left sidebar */
+.arrow-icon {
+  display: none; 
+}
+
+.flex:hover .arrow-icon {
+  display: inline-block;
+}
+
+
+
+
+
+

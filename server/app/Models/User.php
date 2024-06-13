@@ -53,4 +53,10 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    // get all order address
+    public function orderAddresses()
+    {
+        return $this->hasMany(OrderAddress::class, 'user_id', 'id');
+    }
 }

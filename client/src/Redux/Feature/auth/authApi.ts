@@ -6,7 +6,9 @@ export interface TLoggedUser {
   id: number;
   name: string;
   email: string;
-  role_name: RoleName[];
+  phone: number;
+  address: string;
+  role: RoleName[] | string;
 }
 
 export interface RoleName {
@@ -42,7 +44,6 @@ export const authApi = baseApi.injectEndpoints({
           method: "POST",
           body: data,
         };
-        
       },
       invalidatesTags: ["customers"],
       transformErrorResponse: (res: TError & BaseQueryApi) => {
@@ -58,7 +59,7 @@ export const authApi = baseApi.injectEndpoints({
         };
       },
     }),
-    
+
     getLoggedInUser: builder.query({
       query: () => {
         return {
@@ -73,6 +74,9 @@ export const authApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useLoginMutation, 
-  
-  useRegisterMutation, useGetLoggedInUserQuery, useLogoutMutation } = authApi;
+export const {
+  useLoginMutation,
+  useRegisterMutation,
+  useGetLoggedInUserQuery,
+  useLogoutMutation,
+} = authApi;

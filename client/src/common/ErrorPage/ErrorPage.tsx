@@ -1,9 +1,14 @@
 import { Link, useRouteError } from "react-router-dom";
 
+type error = {
+  statusText : string;
+  message : string;
+}
 
 const ErrorPage = () => {
-    const error = useRouteError();
-    console.error(error);
+    const error = (useRouteError()) as error;
+  
+
   
     return (
       <div id="error-page" className="text-center mt-10">
