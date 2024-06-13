@@ -2,7 +2,10 @@ import { FaTshirt, FaHeartbeat, FaBook, FaFootballBall, FaPuzzlePiece, FaGem, Fa
 import { PiDevicesFill } from "react-icons/pi";
 import { Link } from 'react-router-dom';
 import { MdArrowForwardIos } from "react-icons/md";
-import { IoIosArrowForward } from "react-icons/io";
+import { IoIosArrowForward, IoMdClose } from "react-icons/io";
+import { useState } from 'react';
+import { IoMdMenu } from "react-icons/io";
+import { MdClose } from "react-icons/md";
 
 const HomeLeftSidebar = () => {
     const categories = [
@@ -20,32 +23,47 @@ const HomeLeftSidebar = () => {
         { "id": 12, "name": "E-Books", "icon": <FaBookReader /> },
         { "id": 13, "name": "Gift Cards and Tickets", "icon": <FaTicketAlt /> }
     ];
+    const [isOpen, setIsOpen] = useState(false);
+
+    const toggleSidebar = () => {
+        setIsOpen(!isOpen);
+    };
 
     return (
-        <div className="px-4 bg-white">
-            {categories.slice(0, 11).map((category, idx) => (
-                <Link to="/all-categories" className='' key={idx}>
-                    <div className='flex justify-between items-center transition-all duration-200 ease-in-out hover:px-2 h-8  hover:bg-[#edeeef]  '>
-                        <div className='flex gap-3'>
-                            <span className="text-xl font-medium text-[#092635]">{category.icon}</span>
-                            <h1 className='text-sm'>{category.name}</h1>
+        <div className="md:px-4 bg-white">
+            <div className="lg:hidden">
+                <button
+                    onClick={toggleSidebar}
+                    className="text-2xl py-1 transition duration-500 ease-in-out transform hover:scale-70"
+                >
+                    <span className='cursor-pointer'> {isOpen ? <MdClose className="inline-block w-6 h-6" /> : <IoMdMenu className="inline-block w-6 h-6" />}</span>
+                </button>
+            </div>
+            <div className={`${isOpen ? 'block' : 'hidden'} lg:block`}>
+                {categories.slice(0, 11).map((category, idx) => (
+                    <Link to="/all-categories" className='' key={idx}>
+                        <div className='flex justify-between items-center transition-all duration-200 ease-in-out hover:px-2 h-8  hover:bg-[#edeeef]  '>
+                            <div className='flex gap-3'>
+                                <span className="text-xl font-medium text-[#092635]">{category.icon}</span>
+                                <h1 className='text-sm'>{category.name}</h1>
+                            </div>
+                            <span >
+                                <IoIosArrowForward className='text-blue-500 text-xl' />
+                            </span>
                         </div>
-                        <span className='arrow-icon '>
-                            <IoIosArrowForward  className='text-blue-500 text-xl'/>
-                        </span>
-                    </div>
-                    <div className='border-t-[1px] border-gray-300 mb-1'></div>
-                </Link>
-
-            ))}
-            {categories.length > 11 && (
-                <div className=''>
-                    <Link to="/" className='text-blue-500 hover:bg-[#edeeef] transition-all duration-200 ease-in-out hover:px-2 flex justify-between items-center gap-2 py-1'>
-                        <span>View All</span>
-                        <div className='border-[#092635] p-1 rounded-full bg-[#edeeef]'> <MdArrowForwardIos /></div>
+                        <div className='border-t-[1px] border-gray-300 mb-1'></div>
                     </Link>
-                </div>
-            )}
+
+                ))}
+                {categories.length > 11 && (
+                    <div className=''>
+                        <Link to="/" className='text-blue-500 hover:bg-[#edeeef] transition-all duration-200 ease-in-out hover:px-2 flex justify-between items-center gap-2 py-1'>
+                            <span>View All</span>
+                            <div className='border-[#092635] p-1 rounded-full bg-[#edeeef]'> <MdArrowForwardIos /></div>
+                        </Link>
+                    </div>
+                )}
+            </div>
 
         </div>
     );

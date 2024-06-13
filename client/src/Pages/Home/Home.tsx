@@ -11,18 +11,18 @@ import ProductBanner from "./ProductBanner/ProductBanner";
 const Home = () => {
   return (
     <div className="">
-      <div className="grid grid-cols-[2fr_5fr] mt-4">
+      <div className="grid lg:grid-cols-[2fr_5fr] mt-4">
         <HomeLeftSidebar />
-        <div className="h-full">
-          <div className="w-full h-[80%]">
+        <div className="">
+          <div className="w-full h-full md:h-[80%]">
             <BannerSlider />
           </div>
-          <div className=" mt-[-75px]">
+          <div className="mt-[-64px] md:mt-[-75px]">
             <ProductBanner />
           </div>
         </div>
       </div>
-      <div className="mt-4">
+      <div className="mt-6">
         <InfoCardDetails/>
       </div>
       {/* <Banner></Banner> */}
