@@ -5,6 +5,7 @@ import Header from "../../common/Header/Header";
 import NewsSletter from "../../Pages/Home/NewsSletter/NewsSletter";
 
 const HomeLayout = () => {
+  
   return (
     <>
       <Header></Header>

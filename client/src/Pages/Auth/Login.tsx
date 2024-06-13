@@ -25,7 +25,6 @@ const Login = () => {
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     const { data: loginData } = await Login(data);
     if (loginData.status) {
-      console.log(loginData.status)
       dispatch(setUser(loginData.data));
       if (loginData.data.user.is_customer == 1) {
         navigate("/user");
@@ -88,8 +87,9 @@ const Login = () => {
                   <div className="relative">
                     <input
                       type="submit"
-                      value="Login"
-                      className="bg-blue-500 text-white rounded-md px-3 py-1 cursor-pointer"
+                      disabled={isLoading}
+                      value={isLoading ? "Loading..." : "Login"}
+                      className="bg-blue-500 disabled:cursor-not-allowed disabled:bg-blue-200 text-white rounded-md px-3 py-1 cursor-pointer"
                     />
                   </div>
                 </div>

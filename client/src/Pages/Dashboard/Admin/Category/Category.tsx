@@ -21,6 +21,7 @@ import {
 import EditModal from "../../../../Component/Modal/EditModal";
 import EditCategory from "./EditCategory";
 import DeleteModal from "../../../../Component/Modal/DeleteModal";
+import { useLocation } from "react-router-dom";
 // import { PermissionContextProvider } from "../../../../contex/PermissionProvider";
 const Category = () => {
   // const { loggedInUserPermissions, handleCheckPermissions } = useContext(
@@ -33,6 +34,9 @@ const Category = () => {
     (state: RootState) => state.modal
   );
   const [pageNumber, setPageNumber] = useState(1);
+  const location = useLocation();
+  // console.log(location.search)
+  // console.log({ from: "category componanet", pageNumber });
   const [singleData, setSingleData] = useState<TCategory | null>(null);
   const { data, isLoading, isFetching } = useGetCategoriesQuery([
     { name: "page", value: pageNumber },
@@ -40,11 +44,23 @@ const Category = () => {
   const handleEditAndDelete = (data: TCategory, name: "delete" | "edit") => {
     setSingleData(data);
     if (name === "delete") {
-      console.log("delete", data);
       dispatch(setIsDeleteModalOpen());
     } else if (name === "edit") {
-      console.log("edit", data);
       dispatch(setIsEditModalOpen());
+    }
+  };
+
+  //
+  const handleEdit = (data: TCategory, name: "edit") => {
+    if (name === "edit") {
+      setSingleData(data);
+      dispatch(setIsEditModalOpen());
+    }
+  };
+  const handleDl = (data: TCategory, name: "delete") => {
+    if (name === "delete") {
+      setSingleData(data);
+      dispatch(setIsDeleteModalOpen());
     }
   };
 
@@ -81,7 +97,8 @@ const Category = () => {
         columns={columns}
         meta={data?.meta as TMeta}
         data={data?.data || []}
-        onDeleteAndEdit={handleEditAndDelete}
+        onDelete={handleDl}
+        onEdit={handleEdit}
         pageNumber={pageNumber}
         setPageNumber={setPageNumber}
       ></Table>

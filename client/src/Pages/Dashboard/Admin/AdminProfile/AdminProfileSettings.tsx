@@ -4,9 +4,9 @@ import ReUseableButton from "../../../../Component/UserDashboard/ReUseableButton
 
 const AdminProfileSettings = () => {
   return (
-    <div>
+    <div className="m-3 bg-white p-12 rounded-lg shadow-2xl">
       <ZForm>
-        <div className="grid grid-cols-1 md:grid-cols-2 md:gap-x-6">
+        <div className="grid grid-cols-1 md:gap-x-6">
           <ZInput label={"Old Password :"} name={"name"} type={"text"}></ZInput>
           <ZInput label={"New Password :"} name={"name"} type={"text"}></ZInput>
         </div>

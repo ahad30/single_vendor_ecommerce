@@ -1,62 +1,29 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-
-// import { CiSearch } from "react-icons/ci";
-
-// import { HiMiniBars3 } from "react-icons/hi2";
-// import {
-//   Menu,
-//   MenuHandler,
-//   MenuList,
-//   MenuItem,
-//   Button,
-//   Typography,
-// } from "@material-tailwind/react";
-
 import { IoSearch } from "react-icons/io5";
 import { IoMdCart } from "react-icons/io";
 import { FaRegHeart } from "react-icons/fa";
-// import { Link, NavLink } from "react-router-dom";
-// const links = [
-//   { href: '/settings', label: 'Settings' },
-//   { href: '/support', label: 'Support' },
-//   { href: '/license', label: 'License' },
-// ]
+import { useAppDispatch, useAppSelector } from "../../Redux/hook";
+import { RootState } from "../../Redux/store";
+import { setIsHomeCategorySidebarOpen } from "../../Redux/Feature/Modal/modalSlice";
 
 const TopHeader = () => {
+  const dispatch = useAppDispatch();
+  const { isHomeCategorySidebarOpen } = useAppSelector(
+    (state: RootState) => state.modal
+  );
+
+  // onclick = {()=> dispatch(setIsHomeCategorySidebarOpen()}
   return (
     <section className="mt-[-40px]">
       <div className="flex sticky top-0 justify-between items-center">
         {/* heading */}
         <div className="">
-          <h2 className="font-bold text-3xl">
+          <h2 className="font-bold text-lg md:text-3xl">
             <span className="text-[#45F806]">LO</span>GO
           </h2>
         </div>
 
-        {/* <div className="">
-      <Menu>
-      <MenuHandler>
-        <Button className="bg-[#EAE5E591] shadow-none hover:shadow-none text-[12px] text-[#22222278] font-Poppins" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
-        <span><HiMiniBars3 className="inline-block me-1"></HiMiniBars3></span>  
-          Shop By Category
-          
-        </Button>
-      </MenuHandler>
-      <MenuList placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}> 
-        <MenuItem placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>Menu Item 1</MenuItem>
-        <MenuItem placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>Menu Item 2</MenuItem>
-        <MenuItem placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>Menu Item 3</MenuItem>
-    
-      </MenuList>
-    </Menu>
-
-    
-    
-    </div> */}
-
-
         {/* searchBar */}
-        <div className="relative w-[35%]  my-12 flex">
+        <div className="relative w-[40%] md:w-[35%]  my-12 flex">
           <div className="w-full">
             <label htmlFor="Search" className="sr-only">
               Search
@@ -67,17 +34,16 @@ const TopHeader = () => {
                 id="Search"
                 name="search"
                 placeholder="Search Products..."
-                className="w-full  px-4 outline-none  py-2 border-gray-300 rounded-sm border-[0.5px] pe-10 shadow-sm sm:text-sm"
+                className="w-full px-2 md:px-4 outline-none py-[2px] md:py-2 border-gray-300 rounded-sm border-[0.5px] pe-10 shadow-sm sm:text-sm"
               />
             </form>
 
-            <div className="absolute -end-2 bg-primary px-4 -top-0 bottom-0 flex justify-center items-center rounded-sm h-[37px]">
+            <div className="absolute -end-2 bg-secondary px-2 md:px-4 -top-0 bottom-0 flex justify-center items-center rounded-sm md:h-[37px]">
               <IoSearch
                 className="cursor-pointer  text-white"
                 size={20}
               ></IoSearch>
             </div>
-
           </div>
         </div>
         {/* <div className="flex items-center space-x-2">
@@ -123,25 +89,25 @@ const TopHeader = () => {
 
         </div> */}
         {/* card icon */}
-        <div className="flex gap-x-4 justify-center items-center">
+        <div className="flex gap-x-3 justify-center items-center">
           {/* love */}
           <div className="border-[#092635] relative p-1 border-[1px] rounded-full bg-[#0926351f]">
-            <div className="absolute text-[12px] px-[5px] top-[-6px] left-6 bg-red-400 text-white flex justify-center items-center rounded-full">
+            <div className="absolute text-[10px] md:text-[12px] px-[5px] top-[-6px] left-[17px] md:left-6 bg-red-400 text-white flex justify-center items-center rounded-full">
               <span>0</span>
             </div>
-            <FaRegHeart className="w-6 h-6 text-[#092635]"/>
+            <FaRegHeart className="md:w-6 md:h-6 text-[#092635]" />
           </div>
           {/* cart */}
           <div className="border-[#092635] relative p-1 border-[1px] rounded-full bg-[#0926351f]">
-            <div className="absolute text-[12px] px-[5px] top-[-6px] left-6 bg-red-400 text-white flex justify-center items-center rounded-full">
+            <div className="absolute text-[10px] md:text-[12px] px-[5px] top-[-6px] left-[17px] md:left-6 bg-red-400 text-white flex justify-center items-center rounded-full">
               <span>0</span>
             </div>
-            <IoMdCart className="w-6 h-6 text-[#092635]"/>
+            <IoMdCart className="md:w-6 md:h-6 text-[#092635]" />
           </div>
         </div>
       </div>
     </section>
-  )
-}
+  );
+};
 
 export default TopHeader;
