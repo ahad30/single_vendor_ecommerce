@@ -19,6 +19,7 @@ class OrderAddressResource extends JsonResource
             'user' => $this->user->name,
             'title' => $this->title,
             'address' => $this->address,
+            'is_default' => $this->is_default
         ];
     }
 }
