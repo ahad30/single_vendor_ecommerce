@@ -125,7 +125,7 @@ const TopHeader = () => {
         {/* card icon */}
         <div className="flex gap-x-3 justify-center items-center">
           {/* love */}
-          <div className="border-[#092635] relative p-1 border-[1px] rounded-full bg-[#0926351f]">
+          <div className="border-[#092635] hidden md:block relative p-1 border-[1px] rounded-full bg-[#0926351f]">
             <div className="absolute text-[10px] md:text-[12px] px-[5px] top-[-6px] left-[17px] md:left-6 bg-red-400 text-white flex justify-center items-center rounded-full">
               <span>0</span>
             </div>

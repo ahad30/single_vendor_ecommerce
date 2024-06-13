@@ -2,7 +2,7 @@ import { FaTshirt, FaHeartbeat, FaBook, FaFootballBall, FaPuzzlePiece, FaGem, Fa
 import { PiDevicesFill } from "react-icons/pi";
 import { Link } from 'react-router-dom';
 import { MdArrowForwardIos } from "react-icons/md";
-import { IoIosArrowForward, IoMdClose } from "react-icons/io";
+import { IoIosArrowForward } from "react-icons/io";
 import { useState } from 'react';
 import { IoMdMenu } from "react-icons/io";
 import { MdClose } from "react-icons/md";
@@ -47,9 +47,9 @@ const HomeLeftSidebar = () => {
                                 <span className="text-xl font-medium text-[#092635]">{category.icon}</span>
                                 <h1 className='text-sm'>{category.name}</h1>
                             </div>
-                            <span >
+                            {/* <span >
                                 <IoIosArrowForward className='text-blue-500 text-xl' />
-                            </span>
+                            </span> */}
                         </div>
                         <div className='border-t-[1px] border-gray-300 mb-1'></div>
                     </Link>
