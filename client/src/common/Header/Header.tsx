@@ -7,7 +7,7 @@ import { NavLink } from "react-router-dom";
 const Header = () => {
   return (
     <>
-      <div className="bg-secondary py-2 ">
+      <div className="bg-secondary py-2">
         <div className="text-white max-w-[1100px] mx-auto flex justify-between items-center">
           <div className="flex items-center gap-2">
             <CiLocationOn className="font-bold text-xl" />
