@@ -155,7 +155,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "1|ELoQiKQchbvvpNl3ZmWWbRFozmMpdOoaHjkJyta792748aed",
+											"value": "4|dNCsKqZ6N8Ufzj1XCj5UD8cLtyp28N4TgP64xtfnae3af917",
 											"type": "string"
 										}
 									]
@@ -1435,7 +1435,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "1|zRQEO7vjCLC3sZdp6NP5IiOLA5r14hybBq2lOaPl0562b2d0",
+											"value": "15|efbASOJ954NXQykJHHmRQUr7QjeGntOdcAhb8Joc1e1a1c75",
 											"type": "string"
 										}
 									]
@@ -1573,7 +1573,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "2|ODhWEwzwOAGqtaLCIfnDLknEn99aSAhEZJIoNPWA5237a967",
+											"value": "1|yg3N5HFjjgaIclBiaa54NKkWbhYd1zzVwi9AOKQxe5f6d731",
 											"type": "string"
 										}
 									]
@@ -1586,13 +1586,104 @@
 									}
 								],
 								"body": {
-									"mode": "raw",
-									"raw": "// create variant product\r\n{\r\n    \"name\": \"Product 4\",\r\n    \"slug\": \"product-4\",\r\n    \"category_id\": 1,\r\n    \"brand_id\": 1,\r\n    \"product_uid\": \"PRD-123456789\",\r\n    \"weight\": \"0.3kg\",\r\n    \"description\": \"Product 2 Description\",\r\n    \"is_published\": true,\r\n    \"list_type\":\"new-arraival\",\r\n    // \"thumbnail\":\"\", // image file [formdata]\r\n    \"skus\": [\r\n        {\r\n            \"attributes\": {\r\n                \"Color\": \"Black\",\r\n                \"Size\": \"L\"\r\n            },\r\n            \"quantity\": 20,\r\n            \"price\": 200\r\n            // \"image\":\"\" // image file [formdata]\r\n        },\r\n        {\r\n            \"attributes\": {\r\n                \"Color\": \"Red\",\r\n                \"Size\": \"XXL\"\r\n            },\r\n            \"quantity\": 15,\r\n            \"price\": 150\r\n            // \"image\":\"\" // image file [formdata]\r\n        }\r\n    ]\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "Varient Product",
+											"type": "text"
+										},
+										{
+											"key": "category_id",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "brand_id",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "weight",
+											"value": "0.3kg",
+											"type": "text"
+										},
+										{
+											"key": "description",
+											"value": "Varient product description",
+											"type": "text"
+										},
+										{
+											"key": "thumbnail",
+											"type": "file",
+											"src": "/C:/Users/user/Downloads/Screenshotforcom.png"
+										},
+										{
+											"key": "is_published",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "is_single_product",
+											"value": "0",
+											"type": "text"
+										},
+										{
+											"key": "list_type",
+											"value": "new-arraival",
+											"type": "text"
+										},
+										{
+											"key": "skus[0][attributes][color]",
+											"value": "Red",
+											"type": "text"
+										},
+										{
+											"key": "skus[0][attributes][size]",
+											"value": "L",
+											"type": "text"
+										},
+										{
+											"key": "skus[0][quantity]",
+											"value": "20",
+											"type": "text"
+										},
+										{
+											"key": "skus[0][price]",
+											"value": "200",
+											"type": "text"
+										},
+										{
+											"key": "skus[0][image]",
+											"type": "file",
+											"src": "postman-cloud:///1eeca3fc-e12e-4800-952f-1a7e93053c68"
+										},
+										{
+											"key": "skus[1][attributes][color]",
+											"value": "Blue",
+											"type": "text"
+										},
+										{
+											"key": "skus[1][attributes][size]",
+											"value": "XL",
+											"type": "text"
+										},
+										{
+											"key": "skus[1][quantity]",
+											"value": "20",
+											"type": "text"
+										},
+										{
+											"key": "skus[1][price]",
+											"value": "200",
+											"type": "text"
+										},
+										{
+											"key": "skus[1][image]",
+											"type": "file",
+											"src": "postman-cloud:///1eeca3fc-e12e-4800-952f-1a7e93053c68"
 										}
-									}
+									]
 								},
 								"url": {
 									"raw": "{{base_url}}/products",
@@ -1614,7 +1705,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "2|ODhWEwzwOAGqtaLCIfnDLknEn99aSAhEZJIoNPWA5237a967",
+											"value": "11|EvR87QWvVl9HGeBN2pQ4QK7uvgcHljmODhfTxvmtb0408980",
 											"type": "string"
 										}
 									]
@@ -1627,13 +1718,73 @@
 									}
 								],
 								"body": {
-									"mode": "raw",
-									"raw": "// Create Single Product\r\n{\r\n    \"name\": \"Product 4\",\r\n    \"slug\": \"product-4\",\r\n    \"category_id\": 1,\r\n    \"brand_id\": 1,\r\n    \"product_uid\": \"PRD-123456789\",\r\n    \"weight\": \"0.3kg\",\r\n    \"description\": \"Product 2 Description\",\r\n    \"is_published\": true,\r\n    \"list_type\":\"new-arraival\"\r\n    // \"thumbnail\":\"\", // image file [formdata]\r\n    // \"images[]\":\"\", // array image files [formdata]\r\n    // \"images[]\":\"\", // array image files [formdata]\r\n    // \"images[]\":\"\", // array image files [formdata]\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "Single Product456",
+											"type": "text"
+										},
+										{
+											"key": "category_id",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "brand_id",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "weight",
+											"value": "3.1",
+											"type": "text"
+										},
+										{
+											"key": "description",
+											"value": "Single product desc",
+											"type": "text"
+										},
+										{
+											"key": "is_single_product",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "is_published",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "list_type",
+											"value": "new-arrival",
+											"type": "text"
+										},
+										{
+											"key": "thumbnail",
+											"type": "file",
+											"src": "/C:/Users/user/Downloads/uf.jpg"
+										},
+										{
+											"key": "unit_quantity",
+											"value": "20",
+											"type": "text"
+										},
+										{
+											"key": "unit_price",
+											"value": "100",
+											"type": "text"
+										},
+										{
+											"key": "images[]",
+											"type": "file",
+											"src": [
+												"/C:/Users/user/Downloads/jhkfg.jpg",
+												"/C:/Users/user/Downloads/pos.png",
+												"/C:/Users/user/Downloads/warehouse.png"
+											]
 										}
-									}
+									]
 								},
 								"url": {
 									"raw": "{{base_url}}/products",
@@ -1655,7 +1806,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "1|zRQEO7vjCLC3sZdp6NP5IiOLA5r14hybBq2lOaPl0562b2d0",
+											"value": "3|6OnTv0PrI6vT4VyAK8dyb52Bi0VZssUzc4ahbhQy6f91ebad",
 											"type": "string"
 										}
 									]
@@ -1668,13 +1819,13 @@
 									}
 								],
 								"url": {
-									"raw": "{{base_url}}/products/3",
+									"raw": "{{base_url}}/products/4",
 									"host": [
 										"{{base_url}}"
 									],
 									"path": [
 										"products",
-										"3"
+										"4"
 									]
 								}
 							},
@@ -1751,6 +1902,202 @@
 									"path": [
 										"products",
 										"3"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Packge management",
+			"item": [
+				{
+					"name": "Package",
+					"item": [
+						{
+							"name": "get all packages",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "7|WHrRy2XdQmXYglqbQR30AURG4bTXlyHfjcDyy8ez1b7db7a6",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{base_url}}/packages?package_type=new",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"packages"
+									],
+									"query": [
+										{
+											"key": "package_type",
+											"value": "new"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get categorized products name",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "3|Qjw8QigMbozS9hZuY855nEBhq2DDAf0IC7VuK4FJ1b0ca175",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/categorized/products?category_id=1",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"categorized",
+										"products"
+									],
+									"query": [
+										{
+											"key": "category_id",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "create package",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "10|2iDReaP82oRPW0tAVhbPQQgChaN5RNeKvBV6AI6P0e3cacbc",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "Package 3",
+											"type": "text"
+										},
+										{
+											"key": "image",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "price",
+											"value": "500",
+											"type": "text"
+										},
+										{
+											"key": "quantity",
+											"value": "5",
+											"type": "text"
+										},
+										{
+											"key": "description",
+											"value": "Package 2 Desc",
+											"type": "text"
+										},
+										{
+											"key": "status",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "is_existing_product_package",
+											"value": "0",
+											"type": "text"
+										},
+										{
+											"key": "items[0][product_name]",
+											"value": "Color Pen",
+											"type": "text"
+										},
+										{
+											"key": "items[0][price]",
+											"value": "10",
+											"type": "text"
+										},
+										{
+											"key": "items[0][quantity]",
+											"value": "2",
+											"type": "text"
+										},
+										{
+											"key": "items[1][product_name]",
+											"value": "Back Cover",
+											"type": "text"
+										},
+										{
+											"key": "items[1][price]",
+											"value": "240",
+											"type": "text"
+										},
+										{
+											"key": "items[1][quantity]",
+											"value": "2",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}/packages",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"packages"
 									]
 								}
 							},
@@ -1987,128 +2334,6 @@
 									],
 									"path": [
 										"home"
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				}
-			]
-		},
-		{
-			"name": "Packge management",
-			"item": [
-				{
-					"name": "Package",
-					"item": [
-						{
-							"name": "get all packages",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "4|6I9YDHjYjXbRFuOgj2TV6n2gsQ9wOdiUZlBFWq3153d36ae2",
-											"type": "string"
-										}
-									]
-								},
-								"method": "GET",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json"
-									}
-								],
-								"url": {
-									"raw": "{{base_url}}/packages",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"packages"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "get categorized products name",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "3|Qjw8QigMbozS9hZuY855nEBhq2DDAf0IC7VuK4FJ1b0ca175",
-											"type": "string"
-										}
-									]
-								},
-								"method": "GET",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json"
-									}
-								],
-								"url": {
-									"raw": "{{base_url}}/categorized/products?category_id=1",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"categorized",
-										"products"
-									],
-									"query": [
-										{
-											"key": "category_id",
-											"value": "1"
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "create package",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "1|0TqZzT54IJHmW8v4vVLvviXPpgUrFANZcPdm5NPd4162a7f9",
-											"type": "string"
-										}
-									]
-								},
-								"method": "POST",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"name\": \"Package 3\",\r\n    \"image\": \"\",\r\n    \"price\": 500,\r\n    \"quantity\": 5,\r\n    \"description\": \"Package 2 Desc\",\r\n    \"status\": 1,\r\n    \"is_existing_product_package\": 0,\r\n    \"items\":[\r\n        {\r\n            \"product_id\":\"\",\r\n            \"product_name\":\"Color Pen\",\r\n            \"sku_id\":\"\",\r\n            \"code\":\"\",\r\n            \"price\":10,\r\n            \"quantity\":2\r\n        },\r\n        {\r\n            \"product_id\":\"\",\r\n            \"product_name\":\"Back Cover\",\r\n            \"sku_id\":\"\",\r\n            \"code\":\"\",\r\n            \"price\":240,\r\n            \"quantity\":2\r\n        }\r\n    ]\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{base_url}}/packages",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"packages"
 									]
 								}
 							},
