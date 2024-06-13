@@ -6,6 +6,8 @@ export interface TLoggedUser {
   id: number;
   name: string;
   email: string;
+  phone: number;
+  address: string;
   role: RoleName[] | string;
 }
 
@@ -74,7 +76,6 @@ export const authApi = baseApi.injectEndpoints({
 
 export const {
   useLoginMutation,
-
   useRegisterMutation,
   useGetLoggedInUserQuery,
   useLogoutMutation,
