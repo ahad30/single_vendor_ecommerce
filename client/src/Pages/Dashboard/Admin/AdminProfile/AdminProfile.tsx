@@ -1,16 +1,33 @@
-import { FaEdit } from "react-icons/fa";
+
 import ZForm from "../../../../Component/Form/ZForm";
 import ZInput from "../../../../Component/Form/ZInput";
 import ReUseableButton from "../../../../Component/UserDashboard/ReUseableButton/ReUseableButton";
 import { useGetLoggedInUserQuery } from "../../../../Redux/Feature/auth/authApi";
-import ZInputTextArea from "../../../../Component/Form/ZInputTextArea";
+import { FieldValues, SubmitHandler } from "react-hook-form";
+import { TError } from "../../../../types/globalTypes";
+
 
 const AdminProfile = () => {
-  const { isLoading, isSuccess, data, isError, error } =
+  const [
+    adminProfile, 
+    { isLoading, 
+    isSuccess, 
+    data, 
+    isError, 
+    error }] =
     useGetLoggedInUserQuery(undefined);
       // console.log(data?.data);  
-  
 
+      const handleSubmit: SubmitHandler<FieldValues> = (data) => {
+        const formData = new FormData();
+        formData.append("name", data.name );
+        if (data?.image) {
+          formData.append("image", data.image);
+        }
+        formData.append("_method", "PUT");
+        adminProfile({ data: formData, id });
+      };
+      
 
   return (
     <div className="">
@@ -48,13 +65,12 @@ const AdminProfile = () => {
         </div>
         <div className="">
           <ZForm 
-           isLoading={cIsloading}
-           isSuccess={CIsSuccess}
-           isError={cIsError}
-           error={cError as TError}
+           isLoading={isLoading} 
+           isSuccess={isSuccess}
+           isError={isError}
+           error={error as TError}
            data={data}
            submit={handleSubmit}
-           closeModal={handleCloseAndOpen}
            formType="edit"
            buttonName="Update"
           
