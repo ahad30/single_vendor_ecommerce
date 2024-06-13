@@ -1,7 +1,6 @@
 import React from "react";
 import Dropdown from "./Dropdown";
 import { IoIosArrowDroprightCircle } from "react-icons/io";
-import { useAppDispatch } from "../../Redux/hook";
 
 const Navbar = ({
   setIsSidebarOpen,
