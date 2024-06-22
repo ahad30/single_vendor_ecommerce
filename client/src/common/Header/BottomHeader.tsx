@@ -1,7 +1,5 @@
-
 import {
   Navbar,
-
   Typography,
   IconButton,
   Collapse,
@@ -14,16 +12,17 @@ const BottomHeader = () => {
   React.useEffect(() => {
     window.addEventListener(
       "resize",
-      () => window.innerWidth >= 960 && setOpenNav(false),
+      () => window.innerWidth >= 960 && setOpenNav(false)
     );
   }, []);
 
   const navList = (
-    <ul className="flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-8">
+    <ul className="flex   flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-8">
       <Typography
         as="li"
-        placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}
-
+        placeholder={undefined}
+        onPointerEnterCapture={undefined}
+        onPointerLeaveCapture={undefined}
         color="blue-gray"
         className={`p-1 text-sm`}
       >
@@ -35,15 +34,17 @@ const BottomHeader = () => {
               viewTransitionName: isTransitioning ? "slide" : "",
             };
           }}
-          to="/" className="flex items-center text-[#150B2BB3]">
+          to="/"
+          className="flex items-center text-[#150B2BB3]"
+        >
           Home
         </NavLink>
-      </Typography>  
+      </Typography>
       <Typography
         as="li"
-        
-        placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}
-
+        placeholder={undefined}
+        onPointerEnterCapture={undefined}
+        onPointerLeaveCapture={undefined}
         color="blue-gray"
         className={`px-2 text-sm`}
       >
@@ -55,14 +56,17 @@ const BottomHeader = () => {
               viewTransitionName: isTransitioning ? "slide" : "",
             };
           }}
-          to="/allArt&Craft" className="flex items-center text-[#150B2BB3]">
+          to="/allArt&Craft"
+          className="flex items-center text-[#150B2BB3]"
+        >
           Shop
         </NavLink>
       </Typography>
-      
 
       <Typography
-        placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}
+        placeholder={undefined}
+        onPointerEnterCapture={undefined}
+        onPointerLeaveCapture={undefined}
         as="li"
         color="blue-gray"
         className={`px-2 text-sm`}
@@ -75,14 +79,17 @@ const BottomHeader = () => {
               viewTransitionName: isTransitioning ? "slide" : "",
             };
           }}
-          to="/myList" className="flex items-center text-[#150B2BB3]">
+          to="/myList"
+          className="flex items-center text-[#150B2BB3]"
+        >
           About
         </NavLink>
       </Typography>
 
-
       <Typography
-        placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}
+        placeholder={undefined}
+        onPointerEnterCapture={undefined}
+        onPointerLeaveCapture={undefined}
         as="li"
         color="blue-gray"
         className={`px-2 text-sm`}
@@ -95,19 +102,20 @@ const BottomHeader = () => {
               viewTransitionName: isTransitioning ? "slide" : "",
             };
           }}
-          to="/myList" className="flex items-center text-[#150B2BB3]">
+          to="/myList"
+          className="flex items-center text-[#150B2BB3]"
+        >
           Contact
         </NavLink>
       </Typography>
 
-
-
       <Typography
-        placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}
+        placeholder={undefined}
+        onPointerEnterCapture={undefined}
+        onPointerLeaveCapture={undefined}
         as="li"
         color="blue-gray"
         className={`px-2 text-sm lg:hidden`}
-
       >
         <NavLink
           style={({ isActive, isTransitioning }) => {
@@ -117,7 +125,9 @@ const BottomHeader = () => {
               viewTransitionName: isTransitioning ? "slide" : "",
             };
           }}
-          to="/register" className="flex items-center text-[#150B2BB3] ">
+          to="/register"
+          className="flex items-center text-[#150B2BB3] "
+        >
           Register
         </NavLink>
       </Typography>
@@ -126,23 +136,23 @@ const BottomHeader = () => {
 
   return (
     <div className="max-h-[768px]">
-      <Navbar className="sticky top-0 py-1 shadow-none rounded-none
+      <Navbar
+        className="sticky top-0 py-1 shadow-none rounded-none
       bg-white-[0px] border-none px-0"
-      placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}
+        placeholder={undefined}
+        onPointerEnterCapture={undefined}
+        onPointerLeaveCapture={undefined}
       >
         <div className="flex items-center justify-between">
-          <div className="flex items-center">
-           
-          </div>
-
           <div className="flex items-center gap-4 ">
             <div className="mr-2 hidden lg:block">{navList}</div>
           </div>
 
           <div className="flex items-center gap-2">
-
-            <IconButton 
-            placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}
+            <IconButton
+              placeholder={undefined}
+              onPointerEnterCapture={undefined}
+              onPointerLeaveCapture={undefined}
               variant="text"
               className=" h-6 w-6 text-black hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
               ripple={false}
@@ -179,11 +189,12 @@ const BottomHeader = () => {
                 </svg>
               )}
             </IconButton>
-            <div>
-            </div>
+            <div></div>
           </div>
         </div>
-        <Collapse open={openNav} className={`flex justify-start`}>{navList}</Collapse>
+        <Collapse open={openNav} className={`flex justify-start`}>
+          {navList}
+        </Collapse>
       </Navbar>
     </div>
   );

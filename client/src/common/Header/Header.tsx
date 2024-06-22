@@ -32,7 +32,7 @@ const Header = () => {
       <div className="w-[90%] lg:px-7 lg:max-w-7xl mx-auto">
         <TopHeader></TopHeader>
 
-        <BottomHeader></BottomHeader>
+        {/* <BottomHeader></BottomHeader> */}
       </div>
       <hr className="border-[1px]" />
 
