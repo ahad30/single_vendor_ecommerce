@@ -25,14 +25,19 @@ const Products = () => {
   const { data, isLoading, isFetching } = useGetProductsQuery([
     { name: "page", value: pageNumber },
   ]);
-  const handleEditAndDelete = (data: TProduct, name: "delete" | "edit") => {
-    setSingleData(data);
-    if (name === "delete") {
-      // console.log("delete", data);
-      dispatch(setIsDeleteModalOpen());
-    } else if (name === "edit") {
-      // console.log("edit", data);
+
+
+
+  const handleEdit = (data: TProduct, name: "edit") => {
+    if (name === "edit") {
+      setSingleData(data);
       dispatch(setIsEditModalOpen());
+    }
+  };
+  const handleDl = (data: TProduct, name: "delete") => {
+    if (name === "delete") {
+      setSingleData(data);
+      dispatch(setIsDeleteModalOpen());
     }
   };
 
@@ -78,7 +83,8 @@ console.log(data)
         columns={columns}
         meta={data?.meta as TMeta}
         data={data?.data || []}
-        onDeleteAndEdit={handleEditAndDelete}
+        onEdit={handleEdit}
+        onDelete={handleDl}
         pageNumber={pageNumber}
         setPageNumber={setPageNumber}
         defaultKey="products"
