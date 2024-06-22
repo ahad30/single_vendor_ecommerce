@@ -66,7 +66,7 @@ const AdminProfile = () => {
         <div className="">
           <ZForm 
            isLoading={isLoading} 
-           isSuccess={isSuccess}
+          //  isSuccess={isSuccess}
            isError={isError}
            error={error as TError}
            data={data}
