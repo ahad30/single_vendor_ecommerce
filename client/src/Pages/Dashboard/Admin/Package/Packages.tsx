@@ -29,14 +29,20 @@ const Packages = () => {
     { name: "package_type", value: "new" },
     { name: "page", value: pageNumber },
   ]);
-  const handleEditAndDelete = (data: TPackage, name: "delete" | "edit") => {
-    setSingleData(data);
-    if (name === "delete") {
-      dispatch(setIsDeleteModalOpen());
-    } else if (name === "edit") {
+
+  const handleEdit = (data: TPackage, name: "edit") => {
+    if (name === "edit") {
+      setSingleData(data);
       dispatch(setIsEditModalOpen());
     }
   };
+  const handleDl = (data: TPackage, name: "delete") => {
+    if (name === "delete") {
+      setSingleData(data);
+      dispatch(setIsDeleteModalOpen());
+    }
+  };
+
   // console.log(data);
   const columns = [
     { name: "Image", value: "image" },
@@ -67,7 +73,8 @@ const Packages = () => {
         columns={columns}
         meta={data?.meta as TMeta}
         data={data?.data || []}
-        onDeleteAndEdit={handleEditAndDelete}
+        onEdit={handleEdit}
+        onDelete={handleDl}
         pageNumber={pageNumber}
         setPageNumber={setPageNumber}
       ></Table>
