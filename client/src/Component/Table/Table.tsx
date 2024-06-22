@@ -24,7 +24,7 @@ type TableProps<T> = {
   data: T[];
   columns: TColumn[];
   meta: TMeta;
-  onDeleteAndEdit?: (data: T, name: "edit" | "delete") => void;
+  // onDeleteAndEdit?: (data: T, name: "edit" | "delete") => void;
   onEdit?: (data: T, name: "edit") => void;
   onDelete?: (data: T, name: "delete") => void;
   pageNumber: number;
@@ -38,7 +38,7 @@ type TableProps<T> = {
 const Table = <T extends { id: string | number; [key: string]: any }>({
   data,
   columns,
-  onDeleteAndEdit,
+
   meta,
   setPageNumber,
   pageNumber,

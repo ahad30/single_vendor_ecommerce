@@ -35,16 +35,7 @@ const Brand = () => {
     { name: "page", value: pageNumber },
   ]);
 
-  const handleEditAndDelete = (data: TBrand, name: "delete" | "edit") => {
-    setSingleData(data);
-    if (name === "delete") {
-      console.log("delete", data);
-      dispatch(setIsDeleteModalOpen());
-    } else if (name === "edit") {
-      console.log("edit", data);
-      dispatch(setIsEditModalOpen());
-    }
-  };
+
 
 
   const handleEdit = (data: TBrand, name: "edit") => {
