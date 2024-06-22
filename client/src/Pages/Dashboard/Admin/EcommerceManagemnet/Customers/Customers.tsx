@@ -29,6 +29,7 @@ const Customers = () => {
   const { data, isLoading, isFetching } = useGetCustomerQuery([
     { name: "page", value: pageNumber },
   ]);
+  console.log(data);
   const handleEditAndDelete = (data: TCustomer, name: "delete" | "edit") => {
     setSingleData(data);
     if (name === "delete") {

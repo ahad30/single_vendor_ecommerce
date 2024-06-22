@@ -32,6 +32,8 @@ const Users = () => {
   const { data, isLoading, isFetching } = useGetAllUsersQuery([
     { name: "page", value: pageNumber },
   ]);
+ console.log(data);
+
   const handleEditAndDelete = (data: TUser, name: "delete" | "edit") => {
     setSingleData(data);
     if (name === "delete") {
@@ -40,6 +42,8 @@ const Users = () => {
       dispatch(setIsEditModalOpen());
     }
   };
+
+
   const columns = [
     { name: "Image", value: "image" },
     { name: "Name", value: "name" },

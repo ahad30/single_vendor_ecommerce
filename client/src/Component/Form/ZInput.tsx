@@ -17,7 +17,7 @@ const ZInput = ({
   name: string;
   type: string;
   label: string;
-  value?: string;
+  value?: string | number;
   reset?: boolean;
   defaultKey?: string;
   
@@ -37,6 +37,7 @@ const ZInput = ({
     }
   }, [reset, isEditModalOpen]);
   return (
+    
     <Controller
       name={name}
       control={control}

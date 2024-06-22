@@ -25,6 +25,7 @@ const EditCategory = <T extends { id: string | number; [key: string]: any }>({
       data,
     },
   ] = useUpdateCategoryMutation();
+  
   const handleSubmit: SubmitHandler<FieldValues> = (data) => {
     const formData = new FormData();
     formData.append("name", data.name ? data.name : itemData.name);
