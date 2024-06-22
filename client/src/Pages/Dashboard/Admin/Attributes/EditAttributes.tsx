@@ -100,7 +100,7 @@ const EditAttributes = <T extends { id: string | number; [key: string]: any }>({
           Previous values
         </h3>
         <div className="grid mb-12 pt-2 grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-5">
-          {previousValues.length > 0
+          {previousValues?.length > 0
             ? previousValues?.map((item) => (
                 <div key={item?.id} className="relative">
                   <Alert message={item?.name} type="info" />
@@ -138,7 +138,7 @@ const EditAttributes = <T extends { id: string | number; [key: string]: any }>({
         {/* new Value Add */}
         <h3 className="border-b mb-2 font-bold border-black ">Add new value</h3>
         <div className="max-h-[400px] overflow-y-scroll thin-scrollbar">
-          {attributeValues.map((item, index) => (
+          {attributeValues?.map((item, index) => (
             <div
               key={item}
               className="flex gap-x-2 justify-between items-center"
