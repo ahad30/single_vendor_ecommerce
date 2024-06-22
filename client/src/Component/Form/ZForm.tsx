@@ -114,7 +114,7 @@ const ZForm = ({
             isLoading={isLoading as boolean}
             isSuccess={isSuccess as boolean}
             title={buttonName}
-          ></SaveAndCloseButton>
+          />
         )}
         <div className="mt-5">
           {Array.isArray(errors) &&
