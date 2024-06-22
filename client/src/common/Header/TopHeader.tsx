@@ -4,6 +4,8 @@ import { FaRegHeart } from "react-icons/fa";
 import { useAppDispatch, useAppSelector } from "../../Redux/hook";
 import { RootState } from "../../Redux/store";
 import { setIsHomeCategorySidebarOpen } from "../../Redux/Feature/Modal/modalSlice";
+import { IoMdMenu } from "react-icons/io";
+import { MdClose } from "react-icons/md";
 
 const TopHeader = () => {
   const dispatch = useAppDispatch();
@@ -13,8 +15,25 @@ const TopHeader = () => {
 
   // onclick = {()=> dispatch(setIsHomeCategorySidebarOpen()}
   return (
-    <section className="mt-[-40px]">
+    <section className="">
+
       <div className="flex sticky top-0 justify-between items-center">
+        <div className="lg:hidden text-black">
+          <button
+            onClick={() => dispatch(setIsHomeCategorySidebarOpen())}
+            className="text-2xl py-1 transition duration-500 ease-in-out transform hover:scale-70"
+            title={isHomeCategorySidebarOpen ? 'Close Menu' : 'Open Menu'}
+         >
+            <span className="cursor-pointer">
+              {" "}
+              {isHomeCategorySidebarOpen ? (
+                <MdClose className="inline-block w-6 h-6" />
+              ) : (
+                <IoMdMenu className="inline-block w-6 h-6" />
+              )}
+            </span>
+          </button>
+        </div>
         {/* heading */}
         <div className="">
           <h2 className="font-bold text-lg md:text-3xl">
@@ -23,7 +42,7 @@ const TopHeader = () => {
         </div>
 
         {/* searchBar */}
-        <div className="relative w-[40%] md:w-[35%]  my-12 flex">
+        <div className="relative w-[40%] md:w-[35%] flex py-[6px]">
           <div className="w-full">
             <label htmlFor="Search" className="sr-only">
               Search
@@ -38,10 +57,10 @@ const TopHeader = () => {
               />
             </form>
 
-            <div className="absolute -end-2 bg-secondary px-2 md:px-4 -top-0 bottom-0 flex justify-center items-center rounded-sm md:h-[37px]">
+            <div className="absolute -end-2 bg-secondary px-2 md:px-4 top-[6px] bottom-0 flex justify-center items-center rounded-sm h-[29px] md:h-[37px]">
               <IoSearch
-                className="cursor-pointer  text-white"
-                size={20}
+                className="cursor-pointer text-lg text-white"
+                
               ></IoSearch>
             </div>
           </div>
@@ -91,7 +110,7 @@ const TopHeader = () => {
         {/* card icon */}
         <div className="flex gap-x-3 justify-center items-center">
           {/* love */}
-          <div className="border-[#092635] relative p-1 border-[1px] rounded-full bg-[#0926351f]">
+          <div className="border-[#092635] hidden md:block relative p-1 border-[1px] rounded-full bg-[#0926351f]">
             <div className="absolute text-[10px] md:text-[12px] px-[5px] top-[-6px] left-[17px] md:left-6 bg-red-400 text-white flex justify-center items-center rounded-full">
               <span>0</span>
             </div>
