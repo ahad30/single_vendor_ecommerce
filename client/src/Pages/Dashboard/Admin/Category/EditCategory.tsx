@@ -15,6 +15,7 @@ const EditCategory = <T extends { id: string | number; [key: string]: any }>({
   itemData: T;
 }) => {
   const dispatch = useAppDispatch();
+  
   const [
     editCategory,
     {
@@ -32,6 +33,7 @@ const EditCategory = <T extends { id: string | number; [key: string]: any }>({
     if (data?.image) {
       formData.append("image", data.image);
     }
+
     formData.append("_method", "PUT");
     editCategory({ data: formData, id: itemData.id });
   };
