@@ -5,8 +5,8 @@ import { FieldValues, SubmitHandler } from "react-hook-form";
 import { TError } from "../../../../types/globalTypes";
 import { Button } from "antd";
 
-
 const AdminProfile = () => {
+
   const
     {
       data: profileData
@@ -38,6 +38,19 @@ const AdminProfile = () => {
     updateProfile(formData);
   };
 
+  const { isLoading, isSuccess, data, isError, error } =
+    useGetLoggedInUserQuery(undefined);
+  // console.log(data?.data);
+
+  // const handleSubmit: SubmitHandler<FieldValues> = (data) => {
+  //   const formData = new FormData();
+  //   formData.append("name", data.name );
+  //   if (data?.image) {
+  //     formData.append("image", data.image);
+  //   }
+  //   formData.append("_method", "PUT");
+  //   adminProfile({ data: formData, id });
+  // };
 
 
   return (
@@ -54,12 +67,13 @@ const AdminProfile = () => {
             {/* <div className="top-[185px] left-[152px] absolute bg-[#265eda] text-white w-8 h-8 flex justify-center items-center rounded-full cursor-pointer">
               <FaEdit onClick={handleImage} />
             </div> */}
-
           </div>
 
           <div className="flex flex-col justify-center items-center bg-[#bdcef4] px-6 rounded-t-[30px] w-56 h-[190px] gap-y-2">
             <h1 className="text-[#042656] mt-3 text-[16px] font-sans font-semibold">
+
               {profileData?.data?.name}
+
             </h1>
 
             <span className="text-[#555555] mt-1 text-[13px] font-normal font-mono">
@@ -72,11 +86,10 @@ const AdminProfile = () => {
               Address : {profileData?.data?.address}
             </span>
           </div>
-
         </div>
 
         <div className="">
-          <ZForm
+             <ZForm
             //  isLoading={isLoading} 
             isSuccess={isSuccess}
             isError={isError}

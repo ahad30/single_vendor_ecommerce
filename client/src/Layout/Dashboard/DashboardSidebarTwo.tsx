@@ -7,14 +7,12 @@ import { Link, useLocation } from "react-router-dom";
 import { TRoutesData } from "../../types/sidebarAndRouesTypes";
 import { PermissionContextProvider } from "../../contex/PermissionProvider";
 import { TAllPermission } from "../../types/permission.types";
-import { useAppSelector } from "../../Redux/hook";
-import { RootState } from "../../Redux/store";
+
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 import { IoIosArrowDropleftCircle } from "react-icons/io";
 
 const DashboardSidebarTwo = ({
-  isSidebarOpen,
   className,
   setIsSidebarOpen,
 }: {
@@ -29,7 +27,6 @@ const DashboardSidebarTwo = ({
       if (item == "view dashboard") {
         return true;
       }
-
       const checkInLoggedInUserPermissions = loggedInUserPermissions.find(
         (per) => per == item
       );
@@ -76,7 +73,6 @@ const DashboardSidebarTwo = ({
       return item;
     })
     .filter((per) => per?.permission !== false);
-  const { user } = useAppSelector((state: RootState) => state.auth);
   const location = useLocation();
   useEffect(() => {
     if (localStorage.getItem("dropDown")) {

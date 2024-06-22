@@ -6,6 +6,7 @@ import Category from "./Category/Category";
 import HomeLeftSidebar from "./HomeLeftSidebar/HomeLeftSidebar";
 import InfoCardDetails from "./InfoCardDetails/InfoCardDetails";
 import ProductBanner from "./ProductBanner/ProductBanner";
+import ProductCard from "./ProductCard/ProductCard";
 // import Product from "./Product/Product";
 import TopBrands from "./TopBrands/TopBrands";
 
@@ -18,7 +19,7 @@ const Home = () => {
           <div className="w-full h-full md:h-[80%]">
             <BannerSlider />
           </div>
-          <div className="mt-[-64px] md:mt-[-75px]">
+          <div className="mt-[-64px] md:mt-[-65px]">
             <ProductBanner />
           </div>
         </div>
@@ -29,8 +30,9 @@ const Home = () => {
       {/* <Banner></Banner> */}
       <Category/>
       <TopBrands></TopBrands>
-      {/* <Product></Product>
-      <BusinessSummary></BusinessSummary> */}
+      <ProductCard/>
+       {/* <Product></Product> */}
+      {/* <BusinessSummary></BusinessSummary>  */}
     </div>
   );
 };
