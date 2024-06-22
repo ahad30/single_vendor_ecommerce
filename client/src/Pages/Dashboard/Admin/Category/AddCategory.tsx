@@ -28,6 +28,7 @@ const AddCategory = () => {
       data,
     },
   ] = useCreateCategoryMutation();
+  
   const handleSubmit: SubmitHandler<FieldValues> = (data) => {
     // console.log(data);
     const formData = new FormData();

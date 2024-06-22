@@ -12,7 +12,7 @@ type TPhone = {
 };
 
 const ZPhone = ({ name, label , value}:TPhone) => {
-  const { control  , setValue} = useFormContext();
+  const { control,setValue} = useFormContext();
 
   useEffect(() => {
     if (value) {

@@ -3,8 +3,14 @@ import ZInput from "../../../../Component/Form/ZInput";
 import ZInputTextArea from "../../../../Component/Form/ZInputTextArea";
 import { FaEdit } from "react-icons/fa";
 import ReUseableButton from "../../../../Component/UserDashboard/ReUseableButton/ReUseableButton";
+import { useGetLoggedInUserQuery } from "../../../../Redux/Feature/auth/authApi";
 
 const UserProfile = () => {
+    const { isLoading, isSuccess, data, isError, error } =
+    useGetLoggedInUserQuery(undefined);
+
+
+    console.log(data)
     const handleImage = () => {
         alert('Div clicked!');
     }

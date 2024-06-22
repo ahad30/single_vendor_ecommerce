@@ -18,7 +18,7 @@ const Register = () => {
   const navigate = useNavigate();
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     Register(data);
-    //  console.log(data)
+     console.log(data)
   };
   const error = rError as TRegisterError;
   useEffect(() => {
