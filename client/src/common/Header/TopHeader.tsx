@@ -60,7 +60,6 @@ const TopHeader = () => {
             <div className="absolute -end-2 bg-secondary px-2 md:px-4 top-[6px] bottom-0 flex justify-center items-center rounded-sm h-[29px] md:h-[37px]">
               <IoSearch
                 className="cursor-pointer text-lg text-white"
-                
               ></IoSearch>
             </div>
           </div>
@@ -108,7 +107,7 @@ const TopHeader = () => {
 
         </div> */}
         {/* card icon */}
-        <div className="flex gap-x-3 justify-center items-center">
+        <div className="flex gap-x-4 justify-center items-center mr-1">
           {/* love */}
           <div className="border-[#092635] hidden md:block relative p-1 border-[1px] rounded-full bg-[#0926351f]">
             <div className="absolute text-[10px] md:text-[12px] px-[5px] top-[-6px] left-[17px] md:left-6 bg-red-400 text-white flex justify-center items-center rounded-full">

@@ -5,6 +5,8 @@ import { BsSmartwatch } from "react-icons/bs";
 import { CiCamera, CiHeadphones } from "react-icons/ci";
 import { GiShirt, GiLipstick } from "react-icons/gi";
 import { PiDress, PiSneakerLight } from "react-icons/pi";
+import SectionTitle from '../SectionTitle/SectionTitle';
+
 const categories = [
   { name: 'Phones', icon: <LuSmartphone />, quantity: 100 },
   { name: 'Computers', icon: <HiOutlineComputerDesktop />, quantity: 75 },
@@ -23,16 +25,15 @@ const categories = [
 const Categories = () => {
   return (
     <div className="max-w-6xl mx-auto my-10">
-      <h2 className="text-3xl font-semibold text-center mb-6">TOP CATEGORIES</h2>
+      <SectionTitle title="TOP CATEGORIES" subTitle="Explore Our Most Popular Categories"/>
       <div className="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-6 gap-4">
         {categories.map((category, index) => (
           <div key={index} className={`flex flex-col items-center justify-center px-3 py-6 border  rounded bg-[#f1f4f6] hover:bg-[#cf4146] transition duration-300  hover:text-white cursor-pointer`}>
-            <div className="text-5xl mb-3 hover:bg-gray-500 p-4 rounded-full">
+            <div className="text-5xl mb-3">
               {category.icon}
             </div>
             <span className="text-sm md:text-base font-semibold mb-1">{category.name}</span>
-            <p className='text-[10px] md:text-sm'>{category.quantity} <span> Items available </span></p>
-
+            <p className='text-[10px] md:text-[12px]'>{category.quantity} <span> Items available </span></p>
           </div>
         ))}
       </div>

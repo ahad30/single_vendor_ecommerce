@@ -1,7 +1,8 @@
 import { TfiWorld } from "react-icons/tfi";
-import { FaPhoneAlt } from "react-icons/fa";
+// import { FaPhoneAlt } from "react-icons/fa";
 import { GrSecure } from "react-icons/gr";
 import { PiArrowUDownLeftFill } from "react-icons/pi";
+import { MdOutlineLocalPhone } from "react-icons/md";
 const InfoCardDetails = () => {
     const infoDetailsData = [
         {
@@ -12,7 +13,7 @@ const InfoCardDetails = () => {
        
         {
             "name": "24/7 Customer Support",
-            "icon": <FaPhoneAlt />,
+            "icon": <MdOutlineLocalPhone />,
             "description": "Our support team is available around the clock to assist you."
         },
         {
@@ -32,7 +33,7 @@ const InfoCardDetails = () => {
             {
                 infoDetailsData.map((info,idx) => (
                     <div key={idx} className="grid grid-cols-[1fr_4fr] place-items-center py-2 px-4 gap-2 rounded-md bg-[#edeeef]">
-                        <span className="text-2xl md:text-4xl text-secondary">{info.icon}</span>
+                        <span className="text-2xl md:text-4xl text-[#707070]">{info.icon}</span>
                         <div>
                             <h1 className="text-[12px] md:text-sm font-medium text-[#232323]">{info.name}</h1>
                             <p className=" text-[10px] md:text-[12px] text-justify text-[#777777]">{info.description}</p>

@@ -4,7 +4,7 @@ import { sidebarGenerator } from "../../utils/sidebarGenerator";
 
 
 const CustomerDashboardSidebar = () => {
-    const sidebarData = sidebarGenerator(CustomerRoutes)
+    const sidebarData = sidebarGenerator(CustomerRoutes);
     // console.log(sidebarData)
     const { pathname } = useLocation();
     // console.log(pathname);
@@ -19,7 +19,6 @@ const CustomerDashboardSidebar = () => {
                 {/* sidebar data */}
                 <div>
                     {sidebarData.map((item) => {
-
                         return (
                             <Link to={item.key} key={item.key} className="">
                                 <div className={`flex items-center hover:border-x-4 border-blue-500 duration-100 gap-x-3 px-7 py-1 text-sm hover:bg-gray-200 ${pathname === item.key ? " bg-gray-200 border-x-4 border-blue-500" : ""}`}>
