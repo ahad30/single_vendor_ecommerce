@@ -32,14 +32,22 @@ const Roles = () => {
   const { data, isLoading, isFetching } = useGetAllRolesQuery([
     { name: "page", value: pageNumber },
   ]);
-  const handleEditAndDelete = (data: TRoles, name: "delete" | "edit") => {
-    setSingleData(data);
-    if (name === "delete") {
-      dispatch(setIsDeleteModalOpen());
-    } else if (name === "edit") {
+
+  const handleEdit = (data: TRoles, name: "edit") => {
+    if (name === "edit") {
+      setSingleData(data);
       dispatch(setIsEditModalOpen());
     }
   };
+  const handleDl = (data: TRoles, name: "delete") => {
+    if (name === "delete") {
+      setSingleData(data);
+      dispatch(setIsDeleteModalOpen());
+    }
+  };
+
+
+
   const columns = [
     { name: "Name", value: "name" },
     { name: "Action", value: "action" },
@@ -69,7 +77,8 @@ const Roles = () => {
         columns={columns}
         meta={data?.meta as TMeta}
         data={data?.data || []}
-        onDeleteAndEdit={handleEditAndDelete}
+        onEdit={handleEdit}
+        onDelete={handleDl}
         pageNumber={pageNumber}
         setPageNumber={setPageNumber}
       ></Table>
