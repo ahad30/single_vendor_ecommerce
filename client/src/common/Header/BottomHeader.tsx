@@ -7,7 +7,6 @@ import {
   Collapse,
 } from "@material-tailwind/react";
 import React from "react";
-import { IoIosArrowDown } from "react-icons/io";
 import { NavLink } from "react-router-dom";
 
 const BottomHeader = () => {
@@ -46,7 +45,7 @@ const BottomHeader = () => {
         placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}
 
         color="blue-gray"
-        className={`p-1 text-sm`}
+        className={`px-2 text-sm`}
       >
         <NavLink
           style={({ isActive, isTransitioning }) => {
@@ -60,30 +59,13 @@ const BottomHeader = () => {
           Shop
         </NavLink>
       </Typography>
-      <Typography
-        placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}
-        as="li"
-        color="blue-gray"
-        className={`p-1 text-sm`}
-      >
-        <NavLink
-          style={({ isActive, isTransitioning }) => {
-            return {
-              fontWeight: isActive ? "bold" : "",
-              color: isActive ? "red" : "black",
-              viewTransitionName: isTransitioning ? "slide" : "",
-            };
-          }}
-          to="/addItem" className="flex items-center text-[#150B2BB3]">
-          Blog
-        </NavLink>
-      </Typography>
+      
 
       <Typography
         placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}
         as="li"
         color="blue-gray"
-        className={`p-1 text-sm`}
+        className={`px-2 text-sm`}
       >
         <NavLink
           style={({ isActive, isTransitioning }) => {
@@ -103,7 +85,7 @@ const BottomHeader = () => {
         placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}
         as="li"
         color="blue-gray"
-        className={`p-1 text-sm`}
+        className={`px-2 text-sm`}
       >
         <NavLink
           style={({ isActive, isTransitioning }) => {
@@ -124,7 +106,7 @@ const BottomHeader = () => {
         placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}
         as="li"
         color="blue-gray"
-        className={`p-1 text-sm lg:hidden`}
+        className={`px-2 text-sm lg:hidden`}
 
       >
         <NavLink
@@ -144,35 +126,20 @@ const BottomHeader = () => {
 
   return (
     <div className="max-h-[768px]">
-      <Navbar className="sticky top-0 py-2 lg:py-5 shadow-none rounded-none
-      bg-white-[0px] border-none  px-0"
+      <Navbar className="sticky top-0 py-1 shadow-none rounded-none
+      bg-white-[0px] border-none px-0"
       placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}
       >
         <div className="flex items-center justify-between">
           <div className="flex items-center">
-            <Typography
-            placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} 
-              as="a"
-              className="mr-7 cursor-pointer py-1.5 font-medium"
-            >
-              <NavLink to="/">
-                <p className="text-black text-[13px]">Call(+01754556434)</p>
-              </NavLink>
-            </Typography>
+           
           </div>
 
           <div className="flex items-center gap-4 ">
             <div className="mr-2 hidden lg:block">{navList}</div>
           </div>
 
-
-
           <div className="flex items-center gap-2">
-
-          <div className="flex gap-x-1 items-center cursor-pointer text-[#2222228C]">
-              <p className="text-sm">EN</p>
-              <IoIosArrowDown size={18}></IoIosArrowDown>
-            </div>
 
             <IconButton 
             placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}
