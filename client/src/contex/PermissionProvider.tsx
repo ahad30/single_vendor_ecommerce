@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import {
   ReactNode,
   createContext,
@@ -17,7 +18,7 @@ interface PermissionContextValue {
 const defaultPermissionContextValue: PermissionContextValue = {
   loggedInUserPermissions: [],
   setLoggedInUserPermissions: () => [],
-  handleCheckPermissions: (item: TAllPermission) => true || false,
+  handleCheckPermissions: (_item: TAllPermission) => true || false,
 };
 
 export const PermissionContextProvider = createContext<PermissionContextValue>(
