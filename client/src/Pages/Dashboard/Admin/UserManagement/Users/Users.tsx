@@ -34,14 +34,18 @@ const Users = () => {
   ]);
  console.log(data);
 
-  const handleEditAndDelete = (data: TUser, name: "delete" | "edit") => {
+ const handleEdit = (data: TUser, name: "edit") => {
+  if (name === "edit") {
     setSingleData(data);
-    if (name === "delete") {
-      dispatch(setIsDeleteModalOpen());
-    } else if (name === "edit") {
-      dispatch(setIsEditModalOpen());
-    }
-  };
+    dispatch(setIsEditModalOpen());
+  }
+};
+const handleDl = (data: TUser, name: "delete") => {
+  if (name === "delete") {
+    setSingleData(data);
+    dispatch(setIsDeleteModalOpen());
+  }
+};
 
 
   const columns = [
@@ -77,7 +81,8 @@ const Users = () => {
         columns={columns}
         meta={data?.meta as TMeta}
         data={data?.data || []}
-        onDeleteAndEdit={handleEditAndDelete}
+        onEdit={handleEdit}
+        onDelete={handleDl}
         pageNumber={pageNumber}
         setPageNumber={setPageNumber}
       ></Table>

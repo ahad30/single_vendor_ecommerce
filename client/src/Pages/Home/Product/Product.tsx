@@ -1,9 +1,9 @@
 import { useEffect } from "react";
-import { Rating } from '@smastrom/react-rating'
-import '@smastrom/react-rating/style.css'
+import { Rating } from "@smastrom/react-rating";
+import "@smastrom/react-rating/style.css";
 import { Button } from "@material-tailwind/react";
-import KeenSlider from 'keen-slider';
-import 'keen-slider/keen-slider.min.css';
+import KeenSlider from "keen-slider";
+import "keen-slider/keen-slider.min.css";
 import img1 from "../../../assets/Product/product-01.png";
 import img2 from "../../../assets/Product/product-02.png";
 import img3 from "../../../assets/Product/product-03.png";
@@ -20,49 +20,83 @@ import { CiHeart } from "react-icons/ci";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 
-
 const productCard = [
-  { id: 1, img: img1, title: "Men's Fashion", price: "100", discount: "4" ,rating:2},
-  { id: 2, img: img2, title: "Women's Casual", price: "120" ,rating:3.5},
-  { id: 3, img: img3, title: "Electronics", price: "80", discount: "6" ,rating:5},
-  { id: 4, img: img4, title: "Kitchen ", price: "90" ,rating:5},
-  { id: 5, img: img4, title: "Home Lamp", price: "110", discount: "3" ,rating:3.5},
-  { id: 6, img: img6, title: "Fitness Watch", price: "95",rating:5},
+  {
+    id: 1,
+    img: img1,
+    title: "Men's Fashion",
+    price: "100",
+    discount: "4",
+    rating: 2,
+  },
+  { id: 2, img: img2, title: "Women's Casual", price: "120", rating: 3.5 },
+  {
+    id: 3,
+    img: img3,
+    title: "Electronics",
+    price: "80",
+    discount: "6",
+    rating: 5,
+  },
+  { id: 4, img: img4, title: "Kitchen ", price: "90", rating: 5 },
+  {
+    id: 5,
+    img: img4,
+    title: "Home Lamp",
+    price: "110",
+    discount: "3",
+    rating: 3.5,
+  },
+  { id: 6, img: img6, title: "Fitness Watch", price: "95", rating: 5 },
   { id: 7, img: img7, title: "Travel Backpack", price: "150" },
-  { id: 8, img: img8, title: "Men's Wallet", price: "70", discount: "5" ,rating:5},
-  { id: 9, img: img9, title: "Women's Designer", price: "130" ,rating:5},
-  { id: 10, img: img10, title: "Smartphone Case", price: "100", discount: "2" ,rating:3.9},
-  { id: 11, img: img11, title: "Gaming Mouse", price: "85" ,rating:4.8},
+  {
+    id: 8,
+    img: img8,
+    title: "Men's Wallet",
+    price: "70",
+    discount: "5",
+    rating: 5,
+  },
+  { id: 9, img: img9, title: "Women's Designer", price: "130", rating: 5 },
+  {
+    id: 10,
+    img: img10,
+    title: "Smartphone Case",
+    price: "100",
+    discount: "2",
+    rating: 3.9,
+  },
+  { id: 11, img: img11, title: "Gaming Mouse", price: "85", rating: 4.8 },
   {
     id: 12,
     img: img12,
     title: "Portable Bluetooth",
     price: "110",
     discount: "7",
-    rating : 4
+    rating: 4,
   },
 ];
 
 const Product = () => {
   useEffect(() => {
-    const keenSlider = new KeenSlider('#keen-slider', {
+    const keenSlider = new KeenSlider("#keen-slider", {
       loop: true,
       slides: {
-        origin: 'center',
+        origin: "center",
         perView: 1,
         spacing: 16,
       },
       breakpoints: {
-        '(min-width: 1024px)': {
+        "(min-width: 1024px)": {
           slides: {
-            origin: 'auto',
+            origin: "auto",
             perView: 5,
             spacing: 30,
           },
         },
-        '(max-width: 400px)': {
+        "(max-width: 400px)": {
           slides: {
-            origin: 'center',
+            origin: "center",
             perView: 1,
             spacing: 0,
           },
@@ -70,17 +104,16 @@ const Product = () => {
       },
     });
 
-    const keenSliderPrevious = document.getElementById('keen-slider-previous');
-    const keenSliderNext = document.getElementById('keen-slider-next');
+    const keenSliderPrevious = document.getElementById("keen-slider-previous");
+    const keenSliderNext = document.getElementById("keen-slider-next");
 
-    keenSliderPrevious?.addEventListener('click', () => keenSlider.prev());
-    keenSliderNext?.addEventListener('click', () => keenSlider.next());
+    keenSliderPrevious?.addEventListener("click", () => keenSlider.prev());
+    keenSliderNext?.addEventListener("click", () => keenSlider.next());
 
     // return () => {
     //   keenSlider.destroy();
     // };
   }, []);
-
 
   return (
     <div className="mt-16">
@@ -118,34 +151,43 @@ const Product = () => {
               <div className="relative p-4 sm:p-6 lg:p-2">
                 <div className="flex justify-between">
                   <div>
-                    {item?.discount &&
-                      <p className="text-sm font-medium uppercase rounded-md px-3 py-1 inline-block bg-[#DB4444] text-white">-{item?.discount}%</p>
-                    }
+                    {item?.discount && (
+                      <p className="text-sm font-medium uppercase rounded-md px-3 py-1 inline-block bg-[#DB4444] text-white">
+                        -{item?.discount}%
+                      </p>
+                    )}
                   </div>
-                  <div
-                    className="translate-y-8 transform opacity-0 transition-all group-hover:translate-y-0 group-hover:opacity-100 text-white"
-                  >
+                  <div className="translate-y-8 transform opacity-0 transition-all group-hover:translate-y-0 group-hover:opacity-100 text-white">
                     <CiHeart size={30} />
                     <MdOutlineRemoveRedEye size={28} />
                   </div>
                 </div>
-                
+
                 <div className="text-center translate-y-8 transform opacity-0 transition-all group-hover:translate-y-0 group-hover:opacity-100 mt-[135px] duration-700  flex justify-center items-center">
-                  <Button className="bg-secondary w-full font-Poppins font-medium" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
+                  <Button
+                    className="bg-secondary w-full font-Poppins font-medium"
+                    placeholder={undefined}
+                    onPointerEnterCapture={undefined}
+                    onPointerLeaveCapture={undefined}
+                  >
                     Add to Cart
                   </Button>
                 </div>
               </div>
             </div>
-           <div className="mt-5 text-base font-medium"><h2>{item?.title}</h2></div>
-           <div className="mt-5 text-base font-medium text-[#DB4444]"><h2>${item?.price}</h2></div>
-          <div>  
-      <Rating
-      style={{ maxWidth: 140 }}
-      value={item?.rating}
-      readOnly
-    /></div>  
-      
+            <div className="mt-5 text-base font-medium">
+              <h2>{item?.title}</h2>
+            </div>
+            <div className="mt-5 text-base font-medium text-[#DB4444]">
+              <h2>${item?.price}</h2>
+            </div>
+            <div>
+              <Rating
+                style={{ maxWidth: 140 }}
+                value={item?.rating as number}
+                readOnly
+              />
+            </div>
           </div>
         ))}
       </div>

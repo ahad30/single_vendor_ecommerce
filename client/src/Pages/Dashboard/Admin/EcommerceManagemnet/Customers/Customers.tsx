@@ -30,14 +30,18 @@ const Customers = () => {
     { name: "page", value: pageNumber },
   ]);
   console.log(data);
-  const handleEditAndDelete = (data: TCustomer, name: "delete" | "edit") => {
-    setSingleData(data);
-    if (name === "delete") {
-      console.log("delete", data);
-      dispatch(setIsDeleteModalOpen());
-    } else if (name === "edit") {
-      console.log("edit", data);
+
+
+  const handleEdit = (data: TCustomer, name: "edit") => {
+    if (name === "edit") {
+      setSingleData(data);
       dispatch(setIsEditModalOpen());
+    }
+  };
+  const handleDl = (data: TCustomer, name: "delete") => {
+    if (name === "delete") {
+      setSingleData(data);
+      dispatch(setIsDeleteModalOpen());
     }
   };
 
@@ -78,7 +82,8 @@ const Customers = () => {
         columns={columns}
         meta={data?.meta as TMeta}
         data={data?.data || []}
-        onDeleteAndEdit={handleEditAndDelete}
+        onEdit={handleEdit}
+        onDelete={handleDl}
         pageNumber={pageNumber}
         setPageNumber={setPageNumber}
       ></Table>

@@ -38,14 +38,17 @@ const Attributes = () => {
   const { data, isLoading, isFetching } = useGetAttributesQuery([
     { name: "page", value: pageNumber },
   ]);
-  const handleEditAndDelete = (data: TAttributes, name: "delete" | "edit") => {
-    setSingleData(data);
-    if (name === "delete") {
-      console.log("delete", data);
-      dispatch(setIsDeleteModalOpen());
-    } else if (name === "edit") {
-      console.log("edit", data);
+
+  const handleEdit = (data: TAttributes, name: "edit") => {
+    if (name === "edit") {
+      setSingleData(data);
       dispatch(setIsEditModalOpen());
+    }
+  };
+  const handleDl = (data: TAttributes, name: "delete") => {
+    if (name === "delete") {
+      setSingleData(data);
+      dispatch(setIsDeleteModalOpen());
     }
   };
 
@@ -87,7 +90,8 @@ const Attributes = () => {
         columns={columns}
         meta={data?.meta as TMeta}
         data={data?.data || []}
-        onDeleteAndEdit={handleEditAndDelete}
+        onEdit={handleEdit}
+        onDelete={handleDl}
         pageNumber={pageNumber}
         setPageNumber={setPageNumber}
       ></Table>

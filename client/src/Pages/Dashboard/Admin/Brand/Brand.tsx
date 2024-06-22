@@ -35,16 +35,29 @@ const Brand = () => {
     { name: "page", value: pageNumber },
   ]);
 
-  const handleEditAndDelete = (data: TBrand, name: "delete" | "edit") => {
-    setSingleData(data);
-    if (name === "delete") {
-      console.log("delete", data);
-      dispatch(setIsDeleteModalOpen());
-    } else if (name === "edit") {
-      console.log("edit", data);
+
+
+
+  const handleEdit = (data: TBrand, name: "edit") => {
+    if (name === "edit") {
+      setSingleData(data);
       dispatch(setIsEditModalOpen());
     }
   };
+  const handleDl = (data: TBrand, name: "delete") => {
+    if (name === "delete") {
+      setSingleData(data);
+      dispatch(setIsDeleteModalOpen());
+    }
+  };
+
+
+
+
+
+
+
+
   
   const [
     deleteCategory,
@@ -78,8 +91,10 @@ const Brand = () => {
         isFetching={isFetching}
         columns={columns}
         meta={data?.meta as TMeta}
+        
         data={data?.data || []}
-        onDeleteAndEdit={handleEditAndDelete}
+        onEdit={handleEdit}
+        onDelete={handleDl}
         pageNumber={pageNumber}
         setPageNumber={setPageNumber}
       ></Table>
