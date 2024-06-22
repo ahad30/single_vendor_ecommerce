@@ -1,33 +1,57 @@
-
 import ZForm from "../../../../Component/Form/ZForm";
 import ZInput from "../../../../Component/Form/ZInput";
-import ReUseableButton from "../../../../Component/UserDashboard/ReUseableButton/ReUseableButton";
-import { useGetLoggedInUserQuery } from "../../../../Redux/Feature/auth/authApi";
+import { useGetLoggedInUserQuery, useUpdateMutation } from "../../../../Redux/Feature/auth/authApi";
 import { FieldValues, SubmitHandler } from "react-hook-form";
 import { TError } from "../../../../types/globalTypes";
-
+import { Button } from "antd";
 
 const AdminProfile = () => {
-  const 
-   
-    { isLoading, 
-    isSuccess, 
-    data, 
-    isError, 
-    error } =
-    useGetLoggedInUserQuery(undefined);
-      // console.log(data?.data);  
 
-      // const handleSubmit: SubmitHandler<FieldValues> = (data) => {
-      //   const formData = new FormData();
-      //   formData.append("name", data.name );
-      //   if (data?.image) {
-      //     formData.append("image", data.image);
-      //   }
-      //   formData.append("_method", "PUT");
-      //   adminProfile({ data: formData, id });
-      // };
-      
+  const
+    {
+      data: profileData
+    } =
+      useGetLoggedInUserQuery(undefined)
+
+  const
+    [updateProfile,
+      {
+        isLoading,
+        isSuccess,
+        data,
+        isError,
+        error
+      }] = useUpdateMutation(undefined)
+
+
+  const handleSubmit: SubmitHandler<FieldValues> = (data) => {
+    console.log("form data", data);
+    const formData = new FormData();
+    for (const key in data) {
+      formData.append(key, data[key])
+    }
+    // formData.append("name", data?.name);
+    // formData.append("email", data?.email);
+    // formData.append("address", data?.address);
+    // formData.append("phone", data?.phone);   
+    formData.append("_method", "PUT");
+    updateProfile(formData);
+  };
+
+  const { isLoading, isSuccess, data, isError, error } =
+    useGetLoggedInUserQuery(undefined);
+  // console.log(data?.data);
+
+  // const handleSubmit: SubmitHandler<FieldValues> = (data) => {
+  //   const formData = new FormData();
+  //   formData.append("name", data.name );
+  //   if (data?.image) {
+  //     formData.append("image", data.image);
+  //   }
+  //   formData.append("_method", "PUT");
+  //   adminProfile({ data: formData, id });
+  // };
+
 
   return (
     <div className="">
@@ -43,76 +67,79 @@ const AdminProfile = () => {
             {/* <div className="top-[185px] left-[152px] absolute bg-[#265eda] text-white w-8 h-8 flex justify-center items-center rounded-full cursor-pointer">
               <FaEdit onClick={handleImage} />
             </div> */}
-
           </div>
 
           <div className="flex flex-col justify-center items-center bg-[#bdcef4] px-6 rounded-t-[30px] w-56 h-[190px] gap-y-2">
             <h1 className="text-[#042656] mt-3 text-[16px] font-sans font-semibold">
-            {data?.data?.name}
+
+              {profileData?.data?.name}
+
             </h1>
-        
+
             <span className="text-[#555555] mt-1 text-[13px] font-normal font-mono">
-              Email : {data?.data?.email}
+              Email : {profileData?.data?.email}
             </span>
             <span className="text-[#555555] mt-1 text-sm font-normal font-mono">
-              Mobile : {data?.data?.phone}
+              Mobile : {profileData?.data?.phone}
             </span>
             <span className="text-[#555555] mt-1 text-sm font-normal font-mono">
-              Address : {data?.data?.address}
+              Address : {profileData?.data?.address}
             </span>
           </div>
-          
         </div>
+
         <div className="">
-          <ZForm 
-           isLoading={isLoading} 
-          //  isSuccess={isSuccess}
-           isError={isError}
-           error={error as TError}
-           data={data}
-          
-           formType="edit"
-           buttonName="Update"
-          
+             <ZForm
+            //  isLoading={isLoading} 
+            isSuccess={isSuccess}
+            isError={isError}
+            error={error as TError}
+            data={data}
+            submit={handleSubmit}
+            formType="edit"
+            buttonName="Update"
+
           >
             <div className="grid grid-cols-1 md:grid-cols-2 md:gap-x-4">
               <ZInput
                 defaultKey="profile"
-                label={"Name :"}
+                label={"Name:"}
                 name={"name"}
                 type={"text"}
-                value={data?.data?.name}
+                value={profileData?.data?.name}
               ></ZInput>
               <ZInput
                 defaultKey="profile"
                 label={"Phone :"}
                 name={"phone"}
                 type={"number"}
-                value={data?.data?.phone}
+                value={profileData?.data?.phone}
               ></ZInput>
-            
+
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 md:gap-4">
-             
+
               <ZInput
                 defaultKey="profile"
                 label={"email :"}
                 name={"email"}
                 type={"text"}
-                value={data?.data?.email}
+                value={profileData?.data?.email}
 
               ></ZInput>
-                <ZInput
+              <ZInput
                 defaultKey="profile"
                 label={"Address :"}
                 name={"address"}
                 type={"text"}
-                value={data?.data?.address}
+                value={profileData?.data?.address}
               ></ZInput>
             </div>
 
-            <div className="mt-10">
-              <ReUseableButton title={"Update Profile"} />
+            <div className="mt-5 flex justify-end">
+              <Button type="primary" htmlType="submit" className="">
+                Update
+              </Button>
             </div>
           </ZForm>
         </div>

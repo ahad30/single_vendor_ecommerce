@@ -14,7 +14,6 @@ import {
 import { PiDevicesFill } from "react-icons/pi";
 import { Link } from "react-router-dom";
 import { MdArrowForwardIos } from "react-icons/md";
-import { useState } from "react";
 import { RootState } from "../../../Redux/store";
 import { useAppSelector } from "../../../Redux/hook";
 
