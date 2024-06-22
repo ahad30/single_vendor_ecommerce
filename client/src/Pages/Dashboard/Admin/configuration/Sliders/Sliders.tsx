@@ -32,14 +32,17 @@ const Sliders = () => {
   const { data, isLoading, isFetching } = useGetSlidersQuery([
     { name: "page", value: pageNumber },
   ]);
-  const handleEditAndDelete = (data: TSlider, name: "delete" | "edit") => {
-    setSingleData(data);
-    if (name === "delete") {
-      console.log("delete", data);
-      dispatch(setIsDeleteModalOpen());
-    } else if (name === "edit") {
-      console.log("edit", data);
+
+  const handleEdit = (data: TSlider, name: "edit") => {
+    if (name === "edit") {
+      setSingleData(data);
       dispatch(setIsEditModalOpen());
+    }
+  };
+  const handleDl = (data: TSlider, name: "delete") => {
+    if (name === "delete") {
+      setSingleData(data);
+      dispatch(setIsDeleteModalOpen());
     }
   };
 
@@ -77,7 +80,8 @@ const Sliders = () => {
         columns={columns}
         meta={data?.meta as TMeta}
         data={data?.data || []}
-        onDeleteAndEdit={handleEditAndDelete}
+        onEdit={handleEdit}
+        onDelete={handleDl}
         pageNumber={pageNumber}
         setPageNumber={setPageNumber}
       ></Table>

@@ -1,9 +1,9 @@
 import TopHeader from "./TopHeader";
 import { CiLocationOn } from "react-icons/ci";
 import { CiUser } from "react-icons/ci";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-// import BottomHeader from "./BottomHeader";
+import BottomHeader from "./BottomHeader";
 const Header = () => {
   return (
     <>
@@ -15,28 +15,27 @@ const Header = () => {
           </div>
           <div className="text-white flex justify-start items-center gap-2">
             <CiUser className="font-bold text-base md:text-xl" />
-            <div>
-              <NavLink
-                to="/login" className="text-[12px] md:text-sm ">
+            <div className="flex gap-1 text-[12px] md:text-base">
+              <Link to="/login">
                 Login
-              </NavLink> /
-              <NavLink
-                to="/register" className="text-[12px] md:text-sm ">
+              </Link> /
+              <Link to="/register">
                 Register
-              </NavLink>
+              </Link>
+
             </div>
           </div>
         </div>
-        
+
       </div>
 
       <div className="w-[90%] lg:px-7 lg:max-w-7xl mx-auto">
         <TopHeader></TopHeader>
 
-        {/* <BottomHeader></BottomHeader> */}
+        <BottomHeader></BottomHeader>
       </div>
-      <hr className="border-[1px] mt-[-40px]" />
-    
+      <hr className="border-[1px]" />
+
     </>
 
   );

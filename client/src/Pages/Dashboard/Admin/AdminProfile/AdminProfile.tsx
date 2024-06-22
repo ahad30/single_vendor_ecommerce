@@ -8,25 +8,25 @@ import { TError } from "../../../../types/globalTypes";
 
 
 const AdminProfile = () => {
-  const [
-    adminProfile, 
+  const 
+   
     { isLoading, 
     isSuccess, 
     data, 
     isError, 
-    error }] =
+    error } =
     useGetLoggedInUserQuery(undefined);
       // console.log(data?.data);  
 
-      const handleSubmit: SubmitHandler<FieldValues> = (data) => {
-        const formData = new FormData();
-        formData.append("name", data.name );
-        if (data?.image) {
-          formData.append("image", data.image);
-        }
-        formData.append("_method", "PUT");
-        adminProfile({ data: formData, id });
-      };
+      // const handleSubmit: SubmitHandler<FieldValues> = (data) => {
+      //   const formData = new FormData();
+      //   formData.append("name", data.name );
+      //   if (data?.image) {
+      //     formData.append("image", data.image);
+      //   }
+      //   formData.append("_method", "PUT");
+      //   adminProfile({ data: formData, id });
+      // };
       
 
   return (
@@ -66,11 +66,11 @@ const AdminProfile = () => {
         <div className="">
           <ZForm 
            isLoading={isLoading} 
-           isSuccess={isSuccess}
+          //  isSuccess={isSuccess}
            isError={isError}
            error={error as TError}
            data={data}
-           submit={handleSubmit}
+          
            formType="edit"
            buttonName="Update"
           

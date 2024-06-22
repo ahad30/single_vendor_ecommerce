@@ -41,6 +41,7 @@ const Category = () => {
   const { data, isLoading, isFetching } = useGetCategoriesQuery([
     { name: "page", value: pageNumber },
   ]);
+  
   const handleEditAndDelete = (data: TCategory, name: "delete" | "edit") => {
     setSingleData(data);
     if (name === "delete") {
