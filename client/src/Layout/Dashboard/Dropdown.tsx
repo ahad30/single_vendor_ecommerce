@@ -84,7 +84,7 @@ const Dropdown = () => {
                     };
                   }}
                    
-                   to={`/admin/setting`}>
+                   to={`/admin/changePassword`}>
                    <button
                        className={` group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                      >
@@ -93,7 +93,7 @@ const Dropdown = () => {
                        ) : (
                          <IoPersonOutline className="mx-2 text-green" />
                        )}
-                      Settings
+                      Change Password
                      </button>
                    </NavLink>
               )}

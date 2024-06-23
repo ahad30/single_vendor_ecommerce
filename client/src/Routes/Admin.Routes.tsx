@@ -22,7 +22,8 @@ import ViewProduct from "../Pages/Dashboard/Admin/Products/ViewProduct";
 import { TfiPackage } from "react-icons/tfi";
 import ExistProductPackages from "../Pages/Dashboard/Admin/ExistProductPacakge/ExistProductPackages";
 import AdminProfile from "../Pages/Dashboard/Admin/AdminProfile/AdminProfile";
-import AdminProfileSettings from "../Pages/Dashboard/Admin/AdminProfile/AdminProfileSettings";
+import AdminChangePassword from "../Pages/Dashboard/Admin/AdminProfile/AdminChangePassword";
+
 
 export const adminRoutes = [
   {
@@ -37,8 +38,8 @@ export const adminRoutes = [
     element: <AdminProfile></AdminProfile>,
   },
   {
-    path: "/admin/setting",
-    element: <AdminProfileSettings></AdminProfileSettings>,
+    path: "/admin/changePassword",
+    element: <AdminChangePassword></AdminChangePassword>,
   },
 
   {

@@ -52,6 +52,7 @@ export const authApi = baseApi.injectEndpoints({
       },
     }),
 
+
     update: builder.mutation({
       query: (data) => {
         return {
@@ -65,6 +66,22 @@ export const authApi = baseApi.injectEndpoints({
         return res;
       },
     }),
+
+    password: builder.mutation({
+      query: (data) => {
+        return {
+          url: "/profile/password",
+          method: "POST",
+          body: data,
+        };
+      },
+      // invalidatesTags: ["users"],
+      transformErrorResponse: (res: TError & BaseQueryApi) => {
+        return res;
+      },
+    }),
+
+
 
     logout: builder.mutation({
       query: () => {
@@ -94,6 +111,7 @@ export const {
   useLoginMutation,
   useRegisterMutation,
   useUpdateMutation,
+  usePasswordMutation,
   useGetLoggedInUserQuery,
   useLogoutMutation,
 } = authApi;
