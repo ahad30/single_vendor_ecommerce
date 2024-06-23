@@ -93,7 +93,10 @@ const ZForm = ({
 
   useEffect(() => {
     if (isLoading || isSuccess || isError) {
-      toast.loading("loading ....", { id: 1 });
+      console.log(isLoading);
+      console.log(isSuccess);
+      console.log(isLoading);
+      toast.loading("loading...", { id: 1 });
       if (isSuccess) {
         toast.success(data?.message, { id: 1 });
       }
@@ -102,7 +105,6 @@ const ZForm = ({
       }
     }
   }, [isSuccess, isLoading, isError]);
-
 
   return (
     <FormProvider {...methods}>
