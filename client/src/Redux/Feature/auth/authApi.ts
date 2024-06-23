@@ -24,7 +24,6 @@ export interface Permission {
 
 export const authApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-
     login: builder.mutation({
       query: (data) => {
         return {
@@ -99,7 +98,7 @@ export const authApi = baseApi.injectEndpoints({
           method: "GET",
         };
       },
-      providesTags: ['users'],
+      providesTags: ["users"],
       transformResponse: (res: TResponseWithRedux<TLoggedUser>) => {
         return { data: res.data };
       },

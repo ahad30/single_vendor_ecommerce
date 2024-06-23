@@ -92,16 +92,19 @@ const ZForm = ({
   }, [isSuccess]);
 
   useEffect(() => {
+    toast.dismiss(1);
+  }, []);
+
+  useEffect(() => {
     if (isLoading || isSuccess || isError) {
-      console.log(isLoading);
-      console.log(isSuccess);
-      console.log(isLoading);
-      toast.loading("loading...", { id: 1 });
+      if (isLoading) {
+        toast.loading("loading...", { id: 1 });
+      }
       if (isSuccess) {
         toast.success(data?.message, { id: 1 });
       }
       if (isError) {
-        toast.error(error?.data?.message, { id: 1 });
+        toast.error(error?.data?.message, { id: 1, duration: 3000 });
       }
     }
   }, [isSuccess, isLoading, isError]);
