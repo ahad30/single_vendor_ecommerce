@@ -103,6 +103,7 @@ const ZForm = ({
     }
   }, [isSuccess, isLoading, isError]);
 
+
   return (
     <FormProvider {...methods}>
       <Form layout="vertical" onFinish={methods.handleSubmit(onSubmit)}>
@@ -113,7 +114,7 @@ const ZForm = ({
             isLoading={isLoading as boolean}
             isSuccess={isSuccess as boolean}
             title={buttonName}
-          ></SaveAndCloseButton>
+          />
         )}
         <div className="mt-5">
           {Array.isArray(errors) &&

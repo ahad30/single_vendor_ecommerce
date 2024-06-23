@@ -18,44 +18,44 @@ import { CustomerRoutes } from "./Customer.Routes";
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: <HomeLayout></HomeLayout>,
-    errorElement: <ErrorPage></ErrorPage>,
+    element: <HomeLayout />,
+    errorElement: <ErrorPage />,
     children: [
       {
         path: "/",
-        element: <Home></Home>,
+        element: <Home />,
       },
       {
         path: "/productDetails/:id",
-        element: <ProductDetails></ProductDetails>,
+        element: <ProductDetails />
       },
     ],
   },
   {
     path: "/login",
-    element: <Login></Login>,
+    element: <Login />,
   },
   {
     path: "/register",
-    element: <Register></Register>,
+    element: <Register />,
   },
 
   {
     path: "/admin",
     element: (
       <AdminProtectedRoute>
-        <DashboardLayout></DashboardLayout>
+        <DashboardLayout />
       </AdminProtectedRoute>
     ),
     children: routesGenerator(adminRoutes as TRoutesData[]),
-    errorElement: <ErrorPageDashboard></ErrorPageDashboard>,
+    errorElement: <ErrorPageDashboard />,
   },
   {
     path: "/user",
     children: routesGenerator(CustomerRoutes as TRoutesData[]),
     element: (
       <ProtectedRoutes role="customer">
-        <CustomerDashboardLayout></CustomerDashboardLayout>
+        <CustomerDashboardLayout />
       </ProtectedRoutes>
     ),
   },

@@ -24,6 +24,7 @@ export interface Permission {
 
 export const authApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
+
     login: builder.mutation({
       query: (data) => {
         return {
@@ -51,6 +52,20 @@ export const authApi = baseApi.injectEndpoints({
       },
     }),
 
+    update: builder.mutation({
+      query: (data) => {
+        return {
+          url: "/profile",
+          method: "POST",
+          body: data,
+        };
+      },
+      invalidatesTags: ["users"],
+      transformErrorResponse: (res: TError & BaseQueryApi) => {
+        return res;
+      },
+    }),
+
     logout: builder.mutation({
       query: () => {
         return {
@@ -67,6 +82,7 @@ export const authApi = baseApi.injectEndpoints({
           method: "GET",
         };
       },
+      providesTags: ['users'],
       transformResponse: (res: TResponseWithRedux<TLoggedUser>) => {
         return { data: res.data };
       },
@@ -77,6 +93,7 @@ export const authApi = baseApi.injectEndpoints({
 export const {
   useLoginMutation,
   useRegisterMutation,
+  useUpdateMutation,
   useGetLoggedInUserQuery,
   useLogoutMutation,
 } = authApi;

@@ -21,6 +21,7 @@ import {
 import EditModal from "../../../../Component/Modal/EditModal";
 import EditCategory from "./EditCategory";
 import DeleteModal from "../../../../Component/Modal/DeleteModal";
+
 // import { PermissionContextProvider } from "../../../../contex/PermissionProvider";
 const Category = () => {
   // const { loggedInUserPermissions, handleCheckPermissions } = useContext(
@@ -40,7 +41,6 @@ const Category = () => {
   const { data, isLoading, isFetching } = useGetCategoriesQuery([
     { name: "page", value: pageNumber },
   ]);
-  
 
 
   //
