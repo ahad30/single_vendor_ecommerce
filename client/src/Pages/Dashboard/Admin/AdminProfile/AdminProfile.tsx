@@ -15,20 +15,14 @@ const AdminProfile = () => {
     useUpdateMutation(undefined);
 
   const handleSubmit: SubmitHandler<FieldValues> = (formValues) => {
-
     const formData = new FormData();
     for (const key in formValues) {
       formData.append(key, formValues[key]);
     }
-    // formData.append("name", data?.name);
-    // formData.append("email", data?.email);
-    // formData.append("address", data?.address);
-    // formData.append("phone", data?.phone);
+
     formData.append("_method", "PUT");
     updateProfile(formData);
   };
-
- 
 
   return (
     <div className="">
@@ -106,9 +100,8 @@ const AdminProfile = () => {
                 value={profileData?.data?.address}
               ></ZInput>
             </div>
-
             <div className="mt-5 flex justify-end">
-              <Button type="primary" htmlType="" className="">
+              <Button type="primary" htmlType="submit" className="">
                 Update
               </Button>
             </div>

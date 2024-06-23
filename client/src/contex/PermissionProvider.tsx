@@ -32,7 +32,7 @@ const PermissionProvider = ({ children }: { children: ReactNode }) => {
   const s = true;
   const handleCheckPermissions = (item: TAllPermission) => {
     if (s) {
-      console.log({ loggedInUserPermissions, from: "prvider" });
+      // console.log({ loggedInUserPermissions, from: "prvider" });
       const checkInLoggedInUserPermissions = loggedInUserPermissions.find(
         (per) => per == item
       );
