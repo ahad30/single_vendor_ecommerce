@@ -537,8 +537,6 @@ const AddProduct = () => {
           </div>
         )}
 
-        {/* <ZImageInput label="Picture" name="image"></ZImageInput> */}
-        {/* submit*/}
         <div className="mt-5">
           <Button type="primary" htmlType="submit" className="">
             Submit
