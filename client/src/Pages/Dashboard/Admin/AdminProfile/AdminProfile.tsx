@@ -7,6 +7,8 @@ import {
 import { FieldValues, SubmitHandler } from "react-hook-form";
 import { TError } from "../../../../types/globalTypes";
 import { Button } from "antd";
+import ZEmail from "../../../../Component/Form/ZEmail";
+import ZPhone from "../../../../Component/Form/ZPhone";
 
 const AdminProfile = () => {
   const { data: profileData } = useGetLoggedInUserQuery(undefined);
@@ -19,7 +21,6 @@ const AdminProfile = () => {
     for (const key in formValues) {
       formData.append(key, formValues[key]);
     }
-
     formData.append("_method", "PUT");
     updateProfile(formData);
   };
@@ -40,7 +41,7 @@ const AdminProfile = () => {
             </div> */}
           </div>
 
-          <div className="flex flex-col justify-center items-center bg-[#bdcef4] px-6 rounded-t-[30px] w-56 h-[190px] gap-y-2">
+          <div className="flex flex-col justify-center items-center bg-[#bdcef4] px-6 rounded-t-[30px] w-[300px] h-[190px] gap-y-2">
             <h1 className="text-[#042656] mt-3 text-[16px] font-sans font-semibold">
               {profileData?.data?.name}
             </h1>
@@ -76,22 +77,23 @@ const AdminProfile = () => {
                 type={"text"}
                 value={profileData?.data?.name}
               ></ZInput>
-              <ZInput
-                defaultKey="profile"
+
+              <ZPhone
+           
                 label={"Phone :"}
                 name={"phone"}
-                type={"number"}
-                value={profileData?.data?.phone}
-              ></ZInput>
+                value= {profileData?.data?.phone}
+              ></ZPhone>
+
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 md:gap-4">
-              <ZInput
-                defaultKey="profile"
+              <ZEmail
+            
                 label={"email :"}
                 name={"email"}
-                type={"text"}
                 value={profileData?.data?.email}
-              ></ZInput>
+              ></ZEmail>
+
               <ZInput
                 defaultKey="profile"
                 label={"Address :"}
@@ -99,6 +101,7 @@ const AdminProfile = () => {
                 type={"text"}
                 value={profileData?.data?.address}
               ></ZInput>
+
             </div>
             <div className="mt-5 flex justify-end">
               <Button type="primary" htmlType="submit" className="">

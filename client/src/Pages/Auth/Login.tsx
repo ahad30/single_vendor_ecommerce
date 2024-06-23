@@ -75,7 +75,7 @@ const Login = () => {
                   <div className="relative">
                     <input
                       {...register("password")}
-                      defaultValue={"password123"}
+                      defaultValue={"password"}
                       id="password"
                       name="password"
                       type="password"

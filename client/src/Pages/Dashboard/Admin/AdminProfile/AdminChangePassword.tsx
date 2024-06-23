@@ -2,15 +2,16 @@ import ZForm from "../../../../Component/Form/ZForm";
 import ZInput from "../../../../Component/Form/ZInput";
 import { Button } from "antd";
 import { usePasswordMutation } from "../../../../Redux/Feature/auth/authApi";
-import { FieldValues, SubmitHandler } from "react-hook-form";
+import { FieldValues, SubmitHandler , } from "react-hook-form";
 import { TError } from "../../../../types/globalTypes";
+import { useNavigate } from "react-router-dom";
 
 
 const AdminChangePassword = () => {
-
+ 
   const [updatePassword, { isLoading, isSuccess, data, isError, error }] =
   usePasswordMutation(undefined);
-
+  // const navigate = useNavigate()
 
   const handleSubmit: SubmitHandler<FieldValues> = (formValues) => {
 
@@ -20,6 +21,7 @@ const AdminChangePassword = () => {
     }   
     formData.append("_method", "PUT");
     updatePassword(formData);
+  
   };
 
 
@@ -37,14 +39,15 @@ const AdminChangePassword = () => {
             
       >
         <div className="grid grid-cols-1 lg:grid-cols-2 md:gap-x-6">
-          <ZInput label={"Old Password :"} name={"old_password"} type={"text"}></ZInput>
-          <ZInput label={"New Password :"} name={"password"} type={"text"}></ZInput>
+          <ZInput reset={true} label={"Old Password :"} name={"old_password"} type={"password"}></ZInput>
+          <ZInput reset={true} label={"New Password :"} name={"password"} type={"password"}></ZInput>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 md:gap-4">
           <ZInput
+            reset={true}
             label={"Confirm Password :"}
             name={"password_confirmation"}
-            type={"text"}
+            type={"password"}
           ></ZInput>
         </div>
         <div className="mt-5 flex justify-end">

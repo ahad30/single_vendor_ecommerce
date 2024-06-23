@@ -41,6 +41,9 @@ const ZInput = ({
     <Controller
       name={name}
       control={control}
+      rules={{
+        required: "The field is required",
+      }}
       render={({ field, fieldState: { error } }) => (
         <Form.Item
           label={label}

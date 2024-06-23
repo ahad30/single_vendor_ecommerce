@@ -8,7 +8,7 @@ const phoneRegex = /^(\+?\d{1,3}[-.\s]?)?(\(?\d{3}\)?[-.\s]?)?[\d-.\s]{7,10}$/;
 type TPhone = {
   name: string;
   label: string;
-  value?: string;
+  value?: number;
 };
 
 const ZPhone = ({ name, label , value}:TPhone) => {

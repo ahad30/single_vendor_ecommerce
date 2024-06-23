@@ -69,6 +69,7 @@ const ZForm = ({
     isAddModalOpen,
     isEditModalOpen
   );
+  
   useEffect(() => {
     if (formType === "create") {
       if (!isAddModalOpen || !isEditModalOpen) {
