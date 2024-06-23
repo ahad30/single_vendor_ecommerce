@@ -15,7 +15,7 @@ const TopHeader = () => {
 
   // onclick = {()=> dispatch(setIsHomeCategorySidebarOpen()}
   return (
-    <section className="">
+    <section className=" my-2">
 
       <div className="flex sticky top-0 justify-between items-center">
         <div className="lg:hidden text-black">

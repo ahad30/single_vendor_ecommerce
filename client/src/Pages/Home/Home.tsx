@@ -1,5 +1,6 @@
 // import Banner from "./Banner/Banner";
 // import ReUseableButton from "../../Component/UserDashboard/ReUseableButton/ReUseableButton";
+import BottomHeader from "../../common/Header/BottomHeader";
 import BannerSlider from "./BannerSlider/BannerSlider";
 // import BusinessSummary from "./BusinessSummary";
 import Category from "./Category/Category";
@@ -17,6 +18,7 @@ const Home = () => {
         <HomeLeftSidebar />
         <div className="">
           <div className="w-full h-full md:h-[80%]">
+            <BottomHeader/>
             <BannerSlider />
           </div>
           <div className="mt-[-64px] md:mt-[-65px]">
